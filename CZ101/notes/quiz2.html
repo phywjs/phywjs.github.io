@@ -1,0 +1,92 @@
+<html>
+<head>
+<title>Quizz 2</title>
+</head>
+<body>
+<h1>Quiz 2, 6 October 1997, 1:30-2:00pm</h1>
+<P>1. Compute (-3)x5 with Booth algorithm long-hand way, using
+4-bit two's complement binary. (First convert -3 and 5 into 4-bit
+two's complement binary.  Result should be 8 bits).
+<P>Answer:
+<pre>
+ 3 = 0011_two, -3=1100+1=1101_two
+ 5 = 0101_two
+
+          1101   -> -3
+        x 0101   ->  5
+      --------
+      00000000
+   -  11111101   (1,0) pair, subtract
+   -----------
+      00000011 
+   +  1111101    (0,1) pair, add
+   -----------
+      11111101
+   -  111101     (1,0) pair, subtract
+   -----------
+      00001001
+   +  11101      (0,1) pair, add
+   -----------
+      11110001   -> -15 
+</pre>
+
+<P>2. Find IEEE single precision floating point representation for 3.75.
+<P>Answer:
+<pre>
+  3 = 11_two,  0.75 = 0.5 + 0.25 = 1/2 + 1/4 = 0.11_two
+  3.75 = 11.11 = 1.111 x 2^1
+  s = 0, (positive value),  e - 127 = 1, so e = 128
+  f = 0.111
+  so, the bit pattern is
+  0 10000000 11100000000000000000000
+</pre>
+
+<P>3. Translate the C statement into MIPS assembly program, assuming
+k is in $4, s is associated with $2, and the array a[] starts from
+location 4000.  (k, s, a[]) are integer type).
+<pre>
+   s=0;
+   for(k=0; k<100; ++k) {
+      s = s + a[k];
+   }
+</pre>
+<P>Answer:
+<pre>
+      li $2,  0          # s = 0
+      li $4,  0          # k = 0
+      li $5,  4000       # start address of a[]
+      li $3,  100        # upper bound
+
+Loop: lw, $6, 0($5)      # load a[k] in $6
+      add $2, $2, $6     # s = s + a[k]
+      addi $4, $4, 1     # ++k
+      addiu $5, $5, 4    # next word
+      bne  $4, $3, Loop  # finish looping if k=100
+</pre>
+<br>
+<hr>
+<br>
+
+<h2>Makeup Quiz 2', duration 30 min, 10 October 1997</h2>
+
+
+<P>1. Compute 15/4 in 5-bit unsigned binary, using the
+third division algorithm (the machine way). (The result should be
+a 5-bit quotient and 5-bit remainder).
+
+<P>2. Find the IEEE single-precision floating point representation for
+-4.025.
+
+<P>3. Translate the C statements into MIPS assembly program, assuming
+k is in $4, s is associated with $2, and the array
+a[ ] starts from 8000.
+<pre>
+   s = 1;
+   for(k = 1; k <= 100; ++k) {
+      a[k] = s + k;
+      s = k*k;
+   }
+</pre>
+
+</body>
+</html>

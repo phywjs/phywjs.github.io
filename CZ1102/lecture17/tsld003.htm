@@ -1,0 +1,88 @@
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Context-Type" CONTEXT="text/html;charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft Internet Assistant for PowerPoint 97">
+ <TITLE>Command-Line Example</TITLE> 
+</HEAD>
+
+<BODY     >
+
+ <H1>Command-Line Example</H1> 
+ <P><UL>
+<H2>#include &#060stdio.h&#062
+</H2>
+<BR></UL><UL>
+<H2>#include &#060stdlib.h&#062
+</H2>
+</UL><UL>
+<H2>main(int argc, char *argv[])
+</H2>
+</UL><UL>
+<H2>{
+</H2>
+</UL><UL>
+<H2>   char record[80];
+</H2>
+</UL><UL>
+<H2>   int i;
+</H2>
+</UL><UL>
+<H2>   FILE *fp;
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>   printf("There are %d files\n",
+</H2>
+</UL><UL>
+<H2>      argc-1);
+</H2>
+</UL><UL>
+<H2>   for(i = 1; i &#060 argc; ++i) {
+</H2>
+</UL><UL>
+<H2>      printf("File: %s\n", argv[i]);
+</H2>
+</UL><UL>
+<H2>      fp = fopen(argv[i], "r");
+</H2>
+</UL><UL>
+<H2>      while(fgets(record, 80, fp) 
+</H2>
+</UL><UL>
+<H2>                            != NULL)
+</H2>
+</UL><UL>
+<H2>         printf("%s", record);
+</H2>
+</UL><UL>
+<H2>      fclose(fp);
+</H2>
+</UL><UL>
+<H2>   }
+</H2>
+</UL><UL>
+<H2>   return EXIT_SUCCESS;
+</H2>
+</UL><UL>
+<H2>}
+</H2>
+</UL></P>
+<P>This is file <a href="pg360.c">pg360.c</a></P> 
+<P>
+<TABLE>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld002.htm">Previous slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld004.htm">Next slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="tsld001.htm">Back to first slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="sld003.htm">View graphic version</A> </TD>
+</TABLE>
+<BR>
+</P>
+
+
+
+</Body>
+</HTML>

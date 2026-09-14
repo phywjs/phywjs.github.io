@@ -1,0 +1,103 @@
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Context-Type" CONTEXT="text/html;charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft Internet Assistant for PowerPoint 97">
+ <TITLE>The io.c</TITLE> 
+</HEAD>
+
+<BODY     >
+
+ <H1>The io.c</H1> 
+ <P><UL>
+<H2>#include "defines.h"
+</H2>
+<BR></UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>void update_lhs(void);
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>extern char buffer[MaxExp+2];
+</H2>
+</UL><UL>
+<H2>extern int lhs;
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>void prompt(void)
+</H2>
+</UL><UL>
+<H2>{
+</H2>
+</UL><UL>
+<H2>   printf("\n%d ", lhs);
+</H2>
+</UL><UL>
+<H2>}
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>void input(void)
+</H2>
+</UL><UL>
+<H2>{
+</H2>
+</UL><UL>
+<H2>   char * nl;
+</H2>
+</UL><UL>
+<H2>   fgets(buffer, MaxExp, stdin);
+</H2>
+</UL><UL>
+<H2>   if ( (nl = strchr(buffer, '\n') ) != NULL)
+</H2>
+</UL><UL>
+<H2>      *nl = '\0';     /* eliminate new line */
+</H2>
+</UL><UL>
+<H2>}
+</H2>
+</UL><UL>
+<H2>void output(void)
+</H2>
+</UL><UL>
+<H2>{
+</H2>
+</UL><UL>
+<H2>   printf("%d %s == ", lhs, buffer);
+</H2>
+</UL><UL>
+<H2>   update_lhs();
+</H2>
+</UL><UL>
+<H2>   printf("%d\n", lhs);
+</H2>
+</UL><UL>
+<H2>}
+</H2>
+</UL></P>
+<P>This is program <a href="io.c">io.c</a></P> 
+<P>
+<TABLE>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld013.htm">Previous slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld015.htm">Next slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="tsld001.htm">Back to first slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="sld014.htm">View graphic version</A> </TD>
+</TABLE>
+<BR>
+</P>
+
+
+
+</Body>
+</HTML>

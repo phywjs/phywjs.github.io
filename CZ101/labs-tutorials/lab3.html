@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>CZ1101, Laboratory 3</title>
+</head>
+<body>
+
+<h1>CZ1101, Lab 3, Week 10, 15 - 20 Sept.  Due Tuesday, 23  September, 1997</h1>
+
+<blockquote>
+<em>Submit your assembly program, and report
+your test outputs by the due date.
+</em>
+</blockquote>
+<br>
+<br>
+<OL>
+
+<LI> <P>Write a procedure, booth, in MIPS 
+assembly language.  The booth procedure implements Booth's 
+algorithm in software for signed multiplication of two's complement numbers,
+using only addition, subtraction, and logical operations.  
+See textbook or lecture notes for detail on Booth's algorithm.  
+<P>The procedure  booth 
+takes three arguments, in $4, $5, and $6; $4 contains a 32-bit
+multiplicand, $5 contains a 32-bit multiplier, the result should be
+stored at an address in $6.  Since the result is a 64-bit number,
+two words are needed.  Let us agree that we store the 
+lower 32-bit of the result in location 0($6), and the upper
+32-bit of the result in 4($6). 
+Since the product of two 32-bit
+numbers is 64 bits, it is necessary to use two 32-bit registers
+together as a single 64-bit register for the product P.
+<P>The values in $4, $5, and $6 are not set in your procedure
+but are passed from the calling program, i.e., from the main.
+You should assume that the registers have already had
+proper values.
+<P> A procedure is similar to a function in C that can
+be called multiple number of times. The main program 
+gives you
+an example of procedure call in MIPS assembly language.
+You can down load the program from our web page 
+<a href="callbooth.s">HERE</a>.
+
+<P>Test your program with the following set of data:
+<pre>
+   0 x 1, 
+   2 x (-1), 
+   5 x 3,
+   (-2^{16}) x 2^{16},
+   (2^{31} - 1) x (2^{31} - 1),
+   (-120909809) x (-907129051).
+</pre>
+Make sure that the answers for all cases are what you expected.
+Report your results (products) as 16 hexadecimal digits.
+
+</OL>
+
+<P>Further <a href="shc2.txt">remarks</a> from Shing Gene and Dr. Wang.
+</body>
+</html>

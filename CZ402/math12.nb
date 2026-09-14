@@ -1,0 +1,958 @@
+(************** Content-type: application/mathematica **************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     21046,        798]*)
+(*NotebookOutlinePosition[     21766,        823]*)
+(*  CellTagsIndexPosition[     21722,        819]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  StyleBox["Symbolic Computing\n\n",
+    FontWeight->"Bold"],
+  StyleBox["LT20, 4:00-6:00pm\nWed, 8 April 2003",
+    FontSize->24,
+    FontWeight->"Bold"]
+}], "Title"],
+
+Cell["", "Subtitle"],
+
+Cell[TextData[StyleBox["Revision class",
+  FontFamily->"Arial Black"]], "Subtitle"],
+
+Cell["Part I, Mathematica", "Subtitle"],
+
+Cell["1. Basic Syntax", "Subsubtitle"],
+
+Cell[TextData[{
+  "We expect a mastery of the basic syntax of ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  ". In particular, we want to be familiar with many of the special symbols \
+and notations in Mathematica, such as:"
+}], "Text"],
+
+Cell["\<\
+=\tSet (assignment)
+:=\tdelayed Set (delayed assignment)
+->\treplacement rule
+/.\tapply (of a rule)
+//.\tapply repeated
+@@\tthe Apply[  ] function
+/@\tMap[ ] function
+//\tpostfix (of function)
+@\tprefix (of function)
+~f~\tinfix (of function)
+f[#]&\tpure function
+x_\tpattern (anything named x)
+x__\tone or more 
+x___\tzero or more
+{  }\tList
+(  )\tgrouping
+[  ]\tfunction argument
+[[  ]]\tindexing
+(*  *)\tcomments
+%\tprevious output
+==\tcompare for equal
+===\tcompare for identical (stronger)
+,\tcomma separate arguments 
+;\tgroup expressions as logically one
+
+etc.\
+\>", "Theorem"],
+
+Cell["2. Principles of Mathematica", "Subsubtitle"],
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " follows few well-defined principles, that we try to summarize here:"
+}], "Text"],
+
+Cell["\<\
+(a)  Do exact calculation unless input is approximate.  E.g.,\
+\>", "Theorem"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \({Sqrt[3], \ Sqrt[3.0]}\)], "Input"],
+
+Cell[BoxData[
+    \({\@3, 1.7320508075688772`}\)], "Output"]
+}, Open  ]],
+
+Cell["\<\
+(b)  Apply built-in and user-defined rules until results no longer change \
+(thus recursive).  Recognize the rules (or definitions) according to pattern \
+matching.\
+\>", "Theorem"],
+
+Cell[TextData[{
+  "(c) Uniform internal data and program format (expressions) :\n             \
+   ",
+  Cell[BoxData[
+      \(TraditionalForm\`h\)]],
+  "[",
+  Cell[BoxData[
+      \(TraditionalForm\`a\_1\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\_2\)]],
+  ", ..., ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\_n\)]],
+  "]\nwhere ",
+  Cell[BoxData[
+      \(TraditionalForm\`h\)]],
+  " is the head, ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\_i\)]],
+  " is its ",
+  Cell[BoxData[
+      \(TraditionalForm\`i\)]],
+  "th argument.     \nA collection of list manipulation functions (such as \
+Take[ ], Drop[ ], Union[ ], Join[ ])\nwork on any expression, as well as \
+special important type List {  }.           "
+}], "Theorem"],
+
+Cell["\<\
+For example,  {a,b,c} (same as List[a,b,c]) can be used as array storing \
+data, or matrix {{a,b},{c,d}}.  But the program 
+f[x_] := Module[{}, ...] is also in the same format h[a,b,c].\
+\>", "Text"],
+
+Cell["3. Programming Style", "Subsubtitle"],
+
+Cell["\<\
+We expect students can program in several different programing styles:\
+\>", "Text"],
+
+Cell["\<\
+(A) Procedural programing style using explicit loop control such as Do[  ], \
+While[  ], For[  ], If[  ], Return[  ],  Goto[ ], etc.\
+\>", "Theorem"],
+
+Cell["\<\
+A procedural based program normally is enclosed in a Module[ ].  E.g.:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(myprog[arg1_, \ arg2_]\  := \ 
+      Module[{i, local1, \ 
+          local2, \  ... }, \[IndentingNewLine]\(\(...\)\(;\)\(\
+\[IndentingNewLine]\)\(For[i\  = \ 0, \ 
+            i\  < \ 10, \ \(++i\), \[IndentingNewLine]Print[\  ... ]; \
+\[IndentingNewLine]do\ \
+that;\[IndentingNewLine]]\)\(;\)\(\[IndentingNewLine]\)\(returnvalue\)\)\
+\[IndentingNewLine]]\)], "Input"],
+
+Cell["Note that you cannot reassign values to argument variables.", "Text"],
+
+Cell["\<\
+(B) Rule-base programming defines a set of transformation rules using \
+patterns.  The same name can be given several distinct definitions, the use \
+of which is decided by pattern matching.   In a rule-base programming, the \
+left-hand side of the delayed assignment (the pattern) can be complicated.\
+\>", "Theorem"],
+
+Cell["\<\
+Here is an example of rule base programming for counting the number of \
+arguments:\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(\(argn[]\  := \ 0;\)\), "\[IndentingNewLine]", 
+    \(\(argn[x_]\  := \ 1;\)\), "\[IndentingNewLine]", 
+    \(argn[x_, \ y__]\  := \ 1\  + \ argn[y]\)}], "Input"],
+
+Cell["\<\
+(C)  Functional programing style avoids side effect (such as looping).  \
+Functional programing uses Map[ ], Apply[ ], Nest[ ], Fold[ ], and pure \
+functions to get the effect of looping.\
+\>", "Theorem"],
+
+Cell["\<\
+The question of when to use a pure function is dictated by syntax.  Suppose \
+we need to square each element in a list. With Map, we must use pure \
+function:\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Map[#^2 &, \ {a, b, c}]\)], "Input"],
+
+Cell[BoxData[
+    \({a\^2, b\^2, c\^2}\)], "Output"]
+}, Open  ]],
+
+Cell["\<\
+or we can define a square function first.  Note that we use square without \
+argument. \
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(square[x_] := \ x^2;\)\), "\[IndentingNewLine]", 
+    \(Map[square, \ {a, b, c}]\)}], "Input"],
+
+Cell[BoxData[
+    \({a\^2, b\^2, c\^2}\)], "Output"]
+}, Open  ]],
+
+Cell["Equivalently:", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Map[square[#] &, \ {a, b, c}]\)], "Input"],
+
+Cell[BoxData[
+    \({a\^2, b\^2, c\^2}\)], "Output"]
+}, Open  ]],
+
+Cell["What to review?", "Subtitle"],
+
+Cell["\<\
+(1) One can do the lab problems again (independently, in an examination \
+setting)
+(2) Review the tutorial problems
+(3) Reading
+(4) Do the following problems\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " Exercise Problems:"
+}], "Subtitle"],
+
+Cell[TextData[{
+  "(1) Tell us exactly what is ",
+  StyleBox["Mathematica'",
+    FontSlant->"Italic"],
+  "s response with the following inputs (assuming each one is independent of \
+others):  [For correct answer, you should do a Clear[variable] for these \
+expressions that produce side affect, such as assigning values to variables]"
+}], "Text"],
+
+Cell[BoxData[
+    \(\((a + b*c)\)[\([2, 2]\)]\)], "Input"],
+
+Cell[BoxData[
+    \(x = 1; \ y = 2 + x; \ x = 2; y\)], "Input"],
+
+Cell[BoxData[
+    \(f\  @@ \ {a, b}\)], "Input"],
+
+Cell[BoxData[
+    \(Map[f, g[a, b]]\)], "Input"],
+
+Cell[BoxData[
+    \(f[f[f[x]]]\  //. \ f[x]\  \[Rule] x\)], "Input"],
+
+Cell[BoxData[
+    \(Fold[f, x, {a, b, c}]\)], "Input"],
+
+Cell[BoxData[
+    \({1, 2, 3}^3\)], "Input"],
+
+Cell[BoxData[
+    \(f[x] := x^2; f[y_] = y^3; \ f[x] + f[y]\)], "Input"],
+
+Cell[BoxData[
+    \(\(Sqrt[#] &\)\ [4]\)], "Input"],
+
+Cell[BoxData[
+    \(MatchQ[f[a^x], \ f[x^x_]]\)], "Input"],
+
+Cell[BoxData[
+    \(Head[I]\)], "Input"],
+
+Cell[BoxData[
+    \(a + b*c\  /. \ Plus\  \[Rule] \ List\)], "Input"],
+
+Cell[BoxData[
+    \(a*b*c\  //. \ x_*\ y_\  \[Rule] \ x + y\)], "Input"],
+
+Cell[BoxData[
+    \(Part[Sin[x*y + z], 1, 2]\)], "Input"],
+
+Cell[BoxData[
+    \(List\  @@ \ f[a, b, c]\)], "Input"],
+
+Cell[BoxData[
+    \(\({x \[Rule] #1} &\)\  /@ \ {a, b, c}\)], "Input"],
+
+Cell[BoxData[
+    \(MatchQ[f[a, b, c], f[x_]]\)], "Input"],
+
+Cell[BoxData[
+    \(Drop[{a, b, c}^3, 1]\)], "Input"],
+
+Cell[BoxData[
+    \(Head[Real]\)], "Input"],
+
+Cell[BoxData[
+    \({a, {b, c}} = {1, {2, 3}}; \ b\)], "Input"],
+
+Cell[BoxData[
+    \({a \((a)\), \ a {a}, \ a[a]}\)], "Input"],
+
+Cell[BoxData[
+    \(\(#^2 &\)[2]\)], "Input"],
+
+Cell[BoxData[
+    \(a = Sin; \ a[Pi]\)], "Input"],
+
+Cell[BoxData[
+    \({1, 2, 3}\  // f\)], "Input"],
+
+Cell[BoxData[
+    \(f\  @@ \ {1, 2, 3}\)], "Input"],
+
+Cell[BoxData[
+    \(FullForm[x^3 + u*y]\)], "Input"],
+
+Cell[BoxData[
+    \(x\  //. \ x \[Rule] \ x\)], "Input"],
+
+Cell[BoxData[
+    \(Log\  /@ \ {E, \ E^2, \ 1}\)], "Input"],
+
+Cell[BoxData[
+    \(Sum[1, {5}]\)], "Input"],
+
+Cell[BoxData[
+    \(ReplacePart[{{1, 0}, {0, 1}}, a, {2, 2}]\)], "Input"],
+
+Cell[BoxData[
+    \(Map[#^3 &, x + y + 2]\)], "Input"],
+
+Cell[BoxData[
+    \(\(Function[var, var^2 + 1]\)[2]\)], "Input"],
+
+Cell[BoxData[
+    \(Apply[Times, {1, 2, 3, 4}]\)], "Input"],
+
+Cell[BoxData[
+    \(Select[{1, a, x^2, 3, 5, 1 + x, 7}, \ # < 4 &]\)], "Input"],
+
+Cell[BoxData[
+    \(Precision[E]\)], "Input"],
+
+Cell[BoxData[
+    \(\({x \[Rule] #[\([1]\)], y \[Rule] #[\([2]\)]}\  &\)\  /@ \ {{1, 
+          2}, {3, 4}}\)], "Input"],
+
+Cell[BoxData[
+    \(x\  // \ f[#] &\)], "Input"],
+
+Cell["(2) What do the following programs do?", "Text"],
+
+Cell[BoxData[
+    \(lglg[f_, {x_, xmin_, xmax_}, opts___] := \ 
+      ParametricPlot[{Log[10, x], Log[10, f]}, {x, xmin, xmax}, 
+        opts]\)], "Input"],
+
+Cell[BoxData[
+    \(super[lis_List] := 
+      lis\  //. \ {x___, a_, b_, y___}\  /; \ 
+            b\  \[LessEqual] a\  \[Rule] \ {x, a, y}\)], "Input"],
+
+Cell[BoxData[
+    \(prog[xlist_List] := \ 
+      Module[{elements = Union[xlist]}, 
+        Map[{#, Count[xlist, #]} &, elements]]\)], "Input"],
+
+Cell[BoxData[
+    \(myproc[n_] := \ 
+      Module[{x = 0, z = 1}, 
+        If[n \[Equal] 0, 1, \ While[x \[NotEqual] n, \(++x\); z = z*x]]; 
+        z]\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Revision class",
+    FontFamily->"Arial Black"],
+  "\n\nPart II, computer algebra theory"
+}], "Subtitle"],
+
+Cell["Definition of algebraic domains", "Subtitle"],
+
+Cell["\<\
+We expect the students to know the definitions of group, abelian group, ring, \
+integral domain, Euclidean domain, and field.
+All of them should be closed (axiom A0) with respect to one or two \
+operations. Roughly speaking, the algebraic domains are the following:\
+\>", "Text"],
+
+Cell[TextData[{
+  "GROUP:  \nIf ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  " \[Element] G, so is group multiplication ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\ b\)]],
+  " \[Element] G.\n(1) ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(\ \)\(a\ \((b\ c)\)\  = \ \((a\ b)\)\ c\)\)\)]],
+  ";\n(2) identity ",
+  Cell[BoxData[
+      \(TraditionalForm\`e\)]],
+  " exist, ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(e\ a = \(a\ e\  = \ a\);\)\)]],
+  "\n(3) each element ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " has inverse ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\^\(-1\)\)]],
+  ", such that ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\ a\^\(\(-\)\(1\)\(\ \)\) = \(\(a\^\(-1\)\) a\  = \ 
+          e\)\)]],
+  ";"
+}], "Theorem"],
+
+Cell[TextData[{
+  "Examples of group: multiplication of unitary matrices; permutations of ",
+  Cell[BoxData[
+      \(TraditionalForm\`n\)]],
+  " objects."
+}], "Text"],
+
+Cell[TextData[{
+  "ABELIAN Group:\nis a group with ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\ b\  = \ b\ a\)]],
+  "."
+}], "Theorem"],
+
+Cell[TextData[{
+  "Examples of Abelian group: the set of integers Z = \
+{...,-3,-2,-1,0,1,2,...} with addition;  addition in Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_n\)]],
+  " for ",
+  Cell[BoxData[
+      \(TraditionalForm\`n\  = 2, 3, 4,  ... \)]],
+  "; multiplication of Q",
+  Cell[BoxData[
+      \(TraditionalForm\`-\)]],
+  "{0}."
+}], "Text"],
+
+Cell[TextData[{
+  "RING:\nClosed under two operations: ",
+  Cell[BoxData[
+      \(TraditionalForm\`+\)]],
+  " and ",
+  Cell[BoxData[
+      \(TraditionalForm\`*\)]],
+  ".\n(1) ",
+  Cell[BoxData[
+      \(TraditionalForm\`+\)]],
+  " is an Abelian group;\n(2) ",
+  Cell[BoxData[
+      \(TraditionalForm\`*\)]],
+  " has identity ",
+  Cell[BoxData[
+      \(TraditionalForm\`e\)]],
+  " and ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\ \((b\ c)\)\  = \ \((a\ b)\)\ c\)]],
+  ";\n(3) distribution law\n\t",
+  Cell[BoxData[
+      \(TraditionalForm\`a\ \((b + 
+              c)\)\  = \ \((a\ b)\)\  + \ \((a\ c)\), \[IndentingNewLine]\((a \
++ b)\)\ c\  = \ \((a\ c)\)\  + \ \(\((b\ c)\)\(.\)\)\)]]
+}], "Theorem"],
+
+Cell[TextData[{
+  "Examples of ring: addition and multiplication in Z; addition and \
+multiplication of ",
+  Cell[BoxData[
+      \(TraditionalForm\`n\)]],
+  " by ",
+  Cell[BoxData[
+      \(TraditionalForm\`n\)]],
+  " matrices."
+}], "Text"],
+
+Cell[TextData[{
+  "INTEGRAL DOMAIN is a ring with\n(1) commutative for multiplication, ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\ b\  = \ b\ a\)]],
+  ";\n(2) ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\ b\  = \ a\ c\)]],
+  ", and ",
+  Cell[BoxData[
+      \(TraditionalForm\`a \[NotEqual] 0\)]],
+  " implies ",
+  Cell[BoxData[
+      \(TraditionalForm\`b = \(\(c\)\(.\)\)\)]]
+}], "Theorem"],
+
+Cell["\<\
+Examples of integral domain: the set of integers Z; polynomials over integral \
+domain; gaussian numbers. \
+\>", "Text"],
+
+Cell[TextData[{
+  "EUCLIDEAN DOMAIN is an integral domain such that\n\nWe can find  ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\  = \ q\ b\  + \ r\)]],
+  ",  ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(b \[NotEqual] \ 0\)\(,\)\)\)]],
+  "\nsuch that ",
+  Cell[BoxData[
+      \(TraditionalForm\`v(r)\  < \ v(b), \ 
+      and\ \(v(a\ b)\)\  \[GreaterEqual] \ v(b)\)]],
+  ".\nOf course ",
+  Cell[BoxData[
+      \(TraditionalForm\`a, b, q, r\)]],
+  " all belong to D."
+}], "Theorem"],
+
+Cell["\<\
+Examples of Euclidean domain:  the set of all integers Z; polynomials over a \
+field; gaussian numbers.\
+\>", "Text"],
+
+Cell[TextData[{
+  "FIELD\n(1) + is an Abelian group;\n(2) ",
+  Cell[BoxData[
+      \(TraditionalForm\`*\)]],
+  " on F",
+  Cell[BoxData[
+      \(TraditionalForm\`-\)]],
+  "{0} is an Abelian group;\n(3) has distribution law."
+}], "Theorem"],
+
+Cell[TextData[{
+  "Examples of field: addition and multiplication of rational number Q, real \
+R, and complex number C;  Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_p\)]],
+  " for ",
+  Cell[BoxData[
+      \(TraditionalForm\`p\)]],
+  " a prime;  Galois fields. "
+}], "Text"],
+
+Cell["\<\
+Do you require me to remember all these definitions?  Yes.  At least roughly, \
+if not precisely.\
+\>", "Exercise"],
+
+Cell["GCD, Unit, Prime, Square-Free, etc ", "Subtitle"],
+
+Cell[TextData[{
+  "We should know the additional concepts above.  \n\n",
+  Cell[BoxData[
+      \(TraditionalForm\`GCD(a, b)\)]],
+  ":  in some sense largest element ",
+  Cell[BoxData[
+      \(TraditionalForm\`c\)]],
+  " such as  ",
+  Cell[BoxData[
+      \(TraditionalForm\`c | a\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`c | b\)]],
+  ".  (largest in what sense?)   [ ",
+  Cell[BoxData[
+      \(TraditionalForm\`c | a\)]],
+  " means ",
+  Cell[BoxData[
+      \(TraditionalForm\`c\)]],
+  " can divide ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " evenly, that is ",
+  Cell[BoxData[
+      \(TraditionalForm\`a = c\ q\)]],
+  "]."
+}], "Text"],
+
+Cell["Unit:  a member that has (multiplicative) inverse.", "Text"],
+
+Cell["\<\
+Prime:  a prime in an integral domain is a member that can not be factored \
+into product of two other numbers, none of them is a unit.  Of course 0, 1 \
+and other units are not prime.\
+\>", "Text"],
+
+Cell[TextData[{
+  "Square-free:  ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " is square-free if ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " does not have factor of the form ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\^2\)]],
+  " for some ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  " not a unit.   That  ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\^2 | c\)]],
+  " is false unless ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  " is a unit."
+}], "Text"],
+
+Cell["Algorithms", "Subtitle"],
+
+Cell["\<\
+We are expected to be able to use the following algorithms in a pencil-paper \
+calculation:
+
+(0) Polynomial long division;
+(1) Euclidean algorithm for GCD;
+(2) Extended Euclidean algorithm;
+(3) Garner algorithm for Chinese remainder problem;
+(4) Square-free factorization algorithm.
+
+We'll discuss the basis for the algorithms:\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Euclidean algorithm",
+    FontColor->RGBColor[1, 1, 0]],
+  " is based on \n",
+  Cell[BoxData[
+      \(TraditionalForm\`GCD(a, b) = GCD(b, r)\)]],
+  ", where\n\t",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(a\)\(=\)\)\)]],
+  Cell[BoxData[
+      \(TraditionalForm\`q\)]],
+  " ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  " ",
+  Cell[BoxData[
+      \(TraditionalForm\`+\)]],
+  " ",
+  Cell[BoxData[
+      \(TraditionalForm\`r\)]],
+  ".\nApply this recursively, we find remainder sequence ",
+  Cell[BoxData[
+      \(TraditionalForm\`r\_0\  = \ a, \ r\_1 = b, \ r\_2 = r\)]],
+  ", ..., ",
+  Cell[BoxData[
+      \(TraditionalForm\`r\_n = 0\)]],
+  ".\n",
+  Cell[BoxData[
+      \(TraditionalForm\`GCD(a, b)\)]],
+  " is the last nonzero remainder.\n\nExtended Euclidean algorithm relies on \
+the fact we have\n\t",
+  Cell[BoxData[
+      \(TraditionalForm\`r\_i = a\ s\_i + b\ t\_i\)]],
+  "."
+}], "Theorem"],
+
+Cell[TextData[{
+  StyleBox["Garner's Algorithm",
+    FontColor->RGBColor[1, 1, 0]],
+  "\n\nIt is based on the mix-radix expansion\n\n",
+  Cell[BoxData[{
+      \(TraditionalForm\`u = 
+        v\_0\  + \ \(v\_1\) m\_0 + \ \(v\_2\) \(m\_0\) 
+            m\_1 + \ \(v\_3\) \(m\_0\) \(m\_1\) m\_2\), 
+    "\[IndentingNewLine]", 
+      \(TraditionalForm\`\(\(+\  ... \)\  + \ \(v\_\(\(n\)\(\ \)\)\) \(m\_0\) 
+              m\_1 ... \)\ m\_\(n - 1\)\)}]]
+}], "Theorem"],
+
+Cell[TextData[{
+  "Familiarity with modular arithmetic (i.e. compute in Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_p\)]],
+  ") is a must."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Square-Free Factorization",
+    FontColor->RGBColor[1, 1, 0]],
+  "  expands as\n",
+  Cell[BoxData[
+      \(TraditionalForm\`a(
+          x)\  = \ \(\(a\_1\)(
+              x)\)\ \(\(\(a\_2\)(x)\)\^2\) \(\(a\_3\)(x)\)\^3 ... \)]],
+  "\n\n",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\)]],
+  " is square free if and only if \n",
+  Cell[BoxData[
+      \(TraditionalForm\`GCD(a(x), a' \((x)\))\  = \ 1\)]],
+  " (i.e. a unit).\nDivision and CGD calculation is used in square-free \
+factorization procedure."
+}], "Theorem"],
+
+Cell[TextData[{
+  "Exercises:\n(1) compute ",
+  Cell[BoxData[
+      \(TraditionalForm\`GCD(a \((x)\), b(x))\)]],
+  " in Q and in Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_5\)]],
+  " using Euclidean and Exended Euclidean algorithm for the following \
+polynomial:\n",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\  = \ 
+        x\^3 + x\^2 - x - 1, \[IndentingNewLine]b(x)\  = \ x + 4\)]],
+  "\nFor extended Euclidean algorithm, compute ",
+  Cell[BoxData[
+      \(TraditionalForm\`s(x)\)]],
+  " and ",
+  Cell[BoxData[
+      \(TraditionalForm\`t(x)\)]],
+  ".\n\n(2) Factor ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\)]],
+  " above with square free factorization algorithm in Q[x]. \n\n(3) Solve the \
+Chinese remainder problem for \n",
+  Cell[BoxData[
+      \(TraditionalForm\`u\  \[Congruent] \ 
+        1\ mod\ 2, \[IndentingNewLine]u\  \[Congruent] \ 
+        3\ mod\ \ 5, \[IndentingNewLine]u\  \[Congruent] \ 2\ mod\ 7. \)]],
+  "\nTo what extent the answer ",
+  Cell[BoxData[
+      \(TraditionalForm\`u\)]],
+  " is unique?"
+}], "Exercise"],
+
+Cell["A general principle of symbolic computation", "Subtitle"],
+
+Cell[TextData[{
+  "Solve the problem in a simpler domain (such as Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_p\)]],
+  ") several times, and then reconstruct the original problem (by .e.g., \
+Chinese remainder theorem).\n"
+}], "Text"],
+
+Cell["Format of Final Exam", "Subtitle"],
+
+Cell[TextData[{
+  "4 questions:\n% 50 on ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " (simple questions & programming)\n% 50 on symbolic algebra (including \
+concepts and application of algorithms)"
+}], "Text"]
+},
+FrontEndVersion->"4.1 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 695}},
+CellGrouping->Manual,
+WindowSize->{1016, 668},
+WindowMargins->{{0, Automatic}, {Automatic, 1}},
+Magnification->3,
+StyleDefinitions -> "Classroom.nb"
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1705, 50, 183, 6, 576, "Title"],
+Cell[1891, 58, 20, 0, 119, "Subtitle"],
+Cell[1914, 60, 83, 1, 134, "Subtitle"],
+Cell[2000, 63, 39, 0, 119, "Subtitle"],
+Cell[2042, 65, 38, 0, 172, "Subsubtitle"],
+Cell[2083, 67, 246, 6, 184, "Text"],
+Cell[2332, 75, 593, 27, 1318, "Theorem"],
+Cell[2928, 104, 51, 0, 172, "Subsubtitle"],
+Cell[2982, 106, 152, 4, 133, "Text"],
+Cell[3137, 112, 88, 2, 190, "Theorem"],
+
+Cell[CellGroupData[{
+Cell[3250, 118, 55, 1, 143, "Input"],
+Cell[3308, 121, 60, 1, 145, "Output"]
+}, Open  ]],
+Cell[3383, 125, 191, 4, 284, "Theorem"],
+Cell[3577, 131, 739, 26, 472, "Theorem"],
+Cell[4319, 159, 209, 4, 195, "Text"],
+Cell[4531, 165, 43, 0, 172, "Subsubtitle"],
+Cell[4577, 167, 94, 2, 132, "Text"],
+Cell[4674, 171, 159, 3, 237, "Theorem"],
+Cell[4836, 176, 94, 2, 132, "Text"],
+Cell[4933, 180, 389, 8, 551, "Input"],
+Cell[5325, 190, 75, 0, 81, "Text"],
+Cell[5403, 192, 328, 5, 425, "Theorem"],
+Cell[5734, 199, 107, 3, 132, "Text"],
+Cell[5844, 204, 183, 3, 245, "Input"],
+Cell[6030, 209, 214, 4, 284, "Theorem"],
+Cell[6247, 215, 182, 4, 183, "Text"],
+
+Cell[CellGroupData[{
+Cell[6454, 223, 56, 1, 143, "Input"],
+Cell[6513, 226, 52, 1, 143, "Output"]
+}, Open  ]],
+Cell[6580, 230, 111, 3, 132, "Text"],
+
+Cell[CellGroupData[{
+Cell[6716, 237, 117, 2, 194, "Input"],
+Cell[6836, 241, 52, 1, 143, "Output"]
+}, Open  ]],
+Cell[6903, 245, 29, 0, 81, "Text"],
+
+Cell[CellGroupData[{
+Cell[6957, 249, 62, 1, 143, "Input"],
+Cell[7022, 252, 52, 1, 143, "Output"]
+}, Open  ]],
+Cell[7089, 256, 35, 0, 119, "Subtitle"],
+Cell[7127, 258, 181, 6, 321, "Text"],
+Cell[7311, 266, 107, 4, 120, "Subtitle"],
+Cell[7421, 272, 346, 7, 286, "Text"],
+Cell[7770, 281, 58, 1, 143, "Input"],
+Cell[7831, 284, 63, 1, 143, "Input"],
+Cell[7897, 287, 48, 1, 143, "Input"],
+Cell[7948, 290, 48, 1, 143, "Input"],
+Cell[7999, 293, 68, 1, 143, "Input"],
+Cell[8070, 296, 54, 1, 143, "Input"],
+Cell[8127, 299, 44, 1, 143, "Input"],
+Cell[8174, 302, 72, 1, 194, "Input"],
+Cell[8249, 305, 51, 1, 143, "Input"],
+Cell[8303, 308, 58, 1, 143, "Input"],
+Cell[8364, 311, 40, 1, 143, "Input"],
+Cell[8407, 314, 69, 1, 143, "Input"],
+Cell[8479, 317, 72, 1, 143, "Input"],
+Cell[8554, 320, 57, 1, 143, "Input"],
+Cell[8614, 323, 55, 1, 143, "Input"],
+Cell[8672, 326, 70, 1, 143, "Input"],
+Cell[8745, 329, 58, 1, 143, "Input"],
+Cell[8806, 332, 53, 1, 143, "Input"],
+Cell[8862, 335, 43, 1, 143, "Input"],
+Cell[8908, 338, 63, 1, 143, "Input"],
+Cell[8974, 341, 61, 1, 143, "Input"],
+Cell[9038, 344, 45, 1, 143, "Input"],
+Cell[9086, 347, 49, 1, 143, "Input"],
+Cell[9138, 350, 49, 1, 143, "Input"],
+Cell[9190, 353, 51, 1, 143, "Input"],
+Cell[9244, 356, 52, 1, 143, "Input"],
+Cell[9299, 359, 56, 1, 143, "Input"],
+Cell[9358, 362, 59, 1, 143, "Input"],
+Cell[9420, 365, 44, 1, 143, "Input"],
+Cell[9467, 368, 73, 1, 194, "Input"],
+Cell[9543, 371, 54, 1, 143, "Input"],
+Cell[9600, 374, 64, 1, 143, "Input"],
+Cell[9667, 377, 59, 1, 143, "Input"],
+Cell[9729, 380, 79, 1, 194, "Input"],
+Cell[9811, 383, 45, 1, 143, "Input"],
+Cell[9859, 386, 120, 2, 194, "Input"],
+Cell[9982, 390, 48, 1, 143, "Input"],
+Cell[10033, 393, 54, 0, 81, "Text"],
+Cell[10090, 395, 155, 3, 347, "Input"],
+Cell[10248, 400, 152, 3, 296, "Input"],
+Cell[10403, 405, 143, 3, 296, "Input"],
+Cell[10549, 410, 164, 4, 296, "Input"],
+Cell[10716, 416, 133, 4, 276, "Subtitle"],
+Cell[10852, 422, 51, 0, 119, "Subtitle"],
+Cell[10906, 424, 289, 5, 297, "Text"],
+Cell[11198, 431, 817, 30, 378, "Theorem"],
+Cell[12018, 463, 166, 5, 132, "Text"],
+Cell[12187, 470, 136, 5, 190, "Theorem"],
+Cell[12326, 477, 352, 12, 183, "Text"],
+Cell[12681, 491, 702, 24, 430, "Theorem"],
+Cell[13386, 517, 239, 9, 132, "Text"],
+Cell[13628, 528, 394, 13, 237, "Theorem"],
+Cell[14025, 543, 130, 3, 132, "Text"],
+Cell[14158, 548, 484, 15, 378, "Theorem"],
+Cell[14645, 565, 127, 3, 132, "Text"],
+Cell[14775, 570, 238, 8, 284, "Theorem"],
+Cell[15016, 580, 276, 9, 183, "Text"],
+Cell[15295, 591, 125, 3, 198, "Exercise"],
+Cell[15423, 596, 55, 0, 119, "Subtitle"],
+Cell[15481, 598, 657, 26, 304, "Text"],
+Cell[16141, 626, 66, 0, 81, "Text"],
+Cell[16210, 628, 208, 4, 183, "Text"],
+Cell[16421, 634, 492, 20, 183, "Text"],
+Cell[16916, 656, 30, 0, 119, "Subtitle"],
+Cell[16949, 658, 351, 11, 636, "Text"],
+Cell[17303, 671, 934, 34, 566, "Theorem"],
+Cell[18240, 707, 462, 11, 381, "Theorem"],
+Cell[18705, 720, 154, 5, 132, "Text"],
+Cell[18862, 727, 548, 16, 421, "Theorem"],
+Cell[19413, 745, 1053, 31, 1111, "Exercise"],
+Cell[20469, 778, 63, 0, 190, "Subtitle"],
+Cell[20535, 780, 237, 6, 246, "Text"],
+Cell[20775, 788, 40, 0, 119, "Subtitle"],
+Cell[20818, 790, 224, 6, 258, "Text"]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

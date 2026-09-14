@@ -1,0 +1,422 @@
+<html>
+<head>
+<title>CZ1101, Lecture Notes, Week 7</title>
+</head>
+<body>
+
+<HR>
+<p>Links to other weeks notes
+[ <A HREF="cz101notes.html">2</A> ][ <A HREF="week3.html">3</A> ][
+ <A HREF="week4.html">4</A> ][ <A HREF="week5.html">5</A> ][ <A 
+HREF="week6.html">6</A> ]( <A HREF="week7.html">7</A> )[ 
+ <A HREF="week8.html">8</A> ][ <A HREF="week10.html">10</A> ]
+<HR>
+
+<h2>Week 7, 25/30 August, 1997</h2>
+
+
+<h3>Logical Operations</h3>
+
+<h4>Shifting</h4>
+<p>Logical operations are used to deal with the bit patterns directly.
+Shift left logical (sll) shifts the bits to the left, and similarly
+shift right logical (srl) shifts the bits to the right.  Here are some
+examples:  Assuming $16 contains
+<pre>
+   00000000 00000000 00000000 00001101
+</pre>
+then 
+<pre>
+   sll $10, $16, 8   # reg $10 = $16 &lt;&lt; 8 bits
+</pre>
+shifts the pattern to the left by 8 bits, shifting out whatever bits
+were there on the left and filling in 0s on the right. 
+<pre>
+   00000000 00000000 00001101 00000000
+</pre>
+If we do a 
+<pre>
+   srl $10, $10, 10   # reg $10 = $10 >> 10 bits
+</pre>
+then, $10 now contains
+<pre>
+   00000000 00000000 00000000 00000011
+</pre>
+
+<p>Machine language encoding of shift left logical is
+<pre>
+   sll  $10, $16, 8
+
+   0    0    16   10    8    0
+   op   rs   rt   rd  shamt funct
+</pre>
+or in binary
+<pre>
+   000000 00000 10000 01010 01000 000000
+</pre>
+<p>The 5-bit field shamt is now used as the shift amount.  Since it 
+is only 5-bit wide, its value can only between 0 and 31 (unsigned).
+
+<p><strong>Question</strong>: What are the (decimal) values in $10 to
+$18 after the program's execution?
+(Answers are in the comments)
+<pre>
+   addi $3,  $0, 1    # $3 = 1
+   sll  $10, $3, 1    # $10 = 1 << 1 = 2
+   sll  $11, $3, 2    # $11 = 1 << 2 = 4
+   sll  $12, $3, 3    # $12 = 1 << 3 = 8
+   sll  $13, $3, 4    # $13 = 1 << 4 = 16
+   sll  $14, $3, 5    # $14 = 1 << 5 = 32
+
+   addi $3,  $0, 15   # $3 = 15
+   srl  $15, $3, 1    # $15 = 15 >> 1 = 7
+   srl  $16, $3, 2    # $16 = 15 >> 2 = 3
+   srl  $17, $3, 3    # $17 = 15 >> 3 = 1
+   srl  $18, $3, 4    # $18 = 15 >> 4 = 0
+</pre>  
+<p>You can see that shift up (shift left) 1 bit is the same as multiplying
+by 2; shift down (shift right) is the same as integer division by 2.
+
+<h4>Bitwise AND and OR</h4>
+<p>An ADD operation on a pair of bits is 0 unless both of the bits are 1.
+For OR, the result is 0 only if both of them are 0.  This table shows
+the effects of ADD and OR on 1 bit field.
+<pre>
+          bit a       bit b       a AND b             a OR b
+           0            0            0                   0
+           1            0            0                   1
+           0            1            0                   1
+           1            1            1                   1
+</pre>
+The AND and OR MIPS instructions operate on 32 bits independently.
+If $9 contains
+<pre>
+   00000000 00000000 00000000 00101100
+</pre>
+and $10 contains
+<pre>
+   00000000 00000000 00000000 00001010
+</pre>
+then after the instruction
+<pre>
+   and $8, $9, $10    # reg $8 = $9 & $10
+</pre>
+$8 contains
+<pre>
+   00000000 00000000 00000000 00001000
+</pre>
+For the OR operation, the result is
+<pre>
+   00000000 00000000 00000000 00101110
+</pre>
+<p>Here is a table which contrasts the logical operations, C operators,
+and MIPS instructions.
+<pre>
+  Logical Operations     C Operators              MIPS instructions
+
+   shift left                 &lt;&lt;                   sll
+   shift right                >>                   srl
+   AND                        &                    and, andi
+   OR                         |                    or, ori
+</pre>
+
+<h4>Example</h4>
+<p>Pick out the 3rd byte and store the pattern in the least significant
+byte.  That is, if $8 contains
+<pre>
+   00001111 01010101 00000001 11111111
+            --------
+</pre>
+Manipulates the bit pattern so that $9 contains
+<pre>
+   00000000 00000000 00000000 01010101
+                              --------
+</pre>
+
+ANSWER: 
+<pre>
+   srl $9, $8, 16     # $9 = $8 >> 16, shift the bytes down
+   andi $9, $9, 255   # $9 = $9 & 0x00FF, masking out the byte
+</pre>
+
+<p><strong>Question</strong>: Copy the bit 0 to 3 from register $8 to 
+$9, and then move the bit 0 to 3 to position 29 to 31.
+
+
+<p><strong>Example</strong>: Copy the 0th bit into 31st bit in register $8.
+<pre>
+   andi $9, $8, 1         # $9 contains 0th bit of reg $8
+   li   $10, 0x7FFFFFFF   # $10 = 0111...1 is a mask
+   and  $8, $8, $10       # clear the 31st bit
+   sll  $9, $9, 31        # shift up to 31 position
+   or   $8, $8, $9        # copy into 31st bit of $8
+</pre>
+
+<h3>Constructing an Arithmetic Logic Unit</h3>
+<p>Arithmetic Logic Unit (ALU) is the part of CPU responsible for arithmetic
+and logical computations.
+The most fundamental computation is addition.  The hardware
+for ALU is built from four basic blocks called gates, AND gate, OR gate,
+inverter, and multiplexor.  
+
+<p> The AND gate has two input signals a and b and one output signal c.
+AND gate performs a 1-bit logical AND electronically.  Each of the
+terminal a, b, and c takes only two possible values, high voltage and
+low voltage, or 0 and 1.  The table shows the effect of input/output
+(also called truth table for AND).
+<pre>
+      a     b     c
+      
+      0     0     0
+      0     1     0
+      1     0     0
+      1     1     1
+</pre>
+<p>The device behaves as logical AND in that if one or both input
+terminals are presented with value 0, the output signal is 0.  If
+both input a and b are 1, the output in c is 1.  Such a device can 
+be built with our knowledge on the physics of electronics using silicon
+with transistors. 
+
+<p>The OR gate is similar to AND except that the truth table is
+<pre>
+      a     b     c
+      
+      0     0     0
+      0     1     1
+      1     0     1
+      1     1     1
+</pre>
+<p>That is, the result is 1 unless both a and b are 0.
+
+<p>Inverter takes only one input and one output.  An inverter flips
+the value of input, if a = 1, c = 0; if a = 0; c = 1. 
+
+<p>The multiplexor makes decisions based on a control.  It takes three
+inputs and produces one output.  If a and b are normal inputs and d
+is control, and c is output, then if d = 0, output c = a; if d = 1, 
+output c = b.  The output is one of the inputs depending on the
+control d. 
+
+<h4>1-bit Adder</h4>
+The device for addition can be built out of the logical gates
+AND, OR, and inverter.  A 1-bit adder takes two input a and b, and
+adds them.  Clearly the result can be 0, 1, or 2. If it is 2,
+we say that result is 0 with a carry out of 1 (since 1 + 1 = 10,
+in binary).  We need also a carry in bit due to a carry out from
+an earlier 1-bit addition.  So the basic 1-bit adder has three inputs,
+a, b, and CarryIn, and two outputs, sum and CarryOut.  They have
+the following truth table
+<pre>
+      a     b    CarryIn      CarryOut   sum
+      0     0       0            0        0
+      1     0       0            0        1
+      0     1       0            0        1
+      1     1       0            1        0
+      0     0       1            0        1
+      1     0       1            1        0
+      0     1       1            1        0
+      1     1       1            1        1
+</pre>
+<p>A 1-bit ALU that performs AND, OR, and addition can be built out of
+logical AND, OR gates, 1-bit adder, and a multiplexor.  To be able to do
+subtraction, one only needs to incorporate an inverter.  Finally a 32-bit
+ALU is built out of the 1-bit ALU by connecting CarryOut to CarryIn of
+the next bit, with control lines to all the 32 1-bit ALU.  With
+some modification, the ALU can do MIPS instructions add,
+sub, slt, and, or.  The ALU cannot perform shifts and multiplication
+or division.  They are usually performed in separates units.
+
+
+<h3>Multiplication</h3>
+
+<p>We first recall the method of multiplication in primary school 
+(the longhand method)
+<pre>
+            1000  <- multiplicand
+        x   1001  <- multiplier
+        --------
+            1000
+           0000
+          0000
+       + 1000
+       ---------
+         1001000  <- product
+</pre>
+<p>Some terminology, the number 1000 in the first line is called a
+multiplicand, the second number 1001 is called a multiplier, and the
+result is called a product.  You can interpret the above calculation
+as in decimal notation computing one thousand times thousand and one,
+or as in binary notation computing 1000_two x 1001_two = 8 x 9 = 
+1001000_two = 72.  In fact, multiplication in binary is simpler than in
+decimal, since at each step, you either multiply by 0 or 1. 
+Here is another example 11 times 13 = 143.
+<pre>
+            1011  -> 11_ten
+         x  1101  -> 13_ten
+        ---------
+            1011
+           0000
+          1011
+      +  1011
+      -----------  
+        10001111  -> 143_ten
+</pre>
+<p>We note that the product of two 4-bit numbers is eight bits.  It is
+generally true that product of two n-bit numbers is 2n or less. 
+
+<p>A slightly more efficient way of doing the multiplication is to
+do the addition in each step (more suitable for the machine).  If
+the multiplier bit is 0, we do nothing.  Here is the same multiplication
+in the new way.
+<pre>
+            1011
+        x   1101
+      -----------
+            1011
+       +  1011 
+     ------------
+          110111
+       + 1011
+     ------------
+        10001111  
+</pre>
+<p>Here is the rule:
+<UL>
+   <LI>If the multiplier digit is 1, copy down the multiplicand,
+       shifted to the left properly to align with the multiplier bit. 
+       add with the previous result.
+   <LI> If the multiplier digit is 0, do nothing.
+</UL>
+
+<p><strong>Example</strong>: Multiply 156 with 99 in binary. 
+<pre>
+               10011100  -> 156           a check in decimal
+           x   01100011  ->  99
+           -------------                       156
+               10011100                      x  99
+           +  10011100                      ------
+           -------------                      1404
+              111010100                      1404
+       +  10011100                        --------
+       -----------------                     15444
+          1010101010100
+      +  10011100
+     -------------------
+         11110001010100   -> 15444
+</pre>
+
+<p>An algorithm is a series of steps that is carried out in a particular
+order to accomplish a computational task.  The word is derived from the
+name of Arab mathematician al-Khwarizmi (A.D. 800). 
+
+<h4>The first multiplication algorithm (for unsigned integer)</h4>
+
+<p>Let us introduce the symbols (as registers)
+ <UL>
+    <LI>M: a 64-bit register for multiplicand.
+    <LI>A: a 32-bit multiplier.
+    <LI>P: a 64-bit result (product).
+  </UL>
+<p>The following is a description of the first algorithm to multiply
+two 32-bit unsigned integers (M*A), result is in P.
+
+<p>Initial value: M = multiplicand (higher 32 bits is zero), A = 
+multiplier, P = 0.  We use the notation A0 to mean the 0-th bit in A.
+
+<p>Repeat 32 times:
+<OL>
+  <LI> Test A0, if (A0==1) P = P + M.
+  <LI> Shift M left 1 bit, M = M << 1.
+  <LI> Shift A right 1 bit, A = A >> 1. 
+</OL>
+<p>where the notation "A = expression" mains register A gets value
+specified by the expression.
+
+<p>Such an algorithm can be followed with pencil and paper, as what we
+have done earlier, or in software, or in hardware.  Let us consider
+how to implement the multiplication in MIPS assembly program (assuming
+that mult instruction does not exist). Here is a simplified version
+<A HREF="../assembly-examples/multiply.s">multiply.s</A>
+where all registers are 32 bits ($5 for A, $3 for A0, $2 for P, $4 for M).
+<pre>
+         add  $2, $0, $0     # initialize product to zero
+
+Loop:    beq  $5, $0, Exit   # if the multiplier is 0, terminate looping
+         andi $3, $5, 1      # mask out the 0th bit in multiplier
+         beq  $3, $0, Shift  # if the bit is 0, skip add
+         addu $2, $2, $4     # add (shifted) multiplicand to product
+Shift:   sll  $4, $4, 1      # shift up the multiplicand 1 bit
+         srl  $5, $5, 1      # shift down the multiplier 1 bit
+         j    Loop           # go for next bit in multiplier
+Exit:                        # finished.
+</pre>
+
+<p>Consider the execution of the program with the following data.
+1011 x 1101.
+<pre>
+   operation      $2      $3        $4        $5
+   start             0             1011      1101
+
+   andi/addu      1011     1       1011      1101
+   shifts         1011     1      10110       110
+   andi           1011     0      10110       110
+   shifts         1011     0     101100        11
+   andi/addu   0110111     1     101100        11
+   shifts      0110111     1    1011000         1
+   addi/addu  10001111     1    1011000         1
+   shifts     10001111     1   10110000         0
+ 
+   final      10001111     0    
+</pre>
+
+<h4>Second version of the multiplication algorithm</h4>
+<p>In the first version of the algorithm, the multiplicand is shifted left 
+after each iteration, just like in the longhand calculation.  Since the
+multiplicand are 32 bits, the 64 bits space is not really necessary. 
+A better idea is to shift the product to the right and keeping the
+multiplicand fixed.  The effect is the same.  There is also a saving
+in ALU.  The first version need a 64-bit ALU; the new algorithm
+can be performed with 32-bit ALU. 
+
+<h4>Third version of multiplication algorithm</h4>
+<P>The last improvement is to combine the multiplier register and product
+register.  Since the lower half in P are not used in the beginning,
+we can put the multiplier there. And the multiplier are shifted down
+as well as the result as in the second version.  So the final version
+of multiplication algorithm is presented here:
+
+<p>Initial values, M: 32-bit register contains the multiplicand. P: 64-bit
+register contains 32-bit multiplier (on the lower half).
+
+<p>Repeat 32 times:
+<OL>
+  <LI> if(P0==1) Ph = Ph + M (add to the upper half in P).
+  <LI> P = P >> 1 (shift P right 1 bit).
+</OL> 
+
+<p>Example: Compute 0010 x 0011 (decimal 2 times 3, 4-bit numbers) by the third
+algorithm. 
+
+<pre>
+   Iteration      step             M               P
+
+      0          initial value    0010         0000 0011
+      1          1 Ph=Ph+M        0010         0010 0011
+                 2 shift right    0010         0001 0001
+      2          1 Ph=Ph+M        0010         0011 0001
+                 2 shift right    0010         0001 1000
+      3          2 shift right    0010         0000 1100
+      4          2 shift right    0010         0000 0110
+</pre>
+
+<h4>Suggested Reading</h4>
+<p>Textbook, Computer Organization & Design, page 168-205.
+ 
+<HR>
+[ <A HREF="week6.html">previous week</A> ][ 
+<A HREF="week8.html">next week</A> ]
+<HR>
+</body>
+</html>
+ 

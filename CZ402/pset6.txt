@@ -1,0 +1,65 @@
+\input notesmac.tex
+\nopagenumbers
+
+\centerline{\titlefont Symbolic Computing, Exercise 6}
+\bigskip
+\line{Dr.~WANG Jian-Sheng \hfill Week 13--15, due Saturday, 12 April 1997}
+\bigskip
+%----------------------------------------------------------------------- 
+\problem  Read carefully the pages 347--359, Geddes et al, on
+Berlekamp's factoriazation algorithm for polynomial over 
+$Z_p$ where $p$ is a prime and implement it in Mathematica. 
+Note that $Z_p$ is a field, thus we can do addition, subtraction, 
+multiplication, and division within $Z_p$.  Here is the pseudo-code,
+but to understand the algorithm  correctly and fully, you need read
+the text.           
+\bigskip
+{\parskip=0pt\obeylines
+{\bf procedure} Berlekamp($a(x)$, $q$)
+\t $Q \leftarrow {\rm FormMatrixQ}(a(x), q)$
+\t ${\bf v}^{[1]}, {\bf v}^{[2]}, \ldots, {\bf v}^{[k]} \leftarrow {\rm NullSpaceBasis}(Q-I)$
+\t $factors \leftarrow \{ a(x) \}$
+\t $r \leftarrow 2$
+\t {\bf while} ${\rm SizeOf}(factors)<k$ {\bf do} $\{$
+\t\t {\bf foreach} $u(x) \in factors$ {\bf do} $\{$
+\t\t\t {\bf foreach} $s \in Z_p$ {\bf do} $\{$
+\t\t\t\t $g(x) \leftarrow {\rm GCD}(v^{[r]}(x) - s, u(x))$
+\t\t\t\t {\bf if} $g(x) \neq 1$ {\bf or} $g(x) \neq u(x)$ {\bf then} $\{$
+\t\t\t\t\t Remove($u(x),\; factors$)
+\t\t\t\t\t $u(x) \leftarrow u(x)/g(x)$
+\t\t\t\t\t Add($\{u(x), g(x)\}, factors$) $\}$
+\t\t\t\t {\bf if} ${\rm SizeOf}(factors) = k$ {\bf then return} $(factors)$ $\}$
+\t\t\t $r \leftarrow r + 1$ $\}$ $\}$
+{\bf end}
+\bigskip 
+{\bf procedure} FormMatrixQ($a(x), q$)
+\t $n \leftarrow {\rm deg}(a(x))$; ${\bf r} \leftarrow (1,0, \ldots,0)$; ${\rm Row}(0, Q) \leftarrow  {\bf r}$
+\t {\bf for} $m$ {\bf from} 1 {\bf to} $(n-1)q$ {\bf do} $\{$
+\t\t ${\bf r} \leftarrow (-r_{n-1}a_0,\; r_0 -r_{n-1}a_1,\; \ldots,\; r_{n-2} - r_{n-1} a_{n-1})$
+\t\t {\bf if} $q\;|\;m$ then 
+\t\t\t ${\rm Row}(m/q, Q) \leftarrow {\bf r}$ $\}$
+\t {\bf return} ($Q$)
+{\bf end}
+\bigskip
+{\bf procedure} NullSpaceBasis($M$)
+\t $n \leftarrow {\rm Rowsize}(M)$
+\t {\bf for} $k$ {\bf from} 1 {\bf to} $n$ {\bf do} $\{$
+\t\t {\bf for} $i$ {\bf from} $k$ {\bf to} $n$ {\bf while} $M_{ki} = 0$ {\bf do} $i \leftarrow i + 1$
+\t\t {\bf if} $ i\leq n$ {\bf then} $\{$
+\t\t\t ${\rm Column}(i,M) \leftarrow {\rm Column}(i,M) M_{ki}^{-1}$
+\t\t\t SwitchColumn($i, k, M$)
+\t\t\t {\bf for} $i$ {\bf to} $n$ {\bf with} $i\neq k$ {\bf do}
+\t\t\t\t ${\rm Column}(i,M) \leftarrow  {\rm Column}(i,M) - {\rm Column}(k,M) M_{ki}$ $\}$ $\}$
+\t {\bf for} $i$ {\bf from} 1 {\bf to} $n$ {\bf do} $M_{ii} \leftarrow M_{ii} - 1$
+\t $i \leftarrow 0$; $j \leftarrow 1$
+\t {\bf while} $j \leq n$ {\bf do} $\{$
+\t\t {\bf while} ${\rm Row}(j,M) = 0$ {\bf and} $ j \leq n$ {\bf do} $j \leftarrow j + 1$
+\t\t {\bf if} $j \leq n$ {\bf then} $\{$
+\t\t\t $i \leftarrow i + 1$
+\t\t\t ${\bf v}^{[i]} \leftarrow {\rm Row}(j,M)$ $\}$ $\}$
+\t {\bf return} $(\{ {\bf v}^{[1]}, \ldots, {\bf v}^{[i]}\})$
+{\bf end}
+}
+
+\bye
+

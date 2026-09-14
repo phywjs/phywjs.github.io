@@ -1,0 +1,817 @@
+(************** Content-type: application/mathematica **************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     23871,        735]*)
+(*NotebookOutlinePosition[     24591,        760]*)
+(*  CellTagsIndexPosition[     24547,        756]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  StyleBox["Symbolic Computing\n\n",
+    FontWeight->"Bold"],
+  StyleBox["LT20, 4:00-6:00pm\nWed, 26 March 2003",
+    FontSize->24,
+    FontWeight->"Bold"]
+}], "Title"],
+
+Cell["", "Subtitle"],
+
+Cell["Intermediate expression swell", "Subtitle"],
+
+Cell["\<\
+One problem with symbolic or exact computation with integers is that the \
+intermediate results get bigger and bigger.  This already shows up in QCD \
+computation. 
+
+Here is another example of similar nature.
+
+Suppose that we want to solve the linear system with only integer arithmetic \
+(i.e. compute in Z):\
+\>", "Text"],
+
+Cell[TextData[{
+  Cell[BoxData[{
+      \(TraditionalForm\`22  x\  + \ 44  y + 74  z\  = \ 
+        1, \ \ \ \ \ \ \ \ \((1)\)\), "\[IndentingNewLine]", 
+      \(TraditionalForm\`15  x + 14  y\ \  - 
+          10  z\  = \ \(-2\), \ \ \ \ \ \((2)\)\), "\[IndentingNewLine]", 
+      \(TraditionalForm\`\(-25\) x - 28  y + 20  z\  = \ 
+        34. \ \ \ \ \ \ \((3)\)\)}]],
+  "\n\nWe can use a variant of Gaussian elimination, e.g.,  22* Eq(2) - 15* \
+Eq(1)  to void division,  we get\n",
+  Cell[BoxData[
+      \(TraditionalForm\`22  x\  + \ 44  y\ \  + \ \ \ \ 74\ z\  = \ 
+        1, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \(-352\) y - 
+          1330  z\  = \ \(-59\), \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ \ \ \
+484\ y\  + 2290\ z\  = \ 773. \)]],
+  "\n Similarly, using the second equation to eliminate ",
+  Cell[BoxData[
+      \(TraditionalForm\`44  y\)]],
+  " and ",
+  Cell[BoxData[
+      \(TraditionalForm\`484  y\)]],
+  " in the first and last equation, and use the new last equation to \
+eliminate ",
+  Cell[BoxData[
+      \(TraditionalForm\`z\)]],
+  ", we get\n ",
+  Cell[BoxData[
+      \(TraditionalForm\`1257315840  x\  = \ 
+        7543895040, \[IndentingNewLine]\(-57150720\)\ y\  = \ 
+        314328960, \[IndentingNewLine]162360\ z\  = \ 243540. \)]],
+  "\n\nUsing a GCD computation on integers, we can reduce it to lowest terms, \
+and find that\n\nx = 6,  y = -11/2, and z = 3/2.\n\nSo, what is the moral of \
+the story?"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+The idea of using a simpler algebraic structure to do calculations several \
+times, and reconstruction the solutions of original problem.\
+\>", "Exercise"],
+
+Cell["\<\
+This idea is used in factorization of polynomials, in symbolic solutions of \
+linear equations, and so on.\
+\>", "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "We solve the original problem in ",
+  Cell[BoxData[
+      FormBox[
+        SubscriptBox[
+          StyleBox["Z",
+            FontSlant->"Plain"], "p"], TraditionalForm]]],
+  ", for some choosing set of ",
+  Cell[BoxData[
+      \(TraditionalForm\`p\)]],
+  ", e.g.,\n",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(p\)\(=\)\)\)]],
+  " 7, 11, 13, 17, and 19.   Then, use Chinese remainder theorem to \
+reconstruct the original solution."
+}], "ExerciseMain"],
+
+Cell["Solving the linear equation mod 7", "Subtitle"],
+
+Cell[TextData[{
+  "Since ",
+  Cell[BoxData[
+      FormBox[
+        SubscriptBox[
+          StyleBox["Z",
+            FontWeight->"Plain",
+            FontSlant->"Plain",
+            FontTracking->"Plain",
+            FontVariations->{"Underline"->False,
+            "Outline"->False,
+            "Shadow"->False,
+            "StrikeThrough"->False,
+            "Masked"->False,
+            "CompatibilityType"->0,
+            "RotationAngle"->0}], "7"], TraditionalForm]]],
+  " is a field, we can do +, -, *, and / as usual.   The multiplication table \
+looks like this:\n\n* mod 7      0     1     2     3     4     5     6\n\
+_________________________________\n0                0      0     0     0     \
+0     0     0\n1                0      1     2     3     4     5     6\n2     \
+           0      2    4      6     1     3    5\n3                0      3   \
+ 6      2     5     1    4\n4                0      4     1    5      2    6  \
+   3\n5                0      5      3    1     6    4     2\n6               \
+ 0      6     5     4     3     2     1\n\nFrom this table, we see that ",
+  Cell[BoxData[
+      \(TraditionalForm\`2\^\(-1\) = 4, \ 3\^\(-1\) = 5, \ 
+      6\^\(-1\) = 6. \)]],
+  "   \n\nThe original equation:\n",
+  Cell[BoxData[
+      \(TraditionalForm\`2  x\  + \ 44  y\  + 74  z\  = \ 
+        1, \[IndentingNewLine]15  x + 14  y - 
+          10  z\  = \ \(-2\), \ \ \ \[IndentingNewLine]\(-25\) x - 28  y + 
+          20  z\  = \ 34. \)]],
+  "\nwhen mod 7, becomes much simpler:\n",
+  Cell[BoxData[
+      \(TraditionalForm\`x\  + \ 2  y + 4  z\  = \ 
+        1, \[IndentingNewLine]x\  + \ 0  y\  + 4  z\  = \ 
+        5, \[IndentingNewLine]3  x\ \  + \ 0  y\  + \ 6  z\  = \ 6. \)]],
+  "\n\nSimilar Gaussian elimination (mod 7) gives:\n",
+  Cell[BoxData[
+      \(TraditionalForm\`x\  = \ 6\ \((mod\ 7)\), \ y = \ 5\ \((mod\ 7)\), \ 
+      z\  = \ 5\ \(\((mod)\)\(.\)\)\)]],
+  " \n(spend few minutes to work out the answers)\nThe workings:    \nPlease \
+fill in the steps.  \n\nSuppose we obtained ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\)]],
+  " mod 7 = 6, ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\)]],
+  " mod 11  = 6, ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\)]],
+  " mod 13 = 11, ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\)]],
+  " mod 17 = 5, and  ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\)]],
+  " mod 19 = 9, can we recover the original ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\)]],
+  " in Z?"
+}], "Text"],
+
+Cell["Ring morphisms", "Subtitle"],
+
+Cell[TextData[{
+  "Let R and R' be two rings.  Then a mapping \[CapitalPhi] : R \[RightArrow] \
+R' is called a ring morphism if\n     (i) ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(\[CapitalPhi](a + b)\)\(=\)\)\)]],
+  " ",
+  Cell[BoxData[
+      \(TraditionalForm\`\[CapitalPhi](a)\  + \ \[CapitalPhi](b)\)]],
+  " for all ",
+  Cell[BoxData[
+      \(TraditionalForm\`a, b\)]],
+  " \[Element] R;\n    (ii) ",
+  Cell[BoxData[
+      \(TraditionalForm\`\[CapitalPhi](a\ \[SmallCircle]b)\)]],
+  " = ",
+  Cell[BoxData[
+      \(TraditionalForm\`\[CapitalPhi](a)\)]],
+  " ",
+  Cell[BoxData[
+      \(TraditionalForm\`\[CapitalPhi](b)\)]],
+  " for all ",
+  Cell[BoxData[
+      \(TraditionalForm\`a, b\)]],
+  " \[Element] R;\n   (iii) ",
+  Cell[BoxData[
+      \(TraditionalForm\`\[CapitalPhi](1)\)]],
+  " = 1. "
+}], "Theorem"],
+
+Cell["\<\
+What this means is that a mapping between two rings exists that preserves all \
+the operations.   Informally, it means that formulas in ring R is also valid \
+in R'.\
+\>", "Text"],
+
+Cell["Example:", "Example"],
+
+Cell[TextData[{
+  "Consider mapping from ring Z (the set of all integers) to ",
+  Cell[BoxData[
+      FormBox[
+        SubscriptBox[
+          StyleBox["Z",
+            FontWeight->"Plain",
+            FontSlant->"Plain",
+            FontTracking->"Plain",
+            FontVariations->{"Underline"->False,
+            "Outline"->False,
+            "Shadow"->False,
+            "StrikeThrough"->False,
+            "Masked"->False,
+            "CompatibilityType"->0,
+            "RotationAngle"->0}], "p"], TraditionalForm]]],
+  ", given by ",
+  Cell[BoxData[
+      \(TraditionalForm\`\[CapitalPhi](a)\  = \ a\ mod\ p\)]],
+  ".   The mod operation takes an element in Z ( ..., -2, -1, 0, 1, 2, 3, \
+...) to an element in ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          FormBox[\(Z\_p\),
+            "TraditionalForm"], "(", \(0, 1, 2,  ... , p - 1\), ")"}], 
+        TraditionalForm]]],
+  ".   The mod operation is a ring morphism since ",
+  Cell[BoxData[
+      \(TraditionalForm\`\((a + 
+              b)\)\ mod\ p\  = \ {\((a\ mod\ p)\)\  + \ \((a\ mod\ p)\)}\ mod\
+\ p, \[IndentingNewLine]\((a*
+              b)\)\ mod\ p\  = \ {\ \((a\ mod\ p)\)\ *\ \((b\ mod\ p)\)\ }\ \
+mod\ p, \[IndentingNewLine]1\ mod\ p\  = \ 1. \)]]
+}], "Text"],
+
+Cell[TextData[{
+  "Proof that \[CapitalPhi](0) = 0; and ",
+  Cell[BoxData[
+      \(TraditionalForm\`\[CapitalPhi](\(-a\))\)]],
+  " = ",
+  Cell[BoxData[
+      \(TraditionalForm\`\[CapitalPhi](a)\)]],
+  " for all \[Element] R, where \[CapitalPhi] is a ring morphism."
+}], "Exercise"]
+}, Open  ]],
+
+Cell["\<\
+If \[CapitalPhi] is injective  (one-to-one), it is called monomorphism;
+
+If \[CapitalPhi] is surjective (onto), it is called epimorphism;
+
+If \[CapitalPhi] is bijective (one-to-one and onto), it is called \
+isomorphism.\
+\>", "Theorem"],
+
+Cell[TextData[{
+  "Check your math books to find out what are injective, surjective, and \
+bijective.  Is the mapping Z \[RightArrow] ",
+  Cell[BoxData[
+      FormBox[
+        SubscriptBox[
+          StyleBox["Z",
+            FontWeight->"Plain",
+            FontSlant->"Plain",
+            FontTracking->"Plain",
+            FontVariations->{"Underline"->False,
+            "Outline"->False,
+            "Shadow"->False,
+            "StrikeThrough"->False,
+            "Masked"->False,
+            "CompatibilityType"->0,
+            "RotationAngle"->0}], "p"], TraditionalForm]]],
+  " by ",
+  Cell[BoxData[
+      \(TraditionalForm\`\[CapitalPhi](a)\)]],
+  " = ",
+  Cell[BoxData[
+      \(TraditionalForm\`\((a\ mod\ p)\)\)]],
+  ", a monomorphism? an epimorphism, or isomorphism? "
+}], "Text"],
+
+Cell["Chinese remainder Theorem", "Subtitle"],
+
+Cell[TextData[{
+  "An example of the Chinese remainder problem is as following:  an integer \
+",
+  Cell[BoxData[
+      \(TraditionalForm\`x\)]],
+  ", when divided by 3 remainder is 2, when divided by 5 remainder is 3, when \
+divided by 7 remainder is 2, what is ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\)]],
+  "?  We write:\n",
+  Cell[BoxData[
+      \(TraditionalForm\`x\)]],
+  " \[Congruent] 2 mod 3,\n",
+  Cell[BoxData[
+      \(TraditionalForm\`x\)]],
+  " \[Congruent] 3 mod 5,\n",
+  Cell[BoxData[
+      \(TraditionalForm\`x\)]],
+  " \[Congruent] 2 mod 7.\nThe three-bar equal sign (\[Congruent]) denotes \
+congruential relation, i.e.,\n",
+  Cell[BoxData[
+      \(TraditionalForm\`a \[Congruent] \ b\ mod\ p\)]],
+  " means  ",
+  Cell[BoxData[
+      \(TraditionalForm\`a - b\)]],
+  " is a multiple of ",
+  Cell[BoxData[
+      \(TraditionalForm\`p\)]],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Chinese Remainder Theorem:  \nLet ",
+  Cell[BoxData[
+      \(TraditionalForm\`m\_0\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`m\_1\)]],
+  ", ..., ",
+  Cell[BoxData[
+      \(TraditionalForm\`m\_n\)]],
+  " \[Element] Z be integers which are pairwise relatively prime - i.e.,\n\t\
+",
+  Cell[BoxData[
+      \(TraditionalForm\`GCD(m\_i, m\_j)\)]],
+  " = 1   for ",
+  Cell[BoxData[
+      \(TraditionalForm\`i\  \[NotEqual] \ j\)]],
+  ",\nand let ",
+  Cell[BoxData[
+      \(TraditionalForm\`u\_i\)]],
+  " \[Element] ",
+  Cell[BoxData[
+      FormBox[
+        SubscriptBox[
+          StyleBox["Z",
+            FontSlant->"Plain"], \(m\_i\)], TraditionalForm]]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`i\  = \ 0, 1, \  ... , \ n\)]],
+  " be ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(n\)\(+\)\(1\)\(\ \)\)\)]],
+  "specified residues.  For any fixed integer ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " \[Element] Z there exists a unique integer ",
+  Cell[BoxData[
+      \(TraditionalForm\`u\)]],
+  " \[Element] Z which satisfies the following conditions:\n",
+  Cell[BoxData[
+      \(TraditionalForm\`a\  \[LessEqual] \ u\  < \ a\  + \ m\)]],
+  ", where ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(m\  = \ \[Product]\+\(i = 0\)\%n m\_i;\)\)]],
+  "\n",
+  Cell[BoxData[
+      \(TraditionalForm\`u\  \[Congruent] \ u\_i\ \((mod\ m\_i)\)\)]],
+  ",  0 \[LessEqual] i \[LessEqual] ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(n\)\(.\)\)\)]]
+}], "Theorem"],
+
+Cell[TextData[{
+  "The theorem says if we choose a set of numbers which have unit GCD for any \
+pair, such as, 3,  7, 10, 13 (not necessarily all primes), or equivalently, \
+",
+  Cell[BoxData[
+      \(TraditionalForm\`GCD(m\_0, m\_1,  ... , m\_n)\  = \ 1\)]],
+  ", then the set of equations\n",
+  Cell[BoxData[
+      \(TraditionalForm\`u \[Congruent] \ 
+        2\ mod\ 3, \[IndentingNewLine]u \[Congruent] \ 
+        2\ mod\ 7, \[IndentingNewLine]u \[Congruent] \ 
+        5\ mod\ 10, \[IndentingNewLine]u \[Congruent] \ 8\ mod\ 13\)]],
+  "\nhas a unique solution modulo  ",
+  Cell[BoxData[
+      \(TraditionalForm\`m\  = \ \(\(3*7*10*13\)\(=\)\)\)]],
+  "2730.\n\nNote that in the theorem if we choose ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(a\  = \ 0\)\(,\)\)\)]],
+  " then the solution ",
+  Cell[BoxData[
+      \(TraditionalForm\`0\  \[LessEqual] \ u\  < \ m\)]],
+  ".  If we take ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\  = \ \(-Floor\ [m/2]\)\)]],
+  ", then ",
+  Cell[BoxData[
+      \(TraditionalForm\`u\)]],
+  " can be negative."
+}], "Text"],
+
+Cell["Garner's algorithm for Chinese remainder problem", "Subtitle"],
+
+Cell[TextData[{
+  "Representation of ",
+  Cell[BoxData[
+      FormBox[
+        SubscriptBox[
+          StyleBox["Z",
+            FontSlant->"Plain"], "p"], TraditionalForm]]],
+  "\nIn ",
+  Cell[BoxData[
+      FormBox[
+        SubscriptBox[
+          StyleBox["Z",
+            FontSlant->"Plain"], "p"], TraditionalForm]]],
+  ", if ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " is a number between 0 to ",
+  Cell[BoxData[
+      \(TraditionalForm\`p - 1\)]],
+  ", any integer ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\  + k*p\)]],
+  " is considered the same number.  Thus if ",
+  Cell[BoxData[
+      \(TraditionalForm\`p\)]],
+  "=5, 3, 8, 13, as well as -2, or -7 are considered all equivalent to 3. \n\
+In applying Garner's algorithm, we need to take a consistent representation \
+either\n(i)  positive representation:  0 \[LessEqual] ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " < ",
+  Cell[BoxData[
+      \(TraditionalForm\`p\)]],
+  " for ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  "  in ",
+  Cell[BoxData[
+      FormBox[
+        SubscriptBox[
+          StyleBox["Z",
+            FontSlant->"Plain"], "p"], TraditionalForm]]],
+  ";\nor \n(ii) symmetric representation:  ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(-\((p - 1)\)\)/2 \[LessEqual] \ 
+        a\  \[LessEqual] \ \((p - 1)\)/2\)]],
+  ", (assume ",
+  Cell[BoxData[
+      \(TraditionalForm\`p\)]],
+  " is odd)"
+}], "Exercise"],
+
+Cell[TextData[{
+  "For example, in positive presentation, the value in ",
+  Cell[BoxData[
+      \(TraditionalForm\`Z\_5\)]],
+  " ranges from 0 to 4.  In the symmetric representation the value in ",
+  Cell[BoxData[
+      \(TraditionalForm\`Z\_5\)]],
+  " is ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(-2\), \ \(-1\), \ 0, \ 1, \ 2. \)]]
+}], "Text"],
+
+Cell[TextData[{
+  "The starting point in Garner's algorithm is to represent the solution ",
+  Cell[BoxData[
+      \(TraditionalForm\`u\)]],
+  " in the mixed radix representation:\n\n",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(u = \ \(v\_0\  + \ \(v\_1\)(m\_0)\  + \ \(v\_2\)(
+                m\_0*m\_1)\  + \  ... \)\  + \ \(v\_n\)(\(m\_0*m\_1 ... \)*
+              m\_\(n - 1\))\)\(\[IndentingNewLine]\)
+      \)\)]],
+  "\nwhere ",
+  Cell[BoxData[
+      \(TraditionalForm\`v\_i\  \[Element] \ Z\_\(m\_i\)\)]],
+  " for ",
+  Cell[BoxData[
+      \(TraditionalForm\`i\  = \ 0, \ 1, \  ... , \ n\)]],
+  "."
+}], "Theorem"],
+
+Cell[TextData[{
+  "Since ",
+  Cell[BoxData[
+      \(TraditionalForm\`v\_i\)]],
+  " is interpreted as in Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_\(m\_i\)\)]],
+  ", the mixed radix representation formula must be valuated in Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_\(m\_i\)\)]],
+  " when computing ",
+  Cell[BoxData[
+      \(TraditionalForm\`v\_i\)]],
+  "."
+}], "Exercise"],
+
+Cell[TextData[{
+  "An example:\n",
+  Cell[BoxData[
+      \(TraditionalForm\`x\)]],
+  " \[Congruent] 2 mod 3,\n",
+  Cell[BoxData[
+      \(TraditionalForm\`x\)]],
+  " \[Congruent] 3 mod 5,\n",
+  Cell[BoxData[
+      \(TraditionalForm\`x\)]],
+  " \[Congruent] 2 mod 7,\n",
+  Cell[BoxData[
+      \(TraditionalForm\`m\_0 = \ 3, \ m\_1 = 5, \ m\_2 = 7, \ n = 2. \)]],
+  "\nwe can determine ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\)]],
+  " modulo 3*5*7=105.   Write \n",
+  Cell[BoxData[
+      \(TraditionalForm\`x\  = \ v\_0\  + \ v\_1*3\  + \ v\_2*3*5\)]],
+  ".\nIf we mod 3 to the above equation, we get\n",
+  Cell[BoxData[
+      \(TraditionalForm\`x\ mod\ 3\  = \ \(2\  = \ v\_0\)\)]],
+  ".  Note that ",
+  Cell[BoxData[
+      \(TraditionalForm\`v\_0\)]],
+  " is in ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(Z\_3\)\(,\)\)\)]],
+  " using positive presentation, we have uniquely, ",
+  Cell[BoxData[
+      \(TraditionalForm\`v\_0 = \ 2. \)]],
+  "  So\n",
+  Cell[BoxData[
+      \(TraditionalForm\`x\  - \ 2\  = \ v\_1*3\  + \ v\_2*15. \)]],
+  "\nMod 5 to the above equation, we get\n",
+  Cell[BoxData[
+      \(TraditionalForm\`x\ mod\ 5\  - \ 
+          2\ mod\ 5\  = \ \((v\_1\ *\ 3)\)\ mod\ 5\)]],
+  ".\nWe have isolated ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(v\_1\)\(.\)\)\)]],
+  " Since ",
+  Cell[BoxData[
+      \(TraditionalForm\`v\_1\)]],
+  "lives in ",
+  Cell[BoxData[
+      \(TraditionalForm\`Z\_5\)]],
+  ", we have to solve the above equation in ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(Z\_5\)\(.\)\)\)]],
+  "   That is\n(3 ",
+  Cell[BoxData[
+      \(TraditionalForm\`-\)]],
+  " 2) ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(=\)\(\ \)\(v\_1*3\)\)\)]],
+  "   (in ",
+  Cell[BoxData[
+      \(TraditionalForm\`Z\_5\)]],
+  ")\nor ",
+  Cell[BoxData[
+      \(TraditionalForm\`v\_1 = \ \(1\ *\ 3\^\(-1\) = \ 2\)\)]],
+  "  (since the multiplicative inverse of 3 in ",
+  Cell[BoxData[
+      \(TraditionalForm\`Z\_5\)]],
+  " is 2).  \nWe determine the last unknown through\n",
+  Cell[BoxData[
+      \(TraditionalForm\`x\  - \ 2\  - \ 2*3 = \ v\_2*15\)]],
+  "\nMod 7 to the above equation, using ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\ mod\ 7\  = \ 2\)]],
+  ", we get\n",
+  Cell[BoxData[
+      \(TraditionalForm\`2 - 2 - 2*3 = \(\(-6\)\  = \ 
+          v\_2\ *\ 15\ \ mod\ 7\)\)]],
+  " = ",
+  Cell[BoxData[
+      \(TraditionalForm\`v\_2\)]],
+  " mod 7.\nNote that 15 = 3*5, and ",
+  Cell[BoxData[
+      \(TraditionalForm\`15\^\(-1\) = \(3\^\(-1\)*5\^\(-1\) = \(5*3 = 
+            15\  \[Congruent] 1\ \ \(\((mod\ 7)\)\(.\)\(\ \)\)\)\)\)]],
+  "\nSolving the equation in ",
+  Cell[BoxData[
+      \(TraditionalForm\`Z\_7\)]],
+  ", we have\n",
+  Cell[BoxData[
+      \(TraditionalForm\`v\_2\  = \ \(\(-6\)\  = \ 1\)\)]],
+  "  (mod 7).  So the final result for ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\)]],
+  " is\n",
+  Cell[BoxData[{
+      \(TraditionalForm\`x\  = \ v\_0 + \ v\_1*3\  + \ v\_2*15\), 
+    "\[IndentingNewLine]", 
+      \(TraditionalForm\`\ \ \ \ \(\(=\)\(\ \ \)\(2\  + \ 2*3\  + \ 
+          1*15\)\)\ \ \), "\[IndentingNewLine]", 
+      \(TraditionalForm\`\ \ \ \ \ \(\(=\)\(\ \)\(23.\)\)\)}]],
+  "\nWe can verify that:"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \({Mod[23, 3], \ Mod[23, 5], \ Mod[23, 7]}\)], "Input"],
+
+Cell[BoxData[
+    \({2, 3, 2}\)], "Output"]
+}, Open  ]],
+
+Cell[TextData[{
+  "Exercise:  Work out the solution for:\n",
+  Cell[BoxData[
+      \(TraditionalForm\`u \[Congruent] \ 
+        2\ mod\ 3, \[IndentingNewLine]u \[Congruent] \ 
+        2\ mod\ 7, \[IndentingNewLine]u \[Congruent] \ 
+        5\ mod\ 10, \[IndentingNewLine]u \[Congruent] \ 8\ mod\ 13\)]],
+  "\n"
+}], "Exercise"],
+
+Cell[TextData[{
+  "Here is a formal description of the Garner's algorithm (not a runnable ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " program):"
+}], "Text"],
+
+Cell[BoxData[
+    \(ChineseRemainder[{m\_0, \ m\_1, \  ... , \ 
+          m\_n}, \[IndentingNewLine]{u\_0, \ u\_1, \  ... , \ u\_n}]\  = \ 
+      Module[{ ... }, \[IndentingNewLine]\[IndentingNewLine] (*\ 
+          Given\ positive\ moduli\ m\_i \[Element] \ 
+            Z, \ \((0\  \[LessEqual] \ i\  \[LessEqual] \ 
+                  n)\)\ which\ are\ pairwise\ relatively\ prime\ and\ given\ \
+corresponding\ residue\ u\_i \[Element] \ Z\_\(m\_i\), 
+          compute\ the\ unique\ integer\ u\  \[Element] \ \(Z\_m\) \((where\ \
+m\  = \ \(m\_0*m\_1* ... \) 
+                      m\_n)\)\ such\ that\ u\  \[Congruent] \ \(u\_i\) \((mod\
+\ m\_i)\), \ i\  = \ 0, \ 
+          1, \  ... , \ \(\(n\)\(.\)\)\ *) \[IndentingNewLine]\
+\[IndentingNewLine] (*\ 
+          Step\ 1 : \ 
+              Compute\ the\ required\ inverses\ \[Gamma]\_k\  = \ \((\(m\_0*m\
+\_1* ... \) m\_\(k - 1\))\)\^\(-1\)\ \((mod\ m\_k)\), \ 
+          using\ a\ procedure\ reciprocal[a, 
+              q]\ which\ computes\ a\^\(-1\)\ \(\((mod\ q)\)\(.\)\)\ \
+*) \[IndentingNewLine]For[k = 1, \ 
+          k \[LessEqual] 
+            n, \ \(++k\), \[IndentingNewLine]p\  = \ \[CapitalPhi]\_\(m\_k\)[
+              m\_0]; \[IndentingNewLine]For[i\  = \ 1, 
+            i\  < \ k, \ \(++i\), \[IndentingNewLine]p\  = \ \
+\[CapitalPhi]\_\(m\_k\)[
+                p*m\_i]\[IndentingNewLine]]; \[IndentingNewLine]\[Gamma]\_k\  \
+= \ reciprocal[p, 
+              m\_k]\[IndentingNewLine]]; \[IndentingNewLine]\
+\[IndentingNewLine] (*\ Step\ 2, \ 
+          Compute\ the\ mix\ radix\ coefficients\ v\_k\ \
+*) \[IndentingNewLine]v\_0\  = \ u\_0; \[IndentingNewLine]For[k = 1, 
+          k \[LessEqual] n, \(++k\), \[IndentingNewLine]t\  = \ 
+            v\_\(k - 1\); \[IndentingNewLine]For[j\  = \ k - 2, \ 
+            k\  \[GreaterEqual] \ 
+              0, \ \(--k\), \[IndentingNewLine]t\  = \ \[CapitalPhi][
+                t*m\_j + 
+                  v\_j]\[IndentingNewLine]]; \[IndentingNewLine]v\_k = \ \
+\[CapitalPhi][\((u\_k - 
+                    t)\)*\[Gamma]\_k];\[IndentingNewLine]]; \
+\[IndentingNewLine]\[IndentingNewLine] (*\ Step\ 3, \ 
+          Convert\ from\ mixed\ radix\ representation\ to\ standard\ \
+representation\ *) \[IndentingNewLine]u\  = \ v\_n; \[IndentingNewLine]For[
+          k\  = \ n - 1, \ 
+          k\  \[GreaterEqual] \ 0, \ \(--k\), \[IndentingNewLine]u\  = \ 
+            u\ *m\_k\  + \ 
+              v\_k\[IndentingNewLine]]; \[IndentingNewLine]u\
+\[IndentingNewLine]]\)], "Input"],
+
+Cell["\<\
+How do we then solve linear equations with integer coefficients with the help \
+of Garner's algorithm?\
+\>", "Text"],
+
+Cell["Recommended Readings:", "Subtitle"],
+
+Cell["\<\
+From `Algorithms for Computer Algebra', by K. O. Geddes, S. R. Czapor, and G. \
+Labahn.\
+\>", "Text"],
+
+Cell["\<\
+Chapter 2, page 23 to 37, 42 to 43
+Chapter 5, page 151 to 155, 171 to 183.\
+\>", "Exercise"]
+},
+FrontEndVersion->"4.1 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 695}},
+CellGrouping->Manual,
+WindowSize->{1016, 668},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+Magnification->3,
+StyleDefinitions -> "Classroom.nb"
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1705, 50, 184, 6, 576, "Title"],
+Cell[1892, 58, 20, 0, 119, "Subtitle"],
+Cell[1915, 60, 49, 0, 119, "Subtitle"],
+Cell[1967, 62, 333, 9, 486, "Text"],
+Cell[2303, 73, 1450, 33, 1259, "Text"],
+
+Cell[CellGroupData[{
+Cell[3778, 110, 165, 3, 264, "Exercise"],
+Cell[3946, 115, 130, 3, 132, "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4113, 123, 473, 15, 489, "ExerciseMain"],
+Cell[4589, 140, 53, 0, 119, "Subtitle"],
+Cell[4645, 142, 2471, 62, 1988, "Text"],
+Cell[7119, 206, 34, 0, 119, "Subtitle"],
+Cell[7156, 208, 818, 27, 331, "Theorem"],
+Cell[7977, 237, 189, 4, 183, "Text"],
+Cell[8169, 243, 27, 0, 102, "Example"],
+Cell[8199, 245, 1250, 34, 382, "Text"],
+Cell[9452, 281, 281, 8, 198, "Exercise"]
+}, Open  ]],
+Cell[9748, 292, 246, 7, 472, "Theorem"],
+Cell[9997, 301, 793, 24, 183, "Text"],
+Cell[10793, 327, 45, 0, 119, "Subtitle"],
+Cell[10841, 329, 875, 29, 529, "Text"],
+Cell[11719, 360, 1498, 50, 575, "Theorem"],
+Cell[13220, 412, 1061, 28, 731, "Text"],
+Cell[14284, 442, 68, 0, 190, "Subtitle"],
+Cell[14355, 444, 1421, 50, 792, "Exercise"],
+Cell[15779, 496, 349, 10, 173, "Text"],
+Cell[16131, 508, 621, 17, 488, "Theorem"],
+Cell[16755, 527, 384, 14, 264, "Exercise"],
+Cell[17142, 543, 3177, 99, 1746, "Text"],
+
+Cell[CellGroupData[{
+Cell[20344, 646, 73, 1, 194, "Input"],
+Cell[20420, 649, 43, 1, 141, "Output"]
+}, Open  ]],
+Cell[20478, 653, 326, 8, 407, "Exercise"],
+Cell[20807, 663, 171, 5, 133, "Text"],
+Cell[20981, 670, 2494, 46, 2654, "Input"],
+Cell[23478, 718, 126, 3, 132, "Text"],
+Cell[23607, 723, 41, 0, 119, "Subtitle"],
+Cell[23651, 725, 111, 3, 132, "Text"],
+Cell[23765, 730, 102, 3, 198, "Exercise"]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

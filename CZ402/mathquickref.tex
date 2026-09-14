@@ -1,0 +1,333 @@
+\font\ninebf=cmbx9
+\font\cmcsc=cmcsc10
+\font\bigsc=cmcsc10 scaled\magstep1
+\font\cmbsy=cmbsy10
+\font\cmmib=cmmib10
+\abovedisplayskip=6pt plus 3pt minus 1pt
+\belowdisplayskip=6pt plus 3pt minus 1pt
+\abovedisplayshortskip=0pt plus 3pt
+\belowdisplayshortskip=4pt plus 3pt
+\hoffset -4 true mm
+
+\def\NI{\noindent}
+
+\def\dotp{\mskip -2mu \cdot \mskip -2 mu}
+\def\crossp{\mskip -2mu \times \mskip -2 mu}
+\def\del{\hbox{\cmbsy\char'162}}
+\def\thetabf{\hbox{\cmmib\char'022}}
+\def\bfomega{\hbox{\cmmib\char'041}}
+\def\skp{\mskip 1mu}
+\def\skpp{\mskip 2mu}
+\def\uv#1{\skp\hat{\bf #1}}
+
+\hsize=7 in
+\vsize=9.7 in
+\hoffset=-10mm
+\voffset=-7mm
+\def\pw{\leavevmode\hbox{\tt\char'136}}
+\def\lbr{\leavevmode\hbox{\tt\char'173}}
+\def\rbr{\leavevmode\hbox{\tt\char'175}}
+\def\fc#1#2{\hskip 3 mm {\tt #1} \hfill ($#2$)\hskip 3 mm}
+\def\fct#1#2{\hskip 3 mm {\tt #1} \hfill (#2)\hskip 3 mm}
+\def\expr{$\mit expr$}
+%\def\sect#1{\smallskip{\bf #1}\par\nobreak}
+\def\sect#1{\vskip 4pt {\bf #1}\par\nobreak}
+\centerline{\bigsc Mathematica Quick Reference}
+\medskip
+
+\parindent=0pt
+\sect{Run Mathematica}
+\settabs 2 \columns
+\+\fct{mathematica}{evoke Mathematica frontend} &
+\fct{Quit[$\;$] {\rm or} Exit[$\;$]}{exit math} & \cr
+
+\sect{Arithmetic}
+\line{{\tt +}, {\tt -}, {\tt *} (or a space {\tt\char`\ }), {\tt /}, 
+\pw\ (power),
+\quad e.g. {\tt a*x\pw 2 + 2 x -  3/5} \quad ($a x^2 + 2x - 3/5$)
+\hfill $n$\pw\pw$digits$ \quad base $n$ number}
+
+\sect{Mathematical Functions}
+\settabs 4 \columns
+\+ \fc{Sqrt[$x$]}{\sqrt{x}} & 
+\fc{Exp[$x$] {\rm or} E\pw $x$}{e^x} &
+\fc{Log[$x$]}{\ln x}& 
+\fc{Log[$b$,$\,x$]}{{\log}_b x} &\cr
+\+ \fc{Sin[$x$]}{\sin x} & 
+\fc{Cos[$x$]}{\cos x} & 
+\fc{Tan[$x$]}{\tan x} & 
+\fc{ArcSin[$x$]}{\sin^{-1} x} &\cr
+\+ \fc{ArcCos[$x$]}{\cos^{-1} x} &
+\fc{ArcTan[$x$]}{\tan^{-1} x} & 
+\fc{Sinh[$x$]}{\sinh x} & 
+\fc{Cosh[$x$]}{\cosh x} &\cr
+\+ \fc{Tanh[$x$]}{\tanh x} &
+\fc{ArcSinh[$x$]}{\sinh^{-1} x}&
+\fc{$n$!}{{\rm factorial}} & 
+\fc{Abs[$x$]}{|x|} &\cr
+\+ \fc{Mod[$n$,$\,m$]}{ n\ {\rm mod}\ m} &
+\fc{Max[$x$,$\,y$,$\,\ldots$]}{\rm max} &
+\fc{Min[$x$,$\,y$,$\,\ldots$]}{\rm min} & 
+\fc{Binomial[$n$,$\,k$]}{n\choose k} &\cr
+\+ \fc{Re[$z$]}{\hbox{real part}} &
+\fc{Im[$z$]}{\hbox{imaginery part}} &
+\fc{Conjugate[$z$]}{\bar{z}} &
+\fc{Arg[$z$]}{\rm argument} & \cr
+\+\fc{LegendreP[$n$,$x$]}{P_n(x)} &
+\fc{HermiteH[$n$,$x$]}{H_n(x)} &
+\fc{LaguerreL[$n$,$a$,$x$]}{L_n^a(x)} &
+\fc{BesselJ[$n$,$\,z$]}{J_n(z)} & \cr
+\+\fc{Erf[$x$]}{{2\over \sqrt{\pi}}\! \int_0^x\! e^{-t^2}\! dt} &
+\fc{Gamma[$z$]}{{\rm Euler}\; \Gamma(z)} &
+\fc{Zeta[$s$]}{{\rm Riemann}\; \zeta(s)} &
+\fct{Random[]}{number} & \cr
+
+\sect{Mathematical Constants}
+\+ \fc{Pi}{\pi\approx 3.14159} &
+\fc{E}{ e \approx 2.71828} &
+\fc{I}{i = \sqrt{-1}} &
+\fc{Infinity}{\infty} &\cr
+
+\sect{Data Objects}
+\settabs 5 \columns
+\+\fct{123}{integer} &
+\fct{3/7}{rational} &
+\fct{1.0}{real} &
+\fct{2 + 8I}{complex} &
+\fct{"$text$"}{string} &\cr
+\settabs 2 \columns
+\+\fct{\lbr $a$,$\,b$,$\,\ldots$ \rbr}{list with elements $a,\,b,\,\ldots$} &
+\fct{$h$[$a$,$\,b$,$\,\ldots$]}{expression/w head $h$, elements 
+$a,\,b,\,\ldots$} & \cr
+\+\fct{\expr[[$i$]]}{$i$-th element of the expression \expr} &
+\fct{$a$[$i$]}{associative array, indexed object} & \cr
+
+\sect{Arbitrary-Precision Calculation}
+\settabs 2 \columns
+\+\fct{\expr //N {\rm or} N[\expr]}{numerical value of \expr} &
+\fct{N[\expr,$\,n$]}{value of \expr\ with $n$-digit precision} &\cr
+\+\fct{Rationalize[$x$]}{rational number approximation} &
+\fct{Precision[$x$]}{significant decimal digits in $x$} & \cr
+
+\sect{Defining Variables, Functions, and Rules}
+\settabs 2 \columns
+\+\fct{$x$ = $\mit value$}{assign a value to symbol $x$} &
+\fct{\expr\ /. $x$ -> $a$}{replace $x$ by $a$ in \expr} &\cr
+\+\fct{$x$ := \expr}{delayed assignment} &
+\fct{\expr\ //. $x$ -> $a$}{replace repeatedly} & \cr
+\+\fct{$x$ = . {\rm or} Clear[$x$]}{remove value assigned to $x$} &
+\fct{$\mit lhs$ :> $\mit rhs$ /; $test$}{apply rule if $test$ is {\tt True}}&\cr
+\+\fct{$f$[$\skp x$\_$\skpp$] := \expr}{define a function $f(x)$} &
+\fct{$\mit lhs$ := $\mit rhs$ /; $\mit test$}
+			{assign if $test$ is {\tt True}} &\cr
+
+\sect{Algebraic Calculations}
+\settabs 2 \columns
+\+\fct{Expand[\expr]}{multiply out products} &
+\fct{Factor[\expr]}{reduce to a product of factors} & \cr
+\+\fct{Together[\expr]}{common denominator} &
+\fct{Cancel[\expr]}{cancel common factors} & \cr
+\+\fct{FullSimplify[\expr]}{find simplest form} & 
+\fct{Simplify[\expr]}{simplify \expr} & \cr
+\+\fct{Simplify[\expr, $\mit assume$]}{with assumption} &
+\fct{Apart[\expr]}{write $expr$ as a sum of terms} &\cr
+\+\fct{Coefficient[\expr,$x$]}{coefficient of $x$ in \expr} &
+\fct{Exponent[\expr,$x$]}{max power of $x$ in \expr} &\cr
+\+\fct{Solve[$lhs$==$rhs$,$\,x$]}{solve algebraic equation for $x$} &
+\fct{DSolve[$eqn$,$y$[$x$],$x$]}{solve differential equation} &\cr
+\+\fct{Reduce[$eqn$,$\,x$]}{reduce equations} &
+\fct{Eliminate[$eqn$,$\,e$]}{eliminate variable $e$} &\cr
+
+\sect{Linear Algebra}
+\settabs 3 \columns
+\+\fct{\lbr $a$,$\,b$,$\,c$\rbr}{vector} &
+\fct{\lbr \lbr $a$,$\,b$\rbr, \lbr $c$,$\,d$\rbr \rbr}{2$\times$2 matrix} &
+\fct{$n$.$m$}{matrix multiply} & \cr
+\+\fct{Inverse[$m$]}{inverse of matrix} &
+\fct{Transpose[$m$]}{transpose} &
+\fct{Det[$m$]}{determinant} &\cr
+\+\fct{MatrixPower[$m$,$\,n$]}{$m^n$} &
+\fct{MatrixExp[$m$]}{$e^m$} &
+\fct{LinearSolve[$m$,$\,b$]}{solve $m x\!=\! b$} & \cr
+\+\fct{Eigenvalues[$m$]}{eigenvalues} & 
+\fct{Eigenvectors[$m$]}{eigenvectors} &
+\fct{Eigensystem[$m$]}{value \& vector} & \cr
+
+\sect{Calculus}
+\settabs 3 \columns
+\+\fc{D[$f$,$\,x$]}{{\partial f/ \partial x}} &
+\fc{Integrate[$f$,$\,x$]}{ \int f\, dx} &
+\fct{Series[$f$,\lbr $x$,$a$,$n$\rbr]}{$\!$expand at $a$} &\cr
+\+\fc{D[$f$,$\,$\lbr $x$,$\,n$\rbr]}{{\partial^n f/\partial x^n}} &
+\fc{Integrate[$f$,$\,$\lbr $x$,$\,a$,$\,b$\rbr]}{\int_a^b f\, dx} &
+\fc{Limit[$f$,$\,x$->$a$]}{ \lim_{x\to a} f} & \cr
+\+\fc{Dt[$f$]}{ df} &
+\fc{Sum[$f$,$\,$\lbr $i$,$\,m$,$\,n$\rbr]}{\sum_{i=m}^{n} f} &
+\fc{Product[$f$,$\,$\lbr $i$,$\,m$,$\,n$\rbr]}{\prod_{i=n}^{m} f} &\cr
+\settabs 1 \columns
+\+\fct{NIntegrate, NSum, NProduct, NSolve, NDSolve, FindRoot}{numerical 
+integration, summation, etc.} &\cr
+
+\sect{Graphics}
+\+\fct{Plot[$f$, \lbr $x$,$\,a$,$\,b$\rbr, $option$->$value$]}{plot $f$ as a 
+function of $x$ from $a$ to $b$}&\cr
+\+\fct{Show[$\mit plot_1$,$\,\mit plot_2$,$\,\ldots$]}{redraw  plots}&\cr
+\+\fct{Plot3D[$f$,$\,$\lbr $x$,$\,a$,$\,b$\rbr, \lbr $y$,$\,c$,$\,d$\rbr]}
+	{three-dimensional plot of $f$ as a function of $x$ and $y$}&\cr
+\+\fct{ListPlot[\lbr \lbr $x_1$,$\,y_1$\rbr,\lbr $x_2$,$\,y_2$\rbr, $\dots$ \rbr
+]}{plot points $(x_1,\,y_1)$ $\ldots$}&\cr
+\+\fct{ParametricPlot[\lbr $x$,$\, y$\rbr, \lbr $t$,$\,a$,$\,b$\rbr]}{plot 
+curve $\bigl( x(t),\,y(t)\bigr)$}&\cr
+Plot options:\par
+\settabs 3 \columns
+\+\fct{AspectRatio}{height-to-width ratio} &
+\fct{AxesLabel->\lbr"$x$","$y$"\rbr}{add labels} &
+\fct{Frame -> True}{draw frame} & \cr
+
+\vfill\eject
+\sect{Programming}
+\settabs 1 \columns
+\+\fct{Module[\lbr $a$, $b$, $\ldots$ \rbr, $expr_1$; $expr_2$; $\ldots$ ]}{a 
+procedure/w local variables $a$, $b$, $\ldots$, return value of last \expr}&\cr
+\+\fct{Table[\expr,\lbr $i$,$\,max$\rbr]}{make a list
+	of values of \expr\ with $i$ from 1 to $max$}&\cr
+\+\fct{Do[\expr,\lbr $i$,$\,min$,$\,max$,$\,di$\rbr]}{evaluate \expr\
+	with $i$ run from $min$ to $max$ in steps of $di$}&\cr
+\+\fct{While[$\mit test$,$\,\mit body$]}{evaluate $\mit body$
+	repetitively, so long as $\mit test$ is {\tt True}}&\cr
+\+\fct{For[$\mit start$,$\,\mit test$,$\,\mit inc$,$\,\mit body$]}{evaluate
+$\mit start$, then repetitively evaluate $\mit body$ and $\mit inc$,
+until $\mit test$ fails}&\cr
+\+\fct{If[$\mit test$,$\,then$,$\,else$]}{evaluate $\mit then$ if $\mit test$
+is  $\tt True$, and $\mit else$ if it is {\tt False}}&\cr
+\+\fct{Which[$test_1$, $value_1$, $test_2$, $\dots$ ]}{give the value
+associated with the first $test$ that is {\tt True}}&\cr
+\+\fct{Switch[\expr, $form_1$, $value_1$, $form_2$, $\ldots$ ]}{give the
+value associated with first $form$ matching $expr$}&\cr
+\+\fct{Function[$x$, $body$] {\rm or} $body$ \&}{specify a pure function}&\cr
+\+\fct{Nest[$f$,$\,x$,$\,n$]}{apply the function $f$ 
+nested $n$ times to $x$}&\cr
+\+\fct{NestList[$f$,$\,x$,$\,n$]}{generate list $\{x,\,f(x),\,f(f(x)),\ldots\}$
+	 nested up to $n$ deep}&\cr
+\+\fct{Fold[$f$,$\,x$,$\,$\lbr $a$,$\,b$,$\,c$\rbr]}{produce $f\bigl(f(f(x,a),b),c\bigr)$}&\cr
+\+\fct{FixedPoint[$f$,$\,x$]}{apply the function $f$ repeated until
+the result no longer changes}&\cr
+\+\fct{Apply[$f$,$\,$\lbr $a$,$\,b$,$\,c$\rbr] {\rm or} f @@ \expr}{produce 
+					$f(a,b,c)$}&\cr
+\+\fct{Map[$f$,$\,$\lbr $a$,$\,b$,$\,c$\rbr] {\rm or} f /@ \expr}
+{apply $f$ to each elements, $\{f(a),\,f(b),\,f(c)\}$ }&\cr
+\smallskip
+\settabs 4 \columns
+\+\fct{$i$++}{post-increment} &
+\fct{$i$--}{post-decrement} &
+\fct{$i$ += $di$}{add $di$ to $i$} &
+\fct{$x$ *= $c$}{multiply $x$ by $c$} & \cr
+\+\fct{++$i$}{pre-increment} &
+\fct{--$i$}{pre-decrement} &
+\fct{$i$ -= $di$}{subtract $di$} &
+\fct{$x$ /= $c$}{divide $x$ by $c$} & \cr
+\+\fct{(* $text$ *)}{comment} &
+\fct{$f$::usage="$text$"}{info} &
+\fct{Timing[\expr]}{time}& 
+\fct{MemoryInUse[]}{space}&\cr
+Iterators in {\tt Do}, {\tt Table}, {\tt Sum}, etc.
+\settabs 2 \columns
+\+\fct{\lbr$max$\rbr}{iterate $max$ times} &
+\fct{\lbr$i$,$\,max$\rbr}{$i$ from 1 to $max$ in steps of 1} & \cr
+\+\fct{\lbr$i$,$\,min$,$\,max$\rbr}{$i$ from $min$ to $max$ in steps of 1} &
+\fct{\lbr$i$,$\,min$,$\,max$,$\,di$\rbr}
+	{$i$ from $min$ to $max$ in steps of $di$} &\cr
+
+\sect{Logical Operators}
+\settabs 4 \columns
+\+\fct{==}{equal} &
+\fct{!=}{unequal} &
+\fct{===}{identical} &
+\fct{=!=}{not identical} & \cr
+\+\fct{<}{less than} &
+\fct{<=}{less or equal} &
+\fct{$p$ || $q$}{or} & 
+\fct{$p$ \&\& $q$}{and} & \cr
+\+\fct{>}{greater than} &
+\fct{>=}{greater or equal} &
+\fct{!$p$}{not} &
+\fct{Xor[$p$,$q$]}{exclusive or} & \cr
+\+\fct{True {\rm or } False}{boolean values} & & & \cr
+
+\sect{List Manipulation}
+\settabs 2 \columns
+\+\fct{Part[$t$,$\,i$] {\rm or} $t$[[$i$]]}{$i$-th sublist} &
+\fct{Position[$t$,$\,form$]}{the position $form$ occur} & \cr
+\+\fct{Take[$t$,$\,n$]}{first $n$ elements} &
+\fct{Last[$t$]}{last element in $t$} & \cr
+\+\fct{Drop[$t$,$\,n$]}{drop first $n$ elements} &
+\fct{First[$t$]}{first element in $t$} & \cr
+\+\fct{Count[$t$,$\,form$]}{number of times $form$ occur} &
+\fct{MemberQ[$t$,$\,form$]}{test whether $form$ is in $t$} & \cr
+\+\fct{Prepend[$t$,$\,e$]}{add $e$ at the beginning} & 
+\fct{Insert[$t$,$\,e$,$\,i$]}{insert $e$ at position $i$} & \cr
+\+\fct{Append[$t$,$\,e$]}{add $e$ at the end} & 
+\fct{Delete[$t$,$\,i$]}{delete element at position $i$} & \cr
+\+\fct{ReplacePart[$t$,$\,e$,$\,i$]}{replace with $e$ at position $i$} & 
+\fct{Join[$t_1$,$\,t_2$,$\,\ldots\,$]}{concatenate lists together} & \cr
+\+\fct{Union[$t_1$,$\,t_2$,$\,\ldots\,$]}{union of lists} & 
+\fct{Intersection[$t_1$,$\,t_2$,$\,\ldots\,$]}
+		{common to all lists}&\cr 
+\+\fct{Sort[$t$]}{sort elements in standard order} & 
+\fct{Reverse[$t$]}{reverse the order of elements} & \cr
+\+\fct{RotateLeft[$t$,$\,n$]}{rotate $n$ places to the left} &
+\fct{RotateRight[$t$,$\,n$]}{rotate $n$ places to the right} & \cr
+
+\sect{Input/Output}
+\settabs 2 \columns
+\+\fct{<<$\mit file$}{read expressions from $\mit file$, return last $expr$} & 
+\fct{Save["$\mit file$", $x$]}{save the definition of $x$ to $\mit file$}&\cr
+\+\fct{\expr >>$\mit file$}{write $expr$ to a $\mit file$} &
+\fct{Export["$\mit file.ext$",$graph$]}{save graph in eps/pdf} & \cr
+\+\fct{\expr >>>$\mit file$}{append $expr$ to a $\mit file$} &
+\fct{ReadList["$file$",$type$]}{read objects of a given $type$} &\cr
+\+\fct{!!$file$}{display the content of a $file$} &
+\fct{Read[$\mit stream$]}{read one item from input} &\cr
+\+\fct{<<Calculus`VectorAnalysis`}{load a package} &
+\fct{!$\mit command$}{issue a {\cmcsc UNIX} command} &\cr
+
+\sect{Patterns}
+\settabs 3 \columns
+\+\fct{\_}{any \expr} &
+\fct{x\_}{any \expr\ named $x$} &
+\fct{x:$\mit pattern$}{match pattern} & \cr
+\+\fct{x\_$\mit h$}{pattern with head $\mit h$} &
+\fct{$\mit pattern$ /; $\mit condition$}{conditional} &
+\fct{$\mit pattern$?$test$}{if $test$ is {\tt True}} & \cr
+\+\fct{x\_$\skp$\_}{sequence of \expr} &
+\fct{x\_$\skp$\_$\skp$\_}{zero or more \expr} &
+\fct{x\_:$\mit v$}{\expr\ with default} & \cr
+%% \+\fct{x\_.}{with built-in default} &  &  &\cr
+
+\sect{Expression in Different Formats}
+\settabs 4 \columns
+\+\fct{FullForm[$e$]}{full form} &
+\fct{CForm[$e$]}{C code} &
+\fct{FortranForm[$e$]}{fortran} & 
+\fct{StandardForm[$e$]}{math} &\cr
+\+\fct{InputForm[$e$]}{input} &
+\fct{OutputForm[$e$]}{out} &
+\fct{MatrixForm[$e$]}{matrix} &
+\fct{TeXForm[$e$]}{\TeX} & \cr
+
+\sect{Input Editing and Help}
+\settabs 3 \columns
+\+\fct{\%}{last result} &
+\fct{?$\mit Name$}{help on $\mit Name$} &
+\fct{*}{represent 0 or more characters} & \cr
+\+\fct{\%$n$}{result on {\tt Out[$n$]}} &
+\fct{??$\mit Name$}{more help on $Name$} &
+\fct{@}{1 or more lower-case letters} & \cr
+\+\fct{Shift-Enter}{evaluate \expr} & 
+\fct{Ctrl-C}{interrupt execution} &
+\fct{!}{shell escape for text-based} & \cr
+
+\vfill
+\line{\fiverm revised Jan 2003 \hfill  Prepared by A/P Jian-Sheng Wang}
+\eject
+\end

@@ -1,0 +1,115 @@
+%!PS-Adobe-2.0
+%%  This PostScript program displays a site percolation configuration in
+%%  different colors for each cluster.  Linear size L and probability p 
+%%  can be changed at will.
+%%
+%%
+/L 16 def                   % system is a square of L x L
+/p 0.5 def                  % probability to occupy a site
+%%
+%%
+/ip p 2147483647 mul def    % scale p to 0 to 2^31-1
+%%  Define N = L^2, Nminus = N - 1, and array s
+/N L dup mul def
+/Nminus1 N 1 sub def
+/s N array def              % s is an array with L^2 elements
+%%
+%% Define procedure Neighbors, the neighbors of site i
+/Neighbors {                % Neighbors take a number from the
+   /i exch def              % stack, generate neighbor sites
+   i 1 add                  % of that site i.  The neighbor of site i
+   dup L mod 0 eq {pop} if  % is i+1, i-1, i+L, i-L.  However,
+   i L mod 0 ne {           % open boundary is used.  If the site  
+      i 1 sub               % is at the edge, it does not have
+   } if                     % neighbor outside.
+   i L ge { i L sub } if 
+   i N L sub lt { i L add } if 
+} def
+%%
+%%  Define procedure XYcoordinate which convert site number i into
+%%  (X,Y) pair by the X = i mod L,  Y = i/L.
+/XYcoordinate {
+   dup L mod exch
+   L idiv 
+} def
+%%
+%%  Define recursive procedure Color which draw a single cluster with  
+%%  certain color.
+/Color {                    % take a site from stack and color it.
+   count 0 gt {             % If there are something on the stack,
+      dup XYcoordinate      % Convert site number to (x,y) pair
+      0.23 0 360 arc fill   % and draw a disc.
+      [ exch Neighbors ]    % The neighbor sites is on the stack as array.
+         { dup                   % if s[i] is 1, set it to 0 and  
+            s exch get 1 eq {    % leave i on the stack, otherwise
+            dup s exch 0 put }   % clear the stack
+            { pop                % This is done for all the neighbors.
+            } ifelse
+         } forall
+      Color
+   } if
+} def
+%%
+%%Page:1
+%%  Write the title
+/Helvetica findfont 13 scalefont setfont
+150 80 moveto 
+(Site Pecolation at p = ) show
+/str 5 string def
+p str cvs show
+( with Size L = ) show
+L str cvs show 
+%%
+%%  Translate and scale
+50 150 translate
+495 L 1 sub div dup scale
+%%
+usertime srand              % set random number seed
+%%
+%%  Generate site percolation configuration
+0 1 Nminus1 {
+   s exch 
+   ip rand le {
+      0}{1} ifelse
+   put  
+} for   
+%%
+%%  Draw square lattice grids
+0.01 setlinewidth
+0 0 0.7 setrgbcolor         % in blue color
+/Lminus1 L 1 sub def        % define L - 1
+0 1 Lminus1 {
+   dup 0 moveto
+   dup Lminus1 lineto       % vertical line (i,0) to (i,L-1)
+   dup 0 exch moveto
+   Lminus1 exch lineto      % horizontal line (0,i) to (L-1,i)
+} for
+stroke
+%%
+%%  Draw occupied sites as black discs.
+0 0 0 setrgbcolor
+newpath
+0 1 Nminus1 {
+   dup s exch get 1 eq {
+      XYcoordinate
+      0.3 0 360 arc fill }{
+      pop
+   } ifelse
+} for
+%%
+%%  And finally, color each clusters with diffferent colors.
+/inc 0 def
+0 1 Nminus1 {
+   dup s exch get 1 eq {
+      inc 3 mod 2 div rand 4147483647.0 div add  
+      inc 4 mod 3 div rand 8147483647.0 div add        
+      inc 7 mod 6 div rand 6147483647.0 div add  
+      /inc inc 1 add def
+      setrgbcolor
+      Color }{
+      pop
+   } ifelse
+} for
+%%
+showpage
+%%End

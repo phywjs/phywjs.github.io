@@ -1,0 +1,129 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Chapter 2</title>
+<meta name="Microsoft Theme" content="loosegst 011, default">
+</head>
+
+<body background="lootextb.jpg" bgcolor="#FFFFCC" text="#000000" link="#CC6633" vlink="#663399" alink="#999900"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><!--mstheme--></font>
+
+<h1><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#666633">Mini-Review:
+Neural Network Models<!--mstheme--></font></h1>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><!--mstheme--></font>
+
+<h3><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#666633">(1)
+McCulloch &amp; Pitts (1943)<!--mstheme--></font></h3>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica">
+
+<p><font size="4">Let the incoming signals be x<sub>i</sub> (being 0 or 1), and
+outgoing signal be y, almost all neural network models assume:</font></p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<font size="4">&nbsp;&nbsp;&nbsp;</font> <font size="4">y = f(<font face="Symbol">S</font> w<sub>i</sub>x<sub>i</sub>-s)</font></p>
+<p><font size="4">where s is a threshold value, w is synaptic strength, the
+function f(x) is 0 for very small x and 1 for large x.&nbsp; For example, we
+can use a step function h(x).&nbsp;&nbsp; McCulloch and Pitts showed that within this
+framework, any arbitrary logical function y(x<sub>1</sub>, x<sub>2</sub>, ..., x<sub>n</sub>)
+can be realized by properly choosing the constants w, s, and connections of the
+&quot;neurons&quot;.&nbsp;&nbsp; </font></p>
+<p><font size="4">&quot;Logical circuit&quot; (h(x) is the step function, h(x) =
+0 if x &lt; 0, and h(x) =1 if x &gt;= 0)</font></p>
+<p><font size="4">(a) inverter:&nbsp;&nbsp; y = h(-2x + 1)</font></p>
+<p><font size="4">(b) logical AND: y = h(x<sub>1</sub> + x<sub>2</sub> - 1.5)</font></p>
+<p><font size="4">Question: how to build a logical OR using inverter and logical
+AND only?&nbsp; How to build exclusive OR? </font></p>
+<p><font size="4">McCulloch &amp; Pitts model does not address the issue of
+learning, and in addition, the logical operation is not error tolerant.&nbsp; </font></p>
+<!--mstheme--></font><h3><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#666633"><font size="4">(2)
+Hebb's Hypothesis</font><!--mstheme--></font></h3>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><p><font size="4">In
+his famous book &quot;Organization of Behavior&quot;, Hebb proposed the idea that
+connection between two neutrons is plastic; the synaptic strength w changes
+proportional to the activities correlation between the pre-synaptic and
+post-synaptic cells.&nbsp; A simple mathematical model is to change w according
+to</font></p>
+<p><font size="4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; w<sub>i</sub> &lt;- w<sub>i</sub> + <font face="Symbol">e</font>
+y(x) x<sub>i</sub></font></p>
+<!--mstheme--></font><h3><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#666633">(3)
+Perceptron (Rosenblatt 1958)<!--mstheme--></font></h3>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><p><font size="4">Hebb's
+idea can be used to solve a classification problem.&nbsp; This consists of two
+phases.&nbsp; First the network is trained by examples.&nbsp; After the training
+session, the synaptic strengths are fixed, the output from some input is then taking as the
+result of the &quot;neutral computing&quot;. </font></p>
+<p><font size="4">In a single layer neural network, let row vector x (take real
+value, dimension
+N) be the input, and row vector y (take a binary pattern, dimension M) be the output, the matrix W of M
+by N is updated in each training example as</font></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="4">W
+&lt;- W + <font face="Symbol">e</font> (y<sup>corr</sup> - y) x<sup>T</sup></font></p>
+<p><font size="4">where x<sup>T </sup>is the transpose of x, i.e. a column
+vector.&nbsp; If solution exists, it can be shown that this algorithm converges for sufficiently small
+<font face="Symbol">e</font> in a finite number of steps.&nbsp;&nbsp; It turns out that the single-layer
+network has severe limitations.&nbsp; For example, an exclusive OR can not be
+realized. Thus multi-layer network is introduced.</font></p>
+<!--mstheme--></font>
+<h3><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#666633">(4)
+Associative Memory<!--mstheme--></font>
+</h3>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><p><font size="4">Memory
+plays an extremely important role in brain function.&nbsp; The associative memory
+network is very much like the classification problem.&nbsp; Consider that p
+pairs of &quot;information&quot; (x<sub>1</sub>,y<sub>1</sub>), (x<sub>2</sub>,
+y<sub>2</sub>), ..., (x<sub>p</sub>, y<sub>p</sub>) are stored into the
+network.&nbsp; Then if x<sub>k</sub> is presented to the system, y<sub>k</sub>
+results.&nbsp; It is done is a robust and error tolerant way.&nbsp;&nbsp; In
+general framework, we can think of solving the learning problem by error
+minimization,&nbsp; for example,</font></p>
+<p><font size="4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;min<sub>w</sub>
+ <font face="Symbol">S</font><sub>k=1,2,...,p </sub>| y<sub>k</sub> - f(w x<sub>k</sub>)
+|<sup>2</sup></font></p>
+<p><font size="4">where | ... | is the 2-norm (Euclidean distance).&nbsp; w is
+the synaptic strength vector.&nbsp; The problem is made easy if the function f
+is linear, e.g. f(x) = x.&nbsp; This becomes the standard linear least-squares
+problem.&nbsp; The standard numerical technique can be applied.&nbsp; The Widrow-Hoff's
+gradient descent learning rule </font></p>
+<p>&nbsp;&nbsp;&nbsp;<font size="4">&nbsp;&nbsp;&nbsp;&nbsp; W &lt;- W + <font face="Symbol">e</font>
+(y - Wx) x<sup>T</sup></font></p>
+<p><font size="4">is a special case when the network is linear.&nbsp;</font></p>
+<p><font size="4">&nbsp;</font></p>
+<!--mstheme--></font><h3><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#666633"><font size="4">(5)
+Back-Propagation Algorithm</font><!--mstheme--></font></h3>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica">
+<p><font size="4">The idea of minimizing error can be pursued further for the
+general multi-layer network.&nbsp; A two-layer network, with input vector x,
+mid-layer signal z produces out y.&nbsp;&nbsp; Thus we have</font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; z = f(W<sup>1</sup>x),&nbsp;&nbsp;&nbsp;
+y = f(W<sup>2</sup>z)</font></p>
+<p><font size="4">It is understood that f(x) is a vector if x is a vector.&nbsp;
+The ith component if f(x) is just [f(x)]<sub>i</sub> = f(x<sub>i</sub>).&nbsp;
+Let the target vector be t (denoted by y<sup>corr</sup> previously), the error that we wish to minimize is</font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; e<sup>2</sup> = | t- y |<sup>2</sup>
+= <font face="Symbol">S</font><sub>i</sub> (t<sub>i</sub> - y<sub>i</sub>)<sup>2</sup></font></p>
+<p><font size="4">Note that e depends on W implicitly through y and then through
+z, since y = f(W<sup>2</sup>f(W<sup>1</sup>x)).&nbsp;&nbsp; The change to W is made according to steepest decent</font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; w<sub>ij</sub>&nbsp;
+&lt;- w<sub>ij</sub> - <font face="Symbol">e</font> <font face="Symbol">d</font>e<sup>2</sup>/<font face="Symbol">d</font>w<sub>ij</sub></font></p>
+<p><font size="4">where <font face="Symbol">d</font> denotes partial derivative,
+and <font face="Symbol">e</font> is the learning rate.</font></p>
+<p><font size="4">Question:&nbsp; Show that above change decreases the error for
+sufficiently small learning rate <font face="Symbol">e</font>.</font></p>
+<p><font size="4">Depending on if we are taking derivatives with respect to W<sup>1</sup>
+or W<sup>2</sup>, we have different expressions for the partial derivatives.&nbsp; After some algebra, we
+find for the output layer (last layer)</font></p>
+<p>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <font size="4"><font face="Symbol">d</font>e<sup>2</sup>/<font face="Symbol">d</font>w<sub>ij
+</sub>= - 2 (t-y)<sub>i</sub> [f'(W<sup>2</sup>z)]<sub>i</sub>  z<sub>j </sub>= -
+d<sub>i</sub>  z<sub>j</sub></font></p>
+<p><font size="4">and for the hidden layer</font></p>
+<p>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <font size="4"><font face="Symbol">d</font>e<sup>2</sup>/<font face="Symbol">d</font>w<sub>ij
+</sub>= - [d<sup>T</sup> W<sup>2</sup> ]<sub>i</sub> [f'(W<sup>1</sup>x)]<sub>i</sub>
+x<sub>j</sub></font></p>
+<p><font size="4">This last equation can be generalized for many number of
+layers.</font></p>
+<p><font size="4">Question:&nbsp; What do the above two equations tell you if
+the network is linear?</font></p>
+<!--mstheme--></font></body>
+
+</html>

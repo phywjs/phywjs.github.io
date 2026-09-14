@@ -1,0 +1,98 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Chapter 2</title>
+<meta name="Microsoft Theme" content="loosegst 011, default">
+</head>
+
+<body background="lootextb.jpg" bgcolor="#FFFFCC" text="#000000" link="#CC6633" vlink="#663399" alink="#999900"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><!--mstheme--></font><h1><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#666633">Brain-State-in-Box
+(BSB) Model<!--mstheme--></font></h1>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><!--mstheme--></font><h2><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#330099">The
+model<!--mstheme--></font></h2>
+
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><p><font size="4">The
+&quot;brain-state-in-box&quot; sounds like we have a brain in a box without
+body.&nbsp; But the model is defined as follows: </font></p>
+
+<p><font size="4">Let W be a symmetric weight matrix whose largest eigenvalues
+have positive real components.&nbsp; In addition, W is required to be positive
+semi-definite, i.e.,&nbsp; x<sup>T</sup>Wx &gt;= 0 for all x.&nbsp; Let x(0)
+denotes the initial state vector.&nbsp; The BSB algorithm is defined by the pair
+of equations:</font></p>
+
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; y(n) = x(n) + <font face="Symbol">h</font>
+Wx(n),</font></p>
+
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; x(n+1) = f(y(n)).</font></p>
+
+<p><font size="4">Or more concisely, the updating rule of the &quot;brain
+state&quot; x (a vector) is</font></p>
+
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; x&nbsp; &lt;-&nbsp; f(x
++ <font face="Symbol">h</font> W x)</font></p>
+
+<p><font size="4">where <font face="Symbol">h</font> is a small positive
+constant called the feedback factor.&nbsp; The f is a piecewise-linear function
+of the form</font></p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="4">f(x) =
++1&nbsp;&nbsp;&nbsp;&nbsp; if x &gt; 1;</font></p>
+
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; f(x) =
+x&nbsp;&nbsp;&nbsp;&nbsp; if&nbsp; -1 &lt; x &lt; 1;</font></p>
+
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; f(x) =
+-1&nbsp;&nbsp;&nbsp;&nbsp; if x &lt; -1.</font></p>
+
+<p><font size="4">When the W is choosing with the required property (positivity
+of largest eigenvalues), the effect of the algorithm is to drive the system for
+components of x to binary values +1 or 1 for each of the neuron.&nbsp;&nbsp; We
+can view it as a mapping from continuous inputs x(0) to discrete binary
+outputs.&nbsp; The final states are of the form (-1,+1,-1,-1,+1,+1, ...,
++1).&nbsp; This represents a corner of cube in an N-dimensional space of linear
+size 2, centered at origin.&nbsp; This is the box of the brain-state-in &quot;a
+box&quot;.&nbsp;&nbsp; The dynamics is such that the state moves to the wall of
+the box and then drives to the corner of the box.</font></p>
+
+<!--mstheme--></font><h2><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#330099">Energy
+function (also known as Lyapunov function)<!--mstheme--></font></h2>
+
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><p><font size="4">There
+is a similar energy function for the BSB model given by</font></p>
+
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; E = - (<font face="Symbol">h</font>/2)
+</font><font face="Math1Mono" size="5">S</font><font size="4"><sub>ij</sub> w<sub>ij</sub>
+x<sub>i</sub> x<sub>j</sub> = - (<font face="Symbol">h</font>/2) x<sup>T</sup> W
+x.</font></p>
+
+<p><font size="4">Exercise: show that the BSB dynamics reduces energy or at
+least does not increase E.</font></p>
+
+<p><font size="4">It turns out much more general conditions exist to decide if
+an energy function exists.&nbsp; This is given in the form a Cohen-Grossberg
+theorem discussed in the textbook. </font></p>
+
+<!--mstheme--></font><h2><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#330099">Application
+of BSB model<!--mstheme--></font></h2>
+
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><p><font size="4">What
+is a good use of BSB model?&nbsp; A natural application for the BSB model is
+clustering.&nbsp; Such as the classification of radar signals from the source of
+emitters.&nbsp; The matrix W has to be (unsupervised) learned using some of the
+methods discussed in early chapters.&nbsp; </font></p>
+
+<!--mstheme--></font><h3><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#666633"><font size="4">Last
+Lab work</font><!--mstheme--></font></h3>
+
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><p><font size="4">Implement
+Hopfield network model to store the two pictures past to you earlier and some of
+your own digital pictures (back and white only).&nbsp; Study its effectiveness
+by runs the Hopfield dynamics starting with a corrupted picture or picture with
+noise added.</font></p>
+
+<!--mstheme--></font></body>
+
+</html>

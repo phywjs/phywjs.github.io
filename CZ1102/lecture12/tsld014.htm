@@ -1,0 +1,75 @@
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Context-Type" CONTEXT="text/html;charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft Internet Assistant for PowerPoint 97">
+ <TITLE>How does the recursive function execute?</TITLE> 
+</HEAD>
+
+<BODY     >
+
+ <H1>How does the recursive function execute?</H1> 
+ <P><UL>
+<H2>int fact(int n)
+</H2>
+<BR></UL><UL>
+<H2>{
+</H2>
+</UL><UL>
+<H2>   if (n &#060= 1)
+</H2>
+</UL><UL>
+<H2>     return 1;
+</H2>
+</UL><UL>
+<H2>   else
+</H2>
+</UL><UL>
+<H2>     return n*fact(n-1);
+</H2>
+</UL><UL>
+<H2>}
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>Example for the case of fact(3):
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL></P>
+<P><UL>
+fact(3) is called, since (3&#060=1) is false, we do 3*fact(2), multiplication is suspended until fact(2) returns.<BR></UL></P>
+<P><UL>
+
+<BR></UL></P>
+<P><UL>
+fact(2) is called, since (2&#060=1) is false, we do 2*fact(1), multiplication is suspended until fact(1) returns.
+<BR></UL></P>
+<P><UL>
+
+<BR></UL></P>
+<P><UL>
+ fact(1) is called, since (1&#060=1) is true, we return the value 1 to the suspended fact(2) computation. <BR></UL></P>
+<P><UL>
+When fact(1) returns 1 to fact(2), 2*1 is computed, the value 2 is returned to fact(3).<BR></UL></P>
+<P><UL>
+When fact(2) returns 2 to fact(3),  3*2 is computed.  The fact(3) returns 6 to whoever is calling fact(3).<BR></UL></P>
+<P></P> 
+<P>
+<TABLE>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld013.htm">Previous slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld015.htm">Next slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="tsld001.htm">Back to first slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="sld014.htm">View graphic version</A> </TD>
+</TABLE>
+<BR>
+</P>
+
+
+
+</Body>
+</HTML>

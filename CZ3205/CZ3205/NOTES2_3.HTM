@@ -1,0 +1,160 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Synaptic integration and neuron models</title>
+<meta name="Microsoft Theme" content="loosegst 011, default">
+</head>
+
+<body background="_themes/loosegst/lootextb.jpg" bgcolor="#FFFFCC" text="#000000" link="#CC6633" vlink="#663399" alink="#999900"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica">
+
+<h2><!--mstheme--><font color="#330099"><span style="text-transform: uppercase"> Synaptic integration and neuron models</span><!--mstheme--></font></h2>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp; <font size="4"> Synaptic junction has two sides</font></p>
+<p><font size="4">&nbsp;&nbsp; <b>Presynaptic</b> --- receiving an action
+potential from the driving cell</font></p>
+<p><font size="4">&nbsp;&nbsp; <b>Postsynaptic</b> --- connect to the dendrite
+of the (postsynaptic) driven cell</font></p>
+<!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/loosegst/loobul1a.gif" width="15" height="15" hspace="13"></td><td valign="top" width="100%"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><font size="4">Excitatory (make the cell more likely to fire)</font><!--mstheme--></font><!--msthemelist--></td></tr>
+  <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/loosegst/loobul1a.gif" width="15" height="15" hspace="13"></td><td valign="top" width="100%"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><font size="4">Inhibitory (make the cell less likely to fire)</font><!--mstheme--></font><!--msthemelist--></td></tr>
+<!--msthemelist--></table><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica">
+<p>&nbsp;</p>
+<p><img border="0" src="IMAGES/NOTES2_4.GIF" width="309" height="319"></p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp; <font size="4"> <b>Interaction of synaptic potentials</b></font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; What happens when more
+than one synapse becomes active at the same time?</font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; In some cases, the
+resulting EPSPs or IPSPs come close to adding their values algebraically (linear
+superpostion) --- This simple approximation is used in most neural network
+models.</font></p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp; <font size="4"> <b>Slow potential theory of the neuron</b></font></p>
+<p><font size="4">A cell with many inputs may be receiving inputs constantly.
+Both spatial and temporal integration exist. </font></p>
+<!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/loosegst/loobul1a.gif" width="15" height="15" hspace="13"></td><td valign="top" width="100%"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><font size="4">The extent of dendritic spread allows significant spatial
+    integration. </font><!--mstheme--></font><!--msthemelist--></td></tr>
+  <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/loosegst/loobul1a.gif" width="15" height="15" hspace="13"></td><td valign="top" width="100%"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><font size="4">The integrated membrane potential at the cell body varies
+    slowly in a slow potential, allowing input occuring at different times to
+    add. This is the reverse of voltage-to-frequency converter; it integrates
+    spikes to slow potential. When this slow potential exceeds a threshold,
+    it&nbsp; generates a spike which is transmitted down the axon to other
+    cells.</font><!--mstheme--></font><!--msthemelist--></td></tr>
+<!--msthemelist--></table><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica">
+<p>&nbsp;</p>
+<h3><!--mstheme--><font color="#666633"><font size="4">Models for Neurons</font><!--mstheme--></font></h3>
+<p>&nbsp;&nbsp;&nbsp; <font size="4"><b>McCulloch-Pitts's neurons</b></font></p>
+
+<p>&nbsp;&nbsp; <font size="4"><b> </b>It is a discrete (binary) signals,
+discrete time.</font></p>
+
+<p>&nbsp;&nbsp; <font size="4"> At each time step, the neuron responds to the
+activity of its synapses. If no inhibitory synapses are active, the neuron adds
+its synaptic inputs and checks to see if the sum meets or exceeds its threshold.
+If it does, the neuron becomes active. If not, the neuron is inactive.</font></p>
+
+<p><img border="0" src="IMAGES/NOTES2_5.GIF" width="284" height="131"></p>
+
+<p><font size="4">Given two excitatory inputs, a and b, the unit will perform <b>Inclusive
+Or</b>, if the threshold is 1</font></p>
+
+<p>&nbsp;&nbsp; <font size="4"> a&nbsp;&nbsp;&nbsp; b&nbsp; (Input at
+t)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Output (at
+t+1)</font></p>
+
+<p>&nbsp;&nbsp; <font size="4"> 0&nbsp;&nbsp;&nbsp;
+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0<br>
+</font>&nbsp;&nbsp; <font size="4"> 1&nbsp;&nbsp;&nbsp;
+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1<br>
+</font>&nbsp;&nbsp; <font size="4"> 0&nbsp;&nbsp;&nbsp;
+1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1<br>
+</font>&nbsp;&nbsp; <font size="4"> 1&nbsp;&nbsp;&nbsp;&nbsp;
+1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font></p>
+
+<p><font size="4">If the threshold is 2, the unit will perform a <b>AND</b> b.</font></p>
+
+<p><font size="4"><i>Any finite logical expression can be realized by
+McCulloch-Pitts neurons.</i></font></p>
+
+<p>&nbsp;&nbsp; <font size="4"><i> </i>---&gt; This gave rise to the idea that
+the brain was very much like a digital computer.</font></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;&nbsp; <font size="4"> <b>The integrate-and-fire model of the neuron</b></font></p>
+
+<p>&nbsp;&nbsp; <font size="4"><b> </b>Neurons often encode information about
+stimulus intensity in terms of rate of firing. Let s be the stimulus (assumed to
+be constant), then the frequency of firing, f, is simply given by</font></p>
+
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; f = s/<font face="Symbol">q</font>,
+where <font face="Symbol">q </font>is the threshold. </font></p>
+
+<p>&nbsp;</p>
+
+<p><font size="4">&nbsp;&nbsp;&nbsp; A more realistic model is the <b>leaky-integrate-and-fire
+model</b>, which assumes the decay of membrane potential due to leakage. This
+leads to threshold behavior of the response</font></p>
+
+<p><img border="0" src="IMAGES/NOTES2_6.GIF" width="460" height="430"></p>
+
+<p>&nbsp;</p>
+
+<p><font size="4">There should also be a limit in the firing frequency</font></p>
+
+<p>&nbsp;</p>
+
+<p><font size="4"><b>The generic connectionist model of the neuron</b></font></p>
+
+<p><img border="0" src="IMAGES/NOTES2_7.GIF" width="477" height="398"></p>
+
+<p>&nbsp;</p>
+
+<!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/loosegst/loobul1a.gif" width="15" height="15" hspace="13"></td><td valign="top" width="100%"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><font size="4">Stage 1: u = linear weighted sum of inputs</font><!--mstheme--></font><!--msthemelist--></td></tr>
+  <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/loosegst/loobul1a.gif" width="15" height="15" hspace="13"></td><td valign="top" width="100%"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><font size="4">Stage 2: Non-linear input-output function, a popular choice
+    is the sigmoid function</font><!--mstheme--></font><!--msthemelist--></td></tr>
+<!--msthemelist--></table><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica">
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+output=f(u) = 1/(1+e<sup>-u</sup>)</font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; McCulloch-Pitts
+input-output function is a step function.</font></p>
+<p><font size="4">Typically we write</font></p>
+<p><font size="4">&nbsp;&nbsp; u= <font face="Symbol">S</font><sub>j=1</sub><sup>n</sup>
+w<sub>j</sub> x<sub>j</sub> - <font face="Symbol">q</font> = <font face="Symbol">S</font><sub>j=1</sub><sup>n+1</sup>
+w<sub>j</sub> x<sub>j</sub> , </font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; with x<sub>n+1</sub>=1,
+and w<sub>n+1</sub>=<sub></sub> - <font face="Symbol">q&nbsp; </font>---
+additional input with a special weight connected to a constant input values.</font></p>
+<p>&nbsp;</p>
+<p><font size="4">When these neurons are connected we have a neural network
+model.</font></p>
+<p><font size="4">Here is a simple two-layer neural network</font></p>
+<p><img border="0" src="IMAGES/NOTES2_8.GIF" width="380" height="303"></p>
+<p>&nbsp;</p>
+<p><!--webbot bot="Navigation" S-Type="arrows" S-Orientation="horizontal"
+S-Rendering="graphics" B-Include-Home="TRUE" B-Include-Up="TRUE" U-Page S-Target startspan
+--><!--webbot bot="Navigation" endspan i-checksum="0"
+-->
+</p>
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<!--mstheme--></font></body>
+
+</html>

@@ -1,0 +1,109 @@
+<html>
+<head>
+<title>CZ1101, Tutorial 1</title>
+</head>
+<body>
+
+<h1>CZ1101, Basic Computer Architecture and Assembly Programming</h1>
+<h1>Tutorial 1, Week 4, 4-8 August, 1997</h1>
+
+<blockquote>
+<em> You should do the problems before going
+to the tutorial classes.  For this set you need not hand in the solutions. 
+Tutorial hours are for asking questions and clarifying points 
+of the tutorial problems.
+The number in parentheses ( ) refers to the question number in the
+textbook, ``Computer Organization & Design'', Patterson and Hennessy.
+The first problem comes from the textbook page 42-43.  The rest 
+problems are my own concoction.
+</em>
+</blockquote>
+
+<OL>
+
+<LI> (1.1-1.13) Find the word or phase from the list below that best
+matches the description in the following questions.  Use the letters
+to the left of words in the answer.  Each answer should be used not more
+than once.  It would be easier if you have read Chapter 1.
+<pre>
+a  abstraction                   n  DRAM (dynamic random access memory)
+b  assembler                     o  implementation 
+c  binary number                 p  instruction
+d  bit                           q  instruction set architecture
+e  cache                         r  integrated circuit
+f  CPU (central processor unit)  s  memory
+g  chip                          t  operating system
+h  compiler                      u  processor
+i  computer family               v  semiconductor
+j  control                       w  supercomputer
+k  datapath                      x  transistor
+l  defect                        y  VLSI (very large scale integrated circuit)
+m  die                           z  yield
+</pre>
+<p> (1.1) Specific abstraction that the hardware provides the low-level
+software. 
+<p> (1.2) Active part of the computer, following the instructions
+of the programs to the letter: It adds numbers, tests numbers, and so on.
+<p> (1.3) Another name for processor.
+<p> (1.4) Approach to the design of hardware or software; the system
+consists of hierarchical layers, with each lower layer hiding details
+from the above. 
+<p> (1.5) Base 2 number.
+<p> (1.6) Binary digit.
+<p> (1.7) Collection of implementations of the same instruction set
+architecture; they are available at the same time and vary in 
+price and performance.
+<p> (1.8) Component of the processor that performs arithmetic operation.
+<p> (1.9) Component of the processor that tells the datapath, memory,
+and I/O devices what to do according to the instructions of the program.
+<p>  (1.10) Hardware that obeys the instruction set architecture
+abstraction. 
+<p> (1.11) High performance machine, costing more than $1 million.
+<p> (1.12) Individual command to a computer.
+<p> (1.13) Integrated circuit commonly used to construct main
+memory.
+
+<LI> How would a compiler translate the following C
+statement into MIPS instructions?  Assuming that all the variables
+are integers and are in registers $2, $3, $4, $5, $6, for
+f, p, r, a, b, respectively.  
+<pre>
+   f = - p*r +  (a/b)*a*a  - b;
+</pre>
+
+<LI> Let assume that all registers and memory have value 0 before
+the program starts. Stepping through the execution of <a href="follow1.s">the program</a>,
+indicate changes in registers or memory, if any, after each instruction.
+<pre>
+main:
+   li  $3, 1
+   li  $2, 0x10000000
+   li  $4, 1
+   sw  $4, 0($2)
+   li  $4, 2
+   sw  $4, 4($2)
+   li  $4, 3
+   sw  $4, 8($2)
+   lw  $5, 0($2)
+   add $5, $5, $3
+   sw  $5, 12($2)
+   lw  $5, 4($2)
+   add $5, $5, $3
+   sw  $5, 16($2)
+   lw  $5, 8($2)
+   add $5, $5, $3
+   sw  $5, 20($2)
+   j $31
+</pre>
+
+<LI> What is the binary encoding of the instruction sequence:
+<pre>
+   lw  $5, 0($2)
+   add $5, $5, $3
+   sw  $5, 12($2)
+</pre>
+You need to refer to <a href="MIPScode.html">Figure 3.6</a>, page 107 of the textbook.
+
+</OL>
+
+</body>

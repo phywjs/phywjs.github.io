@@ -1,0 +1,385 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 4.2'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      9312,        278]*)
+(*NotebookOutlinePosition[      9999,        302]*)
+(*  CellTagsIndexPosition[      9955,        298]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell["Lab 3 Answers", "Title"],
+
+Cell["1.", "Subtitle"],
+
+Cell[BoxData[
+    \(gauss[a_List, \ b_List]\  := \ 
+      Module[\ {m = a, nrow, \ ncol, i, j, c0, c1, \ new}, \.01\.01 (*\ 
+          We\ comment\ in\ code\ with\ parenthsis\ star\ pair\ *) \.01\.01 \
+(*\(\(*\)\(\ \)\(first\)\(\ \)\(we\)\(\ \)\(combine\)\(\ \)\(a\)\(\ \
+\)\(with\)\(\ \)\(b\)\), \ by\ tranposing\ trice\ **) \.01m\  = \ 
+          Transpose[m]\ ~Join~{\ b}; \.01m\  = \ Transpose[m]; \.01\.01 (*\ 
+          We\ don' t\ have\ to\ pass\ the\ matrix\ size\ explicitly, \ 
+          the\ length\ of\ the\ list\ will\ tell\ us\ the\ number\ of\ rows\ \
+n\ *) \ nrow\  = \ Length[a]; \.01ncol\  = \ Length[a[\([1]\)]]; \.01\.01 (*\ 
+          Run\ along\ the\ diagonal\ *) \.01For[i\  = \ 1, \ 
+          i\  <= \ Min[nrow, \ ncol], \ \(++i\), \.01\.01 (*\ 
+            Do\ a\ swap\ equation\ if\ diagonal\ term\ a\_ii\ is\ zero\ \
+*) \.01If[m[\([i, i]\)]\  === \ 0, \.01For[j\  = \ i\  + \ 1, \ 
+              j\  <= \ nrow, \ \(++j\), \.01If[
+                m[\([j, i]\)]\  =!= \ 
+                  0, \.01{m[\([i]\)], \ m[\([j]\)]}\  = \ {m[\([j]\)], \ 
+                    m[\([i]\)]}; \ Break[]]]\ , \ ]; \.01c0\  = \ 
+            m[\([i, i]\)]; \.01For[j\  = \ i + 1, \ 
+            j\  <= \ nrow, \ \(++j\), \.01\ 
+            c1\  = \ m[\([j, i]\)]; \.01new\  = \ \ c0\ *\ m[\([j]\)]\  - \ 
+                c1\ *\ m[\([i]\)]; \.01m[\([j]\)]\  = \ 
+              Simplify\  /@ \ new];\.01\.01 (*\ 
+            We\ printing\ out\ at\ intermediate\ step\ for\ debuging, \ \ \
+Print[MatrixForm[m]]*) \[IndentingNewLine]]; \[IndentingNewLine]m]\)], "Input"],
+
+Cell["\<\
+The backsub[ ] also works if the number of equations are less than \
+the number of unknowns.  The last few variables are set as arbitrary.  \
+Consistency are not checked.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(backsub[a_List]\  := \ 
+      Module[{nrow, \ ncol, n, vars, i, k}, \[IndentingNewLine]nrow\  = \ 
+          Length[a]; \[IndentingNewLine]ncol\  = \ 
+          Length[a[\([1]\)]] - 1; \[IndentingNewLine]n\  = \ 
+          Min[nrow, \ ncol]; \[IndentingNewLine]vars = \ 
+          Table[x\_i, \ {i, 1, \ ncol}]; \[IndentingNewLine]For[i = \ n, \ 
+          i\  > 0, \ \(--i\), \[IndentingNewLine]vars[\([i]\)]\  = \ \((1/
+                  a[\([i, i]\)])\)*\ \((a[\([i, ncol + 1]\)]\  - \ 
+                  Sum[a[\([i, k]\)]*vars[\([k]\)], {k, i + 1, 
+                      ncol}])\)]; \[IndentingNewLine]Simplify[
+          vars]]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(A = {{1, 2, 1}, {2, 2, 3}, {\(-1\), \(-3\), 
+            0}};\)\), "\[IndentingNewLine]", 
+    \(b = {0, 3, 2}\)}], "Input"],
+
+Cell[BoxData[
+    \({0, 3, 2}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(backsub[gauss[A, b]]\)], "Input"],
+
+Cell[BoxData[
+    \({1, \(-1\), 1}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(LinearSolve[A, b]\)], "Input"],
+
+Cell[BoxData[
+    \({1, \(-1\), 1}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(A = {{1, a, c}, {z, t, u}, {0, 0, 2}};\)\), "\[IndentingNewLine]", 
+    \(b\  = \ {0, c, a}\)}], "Input"],
+
+Cell[BoxData[
+    \({0, c, a}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(backsub[gauss[A, b]]\)], "Input"],
+
+Cell[BoxData[
+    \({\(a\ \((c\ \((2 + t)\) - a\ u)\)\)\/\(\(-2\)\ t + 2\ a\ z\), \(2\ c - \
+a\ u + a\ c\ z\)\/\(2\ t - 2\ a\ z\), a\/2}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(LinearSolve[A, b]\)], "Input"],
+
+Cell[BoxData[
+    \({\(2\ a\ c + a\ c\ t - a\^2\ u\)\/\(2\ \((\(-t\) + a\ z)\)\), \(2\ c - \
+a\ u + a\ c\ z\)\/\(2\ \((t - a\ z)\)\), a\/2}\)], "Output"]
+}, Open  ]],
+
+Cell["2.", "Subtitle"],
+
+Cell["\<\
+Data should be in the form {{x1,y1},{x2, y2},...},i.e, an n by 2 \
+matrix; f is a list of linearly independent basis functions, and x is the \
+variable. For example leastquarefit[{{1,2},{3.4,5.6},{7.2,8.2}},{1,x},x] fit \
+the data to a straight line.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(leastsquarefit[data_List, f_List, x_Symbol] := 
+      Module[{xv, yv, A, c}, \[IndentingNewLine]{xv, yv} = 
+          Transpose[data]; \[IndentingNewLine]A = 
+          f /. \((\(({x \[Rule] #1} &)\) /@ xv)\); \[IndentingNewLine]At = 
+          Transpose[A]; \[IndentingNewLine]c = 
+          LinearSolve[At . A, At . yv]; \[IndentingNewLine]Simplify[
+          c . f]]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(res\  = \ 
+      leastsquarefit[{{1, 3}, {2, 4}, {5, 6}}, {x, x^2}, x]\)], "Input"],
+
+Cell[BoxData[
+    \(1\/326\ \((919 - 106\ x)\)\ x\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(N[res]\  // \ Expand\)], "Input"],
+
+Cell[BoxData[
+    \(2.8190184049079754`\ x - 0.32515337423312884`\ x\^2\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Fit[{{1, 3}, {2, 4}, {5, 6}}, {x, x^2}, x]\)], "Input"],
+
+Cell[BoxData[
+    \(2.819018404907977`\ x - 0.32515337423312884`\ x\^2\)], "Output"]
+}, Open  ]],
+
+Cell["3.", "Subtitle"],
+
+Cell["\<\
+Build and tranverse a binary tree. A tree is represented as \
+{nodeparent,{leftsubtree},{rightsubtree}} 
+where left and right subtrees are similar structure. A leaf node with no \
+children is {node,{},{}}.  Note that If[   ] itself return values.\
+\>", \
+"Text"],
+
+Cell[BoxData[
+    \(\(\(\[IndentingNewLine]\)\(\(buildtree[l_List] := 
+        Module[{tree, 
+            i}, \[IndentingNewLine]tree = {}; \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  \
+(*start\ with\ an\ empty\ tree*) \[IndentingNewLine]Do[\ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  (*add\ each\ element\ in\
+*) \[IndentingNewLine]tree = addelement[tree, Part[l, i]], {i, 
+              Length[l]}\[IndentingNewLine]]; \[IndentingNewLine]tree\
+\[IndentingNewLine]];\)\n\[IndentingNewLine]
+    \(addelement[t_List, e_] := 
+        Module[{}, \[IndentingNewLine]If[
+            t === {}, \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \  (*if\ empty*) \[IndentingNewLine]{e, {}, {}},  \
+(*return\ a\ node\ with\ two\ empty\ children*) If[
+              First[Sort[{e, First[t]}]] === 
+                e,  (*else\ if\ e \[LessEqual] 
+                  node*) \[IndentingNewLine]ReplacePart[t, 
+                addelement[t[\([2]\)], e], 
+                2], \  (*add\ to\ left\ \
+subtree*) \[IndentingNewLine]ReplacePart[t, addelement[Last[t], e], 
+                3]\ \  (*else\ to\ right\ subtree*) ]\[IndentingNewLine]]\
+\[IndentingNewLine]];\)\[IndentingNewLine]\[IndentingNewLine]
+    traverse[t_List] := 
+      Module[{}, \[IndentingNewLine]If[
+          t === {}, \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\  (*if\ empty\ tree*) \[IndentingNewLine]{}, \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  (*return\ empty\ list\
+*) \[IndentingNewLine]Join[traverse[t[\([2]\)]], {t[\([1]\)]}, 
+            traverse[
+              t[\([3]\)]]] (*else\ return\ tranverse\ joint\ lists\ from\ \
+left, node\ and\ right*) \[IndentingNewLine]]\[IndentingNewLine]]\)\)\)], \
+"Input"],
+
+Cell[BoxData[
+    \(Clear[a, b, g]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(res\  = \ buildtree[{a, 1, g, b}]\)], "Input"],
+
+Cell[BoxData[
+    \({a, {1, {}, {}}, {g, {b, {}, {}}, {}}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(traverse[res]\)], "Input"],
+
+Cell[BoxData[
+    \({1, a, b, g}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Sort[{a, 1, g, b}]\)], "Input"],
+
+Cell[BoxData[
+    \({1, a, b, g}\)], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"4.2 for X",
+ScreenRectangle->{{0, 1280}, {0, 1024}},
+WindowSize->{695, 688},
+WindowMargins->{{150, Automatic}, {Automatic, 52}},
+Magnification->1.5,
+StyleDefinitions -> "Classroom.nb"
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1754, 51, 30, 0, 96, "Title"],
+Cell[1787, 53, 22, 0, 59, "Subtitle"],
+Cell[1812, 55, 1574, 24, 713, "Input"],
+Cell[3389, 81, 194, 4, 65, "Text"],
+Cell[3586, 87, 665, 11, 322, "Input"],
+
+Cell[CellGroupData[{
+Cell[4276, 102, 147, 3, 92, "Input"],
+Cell[4426, 107, 43, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4506, 113, 53, 1, 69, "Input"],
+Cell[4562, 116, 48, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4647, 122, 50, 1, 69, "Input"],
+Cell[4700, 125, 48, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4785, 131, 128, 2, 92, "Input"],
+Cell[4916, 135, 43, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4996, 141, 53, 1, 69, "Input"],
+Cell[5052, 144, 150, 2, 91, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5239, 151, 50, 1, 69, "Input"],
+Cell[5292, 154, 153, 2, 98, "Output"]
+}, Open  ]],
+Cell[5460, 159, 22, 0, 59, "Subtitle"],
+Cell[5485, 161, 274, 5, 90, "Text"],
+Cell[5762, 168, 402, 7, 207, "Input"],
+
+Cell[CellGroupData[{
+Cell[6189, 179, 103, 2, 92, "Input"],
+Cell[6295, 183, 63, 1, 91, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6395, 189, 53, 1, 69, "Input"],
+Cell[6451, 192, 85, 1, 73, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6573, 198, 75, 1, 69, "Input"],
+Cell[6651, 201, 84, 1, 73, "Output"]
+}, Open  ]],
+Cell[6750, 205, 22, 0, 59, "Subtitle"],
+Cell[6775, 207, 272, 6, 127, "Text"],
+Cell[7050, 215, 1761, 31, 782, "Input"],
+Cell[8814, 248, 47, 1, 69, "Input"],
+
+Cell[CellGroupData[{
+Cell[8886, 253, 66, 1, 69, "Input"],
+Cell[8955, 256, 72, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[9064, 262, 46, 1, 69, "Input"],
+Cell[9113, 265, 46, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[9196, 271, 51, 1, 69, "Input"],
+Cell[9250, 274, 46, 1, 69, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

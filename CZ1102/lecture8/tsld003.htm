@@ -1,0 +1,102 @@
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Context-Type" CONTEXT="text/html;charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft Internet Assistant for PowerPoint 97">
+ <TITLE>Prime Numbers</TITLE> 
+</HEAD>
+
+<BODY     >
+
+ <H1>Prime Numbers</H1> 
+ <P><UL>
+<H2>#include &#060stdio.h&#062
+</H2>
+<BR></UL><UL>
+<H2>main()
+</H2>
+</UL><UL>
+<H2>{
+</H2>
+</UL><UL>
+<H2>   int p, n, div;
+</H2>
+</UL><UL>
+<H2>   printf("\tThis program lists all"
+</H2>
+</UL><UL>
+<H2>          " primes &#060= n\n\n");
+</H2>
+</UL><UL>
+<H2>   printf("Input n: ");
+</H2>
+</UL><UL>
+<H2>   scanf("%d", &n);
+</H2>
+</UL><UL>
+<H2>   printf("\n\n\tPrimes &#060= %d:\n\n",
+</H2>
+</UL><UL>
+<H2>          n);
+</H2>
+</UL><UL>
+<H2>   for( p = 2; p &#060= n; p++) {
+</H2>
+</UL><UL>
+<H2>    /* try to find a divisor of p */
+</H2>
+</UL><UL>
+<H2>      for(div = 2; div &#060 p; div++) {
+</H2>
+</UL><UL>
+<H2>         if( p % div == 0)
+</H2>
+</UL><UL>
+<H2>               /* found a divisor */
+</H2>
+</UL><UL>
+<H2>            break;   
+</H2>
+</UL><UL>
+<H2>           /* so p is not a prime */
+</H2>
+</UL><UL>
+<H2>      }
+</H2>
+</UL><UL>
+<H2>      if (div == p)
+</H2>
+</UL><UL>
+<H2>   /* exhausted possible divisors */
+</H2>
+</UL><UL>
+<H2>         printf("%d, ", p);
+</H2>
+</UL><UL>
+<H2>                 /* so p is prime */
+</H2>
+</UL><UL>
+<H2>   }
+</H2>
+</UL><UL>
+<H2>   printf("\n");
+</H2>
+</UL><UL>
+<H2>}</H2>
+</UL></P>
+<P>This is program <a href="pg120.c">pg120.c</a></P> 
+<P>
+<TABLE>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld002.htm">Previous slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld004.htm">Next slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="tsld001.htm">Back to first slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="sld003.htm">View graphic version</A> </TD>
+</TABLE>
+<BR>
+</P>
+
+
+
+</Body>
+</HTML>

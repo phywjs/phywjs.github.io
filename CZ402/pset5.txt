@@ -1,0 +1,86 @@
+\input notesmac.tex
+\nopagenumbers
+
+\centerline{\titlefont Symbolic Computing, Exercise 5}
+\bigskip
+\line{Dr.~WANG Jian-Sheng \hfill Week 11--12, due Saturday, 22 March 1997}
+\bigskip
+%----------------------------------------------------------------------- 
+\problem Write a set of functions in Mathematica to decide whether a 
+certain finite set with an operation $\cdot$ satisfies certain algebraic
+law.  I have written the functions for {\sl closeness}, {\sl associativity},
+{\sl commutativity}, existence of {\sl identity} and {\sl inverse}, and
+have built a predicate for group.  You can use these if you want to.
+Specifically, 
+\itemitem{(a)} Implement the predicate for distribution law of
+operation $\cdot$ over $+$. Here $\cdot$ and $+$ are just two arbitrary 
+operations, not necessarily multiplication and addition.
+\itemitem{(b)} Implement the predicate for zero divisor (Does 
+elements $a$ and $b$ exists such that
+$a\neq0$ and $b\neq0$ but $a \cdot b = 0$ ?).
+\itemitem{(c)} Using the more primitive predicates to implement the 
+predicates {\tt ringQ}, {\tt integraldomainQ} and {\tt fieldQ}. 
+\itemitem{(d)} Is it a ring, an integral domain, a field, respectively for 
+$(Z_8; +, \cdot)$, $(Z_{13}; +, \cdot)$,
+and $S=\{0,1,2,3\}$ with the following addition and multiplication tables?
+$$\halign{\quad#\quad&\strut\vrule\quad#&\quad#&\quad#&\quad#&\hskip 1cm
+\quad#\quad&\strut\vrule\quad#&\quad#&\quad#&\quad#\cr
+$+$ & 0 & 1 & 2 & 3 &      $\cdot$ & 0 & 1 & 2 & 3 \cr
+\noalign{\hrule}
+0   & 0 & 1 & 2 & 3 &       0 & 0 & 0 & 0 & 0 \cr
+1   & 1 & 0 & 3 & 2 &       1 & 0 & 1 & 2 & 3 \cr
+2   & 2 & 3 & 0 & 1 &       2 & 0 & 2 & 3 & 1 \cr
+3   & 3 & 2 & 1 & 0 &       3 & 0 & 3 & 1 & 2 \cr
+}$$
+
+\problem Write in Mathematica the Extended Euclidean Algorithm for polynomial
+over the field $Z_p$ where $p$ is a prime (i.e. EEA for $Z_p[x]$). 
+$Z_p$ is the set $\{0,1,2,\ldots,
+p-1\}$ with addition and multiplication modulo the prime number $p$.   The
+pseudo-code for Extended Euclidean algorithm is,
+\medskip
+{\parskip=0pt\obeylines
+{\bf procedure} EEA$(a, b, p)$
+\t ${\bf c} \leftarrow (a, 1, 0)$
+\t ${\bf d} \leftarrow (b, 0, 1)$
+\t {\bf while} $d_1 \neq 0$ {\bf do} $\{$
+\t\t $q \leftarrow {\rm quo}(c_1, d_1)$
+\t\t ${\bf r} \leftarrow {\bf c} - q {\bf d}$
+\t\t ${\bf c} \leftarrow {\bf d}$
+\t\t ${\bf d} \leftarrow {\bf r}$ $\}$
+\t {\bf return} $\bigl({\rm n}(c_1), {c_2 /{\rm u}(c_1)}, {c_3/{\rm u}(c_1)}\bigr)$
+{\bf end}
+}
+\medskip
+\item{} Where the {\bf baldface} letter signifies a three-dimensional vector.
+Each of the element in the vector and $a$, $b$, and $q$ are in $Z_p[x]$. 
+${\rm quo}(a,b)$ returns the quotient of polynomial division; ${\rm n}(a)$
+is the normal part of $a$ and ${\rm u}(a)$ is the unit part of $a$. 
+The return value of EEA is $({\rm GCD}(a,b), s, t)$ such that
+${\rm GCD}(a, b) = s a + t b $.
+
+\vfill
+
+\font\ninerm = cmr9
+\font\ninesl = cmsl9
+
+{\ninerm 
+
+\hangindent=\parindent\hangafter=1\noindent {\bf Euclid} (c.300 -- 260 BC) 
+Greek mathematician and author of one of the most famous texts in
+the whole of mathematics, {\ninesl Elements}.  In 13 books it covers
+the geometry of the triangle, the circle, various quadrilaterals, Eudoxus'
+theory of proportion, elementary number theory, irrationals, and solid
+geometry.  The treatment throughout is axiomatic and based upon definitions,
+postulates, and `common notions'.  Important results established include
+the infinity of the primes, the fundamental theorem of arithmetic,
+Pythagoras' theorem, the Euclidean algorithm, the existence of irrational
+numbers, and the construction of the five Platonic solids.  Despite
+difficulties with the fifth postulates, {\ninesl Elements} survived
+unquestioned until the 19th century when the non-Euclidean geometry
+of Bolyai and Lobachevsky was formulated. In addition to several other
+mathematical works, most of are lost (including a work on conics),
+Euclid also wrote on astronomy, optics, and music. 
+}
+\eject
+\end

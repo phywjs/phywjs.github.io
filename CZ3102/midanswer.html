@@ -1,0 +1,62 @@
+<html>
+<head><title>Answers to Midterm Test</title></head>
+<body>
+<h1>Sample Answers to Midterm Test</h1>
+
+<h2>Q1</h2>
+<p>(a) Uniform circular motion is a moving point (x(t), y(t)). The coordinates
+of the point varies with time according to the functions
+<P>x(t) = R cos(kt+d),  y(t) = R sin(kt+d).
+<P>where R, k, and d are parameters and t is time.
+<p>(b) In polar coordinates we use the inverse transform of
+<p> x = r cos q, y = sin q 
+<P>to obtain 
+<P> r(t) = R, q(t) = kt + d
+where r(t) is radial length and q(t) is angle.
+<P>(c) We transform the values to polar coordinates to get 
+<pre>
+	t	x	y	q	r
+	0.0	1.0	0.0	0.0	1.0
+	1.0	0.71	0.7     0.7783  0.997  	
+	2.0	0	1.0     1.5708	1.01
+</pre>
+using the formula q = arctan(y/x) and r = sqrt(x^2+y^2).
+We fit into the result of (b).  For r(t), it is a constant, we use the  
+average R = (1.0+0.997+1.01)/3 = 1.002.   For q(t), t versus q is a straight
+line fit (with three data points), q(t) = kt + d, which we use normal equation method (equivalent 
+to least square), thus (Matlab notation)
+<pre>
+   A = [ 0.0  1;          Q = [0.0;
+         1.0  1;               0.7783;
+         2.0  1]               1.5708]
+</pre>
+such that A*[k; d] = Q.  The solution is A^T A [k; d] = A^T Q. 
+This gives k = 0.7854  and d = -0.002366, therefore the fitting results 
+for q(t) is
+<P>q(t) =  0.7854 t  -0.002366.
+
+
+<h2>Q2</h2>
+
+<P>The result looks similar to tutorial 2.6, except that the bifurcation 
+diagram is given by epsilon = -5x^4 (instead of quadratic).
+
+<h2>Q3</h2>
+<P>The dimensions of the relevant quantities are
+<P>force, [F] = MLT^(-2)
+<P>radius, [r] = L
+<P>mass, [m] = M
+<P>velocity, [v] = L/T
+<P>By balancing the dimensions, 
+[F] = M LT^(-2) = M^x v^y r^z = M^x L^y T^(-y) L^z
+we obtain the equations
+<P> 1 = x,  1 = y + z,  -2 = -y.
+<P>So the solution is x = 1, y = 2, z = -1.  And
+<P> F = const m v^2/r.
+
+<h2>Mark distribution</h2>
+<P>Two of the highest are 100 (full marks), and third is 97, followed
+by 81 and 80.  The lowest is 20, and 2nd lowest is 25, and up by 30.
+The rest are in 70s, 60s, 50s, and 40s.
+</body>
+</html>

@@ -1,0 +1,262 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      7302,        210]*)
+(*NotebookOutlinePosition[      7953,        233]*)
+(*  CellTagsIndexPosition[      7909,        229]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[
+    \(Symbolic\ Computing, \ Lab\ 2\)], "Input",
+  FontFamily->"Times New Roman",
+  FontSize->16],
+
+Cell[BoxData[
+    \(\(\(Name : \)\ \ \n\)\)], "Input"],
+
+Cell[BoxData[
+    StyleBox[\(For\ week\ 5, 6, \ \(&\ 7\), \ due\ Saturday, \ 
+      21\ February\ 1998\),
+      FontWeight->"Plain",
+      FontSlant->"Plain",
+      FontTracking->"Plain",
+      FontVariations->{"Underline"->False,
+      "Outline"->False,
+      "Shadow"->False}]], "Input"],
+
+Cell[BoxData[
+    StyleBox[
+      \(Work\ directly\ on\ this\ file . \ \ \ Submit\ this\ file\ as\ \ 
+        lab1 . nb\ in\ a\ floppy\ \(disk . \)\),
+      FontSize->12]], "Input",
+  FontFamily->"Times New Roman",
+  FontSize->10,
+  FontSlant->"Italic"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{
+        StyleBox[
+          RowBox[{
+            StyleBox["1",
+              FontWeight->"Bold"], "."}]], " ", "Try", " ", "the", " ", 
+        "indefinite", " ", "integral", " ", "of", " ", "ratio", " ", "of", 
+        " ", "polynomial", " ", "function"}], " "}], 
+    RowBox[{" ", 
+      \(\[Integral]\(\(6  x\^5 + 6  x\^4 - 8  x\^3 - 18  x\^2 + 8  x + 8
+                \)\/\(x\^6 - 5  x\^4 - 8  x\^3 - 2  x\^2 + 2  x + 1\)\) 
+          \[DifferentialD]x, \ 
+      it\ is\ not\ enough\ to\ just\ type\ in\ the\ formula, \ 
+      you\ need\ to\ interprete\ your\ output\ correctly\ and\ verify\ that\ 
+        the\)}], \(answer\ is\ correct\ by\ \(differentiation . \)\)}], 
+  "Input",
+  CellFrame->True,
+  FontWeight->"Plain",
+  Background->GrayLevel[0.849989]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{
+        StyleBox[
+          RowBox[{
+            StyleBox["2",
+              FontWeight->"Bold"], "."}]], " ", "Try", " ", "another", " ", 
+        "more", " ", "complex", " ", "integral"}], ",", " ", 
+      \(type\ in\ very\ very\ 
+        \(carefully : \n\t\t
+          \[Integral]\(1
+                  \/\(\((1 + x)\) 
+                    \((\(-x\^2\) \[ExponentialE]\^\(2  x\^2\) + 
+                          \((Log[1 + x])\)\^2)\)\^2\)\) 
+              \((x \((2  x\ \(\[ExponentialE]\^\(3  x\^2\)\) 
+                        \((x - \((1 + x + 2  x\^2 + 2  x\^3)\) Log[1 + x])
+                          \) + \((
+                          \(x\^2\) \[ExponentialE]\^\(2  x\^2\) - 
+                            \((Log[1 + x])\)\^2)\)\^2)\))\) 
+              \[DifferentialD]x\nAgain\ verify\ the\ result\ by\ 
+              \(differentiation . \)\)\)}]], "Input",
+  CellFrame->True,
+  FontWeight->"Plain",
+  Background->GrayLevel[0.849989]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[{
+    RowBox[{
+      StyleBox[
+        RowBox[{
+          StyleBox["3",
+            FontWeight->"Bold"], "."}]], " ", "Solve", " ", "the", " ", 
+      "set", " ", "of", " ", "second", " ", "order", " ", "equations"}], 
+    RowBox[{"   ", \(y\^2 + x\^2 - y\ \  - \ 3  x\  = \ 0, \n\ \ 
+      y\^2 - 6  x\ y\  - \ x\^2 + 11  y\  + \ 7  x\  - \ 12\  = \ 0. \)}]}], 
+  "Input",
+  CellFrame->True,
+  FontWeight->"Plain",
+  Background->GrayLevel[0.849989]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{
+        RowBox[{
+          StyleBox[
+            RowBox[{
+              StyleBox["5",
+                FontWeight->"Bold"], "."}]], " ", "Define", " ", "a", " ", 
+          "function", " ", \(f[x]\)}], "=", \(1\/\(1 + x\^2\)\)}], ",", " ", 
+      \(and\ make\ a\ plot\ of\ it . \ \ Define\ the\ factorial\ function\ 
+          fac[n]\  = \ \(n \((n - 1)\) \((n - 2)\) ... \) 2*1. \)}]], "Input",\
+
+  CellFrame->True,
+  FontWeight->"Plain",
+  Background->GrayLevel[0.849989]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[{
+    RowBox[{
+      StyleBox[
+        RowBox[{
+          StyleBox["6",
+            FontWeight->"Bold"], "."}]], " ", "Define", " ", "a", " ", 
+      "function", " ", \(gcd[a, b]\), " ", "for", " ", "the", " ", 
+      "greatest", " ", "common", " ", "divisor"}], 
+  \(of\ two\ intgers\ \((i . e . \ GCD\ in\ Z)\) . \ \ \ Use\ as\ a\ short\ 
+      and\ compact\ code\), \(as\ \(possible . \)\)}], "Input",
+  CellFrame->True,
+  FontWeight->"Plain",
+  Background->GrayLevel[0.849989]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{
+        StyleBox[
+          RowBox[{
+            StyleBox["7",
+              FontWeight->"Bold"], "."}]], " ", "Implement", " ", "the", " ", 
+        "Extended", " ", "Euclidean", " ", "Algorithm"}], ",", " ", 
+      \(Algorithm\ 2.2\ of\ the\ textbook\ on\ page\ 36. \ \ \ The\ function\ 
+          EEA[a, b]\ takes\ two\ elements\ in\ the\ domain\ and\ returns\ a\ 
+          list\ {g, s, t}\ for\ the\ greatest\ common\ divisor\ of\ a\ and\ b
+          \ such\ that\ g\  = \ 
+        s\ a + t\ b . \ \ Use\ as\ short\ and\ concise\ code\ as\ 
+            possible . \ \ \ Your\ program\ would\ work\ for\ arbitrary\ 
+            Euclidean\ domains . \ \ The\ properties\ of\ a\ specific\ domain
+            \ is\ embodied\ in\ the\ separate\ function\ quo[a, b]\ and\ 
+            n[a]\), ",", " ", \(and\ u[a]\), ",", " ", 
+      \(for\ the\ quotient\), ",", " ", \(normal\ part\ of\ a\), ",", " ", 
+      \(and\ unit\ part\ of\ a . \ \ Define\ these\ three\ functions\ for\ 
+        integer\ Z\), ",", " ", 
+      \(and\ polynomial\ over\ the\ rational\ number\ Q[x] . \ \ \ Give\ some
+        \ sample\ test\ results\ over\ these\ two\ Euclidean\ 
+        \(Domains . \)\)}]], "Input",
+  CellFrame->True,
+  FontWeight->"Plain",
+  Background->GrayLevel[0.849989]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    \(The\ end\ of\ \(Lab2 . \)\)], "Input",
+  FontFamily->"Times New Roman",
+  FontSize->16]
+},
+FrontEndVersion->"Microsoft Windows 3.0",
+ScreenRectangle->{{0, 800}, {0, 572}},
+WindowSize->{500, 453},
+WindowMargins->{{127, Automatic}, {Automatic, 14}}
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 111, 3, 33, "Input"],
+Cell[1823, 54, 54, 1, 50, "Input"],
+Cell[1880, 57, 289, 8, 30, "Input"],
+Cell[2172, 67, 253, 7, 26, "Input"],
+Cell[2428, 76, 807, 19, 139, "Input"],
+Cell[3238, 97, 26, 0, 30, "Input"],
+Cell[3267, 99, 982, 23, 202, "Input"],
+Cell[4252, 124, 26, 0, 30, "Input"],
+Cell[4281, 126, 463, 12, 83, "Input"],
+Cell[4747, 140, 26, 0, 30, "Input"],
+Cell[4776, 142, 515, 14, 97, "Input"],
+Cell[5294, 158, 26, 0, 30, "Input"],
+Cell[5323, 160, 494, 12, 83, "Input"],
+Cell[5820, 174, 26, 0, 30, "Input"],
+Cell[5849, 176, 1310, 25, 254, "Input"],
+Cell[7162, 203, 26, 0, 30, "Input"],
+Cell[7191, 205, 107, 3, 33, "Input"]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

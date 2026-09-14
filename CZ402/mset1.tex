@@ -1,0 +1,75 @@
+\magnification=\magstephalf
+\input notesmac.tex
+\nopagenumbers
+
+\centerline{\titlefont CZ3106 Symbolic Computing, Lab 1}
+\bigskip
+\line{Dr.~Wang Jian-Sheng \hfill For the week 13-18 Jan 03, due one week after the lab}
+\bigskip
+%----------------------------------------------------------------------- 
+
+\problem Try to familiarize with the notebook interface.  Read the 
+first few sections of the Mathematica Book.  Use the help system to
+find out the command {\tt N[ ]}.  Type some text (as document) and
+enter a command.  Change the font/color of the text.  Change the 
+stylesheet.  Try cut and paste, etc.  You need not hand-in anything  
+for this problem. 
+
+\problem We want to be familiar ourselves to arithmetics in  
+Mathematica.  We can use it as a pocket calculator.  
+Consider entering the following mathematical expressions
+to the system and watch the reaction of the system:
+$$\halign{\h$#$\hfil&\h$#$\hfil&\h$#$\hfil\cr
+1 + 2, &  2-3\times5 -1/2, & 2/3 - 0.5, \cr
+\sqrt{4}, & i^2, &  2^{10}.\cr}$$
+
+\problem All symbolic systems 
+can handle arbitrarily large integers without overflow. Try the
+following:
+$$\halign{\h$#$\hfil&\h$#$\hfil&\h$#$\hfil\cr
+2^{100}, & 30!, & 123456789*987654321. \cr}$$
+
+\problem Mathematica can do arbitrarily precise floating-point
+computation. 
+{\tt N[ ]} convert an exact number into accurate precision floating-point
+value.  Find the numerical values of the following numbers accurate
+to 30 decimal places (quad precision):
+$$\halign{\h$#$\hfil&\h$#$\hfil&\h$#$\hfil\cr
+\pi, &  e, & \sqrt{2}, \cr
+355/113, & \sin {\pi\over7}, & e^{\pi \sqrt{163}}.  \cr}$$
+In Mathematica, make the assignment {\tt pi = N[Pi,30]}.  What is the
+digits of precision of {\tt 2*pi}, and what is {\tt 2.0*pi}?  Why the
+second expression gives you only six digits?  How to remove the symbol
+{\tt pi} from the system when you have finished using it?
+
+\problem In this exercise we like to see how Mathematica deal with
+symbols.  What happens when the following mathematical expressions are
+typed in into symbolic systems:
+$$\halign{\h$#$\hfil&\h$#$\hfil&\h$#$\hfil\cr
+\pi, &  x+y, & x-x, \cr
+2x\times x+1 & (1+x)^2 & \sin {\pi\over 2}.  \cr}$$
+Note that $\pi$ should be typed in as the constant {\tt Pi}, not a numerical
+approximation.          
+
+\problem Consider the cubic equation
+$$ f(x) = x^3 + 6 x^2 + 9 x + 1 = 0. $$
+\itemitem{(a)}  Make a plot to see how many real roots this equation
+has.  Read from the plot the rough values of the solutions.
+\itemitem{(b)} Solve the equation numerically.
+\itemitem{(c)} Solve the equation symbolically.  The resulting expressions
+are complicated with imaginary number $i$.   But we know the solution 
+has to be real (from the plot).  Simplify the expressions if you can. 
+
+
+\problem Plot
+the curve (using {\tt ParametricPlot[ ]}) 
+given by $r = \theta$ (polar coordinates).  Plot
+two curves given by $r = \theta$ and $r = 1$ on the same plot, using
+two different color. 
+ 
+%% 
+%% Map[ComplexExpand, Solve[x^3+6x^2+9x+1==0, x], {3}]
+%% 
+%%
+
+\bye

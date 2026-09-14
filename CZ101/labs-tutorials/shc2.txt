@@ -1,0 +1,35 @@
+Date: Tue, 16 Sep 1997 14:35:11 +0800 (SGT)
+From: Yung Shing Gene <shing@cz3.nus.sg>
+Subject: Assembly lab #3
+
+This week's lab is quite straightforward.  You can use the example that Dr
+Wang gives in the lab handout and just add in your own Booth procedure.
+
+Run your program with SPIM with the data given in the handout, and capture
+the output with script. (Don't print out pages and pages of each step of
+the program. Just run it and get the output.) 
+
+Don't forget to put appropriate comments in your code i.e.
+(1) description of what the program does in the header, 
+(2) Description of what the procedure does (put this where the procedure
+    starts), 
+(3) comments in the code that help to clarify what a particular section of
+    code is doing (don't comment  things which are readily understood by
+    looking at the code i.e. doing: "add $2,$3,$4 #add $3 and $4" is
+    unnecessary.)
+
+If you need help in understanding procedures, please come talk to Dr Wang
+or myself.
+
+regards,
+--shing
+
+Further remark by Dr. J-S Wang:
+
+(4) You are supposed to report the value in 16 hexadecimal digits.  
+Unfortunately, the output from running the program is in a pair of
+decimal values.  So, it is still necessary to use spim (with
+print command) or xspim (by inspecting the memory locations) to
+obtain the hexadecimal values.
+
+

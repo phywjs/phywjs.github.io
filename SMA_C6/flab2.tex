@@ -1,0 +1,51 @@
+\magnification=\magstep1
+\input notesmac.tex
+\nopagenumbers
+\centerline{\titlefont Tech and Tools, Lab 7}
+\bigskip
+\line{Dr.~WANG Jian-Sheng \hfill 19/21 October 1999}
+\bigskip
+
+{\sl The following problems are to be programmed in Fortran 90.}
+
+\bigskip
+%--------------------------------------------------------------------
+\problem {\sc Stack}
+\item{} (1) Define a data structure called stack using linked list.
+Each item on the stack will be an integer.  The items are added (pushed) 
+only at the top, and the last item added is removed (popped) first.
+\item{} (2) Define a subroutine {\tt PUSH} that puts an integer on the stack,
+and a subroutine {\tt POP} that removes an integer from the stack
+(indicating error if stack is empty).
+\item{} (3) Define subroutines {\tt ADD}, {\tt SUB}, {\tt MUL}, and {\tt DIV}
+which take the top two integers from the stack (and also remove them
+from the stack), then add, subtract, multiply, and divide,
+respectively, the two numbers.  The subroutines also push the result on 
+top of the stack.  The PostScript language handles calculations 
+this way.
+\item{} (4) Write a main program to test your subroutines.  In the main program,
+first ask the user to enter arbitrary number of integers. Then arbitrary
+sequence of operations ({\tt +, -, *, /}) is operated on the stack,
+and the resulting stack is printed.
+
+%--------------------------------------------------------------------
+\bigskip
+\problem {\sc Module}
+\item{} Write a module {\tt VECTOR} for vector algebra which contains the
+following:
+{\parindent = 12pt
+\item{} 1) Type definition of three dimensional vector $\bf a$.
+\item{} 2) Define a function and overload operator {\tt +} for vector addition, $\bf a + b$.
+\item{} 3) Define a function and overload operator {\tt *} for scalar multiplying a vector, $ c\; \bf a$.
+\item{} 4) Define a function and overload operator {\tt *} for dot product of two vectors, $\bf a \cdot b$.
+\item{} 5) Define a function and define operator {\tt .CROSS.} for cross (vector) product
+of two vectors, $\bf a \times b$.
+\item{} 6) Define and overload assignment {\tt =} for converting an array (of three
+elements) to vector.
+\item{} 7) Define and overload assignment {\tt =} for assigning all components of a
+vector with the same real number, so that $\bf a = 0$ make sense. 
+\item{} 8) Write a test program to check out your {\tt VECTOR} module.
+}
+
+\bye
+

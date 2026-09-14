@@ -1,0 +1,1243 @@
+C***********************************************************************
+C
+C                  SOURCE CODE FOR IBM 3083 VS FORTRAN
+C                  revised 26 Apr 2004 for Digital Unix and Intel Fortran
+C
+C***********************************************************************
+C                
+C
+C                TWO DIMENSIONAL ISING MODEL / SPIN GLASS 
+C                        MONTE CARLO SIMULATION
+C
+C                           JIAN-SHENG WANG
+C              DEPT. OF PHYSICS, CARNEGIE-MELLON UNIVERSITY
+C                            JAN. 14, 1986 
+C
+C
+C***********************************************************************
+C***********************************************************************
+C
+C
+C         THE MODEL IS GIVEN BY
+C
+C               H = - SUM  J  M M  
+C                         <IJ> I J       
+C         NEAREST NEIGHBOR INTERACTION ON SQUARE LATTICE.  FOR +/- SPIN 
+C     GLASS MODEL, J'S ARE RANDOM QUENCHED VARIABLES TAKING + AND - WITH 
+C     PROBABILITY P AND 1-P.
+C 
+C         MULTI-SPIN CODING IS USED. THAT IS WE USE 32-BIT INTEGER ARRAY
+C     M(I,J) TO STORE SPIN CONFIGURATION OF 8 REPLICAS, EACH OF WHICH 
+C     OCCUPIES 4 BITS.  REPLICA IS NAMED 1 TO 8 FROM LOW BITS
+C     ( LEAST SIGNIFICANT BITS ) TO HIGH BITS ( MOST SIGNIFICANT BITS).
+C     EACH REPLICA CAN BE AT DIFFERENT TEMPERATURES.
+C
+C         TWO KINDS OF MONTE CARLO ARE USED, ONE IS THE STANDARD HEAT
+C     BATH SINGLE SPIN FLIP, ANOTHER IS REPLICA MONTE CARLO, WHICH MAKE  
+C     CONTACT BETWEEN SYSTEMS AT DIFFERENT TEMPERATURES. SEE SUBROUTINE
+C     FOR DETAIL.
+C      
+C         SUBPROGRAM USED:
+C     
+C     INPUT        -  READ INPUT DATA ;
+C     ZEROS        -  INITIALIZE COMMON BLOCK .
+C     SETUP        -  SET UP INITIAL VALUE ;
+C     STANDARD     -  SINGLE SPIN FLIP HEAT BATH MONTE CARLO ;
+C     TEMPLATE     -  CLUSTER FLIP HEAT BATH REPLICA MONTE CARLO ;
+C     ENERGY       -  CALCULATE ENERGY ;
+C     MAGNET       -  CALCULATE ORDER PARAMETERS ;
+C     CORREL       -  CALCULATE TIME CORRELATIONS ;
+C     NORMAL       -  NORMALIZE THE OUTPUT DATA BY MC STEPS AND SIZE ;
+C     OUTPUT       -  WRITE OUTPUT RESULTS ;
+C     RANF         -  LINEAR CONGRUTIAL REAL RANDOM NUMBER GENERATOR ;
+C     R250         -  EXCLUSIVE OR INTEGER RANDOM NUMBER GENERATOR, not used.
+C
+C
+C***********************************************************************
+C
+C                           MAIN PROGRAM
+C
+C***********************************************************************   
+
+      PROGRAM GLASS
+
+      PARAMETER(LM=128,IOCTA=8)
+
+      INTEGER M1(LM,LM),  M2(LM,LM)
+      REAL  EIN1(IOCTA),EIN2(IOCTA)
+      REAL   OP1(IOCTA), OP2(IOCTA)
+      REAL   OPN(IOCTA)
+C     CHARACTER*23 DATE
+
+      COMMON /SIMULA /MTOSS,MCSTEP,ISTEP,INTERV,LLSTAN,LLTEMP
+C     COMMON /TIMING /DATE,ELAPSE
+
+      CALL INPUT
+      CALL SETUP(M1,M2)
+
+      DO 5 MC=1,MTOSS
+      CALL STANDARD(M1)
+      CALL STANDARD(M2)
+      CALL TEMPLATE(M1,M2,ISTEP)
+      CALL TEMPLATE(M2,M1,ISTEP)
+5     CONTINUE
+
+C     CALL DATETM(DATE,CPU1,CPU2,CPU3)
+      DO 1 MC=1,MCSTEP
+
+      DO 15 INDATA=1,INTERV
+      IF(LLTEMP.EQ.1) THEN
+      CALL TEMPLATE(M1,M2,ISTEP)
+      CALL TEMPLATE(M2,M1,ISTEP)
+      ENDIF
+
+      IF(LLSTAN.EQ.1) THEN
+      CALL STANDARD(M1)
+      CALL STANDARD(M2)
+      ENDIF
+15    CONTINUE
+
+      CALL ENERGY(M1,EIN1)
+      CALL ENERGY(M2,EIN2)
+      CALL MAGNET(M1,M2,OP1,OP2,OPN)
+      CALL CORREL(OPN,EIN1,EIN2,OP1,OP2)
+
+1     CONTINUE
+C     CALL DATETM(DATE,CP1,CP2,CP3)
+C     ELAPSE=CP1-CPU1
+
+      CALL NORMAL
+      CALL OUTPUT
+
+      END
+
+
+
+C***********************************************************************
+C
+C    INITIALIZE FOURTH,P,O,F,BUFF,IPOINT,ICONVT,ICONSP BY BLOCK DATA
+C
+C***********************************************************************
+
+      BLOCK DATA  ZEROS
+
+      PARAMETER(LM=128,IOCTA=8)
+      PARAMETER( ITIME=16 )
+      PARAMETER(  NUMF=8  )
+      PARAMETER(IOCTLM=IOCTA*(1+64))
+      PARAMETER(IOCTNU=IOCTA*NUMF)
+      PARAMETER(IOCTIT=IOCTNU*ITIME)
+
+      REAL*8     P(IOCTA,0:64)
+      REAL*8     O(IOCTA,NUMF)
+      REAL*8     F(IOCTA,ITIME,NUMF)
+      REAL*8  BUFF(IOCTA,ITIME,NUMF)
+
+      INTEGER ICONVT(-1:1)
+      INTEGER ICONSP( 0:1)
+
+      COMMON /CONVER /ICONVT,ICONSP
+      COMMON /CORR   /F,BUFF,O
+      COMMON /DENSITY/P
+      COMMON /POINTER/IPOINT
+
+      DATA   BUFF/IOCTIT*0.0/
+      DATA      F/IOCTIT*0.0/
+      DATA      O/IOCTNU*0.0/
+      DATA      P/IOCTLM*0.0/
+      DATA ICONVT/1,0,0/
+      DATA ICONSP/+1,-1/
+      DATA IPOINT/1/
+
+      END
+
+
+
+C***********************************************************************
+C
+C                         SUBROUTINE INPUT
+C
+C***********************************************************************
+
+      SUBROUTINE INPUT
+
+      PARAMETER(LM=128,IOCTA=8)
+      PARAMETER(IUNITR=5)
+
+      COMMON /WHICH / MODEL,ISEED0,BONDPR,INITEMP
+      COMMON /SIZE  / L,LMINUS,LCUBE
+      COMMON /TEMPER/ T(IOCTA),BETA(IOCTA)
+      COMMON /SIMULA/ MTOSS,MCSTEP,ISTEP,INTERV,LLSTAN,LLTEMP
+      COMMON//ISEED
+
+C     MODEL ?  0 FOR ISING, 1 FOR SPIN GLASS
+      READ (IUNITR,*) MODEL
+C     LATTICE SIZE ?  AN INTEGER BETWEEN 2 TO LM
+      READ (IUNITR,*) L
+C     SEED FOR RANDOM NUMBER GENERATOR ?  1 TO 2147483647.
+      READ (IUNITR,*) ISEED
+      ISEED0 = ISEED
+C     INITIAL SPIN 0 FOR ALL UP ,OTHER FOR RAMDOM
+      READ (IUNITR,*) INITEMP
+C     TEMPERATURES ?  ENTER 8  REAL VALUES.
+      READ(IUNITR,*) ( T(IREP),IREP=1,IOCTA)
+C     MONTE CARLO STEPS FOR TOSSING ?
+      READ (IUNITR,*) MTOSS
+C     ENTER MONTE CARLO STEPS
+      READ (IUNITR,*) MCSTEP
+C     ENTER ISTEP USED IN CLUSTER SIMULATION PER MCS
+      READ (IUNITR,*)ISTEP
+C     ENTER MC INTERVAL FOR DATA TAKEN.
+      READ (IUNITR,*)INTERV
+C     ENTER 1/0 ON/OFF: STANDARD, TEMPLATE CALLS.
+      READ (IUNITR,*)LLSTAN,LLTEMP
+
+      END
+
+
+
+C***********************************************************************
+C
+C                    SUBROUTINE SETUP(M1,M2)
+C
+C     TAKE CARE ALL THE INITIALIZATION AND SETUP COUPLING ET AL.
+C
+C***********************************************************************
+
+      SUBROUTINE SETUP(M1,M2)
+
+      PARAMETER(LM=128,IOCTA=8)
+
+      INTEGER  M1 (LM,LM)
+      INTEGER  M2 (LM,LM)
+      INTEGER  KPX(LM,LM)
+      INTEGER  KPY(LM,LM)
+ 
+      COMMON /COUPLE/ KPX,KPY
+      COMMON /SIZE  / L,LMINUS,LCUBE
+      COMMON /PROBAB/ PROB(IOCTA,0:4)
+      COMMON /TEMPER/ T(IOCTA),BETA(IOCTA)
+      COMMON /DIFFER/ DELTK(IOCTA)
+      COMMON /HEXADE/ MASK(IOCTA),JBITS(IOCTA)
+      COMMON /WHICH / MODEL,ISEED0,BONDPR,INITEMP 
+      COMMON//ISEED
+
+
+      LCUBE =L*L
+      LMINUS=L-1
+
+      MASK (1)=7
+      JBITS(1)=1
+      I1HEX   =1
+      DO 5 IREP=2,IOCTA
+      MASK (IREP)=ISHFT(MASK (IREP-1),4)
+      JBITS(IREP)=ISHFT(JBITS(IREP-1),4)
+5     I1HEX=I1HEX+JBITS(IREP)
+      
+C     COUPLING CONSTANT SETUP.
+      IF(MODEL.EQ.0) MODEL1=0
+      IF(MODEL.GE.1) MODEL1=I1HEX
+      BONDPR=0.0
+      PROBJ =0.5
+      DO 10 J=1,L
+      DO 10 I=1,L
+      IF(RANF().LT.PROBJ) THEN
+      KPX(I,J)=0
+      ELSE
+      KPX(I,J)=MODEL1
+      ENDIF
+      IF(KPX(I,J).EQ.0) BONDPR=BONDPR+1.0
+      IF(RANF().LT.PROBJ) THEN
+      KPY(I,J)=0
+      ELSE
+      KPY(I,J)=MODEL1
+      ENDIF
+      IF(KPY(I,J).EQ.0) BONDPR=BONDPR+1.0
+10    CONTINUE
+
+      BONDPR=0.5*BONDPR/LCUBE
+
+
+C     SET SPIN IN THE ZERO/INFINITE TEMPERATURE.
+      ISEED=ISEED+INITEMP
+      DO 20 J=1,L
+      DO 20 I=1,L
+      M1(I,J)=0
+      M2(I,J)=0
+      IF(INITEMP.EQ.0) GOTO 20
+      DO 21 IREP=1,IOCTA
+      IF(RANF().LT.0.5) M1(I,J)=M1(I,J)+JBITS(IREP)
+      IF(RANF().LT.0.5) M2(I,J)=M2(I,J)+JBITS(IREP)
+21    CONTINUE
+20    CONTINUE
+
+
+C     SETUP COUPLING CONSTANT  MAGNITUDE ( K=1/T) AND FLIP PROBABILITY
+
+      DO 30 IREP=1,IOCTA
+      BETA(IREP)=1.0/T(IREP)
+      DO 40 J=0,4
+      EXPDEL=EXP( (4.0-2.0*J)*BETA(IREP) )
+40    PROB(IREP,J)=1.0/(1.0+EXPDEL*EXPDEL)
+30    CONTINUE
+
+      DO 60 IREP=2,IOCTA
+60    DELTK(IREP)=BETA(IREP)-BETA(IREP-1)
+
+      END
+
+
+
+C**********************************************************************C
+C                                                                      C
+C                      SUBROUTINE STANDARD(M)                          C
+C          MONTE CARLO SIMULATION OF 2 DIMENSIONAL +/-SPIN GLASS,      C
+C       OR ISING MODEL.                                                C
+C          STANDARD SIMULATION BY SINGLE SPIN FLIP SEQUENTIALLY        C
+C       ON THE LATTICE, HEAT BATH MONTE CARLO.  SIMULTANEOUSLY         C
+C       SIMULATE 8=32/4 REPLICAS BY MULTISPIN CODING.                  C
+C                                           JAN. 5, 1986               C
+C                                                                      C
+C**********************************************************************C
+
+
+      SUBROUTINE STANDARD(M)
+
+      PARAMETER(LM=128,IOCTA=8)
+      INTEGER   M(LM,LM)
+      INTEGER KPX(LM,LM)
+      INTEGER KPY(LM,LM)
+      REAL PROB(IOCTA,0:4)
+C     INTEGER IRAN(LM*LM*IOCTA)
+
+      COMMON/COUPLE/KPX,KPY
+      COMMON/SIZE/L,LMINUS,LCUBE
+      COMMON/PROBAB/PROB
+      COMMON/HEXADE/MASK(IOCTA),JBITS(IOCTA)
+
+      JM=LMINUS
+      J =L
+      DO 20 JP=1,L
+      IM=LMINUS
+      I =L
+      DO 10 IP=1,L
+
+C     WITH THE IDENTIFICATION OF BIT 1 AS S=-1, BIT 0 AS S=+1, LOGICAL XOR
+C     IS HOMOMORPHIC TO SPIN MULTIPLICATION.
+C     AFTER PERFORM THE SUM, INDEX VARIES FROM 0 TO 4 AT EACH HEXADECIMAL
+C     DIGITS. THESE DIGITS ARE PICKED OUT BY MASK AND SHIFT BIT OPERATION.
+C     THEN USE THE PROPER PROBABILITY TO COMPARE WITH RANDOM NUMBER.
+C     SINGLE SPIN CHANGE DEPENDS ONLY ON THE CURRENT VALUE OF A LOCAL
+C     FIELD ACTING ON M(I,J), AND NOT ON M(I,J) ITSELF.
+C           PROB(M=-1)=EXP(-F)/(EXP(F)+EXP(-F))
+C           F(X)=SUM J(X,Y)*M(Y)/T
+
+      INDEX=IEOR(  M(IP,J ), KPX(I ,J  )  )+
+     *      IEOR(  M(I ,JP), KPY(I ,J  )  )+
+     *      IEOR(  M(IM,J ), KPX(IM,J  )  )+
+     *      IEOR(  M(I ,JM), KPY(I ,JM )  )
+ 
+      IFLIP = 0
+      ISHBIT= 0
+      DO 30 IREP=1,IOCTA
+      IDIGIT = IAND( INDEX , MASK(IREP) )
+      IDIGIT = ISHFT(IDIGIT, ISHBIT )
+      IF(RANF().LT.PROB(IREP,IDIGIT)) IFLIP=IFLIP+JBITS(IREP)
+30    ISHBIT=ISHBIT-4
+
+      M(I,J) = IFLIP
+
+      IM=I
+10    I =IP
+      JM=J
+20    J =JP
+
+
+      END
+
+
+
+C***********************************************************************
+C
+C                      RAMDOM NUMBER GENERATOR                            
+C      THIS SUBROUTINE  PRODUCES INTEGER*4 RANDOM NUMBERS.  
+C      WHEN CALLED, IT GENERATES ARRAY A[K] OF N RANDOM NUMBERS .    
+C      TAUSWORTHE XOR ALGORITHM IS USED :                                 
+C                   A[K]:=A[K-P+Q] XOR A[K-P]                            
+C                   WITH CIRCULAR CONDITION : A[K+N]:=A[K] .                
+C
+C      BEFORE CALLING A[K] HAS TO BE INITIALIZED .                        
+C      IN THIS IMPLIMENTATION  P=250, Q=103 .                    
+C
+C***********************************************************************
+ 
+      SUBROUTINE R250(MA,N)
+
+      PARAMETER(LM=128,IOCTA=8)   
+      INTEGER P,Q,N,PMQ,NMP,NMPMQ,P1,PMQ1
+      PARAMETER(P=250,Q=103)
+      PARAMETER(PMQ=P-Q)     
+      PARAMETER(P1=P+1,PMQ1=PMQ+1)
+
+      INTEGER   MA(LM*LM*IOCTA)
+
+      NMP=N-P
+      NMPMQ=N-PMQ
+      DO 30 K=P1,N
+30    MA(K)=IEOR( MA(K-PMQ  ) , MA(K-P  ) )
+      DO 10 K=1,PMQ
+10    MA(K)=IEOR( MA(K+NMPMQ) , MA(K+NMP) )
+      DO 20 K=PMQ1,P
+20    MA(K)=IEOR( MA(K-PMQ  ) , MA(K+NMP) )
+
+      END
+
+
+
+C***********************************************************************
+C
+C                        SUBROUTINE TEMPLATE
+C
+C     THIS SUBROUTINE DO MONTE CARLO SIMULATION IN THE FOLLOWING WAY,
+C     MODEL HAMILTONIAN IS H=SUM KPL [ K1 M(1) M(1) + K2 M(2) M(2) ]
+C                            <IJ>   IJ     I    J         I    J
+C     SUM IS OVER 2D SQUARE LATTICE NEAREST NEIGHBORS, KPL IS COUPlING 
+C     CONSTANT, TAKE +1 OR -1 , K1,K2 INVERSE TEMPARATURES, M(1), M(2) TWO
+C     SETS OF INDEPENDENT VARIABLES.SUM OF EXP(H) GIVES PARTITION FUNCTION.
+C
+C     REWRITE H IN THE FORM 
+C                         H=SUM KPL M(1) M(1) [ K1 + K2 ITAU ITAU ]
+C                           <IJ>  IJ I    J                 I    J
+C        ITAU =M(1) M(2)
+C            I  I    I
+C     WE KEEP ITAU CONSTANT DURING ONE SIMULATION (ONE MONTE CARLO STEP)
+C     ITAU FORMS CLUSTER ACCORDING TO ITAU=+1,OR -1. FLIP IS DONE ON THE 
+C     CLUSTER, NOT SINGLE SPIN M(1).
+C
+C     ASSIGN EACH CLUSTER A NEW VARIABLE NU(I), EFFECTIVE H WILL HAVE THE 
+C     FORM
+C                        H=SUM EFF  NU(I) NU(J)
+C                                 IJ
+C      EFF= SUM LPL M(1) M(1) [ K1 +K2 ITAU ITAU ]
+C        IJ       KL K    L                K    L
+C     HERE THE SUM IS OVER THE CLUSTER I AND J SUCH THAT SPIN SITE K,L IS 
+C     CONNECTING CLUSTER I AND J.
+C
+C-----------------------------------------------------------------------
+C
+C     TO CALCULATE AND STORE EFF(I,J), FOLLOWING ARRAYS ARE NEEDED :
+C       DIMENSION L*L
+C          NC(I,J) -  NAME OF CLUSTER AT SITE I,J;
+C      IADDRESS(I) -  SEGMENT ADDRESS OF EFF FOR ITH CLUSTER;
+C            NU(I) -  NEW VARIALBE FOR THE CLUSTER;
+C       DIMENSION L*L*5
+C            NN(I) -  NAME OF THE NEIGHBOR OF I TH CLUSTER;
+C          KEFF(I) -  INTERACTION ENERGY BETWEEN I,J CLUSTER.
+C
+C          FOR A CLUSTER OF SIZE NI,IT HAS AT MOST 2*D*NI BONDS. BUT  
+C    IT IS AT LEAST CONNECTED AS TREES, WHICH HAS NI-1 BONDS.  THESE
+C    BONDS ARE INNER BONDS AND ARE COUNTED TWICE IN 2*D*NI. SO FOR A
+C    GIVEN CLUSTER OF SIZE NI, THE NUMBER OF NEIGHBORS IT CAN HAVE IS 
+C    LESS THAN OR EQUAL TO 2D*NI-2*(NI-1). ON THE OTHER HAND, IT'S 
+C    NEIGHBORS CAN NOT GREAT THAN MAX, THE TOTAL NUMBER OF CLUTER.
+C    MEMORY SPACE IS ALLOCATED FOR I TH CLUSTER TO MIN(2*NI +2, MAX)
+C    TO STORE  EFF  AND NEIGHBOR NAMES.
+C    TOTAL SPACE NEEDED IS 4LCUBE BUT LEAVE 1 SPACE EMPTY TO INDICATE 
+C    BOUNDRY FOR DIFFERENT CLUSTER SO TAKE ISTORE=5*LMCUBE.
+C
+C***********************************************************************
+
+
+      SUBROUTINE TEMPLATE(M1,M2,ISTEP)
+
+      PARAMETER(LM=128, IOCTA=8 )
+      PARAMETER(LMCUBE=LM*LM)
+      PARAMETER(ISTORE=5*LMCUBE)
+
+      INTEGER IADDRESS(LMCUBE)
+      INTEGER       NU(LMCUBE)
+      INTEGER     KEFF(ISTORE)
+      INTEGER       NN(ISTORE)
+
+      INTEGER    M1(LM,LM)
+      INTEGER    M2(LM,LM)
+      INTEGER  ITAU(LM,LM)
+      INTEGER    NC(LM,LM)
+
+      INTEGER ICONVT(-1:1)
+      INTEGER ICONSP( 0:1)
+
+      REAL MAXIN(IOCTA),RATEIN(IOCTA)
+
+      COMMON/COUPLE/KPX(LM,LM),KPY(LM,LM)
+      COMMON/DIFFER/DELTK(IOCTA)
+      COMMON/HEXADE/MASK(IOCTA),JBITS(IOCTA)
+      COMMON/SIZE/L,LMINUS,LCUBE
+      COMMON/CONVER/ICONVT,ICONSP
+      COMMON/EFFICA/MAXIN,RATEIN
+
+
+C     CALCULATE MULTAU = M1 * M2. ( IN MULTISPIN CODE );
+C     M2 SHIFTED 4 BITS SO M1,M2 IN DIFFERENT TEMPERATURES.
+C     .XOR. IS EQUIVALENT TO * IN BITS REPRESENTATION.
+C--------------------------------------------------------------------
+C     BIG LOOP FOR DIFFERENT REPLICAS 2 TO IOCTA;
+C     START FROM 2 BECAUSE FIRST 4 BITS ARE SHIFTED OFF.
+C--------------------------------------------------------------------
+
+      ITHB=0
+
+      DO 1000 IREP=2,IOCTA
+
+      ITHB=ITHB+4
+
+      DO 10 J=1,L
+      DO 10 I=1,L
+      MULTAU = IEOR( M1(I,J) , ISHFT( M2(I,J),4) )
+      MASKTAU= IAND( MULTAU  , MASK(IREP) )
+10    ITAU(I,J)=ISHFT(MASKTAU,-ITHB)
+
+C     CALL SUBROUTINE CLUSTER TO GET THE CORRESPONDING ITAU
+C     CLUSTERS NC, WHICH ARE NUMBERED FROM 1 TO MAX.
+
+      CALL CLUSTER(ITAU,NC,MAX)
+      MAXIN (IREP)=MAX
+      RATEIN(IREP)=0.0
+
+C     SPACE ALLOCATION, EACH CLUSTER I GIVE SUFFICIENT SPACE TO STORE
+C     KEFF AND NEIGHBORS NAME.
+
+      IF(MAX.LT.LM) THEN
+
+          IOFFSET=1
+          DO 30 I=1,MAX
+          IADDRESS(I)=IOFFSET
+30        IOFFSET=IOFFSET+MAX
+
+      ELSE
+
+          DO 40 I=1,MAX
+40        NU(I)=0
+          DO 50 J=1,L
+          DO 50 I=1,L
+          NC0=NC(I,J)
+50        NU(NC0)=NU(NC0)+1
+
+          IOFFSET=1
+          DO 60 I=1,MAX
+          IADDRESS(I)=IOFFSET
+          IF(MAX.LT.NU(I)) THEN
+              IOFFSET=IOFFSET+MAX
+          ELSE
+              IOFFSET=IOFFSET+NU(I)+NU(I)+3
+          ENDIF
+60        CONTINUE
+
+      ENDIF
+
+      IOFFSET=IOFFSET-1
+      DO 65 I=1,IOFFSET
+65    NN(I)=0
+
+C     INITIALIZE NEW VARIABLE NU
+      DO 110 I=1,MAX
+110   NU(I)=1
+
+C           CALCULATE EFFECTIVE COUPLING CONSTANT BY SUM KPL * M1 M1 (K1+
+C      K2 ITAU ITAU ). SINCE ONLY ITAU ITAU =-1 IS ON THE CLUSTER 
+C      BOUNDRY, WE MULTIPLY K1-K2=DELTK AT THE VERY LAST.
+C           ADDRESS THE EFFECTIVE COUPLING CONSTANT . IN THE SEGMENT 
+C      SPECIFIED BY IDS, LOOK AT THE VALUE OF NEIGHBOR
+C      NN, IF IT IS 0 MEAN NOT ONE HAS OCCOPIES THAT LOCATION, THEN PUT 
+C      IE IN , BUT IF IT IS OCCOPIES BY SOME GUY, THEN SEE WITH THEY ARE 
+C      THE SAME GUY (CLUTSER) IF YES ADD IT TO KEFF ELSE GOTO NEXT POSITION.
+C      CONSIDER THIS TWICE, NCP AS NEIGHBOR OF NC0 AND VICE VERSA.
+
+      J=L
+      DO 80 JP=1,L
+      I=L
+      DO 70 IP=1,L
+
+      NC0 = NC(I,J)
+      M10 = M1(I,J)
+      
+      NCP=NC(IP,J)
+      IF(NC0.NE.NCP) THEN
+
+      MM   = IEOR( M10 , M1(IP,J) )
+      KESES= IEOR( MM  , KPX(I,J) )
+      KESES= IAND( KESES , MASK(IREP) )
+      KESES= ISHFT(KESES,-ITHB)
+      IE   = ICONSP(KESES)
+
+      IDS=IADDRESS(NC0)
+100   NNIDS=NN(IDS)
+      IF ( NNIDS.EQ.0 ) THEN
+          KEFF(IDS)=IE
+          NN  (IDS)=NCP
+      ELSE IF (NNIDS.EQ.NCP) THEN
+          KEFF(IDS)=KEFF(IDS)+IE
+      ELSE
+          IDS=IDS+1
+          GOTO 100
+      ENDIF
+
+      IDS=IADDRESS(NCP)
+101   NNIDS=NN(IDS)
+      IF ( NNIDS.EQ.0 )  THEN
+          KEFF(IDS)=IE
+          NN  (IDS)=NC0
+      ELSE IF (NNIDS.EQ.NC0) THEN
+          KEFF(IDS)=KEFF(IDS)+IE
+      ELSE
+          IDS=IDS+1
+          GOTO 101
+      ENDIF
+
+      ENDIF
+
+
+      NCP=NC(I,JP)
+      IF(NC0.NE.NCP) THEN
+      MM   = IEOR( M10 , M1(I,JP) )
+      KESES= IEOR( MM  , KPY(I,J) )
+      KESES= IAND(KESES , MASK(IREP) )
+      KESES= ISHFT(KESES,-ITHB)
+      IE   = ICONSP(KESES)
+
+      IDS=IADDRESS(NC0)
+102   NNIDS=NN(IDS)
+      IF ( NNIDS.EQ.0 ) THEN
+          KEFF(IDS)=IE
+          NN  (IDS)=NCP
+      ELSE IF (NNIDS.EQ.NCP) THEN
+          KEFF(IDS)=KEFF(IDS)+IE
+      ELSE
+          IDS=IDS+1
+          GOTO 102
+      ENDIF
+
+      IDS=IADDRESS(NCP)
+103   NNIDS=NN(IDS)
+      IF ( NNIDS.EQ.0 )  THEN
+          KEFF(IDS)=IE
+          NN  (IDS)=NC0
+      ELSE IF (NNIDS.EQ.NC0) THEN
+          KEFF(IDS)=KEFF(IDS)+IE
+      ELSE
+          IDS=IDS+1
+          GOTO 103
+      ENDIF
+
+      ENDIF
+
+
+70    I=IP
+80    J=JP
+
+
+C     NU SPIN FLIP
+  
+      DO 1 MC=1,ISTEP
+      DO 120 I=1,MAX
+
+      IDS=IADDRESS(I)
+      NNIDS=NN(IDS)
+
+      ISUME=0
+130   IF(NNIDS.NE.0) THEN
+      ISUME=ISUME+KEFF(IDS)*NU(NNIDS)
+      IDS=IDS+1
+      NNIDS=NN(IDS)
+      GOTO 130
+      ENDIF
+
+      SUME=ISUME*DELTK(IREP)
+      SUME=SUME*NU(I)
+
+C     EVENTUALLY THE LOOP WILL QUIT BECAUSE WE DELIBRATELY LEAVE SPACE IN
+C     STORING NEIGHBOR INFORMATION FOR DIFFERENT CLUSTER.
+C
+C     CALCULATE FLIP PROBALITY BY HEAT BATH.
+C     DELT h=- 2 SUM EFF(I,J) NU(I) NU(J)
+C                 J
+C     PRO=EXP( DELT H) / (1 + EXP( DELT H) )
+
+      IF(SUME.GT.20.0) GOTO 120
+      PRO=1.0/(1.0+EXP(SUME+SUME))
+
+      IF(RANF().LE.PRO) THEN
+      NU(I)=-NU(I)
+      RATEIN(IREP)=RATEIN(IREP)+1.0
+      ENDIF
+
+120   CONTINUE
+1     CONTINUE
+
+
+C     CONVERT NU FROM +1,-1 TO 0 1
+      DO 140 I=1,MAX
+140   NU(I)=ICONVT(NU(I))
+
+C     GET NEW SPIN CONFIGURATION.
+      DO 150 J=1,L
+      DO 150 I=1,L
+      NUFLIP=NU( NC(I,J) )
+      M1(I,J)=IEOR( M1(I,J) , ISHFT(NUFLIP,ITHB  ) )
+150   M2(I,J)=IEOR( M2(I,J) , ISHFT(NUFLIP,ITHB-4) )
+
+
+1000  CONTINUE
+C--------------------------------------------------------------------
+C     BIG LOOP FOR REPLICA END.
+C--------------------------------------------------------------------
+
+      END
+
+
+ 
+C***********************************************************************
+C
+C                          SUBROUTINE CLUSTER 
+C
+C     THIS SUBROUTINE USES ITAU(LM,LM) SPIN TO PRODUCE CLUSTERS
+C     NC.  IF ITAU(I,J)=ITAU(I+1,J), LATTICE POINT (I,J) AND
+C     (I+1,J) ARE CONNECTED ELSE DISCONNECTED.  CLUSTER NAME IS
+C     RETURNED IN NC(I,J), NUMBERED SEQUENTIALLY FROM 1 TO MAX.
+C
+C
+C***********************************************************************
+
+      SUBROUTINE CLUSTER(ITAU,NC,MAX)
+
+      PARAMETER(LM=128)
+
+      INTEGER  ITAU(LM,LM)
+      INTEGER    NC(LM,LM)
+      INTEGER NLIST(LM*LM)
+      INTEGER  LIST(LM*LM)
+  
+      COMMON/SIZE  /L,LMINUS,LCUBE
+
+C     SET NC(I,J) TO 1 TO L*L, NC(1,1)=1, NC(2,1)=2, ... THAT IS NC IS 
+C     GIVEN SEQUENTIAL NATURE NUMBER ACCORDING THEIR  MEMORY LOCATION.
+C     DIFFERENT NC MEANS DIFFERENT CLUSTER. TO BEGIN WITH, SET ALL SPINS
+C     IN DIFFERENT CLUSTERS.
+C     LIST(I) IS ALSO SET TO ITS NATURE ORDER.
+
+      INC=1
+      DO 10 J=1,L
+      DO 10 I=1,L
+      NC(I,J)=INC
+      LIST(INC)=INC
+      INC=INC+1
+10    CONTINUE
+
+C     LOOK AT EACH NEIGHBOUR PAIRS I,J. IF THEY ARE THE SAME , IDENTIFY AS IN 
+C     THE SAME CLUTSER. THIS IS DONE BY ASSIGN LIST(I) AND LIST(J) TO SAME 
+C     VALUE, ALWAYS USE THE VALUE THAT IS THE SMALLEST. 
+C     PERIODIC BOUNDRY CONDITION IS USED.
+ 
+      J=L
+      DO 30 JP=1,L
+      I=L
+      DO 40 IP=1,L
+      ITAU0=ITAU(I,J)
+      IF( ITAU0 .EQ. ITAU(IP,J ) )  THEN
+      MA=NC(I ,J)
+      MB=NC(IP,J)
+510   MAN=LIST(MA)
+      IF(MAN.LT.MA) THEN
+      MA=MAN
+      GOTO 510
+      ENDIF
+
+520   MBN=LIST(MB)
+      IF(MBN.LT.MB) THEN
+      MB=MBN
+      GOTO 520
+      ENDIF
+
+      IF(MA.LT.MB) THEN
+      LIST(MB)=MA
+      MB=MA
+      ELSE
+      LIST(MA)=MB
+      MA=MB
+      ENDIF
+      NC(I ,J)=MA
+      NC(IP,J)=MB
+      ENDIF
+
+      IF( ITAU0 .EQ. ITAU(I ,JP ) )  THEN
+      MA=NC(I,J )
+      MB=NC(I,JP)
+511   MAN=LIST(MA)
+      IF(MAN.LT.MA) THEN
+      MA=MAN
+      GOTO 511
+      ENDIF
+
+521   MBN=LIST(MB)
+      IF(MBN.LT.MB) THEN
+      MB=MBN
+      GOTO 521
+      ENDIF
+
+      IF(MA.LT.MB) THEN
+      LIST(MB)=MA
+      MB=MA
+      ELSE
+      LIST(MA)=MB
+      MA=MB
+      ENDIF
+      NC(I,J )=MA
+      NC(I,JP)=MB
+      ENDIF
+
+40    I=IP
+30    J=JP
+
+C     MAKE SURE LIST(I) HAVE THE FINAL VALUE.
+C     IN THE CASE, FOR EXAMPLE CLUSTER 1 IS IDENTIFIED WITH 3 BUT AT THE 
+C     SAME THE TIME 3 WITH 8 lIST(1)=1,lIST(3)=1, lIST(8)=3 WE HAVE TO MAKE
+C     LIST(8)=1 SO THAT THE NUMBER ON THE CLUSTER IS UNIQUE.
+
+C     RENAME THE CLUSTER SO THAT CLUSTERS HAVE NATURE ORDER 1,2,3,4...
+C     USE ANOTHER NLIST TO REMEMBER WHICH IS RENAMED TO WHICH.
+C     THE OLD CLUSTER NAME ALWAYS SATISFY LIST(I)=I.
+
+      INC=1
+      DO 50 I=1,LCUBE
+      MA=LIST(I)
+      IF(MA.EQ.I) THEN
+          NLIST(I)=INC
+          INC=INC+1
+      ELSE
+55        MAN=LIST(MA)
+          IF(MAN.LT.MA) THEN
+              MA=MAN
+              GOTO 55
+          ENDIF
+          LIST(I)=MA
+      ENDIF
+50    CONTINUE
+
+C     MAX IS TOTAL NUMBER OF CLUSTERS.
+      MAX=INC-1
+
+C     NC NOW IDENTIFY THE CLUSTERS.
+C     FROM LIST WE GET OLD NAMES, FROM NLIST WE GET RENAMED NAMES.
+
+      INC=1
+      DO 80 J=1,L
+      DO 80 I=1,L
+      NC0=LIST(INC)
+      NC(I,J)=NLIST(NC0)
+80    INC=INC+1
+
+
+      END
+
+
+
+C********************************************************************
+
+      FUNCTION RANF()
+      INTEGER SEED,K
+      COMMON//SEED
+      K=SEED/127773
+      SEED=16807*(SEED-K*127773)-K*2836
+      IF(SEED.LT.0)  SEED=SEED+2147483647
+      RANF=SEED*4.656612875E-10
+      END
+
+
+C***********************************************************************
+C
+C                        ENERGY OF THE SYSTEM
+C             ENERGY FOR MULTISPIN CODED CONFIGURATION.
+C
+C***********************************************************************
+
+      SUBROUTINE ENERGY(M,E)
+
+      PARAMETER(LM=128,IOCTA=8)
+      INTEGER    M(LM,LM)
+      INTEGER  KPX(LM,LM)
+      INTEGER  KPY(LM,LM)
+      REAL     E(IOCTA)
+      INTEGER IE(IOCTA)
+      COMMON/COUPLE/KPX,KPY
+      COMMON/SIZE/L,LMINUS,LCUBE
+      COMMON/HEXADE/MASK(IOCTA),JBITS(IOCTA)
+
+      DO 5 IREP=1,IOCTA
+5     IE(IREP)=0       
+
+      J=L
+      DO 20 JP=1,L
+      I=L
+      DO 10 IP=1,L
+      
+      M0=M(I,J)
+      MMI=IEOR( M0  , M  (IP,J ) )
+      MMJ=IEOR( M0  , M  (I ,JP) )
+      IEN=IEOR( MMI , KPX(I,J  ) )
+     *   +IEOR( MMJ , KPY(I,J  ) )
+  
+      ISHBIT=0
+      DO 30 IREP=1,IOCTA
+      IBITS=IAND( IEN , MASK(IREP) )
+      IE(IREP)=IE(IREP)+ISHFT(IBITS,ISHBIT)
+30    ISHBIT=ISHBIT-4
+
+10    I=IP
+20    J=JP      
+
+      DO 40 IREP=1,IOCTA
+40    E(IREP)=IE(IREP)
+
+      END
+
+
+
+C***********************************************************************
+C
+C             LINEAR AND NON-LINEAR MAGNETIZATIONS 
+C
+C         M1, M2  - INTEGER ARRAY FOR MULTICODED SPIN ;
+C         ORDRL1,2- RETURNED LINEAR TOTAL MAGNETIZATION M1,AND,M2 ;
+C         ORDERN  - RETURNED NON-LINEAR TOTAL TAU=M1*M2.
+C
+C***********************************************************************
+
+      SUBROUTINE MAGNET(M1,M2,ORDRL1,ORDRL2,ORDERN)
+
+      PARAMETER(LM=128,IOCTA=8)
+
+      DIMENSION M1(LM,LM)
+      DIMENSION M2(LM,LM)
+
+      REAL*8  P(IOCTA,0:64)
+      REAL    ORDRL1(IOCTA)
+      REAL    ORDRL2(IOCTA)
+      REAL    ORDERN(IOCTA)
+
+      INTEGER LORDR1(IOCTA)
+      INTEGER LORDR2(IOCTA)
+      INTEGER NORDER(IOCTA)
+
+      COMMON/SIZE/L,LMINUS,LCUBE
+      COMMON/HEXADE/MASK(IOCTA),JBITS(IOCTA)
+      COMMON/DENSITY/P
+
+C     M=(1-S)/2   S=+1,-1
+C     DELT M= - DELT S /2
+
+      DO 10 IREP=1,IOCTA
+      LORDR1(IREP)=0
+      LORDR2(IREP)=0
+      NORDER(IREP)=0
+10    CONTINUE
+
+      DO 20 J=1,L
+      DO 20 I=1,L
+ 
+      M10=M1(I,J)
+      M20=M2(I,J)
+     
+      ISHBIT=0
+      DO 30 IREP=1,IOCTA
+      M1PICK = IAND( M10 , MASK(IREP) )
+      M2PICK = IAND( M20 , MASK(IREP) )
+      M1PICK = ISHFT(M1PICK,ISHBIT)
+      M2PICK = ISHFT(M2PICK,ISHBIT)
+      ITPICK = IEOR( M1PICK , M2PICK )
+      LORDR1(IREP) = LORDR1(IREP)+M1PICK
+      LORDR2(IREP) = LORDR2(IREP)+M2PICK
+      NORDER(IREP) = NORDER(IREP)+ITPICK
+30    ISHBIT=ISHBIT-4
+
+20    CONTINUE
+
+      DO 40 IREP=1,IOCTA
+      ORDRL1(IREP) = ABS(LORDR1(IREP)+LORDR1(IREP)-LCUBE)
+      ORDRL2(IREP) = ABS(LORDR2(IREP)+LORDR2(IREP)-LCUBE)
+      IQ = IABS(NORDER(IREP)+NORDER(IREP)-LCUBE)
+      IIQ=64*IQ/FLOAT(LCUBE)
+      P(IREP,IIQ) = P(IREP,IIQ)+1.0
+40    ORDERN(IREP) = IQ
+
+      END
+
+
+
+C***********************************************************************
+C
+C                  SUBROUTINE CORREL
+C
+C     CORRELATION OF OPERATORS      
+C       F(T)=<O(0)O(T)>
+C     O IS OPERATORS  1 NONLINEAR TAU
+C                     2 ENERGY 1
+C                     3 ENERGY 2
+C                     4 MAGNETIZATION 1
+C                     5 MAGNETIZATION 2
+C                     6 FOURTH MOMENT OF TAU
+C                     7 AVERAGE NUMBER OF CLUSTERS
+C                     8 AVERAGE ACCEPTANCE RATE
+C
+C***********************************************************************
+
+      SUBROUTINE CORREL(OPN,EIN1,EIN2,OP1,OP2)
+
+      PARAMETER(IOCTA=8,ITIME=16)
+      PARAMETER(NUMF=8)
+
+      REAL*8 BUFF(IOCTA,ITIME,NUMF)
+      REAL*8 F   (IOCTA,ITIME,NUMF)
+      REAL*8 O   (IOCTA,NUMF)
+
+      REAL OP1  (IOCTA),OP2   (IOCTA)
+      REAL EIN1 (IOCTA),EIN2  (IOCTA)
+      REAL MAXIN(IOCTA),RATEIN(IOCTA)
+      REAL OPN  (IOCTA)
+
+      COMMON/CORR/F,BUFF,O
+      COMMON/EFFICA/MAXIN,RATEIN
+      COMMON/POINTER/IPOINT
+
+      DO 10 IREP=1,IOCTA
+      BUFF(IREP,IPOINT,1) = OPN (IREP)
+      BUFF(IREP,IPOINT,2) = EIN1(IREP)
+      BUFF(IREP,IPOINT,3) = EIN2(IREP)
+      BUFF(IREP,IPOINT,4) = OP1 (IREP)
+      BUFF(IREP,IPOINT,5) = OP2 (IREP)
+
+      QTAU=OPN(IREP)
+      O(IREP,1) = O(IREP,1)+QTAU
+      O(IREP,2) = O(IREP,2)+EIN1(IREP)
+      O(IREP,3) = O(IREP,3)+EIN2(IREP)
+      O(IREP,4) = O(IREP,4)+OP1 (IREP)
+      O(IREP,5) = O(IREP,5)+OP2 (IREP)
+      O(IREP,6) = O(IREP,6)+ QTAU * QTAU * QTAU * QTAU
+      O(IREP,7) = O(IREP,7)+MAXIN (IREP)
+      O(IREP,8) = O(IREP,8)+RATEIN(IREP)
+10    CONTINUE
+
+      NXTP=IPOINT
+      DO 30 I=1,ITIME
+      IF(NXTP.LT.1) NXTP=ITIME
+    
+      DO 20 NF=1,5
+      DO 20 IREP=1,IOCTA
+      F(IREP,I,NF)=F(IREP,I,NF)+
+     *  BUFF(IREP,IPOINT,NF)*BUFF(IREP,NXTP,NF)
+20    CONTINUE
+
+      NXTP=NXTP-1
+30    CONTINUE
+
+      IPOINT=IPOINT+1
+      IF(IPOINT.GT.ITIME) IPOINT=1
+
+      END
+
+
+
+C***********************************************************************
+
+      SUBROUTINE NORMAL
+
+      PARAMETER(LM=128,IUNITW=6 )
+      PARAMETER(IOCTA=8 )
+      PARAMETER(ITIME=16)
+      PARAMETER( NUMF=8 )
+
+      REAL   XNQQ(IOCTA)
+      REAL     X1(IOCTA), X2(IOCTA)
+      REAL*8 BUFF(IOCTA,ITIME,NUMF)
+      REAL*8    F(IOCTA,ITIME,NUMF)
+      REAL*8    O(IOCTA,NUMF)
+      REAL*8    P(IOCTA,0:64)
+  
+      COMMON /SIZE   /L,LMINUS,LCUBE
+      COMMON /SIMULA /MTOSS,MCSTEP,ISTEP,INTERV,LLSTAN,LLTEMP
+      COMMON /DENSITY/P
+      COMMON /CORR   /F,BUFF,O
+      COMMON /SUSCEP /XNQQ,X1,X2
+
+      DENO=1.0/MCSTEP/LCUBE
+
+      DO 10 IREP=1,IOCTA
+
+C     NORMALIZE OPERATORS
+      DO 20 NF=1,NUMF
+20    O(IREP,NF)=O(IREP,NF)*DENO
+
+C     NON-LINEAR SUSCEPTIBILITY WITHOUT SUBSTRACTION
+      XNQQ(IREP)=F(IREP,1,1)*DENO
+        X1(IREP)=F(IREP,1,4)*DENO
+        X2(IREP)=F(IREP,1,5)*DENO
+C     NORMALIZE FOURTH MOMENTS
+      O(IREP,6)=O(IREP,6)/LCUBE
+      IF(XNQQ(IREP).NE.0.0)
+     *  O(IREP,6)=1.5-0.5*O(IREP,6)/(XNQQ(IREP)*XNQQ(IREP))
+
+C     NORMALIZE TIME CORRELATION FUNCTIONS
+      DO 30 IT=1,ITIME
+      MCSI=MCSTEP+1-IT
+      IF(MCSI.EQ.0) GOTO 31
+      FLCUBE=FLOAT(LCUBE)
+      DIV=MCSI*FLCUBE
+      DO 30 NF=1,NUMF
+      F(IREP,IT,NF)=F(IREP,IT,NF)/DIV-O(IREP,NF)*O(IREP,NF)*FLCUBE
+30    CONTINUE
+31    CONTINUE
+
+      DO 40 NF=1,NUMF
+      DO 40 IT=2,ITIME
+      IF( ABS(F(IREP,1,NF)) .LT. 1.0D-10) GOTO 40
+      F(IREP,IT,NF)=F(IREP,IT,NF)/F(IREP,1,NF)
+      IF( ABS(F(IREP,IT,NF)) .GT.100.0 ) F(IREP,IT,NF)=0.0
+40    CONTINUE
+
+      O(IREP,7)=O(IREP,7)*LCUBE
+      IF(ISTEP.NE.0) O(IREP,8)=O(IREP,8)*LCUBE/ISTEP
+      IF(O(IREP,7).NE.0.0) O(IREP,8)=O(IREP,8)/O(IREP,7)
+
+      O(IREP,2)=2.0-2.0*O(IREP,2)
+      O(IREP,3)=2.0-2.0*O(IREP,3)
+      F(IREP,1,2)=4.0*F(IREP,1,2)
+      F(IREP,1,3)=4.0*F(IREP,1,3)
+C     IN TERMS OF BITS LOCAL ENERGY (PER SITE) VARIES FROM 0 TO 3
+C     BUT IN TERMS OF S=+1,-1 IT VARIES FROM 3 TO -3
+C     ABOVE FORMULA MAKE E IN THE STANDARD SCALE
+
+C     MORMALIZE P(Q) DENSITY DISTRIBUTION FUNCTIONS
+      DO 50 J=0,64
+50    P(IREP,J)=P(IREP,J)/MCSTEP
+
+10    CONTINUE
+
+      END
+
+
+
+C***********************************************************************
+C
+C                           OUTPUT DATA
+C
+C***********************************************************************
+
+      SUBROUTINE OUTPUT
+
+      PARAMETER(LM=128,IOCTA=8)
+      PARAMETER(IUNITW=6 )
+      PARAMETER( ITIME=16)
+      PARAMETER(  NUMF=8 )
+
+      CHARACTER*23 DATE
+      CHARACTER*20 NFCHAR(NUMF)
+
+      REAL   XNQQ(IOCTA)
+      REAL     X1(IOCTA),  X2(IOCTA)
+      REAL      T(IOCTA),BETA(IOCTA)
+      REAL*8 BUFF(IOCTA,ITIME,NUMF)
+      REAL*8    F(IOCTA,ITIME,NUMF)
+      REAL*8    O(IOCTA,NUMF)
+      REAL*8    P(IOCTA,0:64)
+
+      COMMON /CORR   / F,BUFF,O
+      COMMON /SUSCEP / XNQQ,X1,X2
+      COMMON /DENSITY/ P
+      COMMON /SIZE   / L,LMINUS,LCUBE
+      COMMON /SIMULA / MTOSS,MCSTEP,ISTEP,INTERV,LLSTAN,LLTEMP
+C     COMMON /TIMING / DATE,ELAPSE
+      COMMON /TEMPER / T,BETA
+      COMMON /WHICH  / MODEL,ISEED0,BONDPR,INITEMP
+
+      NFCHAR(1)='Q=S1*S2'
+      NFCHAR(2)='ENERGY 1'
+      NFCHAR(3)='ENERGY 2'
+      NFCHAR(4)='MAGNETIZATION 1'
+      NFCHAR(5)='MAGNETIZATION 2'
+      NFCHAR(6)='4-MOMENT CON. PART'
+      NFCHAR(7)='CLUSTER NUMBER'
+      NFCHAR(8)='ACCEPTANCE RATE'
+
+      IF(MODEL.EQ.1) WRITE(IUNITW,*)
+     * '             MONTE CARLO SIMULATION OF 2D SPIN GLASS MODEL'
+      IF(MODEL.EQ.0) WRITE(IUNITW,*)
+     * '             MONTE CARLO SIMULATION OF 2D ISING MODEL'
+
+      WRITE(IUNITW,*)
+C     WRITE(IUNITW,*)'       ',DATE
+
+      IF(LLSTAN.EQ.1) WRITE(IUNITW,*)' STANDARD METROPOLIS SIMULATION'
+      IF(LLTEMP.EQ.1) WRITE(IUNITW,*)' TEMPLATE HEAT BATH SIMULATION'
+
+      WRITE(IUNITW,100)L,MCSTEP,MTOSS,ISTEP
+100   FORMAT(1X,'     L=',I4,'  MCSTEP=',I8,'  TOSS=',I8,'  ISTEP=',I4)
+      WRITE(IUNITW,110)BONDPR
+110   FORMAT(1X,'  + BOND ACTU.=',F7.5)
+      WRITE(IUNITW,120)ISEED0,INITEMP
+120   FORMAT(1X,' RANDOM NUMBER SEED=',I10,'  START AT INITEMP=',I4)
+      WRITE(IUNITW,130)INTERV
+130   FORMAT(1X,' DATA TAKEN AT INTERVAL=',I4)
+      PERFLP=0.5E3*ELAPSE/LCUBE/IOCTA/(LLSTAN+LLTEMP)/MCSTEP/INTERV
+
+      WRITE(IUNITW,*)
+C     WRITE(IUNITW,140)ELAPSE,ELAPSE/MCSTEP,PERFLP
+140   FORMAT('  TOTAL CPU =',F6.3,' SEC ',
+     *       '  CPU/MCSTEP=',F6.3,' SEC',
+     *       '  PER FLIP  =',F6.3,' MSEC')
+      WRITE(IUNITW,*)
+
+      WRITE(IUNITW,*)' REPLICA  T          TAU          E1',
+     *                 '         E2           M1          M2'
+      DO 10 IREP=1,IOCTA
+10    WRITE(IUNITW,150)IREP, T(IREP), ( O(IREP,NF),NF=1,5)
+
+      WRITE(IUNITW,*)' REPLICA   T         T*XN      T*T*C1',
+     *               '       T*T*C2       T*<M*M>N     T*X2'
+
+      DO 20 IREP=1,IOCTA
+20    WRITE(IUNITW,150)IREP,T(IREP),(F(IREP,1,NF),NF=1,3),
+     *                 X1(IREP),X2(IREP)
+150   FORMAT(1X,I4,6F12.5)
+
+      WRITE(IUNITW,*)'REPLICA        K   N<Q2>  N*T<DM*DM>',
+     *               '  (3-<Q4>/<Q2>**2)/2',
+     *               '    <NC>    AC. RATE'
+      DO 30 IREP=1,IOCTA
+30    WRITE(IUNITW,150)IREP,BETA(IREP),
+     *            XNQQ(IREP),F(IREP,1,4),(O(IREP,NF),NF=6,8)
+
+      WRITE(6,*)' TIME CORRELATION FUNCTIONS F(T)'
+      DO 50 NF=1,5
+      WRITE(IUNITW,*)NF,'  IS ',NFCHAR(NF)
+
+      WRITE(IUNITW,160) ( T(IREP),IREP=1,IOCTA)
+      DO 60 IT=1,ITIME
+60    WRITE(IUNITW,170)(IT-1)*INTERV,( F(IREP,IT,NF),IREP=1,IOCTA)
+      WRITE(IUNITW,*)
+160   FORMAT(1X,'T/T',8F9.5)
+170   FORMAT(1X,I3,8F9.5)
+
+
+50    CONTINUE
+
+      WRITE(IUNITW,*)
+      WRITE(IUNITW,*)' DISTRIBUTION OF ORDER PARAMETER TAU '
+      WRITE(IUNITW,*)' Q    1        2        3        4        5',
+     *              '       6        7        8' 
+      DO 61 J=0,64
+61    WRITE(IUNITW,180)J/64.0,(P(IREP,J),IREP=1,IOCTA)
+180   FORMAT(1X,F7.5,8F8.5)
+
+      END
+
+C***********************************************************************
+C***********************************************************************

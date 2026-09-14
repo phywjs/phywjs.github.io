@@ -1,0 +1,179 @@
+<html>
+<head>
+<title>CZ1101, Tutorial 5, Answers</title>
+</head>
+<body>
+
+<h1>CZ1101, Tutorial 5, Answers</h1>
+
+<OL>
+
+<LI> (4.11-4.13) The IEEE single precision
+representations for the numbers 10, 10.5, and 0.1 are
+<pre>
+   0 10000010 01000000000000000000000
+   0 10000010 01010000000000000000000
+   0 01111011 10011001100110011001101
+</pre>
+The double precision versions are
+<pre>
+   0 10000000010 0100000000000000000000000000000000000000000000000000
+   0 10000000010 0101000000000000000000000000000000000000000000000000
+   0 01111111011 1001100110011001100110011001100110011001100110011010 
+</pre>
+<p>Let's look at 10.5 and 0.1 in some detail.  Since 10 is 1010 in binary
+and 0.5 is 0.1 in binary, so 10.5 = 1010.1_two = 1.0101_two x 2^3. So, 
+s = 0 (positive), e-127 = 3, or e = 127+3 = 130 = 128 + 2 = 10000010_two,
+and f = 0.0101.  The whole pattern is shown above.
+
+<p> For 0.1, the binary digits are
+<pre>
+   0.1 x 2 = 0.2
+   0.2 x 2 = 0.4
+   0.4 x 2 = 0.8
+   0.8 x 2 = 1.6
+   0.6 x 2 = 1.2
+   0.2 x 2 = 0.4  (repeated)
+     ....
+</pre>
+<p>Thus, 0.1_ten = 0.000110011001100110011... = 1.10011001100... x 2^{-4},
+so s = 0, e - 127 = -4, e = 123 = 128 - 5 = 01111011_two, and  
+f = 0.100110011001100....  The last bit 1 is due to rounding up.  
+For double precision, the bias is 1023.
+ 
+<LI> (4.41) Add 6.42 x 10^1 to 9.51 x 10^2 in decimal notation, assuming
+three significant digits, first with guard and round digits:
+<pre>
+  (1) shift the smaller 6.42 x 10^1 = 0.642 x 10^2.
+  (2) Add significant 0.6420
+                    + 9.5100
+                  ----------
+                     10.1520
+  (3) Normalize the result, 1.0152 x 10^3. 
+  (4) Round the result 1.02 x 10^3. 
+</pre>
+<p>Without guard and round digits:
+<pre>
+  (1) shift the smaller 6.42 x 10^1 = 0.642 x 10^2.
+  (2) Add significant 0.64
+                    + 9.51
+                  ----------
+                     10.15
+  (3) Normalize the result, 1.01 x 10^3. 
+  (4) Round the result 1.01 x 10^3. 
+</pre>
+<p>Without extra digits for intermediate result, round can not performed
+properly. 
+
+<LI>  Multiply 8.76 x 10^1 to 1.47 x 10^2 in 4-bit binary
+floating point with 4 bits of significand.
+<pre>
+   8.76 x 10^1 = 87.6 = 1010111.1.. = 1.011 x 2^6
+   1.47 x 10^2 = 147 = 10010011.0 = 1.001 x 2^7
+   (1) exponent add 6 + 7 = 13
+   (2) significand multiply 1.011 x 1.001 = 1.100011 
+   (3) rounding the result, so it is 1.100 x 2^13 = 1.5 x 8192 = 1.23 x 10^4.
+</pre>
+<p>Note that 4-bit binary numbers can only give you just slightly more than 1
+digit of accuracy in decimal.  The more precision result is 1.29 x 10^4.
+
+<LI>  What is x such that x + 1.0 = x in IEEE single-precision floating
+point representation? 
+Let x = 1.f x 2^y. If the power y is large enough, when
+adding with 1 = 1.0 x 2^0 = 0.000...001 2^y, the significant digit
+1 gets shifted out of the 23-bit significand field, then we should have 
+x + 1.0 = x.  This means we need y = 24. Since the computer keeps
+a guard and a round bit, we may need y = 25, or
+x > 2^25 = 3.3*10^7. 
+For double precision, since the the significand bits is 53,
+we need x > 2^55 = 3.6*10^16.
+
+<LI> (4.22) The shortest sequence of MIPS 
+instructions to determine if there is a carry out from
+the addition of two registers (as unsigned numbers), 
+say register $11 and $12, is
+<pre>
+   addu $13, $11, $12
+   sltu $10, $13, $12
+</pre>
+It places a 0 or 1 in register $10 if carry out is 0 or 1,
+respectively.  This works because we know $13 == $11 + $12 if
+no carry out (or equivalent unsigned addition overflow) occurs. 
+Thus if no carry out, we have $13 >= $12 (or $13 >= $11).  If this
+is violated, namely, if $13 &lt;  $12, a carry out must have happened.
+When a carry out occurs, we have $13 + 2^32 = $11 + $12.
+
+
+<LI> (4.23) The shortest sequence of MIPS instructions
+to perform double precision integer addition.  Assume that
+one 64-bit two's complement integer is in register 
+$12 and $13 and another is in registers $14 and $15.
+The sum is to be placed in registers $10 and $11.
+The most significant word of the 64-bit integer
+is found in the even-numbered registers, and the least
+significant word is found in the odd-numbered registers.
+<pre>
+   addu  $11, $13, $15    # add least significant word
+   sltu  $10, $11, $15    # set carry-in bit 
+   addu  $10, $10, $12    # add in first most significant word
+   addu  $10, $10, $14    # add in second most significant word
+</pre>
+
+<LI> (4.24) Assume that
+one 64-bit, <em>unsigned</em> integer is in registers $12 and $13
+and another is in registers $14 and $15.  The 128-bit product
+is to be placed in registers $8, $9, $10, and $11.  The most
+significant word is found in the lower numbered registers, and the 
+least significant word is found in the higher numbered registers in
+this example.   The sequence of code (not necessarily shortest) for
+computing the product below is based the observation that 
+<pre>
+   (a 2^32 + b) x ( c 2^32 + d)
+  = a * c 2^64 + b * c 2^32 + a * d 2^32 + b * d
+</pre>
+Multiplying by 2^32 means shifting to the left 32 bits in base 2, so we
+just need to compute a*c, b*c, a*d, and b*d, and add them properly
+after shifting.  We take care of carry using the trick given in
+the above problems.  Here is my answer
+<pre>
+ # Let (a,b) -> ($12,$13)
+ #     (c,d) -> ($14,$15)
+ # result ($8, $9, $10, $11)
+ # word    3   2   1    0
+
+   multu $13, $15      # b*d
+   mflo  $11           # lower to word 0
+   mfhi  $10           # higher to word 1
+
+   multu $12, $15      # a*d
+   mfhi  $9            # upper part of a*d contribute to word 2
+   mflo  $2            # lower part to word 1 with carry
+   addu  $10, $10, $2  # add lower part of a d
+   sltu  $3, $10, $2   # carry bit
+   addu  $9, $9, $3    # add carry to next word
+                       # over flow for this add not possible
+
+   multu $13, $14      # b*c
+   mflo  $2            # lower part to word 1
+   addu  $10, $10, $2  # add lower part of b c
+   sltu  $3, $10, $2   # test if there is a carry 
+   addu  $9, $9, $3    # add carry
+   sltu  $8, $9, $3    # carry due to adding carry
+   mfhi  $2            # upper to word 2
+   addu  $9, $9, $2    # add upper part of b c
+   sltu  $3, $9, $2    # carry bit
+   add   $8, $8, $3    # add carry to next word
+
+   multu $12, $14      # a*c
+   mflo  $2            # lower to word 2
+   addu  $9, $9, $2    # add lower part of a c
+   sltu  $3, $9, $2    # carry bit
+   addu  $8, $8, $3    # add carry
+   mfhi  $2
+   addu  $8, $8, $2    # add upper part
+</pre>
+
+
+</OL>
+</body>
+</html>

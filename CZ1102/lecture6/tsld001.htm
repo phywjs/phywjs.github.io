@@ -1,0 +1,100 @@
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Context-Type" CONTEXT="text/html;charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft Internet Assistant for PowerPoint 97">
+ <TITLE>Modulus Operator</TITLE> 
+</HEAD>
+
+<BODY     >
+
+ <H1>Modulus Operator</H1> 
+ <P><UL>
+<H2>#include &#060stdio.h&#062
+</H2>
+<BR></UL><UL>
+<H2>main()
+</H2>
+</UL><UL>
+<H2>{
+</H2>
+</UL><UL>
+<H2>   int a, b, q, r;
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>   printf("   a     b    a/b    a%%b\n");
+</H2>
+</UL><UL>
+<H2>   while (scanf("%d%d", &a, &b) != EOF) {
+</H2>
+</UL><UL>
+<H2>      q = a / b;          /* quotient */
+</H2>
+</UL><UL>
+<H2>      r = a % b;          /* remainder */
+</H2>
+</UL><UL>
+<H2>      printf("%4d %5d %5d %5d\n",
+</H2>
+</UL><UL>
+<H2>         a, b, q, r);
+</H2>
+</UL><UL>
+<H2>   }
+</H2>
+</UL><UL>
+<H2>}
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<P>This is the program <a href="mod.c">mod.c</a>.
+
+<H2>a.out &#060 in.dat
+</H2>
+</UL><UL>
+<H2> a     b    a/b    a%b
+</H2>
+</UL><UL>
+<H2> 10     3     3     1
+</H2>
+</UL><UL>
+<H2>  3    10     0     3
+</H2>
+</UL><UL>
+<H2>-10     3    -3    -1
+</H2>
+</UL><UL>
+<H2> 10    -3    -3     1
+</H2>
+</UL><UL>
+<H2>-10    -3     3    -1</H2>
+</UL></P>
+<P><UL>
+(in.dat contains a list of the first two columns of numbers a and b)<BR></UL></P>
+<P><UL>
+It is always true that 
+<BR></UL><UL>
+      a = q*b + r
+</UL><UL>
+with |r|&#060|b|, b? 0.</UL></P>
+<P></P> 
+<P>
+<TABLE>
+  <TD HEIGHT=100 WIDTH=100></TD>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld002.htm">Next slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="tsld001.htm">Back to first slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="sld001.htm">View graphic version</A> </TD>
+</TABLE>
+<BR>
+</P>
+
+
+
+</Body>
+</HTML>

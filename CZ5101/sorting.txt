@@ -1,0 +1,90 @@
+It started with sorting collections
+
+This is a story about the birth of my sorting routines.  Since I have
+a verbose writing style, It will be a long story.
+
+One day I noticed that in our project we had a lot of sorting to
+do. We had many custom collection classes and they all needed a way to
+sort them. Up till then we used the storage classes to perform the
+searching (ORDER BY in SQL clause).  It was my idea that once you have
+a collection in memory, it is a terrible waste to throw it away only
+to retrieve it later in an another order. I therefore took off to
+write some classes for the following requirement :
+
+Build something that is able to sort any collection
+
+Since sorting is such a common thing, I took a look at far cousin C,
+where I knew there is a predefined function to perform a QuickSort.
+The function prototype goes like this :
+
+void   qsort(void *, size_t, size_t, int (*)
+       (const void *, const void *));
+
+For those of us able to read C : there are mainly 2 parts in this
+declaration : the first part defines the array to be sorted.  At which
+address does it start, how large are its items, how many items are
+there ?  The second part defines a function that is used to compare
+two elements in the array.  If we compare this to our requirements, we
+see that we have the same two parts.  In our case, the first argument
+will always be a collection.  After all, the requirement is to sort a
+collection. The second argument is a function pointer. While there are
+ways to simulate passing functions around, VB actually offers a much
+better approach.  All we need to do is define an interface for such
+functions.  (technically, its an interface for an object, not a
+function, but since these objects are actually functors, we choose not
+to be too sharp in terminology).  Let's have a close look at the
+prototype of the C function :
+
+int (*) (const void *, const void *)
+
+Comparers 
+
+You should read this as a function that takes 2 arguments of any
+type and returns an integer. With this in mind, the definition of our
+comparer interface is actually quite simple : Interface iComparer
+public function Compare (ByVal varFirst as Variant, ByVal varSecond as
+Variant) as long So, a comparer takes two variants, compares them and
+returns :
+
+	a negative long if first < second 
+	a positive long if first > second 
+	zero if first = second
+
+Having the comparer return a long is debatable, but it has the
+advantage of having the relative order of two items in one function
+call. Having variant arguments is even more debatable.  I use
+variants because in VB6 a variant means anything. In .NET this will
+probably change to Object.
+
+After defining the iComparer interface, I was able to write the
+sorting routine (it was a QuickSort)
+
+Public Sub QuickSortCollection(ByVal objCollection As Collection,
+ByVal objComparer As iComparer)
+
+I was pleased with this implementation.  However, there are some
+important remarks to be made :
+	
+Collections are black boxes, as far as VB programmers are
+concerned. Internally a VB collection is most probably a doubly linked
+list with an associated red/black tree that keeps the keys.  There is
+no doubt that swapping items in such a data structure is suboptimal (to
+say the least).  However, in my defense, I must say that there really
+is no other way to do this (without hacking using implementation
+details you are not supposed to know or use) I got a lot of critique
+saying that collections are not something to be sorted.  But
+Collection is just an interface and there is nothing preventing me
+from giving it another implementation when I would like to (although
+VB cannot implement the required interfaces - easily)
+	
+Collections provide no means whatsoever to get to the keys.  If you
+swap two items in the collection, you'll lose the keys.  Again, there
+is absolutely nothing you can do about it (although in general it can
+be fixed, as we'll see later)
+
+Apart from these remarks, my problem was solved and I was a happy man
+(I was before too off course). Since I had the intention of writing a
+reusable component, I figured it made sense to define some standard
+Comparers.
+
+From http://users.skynet.be/wvdd2/Sorting/sorting.html

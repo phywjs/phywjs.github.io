@@ -1,0 +1,139 @@
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Context-Type" CONTEXT="text/html;charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft Internet Assistant for PowerPoint 97">
+ <TITLE>Print a Linked List</TITLE> 
+</HEAD>
+
+<BODY     >
+
+ <H1>Print a Linked List</H1> 
+ <P><UL>
+<H2>#include &#060stdio.h&#062
+</H2>
+<BR></UL><UL>
+<H2>#include &#060stdlib.h&#062
+</H2>
+</UL><UL>
+<H2>#include &#060string.h&#062
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>typedef struct elephant {
+</H2>
+</UL><UL>
+<H2>   char name[10];
+</H2>
+</UL><UL>
+<H2>   struct elephant *next;
+</H2>
+</UL><UL>
+<H2>} ELEPHANT;
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>void print_elephants(const ELEPHANT* ptr);
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>main()
+</H2>
+</UL><UL>
+<H2>{
+</H2>
+</UL><UL>
+<H2>   ELEPHANT e1, e2, e3, *start;
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>   strcpy(e1.name, "Edna");
+</H2>
+</UL><UL>
+<H2>   strcpy(e2.name, "Elmer");
+</H2>
+</UL><UL>
+<H2>   strcpy(e3.name, "Eloise");
+</H2>
+</UL><UL>
+<H2>   start = &e1;
+</H2>
+</UL><UL>
+<H2>   e1.next = &e2;
+</H2>
+</UL><UL>
+<H2>   e2.next = &e3;
+</H2>
+</UL><UL>
+<H2>   e3.next = NULL;
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>   print_elephants(start);
+</H2>
+</UL><UL>
+<H2>}
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>void print_elephants(const ELEPHANT* ptr)
+</H2>
+</UL><UL>
+<H2>{
+</H2>
+</UL><UL>
+<H2>   int count = 1;
+</H2>
+</UL><UL>
+<H2>   printf("\n");
+</H2>
+</UL><UL>
+<H2>   while(ptr != NULL) {
+</H2>
+</UL><UL>
+<H2>      printf("\nElephant numer %d is %s.",
+</H2>
+</UL><UL>
+<H2>              count++, ptr -&#062 name);
+</H2>
+</UL><UL>
+<H2>      ptr = ptr -&#062 next;
+</H2>
+</UL><UL>
+<H2>   }
+</H2>
+</UL><UL>
+<H2>}
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL></P>
+<P>This is proram <a href="pg567.c">pg567.c</a></P> 
+<P>
+<TABLE>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld006.htm">Previous slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld008.htm">Next slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="tsld001.htm">Back to first slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="sld007.htm">View graphic version</A> </TD>
+</TABLE>
+<BR>
+</P>
+
+
+
+</Body>
+</HTML>

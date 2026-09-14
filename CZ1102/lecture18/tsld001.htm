@@ -1,0 +1,48 @@
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Context-Type" CONTEXT="text/html;charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft Internet Assistant for PowerPoint 97">
+ <TITLE>Opening and Closing Files</TITLE> 
+</HEAD>
+
+<BODY     >
+
+ <H1>Opening and Closing Files</H1> 
+ <P><UL>
+<LI><H2>First define a file pointer, which can "pointing" to one of the opened file.
+</H2>
+<UL>
+#include &#060stdio.h&#062
+<BR><BR>. . .
+<BR>FILE *fp;
+<LI>
+</UL></UL><UL>
+<LI><H2>Use fopen() to open a file, which returns a file pointer.
+</H2>
+<UL>
+fp = fopen(name, mode);
+<BR><BR>	where name is a string for the file's name, and mode is a string among "r" (for read only), "w" (for write only), etc.
+<BR>
+</UL></UL><UL>
+<LI><H2>Close the file with
+</H2>
+<UL>
+fclose(fp);
+<BR></UL></UL></P>
+<P></P> 
+<P>
+<TABLE>
+  <TD HEIGHT=100 WIDTH=100></TD>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld002.htm">Next slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="tsld001.htm">Back to first slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="sld001.htm">View graphic version</A> </TD>
+</TABLE>
+<BR>
+</P>
+
+
+
+</Body>
+</HTML>

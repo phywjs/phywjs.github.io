@@ -1,0 +1,135 @@
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Context-Type" CONTEXT="text/html;charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft Internet Assistant for PowerPoint 97">
+ <TITLE>How the program is executed when there are functions?</TITLE> 
+</HEAD>
+
+<BODY     >
+
+ <H1>How the program is executed when there are functions?</H1> 
+ <P><UL>
+<H2>#include &#060stdio.h&#062
+</H2>
+<BR></UL><UL>
+<H2>int sum(int i, int j);
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>main()
+</H2>
+</UL><UL>
+<H2>{
+</H2>
+</UL><UL>
+<H2>   int a, b, res;
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>   a = 1; 
+</H2>
+</UL><UL>
+<H2>   b = 2;
+</H2>
+</UL><UL>
+<H2>   
+</H2>
+</UL><UL>
+<H2>   res = sum(a, b);
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>   
+</H2>
+</UL><UL>
+<H2>   
+</H2>
+</UL><UL>
+<H2>   printf("%d + %d = %d\n", a, b, res);
+</H2>
+</UL><UL>
+<H2>}
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>int sum(int i, int j)
+</H2>
+</UL><UL>
+<H2>{
+</H2>
+</UL><UL>
+<H2>   int k;
+</H2>
+</UL><UL>
+<H2>   k = i + j;
+</H2>
+</UL><UL>
+<H2>   return k;
+</H2>
+</UL><UL>
+<H2>}
+</H2>
+</UL></P>
+<P><UL>
+ a      b    res<BR></UL></P>
+<P><UL>
+a, b, res have no defined values just after declaration.<BR></UL></P>
+<P><UL>
+ a      b    res<BR></UL></P>
+<P><UL>
+1<BR></UL></P>
+<P><UL>
+2<BR></UL></P>
+<P><UL>
+a     b     res     i      j<BR></UL></P>
+<P><UL>
+1<BR></UL></P>
+<P><UL>
+2<BR></UL></P>
+<P><UL>
+1<BR></UL></P>
+<P><UL>
+2<BR></UL></P>
+<P><UL>
+res<BR></UL></P>
+<P><UL>
+3<BR></UL></P>
+<P><UL>
+res is set to 3 after the function call returns.<BR></UL></P>
+<P><UL>
+Copies are made to new memory locations for the parameter i and j in sum() function.<BR></UL></P>
+<P><UL>
+   k     i      j<BR></UL></P>
+<P><UL>
+3<BR></UL></P>
+<P><UL>
+1<BR></UL></P>
+<P><UL>
+2<BR></UL></P>
+<P><UL>
+Value 3 is sent back as the value of the expression sum(a,b) in calling function.<BR></UL></P>
+<P></P> 
+<P>
+<TABLE>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld010.htm">Previous slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld012.htm">Next slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="tsld001.htm">Back to first slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="sld011.htm">View graphic version</A> </TD>
+</TABLE>
+<BR>
+</P>
+
+
+
+</Body>
+</HTML>

@@ -1,0 +1,359 @@
+<html>
+<head>
+<title>CZ1101, Lecture Notes, Week 8</title>
+</head>
+<body>
+
+<HR>
+<p>Links to other weeks notes
+[ <A HREF="cz101notes.html">2</A> ][ <A HREF="week3.html">3</A> ][
+ <A HREF="week4.html">4</A> ][ <A HREF="week5.html">5</A> ][ <A 
+HREF="week6.html">6</A> ][ <A HREF="week7.html">7</A> ]
+( <A HREF="week8.html">8</A> )[ <A HREF="week10.html">10</A> ][
+ <A HREF="week11.html">11</A> ][ <A HREF="week12.html">12</A> ]
+<HR>
+
+<h2>Week 8, 1-6 September, 1997</h2>
+
+<h3>Booth's Algorithm</h3>
+<p>Booth's algorithm is a multiplication algorithm which worked
+for two's complement numbers.  It is similar to our paper-pencil
+method, except that it looks for the current as well as previous
+bit in order to decided what to do.  Here are steps
+<UL>
+  <LI>If the current multiplier digit is 1 and earlier digit is 0 (i.e.
+a 10 pair) shift and sign extend the multiplicand, subtract with
+previous result.
+  <LI>If it is a 01 pair, add to the previous result.  
+  <LI>If it is a 00 pair, or 11 pair, do nothing.
+</UL>
+
+<p>Let's look at few examples. 
+<pre>
+           4 bits
+            0110   <- 6
+        x   0010   <- 2
+   -------------
+        00000000
+     -     0110
+  --------------
+        11110100
+     +    0110
+  --------------
+    (1) 00001100  <- 12     (overflow bit ignored)
+         8 bits
+</pre>
+<p>In Booth's algorithm, if the multiplicand and multiplier are n-bit
+two's complement numbers, the result is considered as 2n-bit two's
+complement value. The overflow bit (outside 2n bits) is ignored.
+
+<p>The reason that the above computation works is because
+<pre>
+      0110 x 0010 = 0110 x (-0010 + 0100) = -01100 + 011000 = 1100.
+</pre>
+<p>Example 2:
+<pre>
+            0010
+         x  0110
+     ------------
+        00000000
+    -      0010
+    -------------
+        11111100
+    +    0010
+    -------------
+    (1) 00001100
+</pre>
+<p>In this we have computed
+<pre>
+    0010 x 0110 = 0010 x ( -0010 + 1000) = - 00100 + 0010000 = 1100
+</pre>
+<p>Example 3, (-5) x (-3):
+<pre>
+           1011   ->  -5  (4-bit two's complement)
+       x   1101   ->  -3
+    -----------
+       00000000
+    -  11111011     (notice the sign extension of multiplicand)
+   ------------
+       00000101
+    +  1111011
+  -------------
+       11111011
+    -  111011
+  -------------
+       00001111   -> +15
+</pre>
+  
+<p>A long example:
+<pre>
+                    10011100     <- -100
+              x     01100011     <- 99
+        --------------------
+           00000000 00000000
+        -  11111111 10011100
+        --------------------
+           00000000 01100100
+        +  11111110 011100
+        --------------------
+           11111110 11010100
+        -  11110011 100
+        --------------------
+           00001011 01010100
+        +  11001110 0
+        --------------------
+           11011001 01010100      <- -9900
+</pre>
+<p>Note that the multiplicand and multiplier are 8-bit two's complement
+number, but the result is understood as 16-bit two's complement number.
+Be careful about the proper alignment of the columns.  10 pair causes
+a subtraction, aligned with 1, 01 pair causes an addition, aligned with
+0.  In both cases, it aligns with the one on the left.  The algorithm
+starts with the 0-th bit.  We should assume that there is a (-1)-th
+bit, having value 0.
+
+<h4>Booth's algorithm in hardware</h4>
+The hardware consists of 32-bit register M for the multiplicand, 
+64-bit product register P, and a 1-bit register C, 32-bit ALU and control.
+Initially, M contains multiplicand, P contains multiplier (the upper
+half Ph = 0), and C contains bit 0.  The algorithm is the following
+steps.
+<p>Repeat 32 times:
+<OL>
+  <LI>If (P0, C) pair is:
+     <UL>
+       <LI> 10: Ph = Ph - M,
+       <LI> 01: Ph = Ph + M,
+       <LI> 00: do nothing,
+       <LI> 11: do nothing.
+      </UL>
+  <LI>Arithmetic shift P right 1 bit.  The shift-out bit gets into C.
+</OL>
+
+<h4>Logical shift vs. arithmetic shift</h4>
+The above mentioned shift is arithmetic shift.  We have learned the
+logical shift. For example,
+<pre>
+   shift right logical (srl) 0100 ... 111    ->  00100 ... 11
+                             1100 ... 111    ->  01100 ... 11
+</pre>
+<p>Arithmetic shift preserves the sign of a two's complement number,
+thus
+<pre>
+   shift right arithmetic (sra) 0100 ... 111    ->  00100 ... 11
+                                1100 ... 111    ->  11100 ... 11
+</pre>
+<p>Shift right arithmetic performed on P is equivalent to shift the
+multiplicand left with sign extension of the paper-pencil calculation
+of earlier examples. 
+
+<P>An example of 4-bit two's complement Booth's algorithm in hardware.
+Compute 2 x (-3) = - 6 or 0010 x 1101. 
+<pre>
+   Iteration       Step       Multiplicand         Product   C 
+
+   0           initial value     0010 (always)     0000 1101 0
+   1           1 Ph = Ph-M                         1110 1101 0
+               2 arithmetic shift                  1111 0110 1
+
+   2           1 Ph = Ph+M                         0001 0110 1
+               2 arithmetic shift                  0000 1011 0
+
+   3           1 Ph = Ph-M                         1110 1011 0
+               2 arithmetic shift                  1111 0101 1
+
+   4           1 do nothing                        1111 0101 1
+               2 arithmetic shift                  1111 1010 1
+</pre>
+<p>The result 1111 1010 is 8-bit two's complement value for -6.
+
+<h4>Why Booth's algorithm works?</h4> 
+<p>In two's complement multiplication b x a, the value a is
+<pre>
+   a = -2^{31} a_31 + 2^{30} a_30 + ... + 2 a_1 + a0.
+</pre>
+The pair (a_i, a_{i-1}) and their difference, and operation are as
+follows.
+<pre>
+   a_i     a_{i-1}       (a_{i-1} - a_i)       action
+
+   1          0                -1              subtract b (shifted)
+   0          1                +1              add b (shifted)
+   0          0                 0              do nothing
+   1          1                 0              do nothing
+</pre>
+<p>So the value computed by Booth's algorithm is
+<pre>
+      (0 - a_0) * b
+   +  (a_0 - a_1) * b * 2
+   +  (a_1 - a_2) * b * 2^2
+      ...
+   +  (a_29 - a_30) * b 2^30
+   +  (a_30 - a_31) * b * 2^31,
+</pre>
+<p>After some simplification, the above expression reduce to
+<pre>
+     b * (a_0 + 2 * a_1 + ... + 2^30 * a_30 - 2^31 * a_31)
+   = b * a.
+</pre>
+<p>which is exactly the product of a and b.
+
+<h3>Multiplication Instructions on MIPS</h3>
+The MIPS machine instruction
+<pre>
+   mult $4, $5
+</pre>
+performs a 32-bit signed multiplication in hardware and put the result
+in two special registers hi and lo.  Since the result is 64-bit in
+general, hi contains the upper part, and lo contains the lower part
+of the 64-bit result.  The values can be moved to other registers
+by the instruction:
+<pre>
+   mflo $2   # copy content in lo to $2, lower half of the product
+   mfhi $3   # move from hi to $3, the upper half
+</pre>
+You have seen
+<pre>
+   mul $2, $3, $4      # $2 = $3 * $4
+</pre>
+<p>This is a pseudo-instruction.  It is equivalent to the
+two machine instructions:
+<pre>
+   mult $3, $4   # multiply $3 with $4, result in (hi, lo)
+   mflo $2       # move lo to $2
+</pre>
+<p>The upper part hi is ignored.  The content in hi can be
+used to check for overflow of multiplication.  Overflow
+occurs if result is more than 32 bits.
+Overflow does
+not occur if $2 >=0 and hi = 0, or $2 < 0, and hi = -1. 
+<p>The unsigned version of multiplication is <code>multu</code>.
+
+
+<h3>Division</h3>
+
+<p>We begin again with the primary school division method:
+<pre>
+                      1001      &lt;- Quotient
+                 ---------
+Divisor -> 1000  | 1001010      &lt;- Dividend
+                 - 1000
+                 ---------
+                      1010
+                    - 1000
+                   -------
+                        10      &lt;- Remainder
+</pre>
+<p>The relation between those quantities is
+<pre>
+   Dividend = Quotient * Divisor + Remainder
+</pre>
+Again, the above example can be thought of as in decimal notation, or
+in binary (74/8 = 9 + 2/8).  
+
+<P>Example: Consider 4-bit division, 0111/0010 or 7 / 2 = ?
+<pre>
+                0011
+         -----------
+   0010  | 0000 0111
+       ? -  001 0
+       -------------
+           0000 0111
+       ? -   00 10
+       -------------
+           0000 0111
+         -    0 010
+           ---------
+           0000 0011
+         -      0010
+           ---------
+           0000 0001 
+</pre>
+
+<P><strong>Problem</strong> Try 1011101101/1011 (binary). 
+
+<h4>First version of division algorithm and hardware</h4>
+<p>This is very similar to what we do with pencil and paper. Four registers
+and a 64-bit ALU are needed.  The initial values are as follows:
+The upper 32 bits (Dh) of the 64-bit register D contains the 32-bit divisor;
+the lower 32 bits are zero. The 64-bit remainder register R contains
+the dividend (the upper half is zero).  Q, the quotient, contains zero.
+Here is the division algorithm
+<p>Repeat 32 times:
+<OL>
+  <LI>Divisor shift right 1 bit, D = D >> 1.
+  <LI>Subtract D from R, R = R - D.
+  <LI> Quotient shift up, Q = Q << 1; If(R>=0) Q0 = 1, else
+       R = R + D.
+</OL>
+<p>Note that quotient gets a bit 1 if the subtraction is successful.  Otherwise,
+quotient gets a bit 0 and the subtraction has to be undone. 
+
+<h4>Second version of the division hardware</h4>
+<p>Similar to the case of multiplication, the divisor takes only 32 bits.
+Instead of shifting down the divisor D, we shift up the remainder R.
+
+<h4>Third version of the division hardware</h4>
+<p>When the remainder shifts up, the newly created 0 bits is not utilized
+in the second version.  The last modification is to put the result here
+instead of a separate register. So the final division algorithm looks
+like this. 
+
+<p>Initial values: D contains divisor, R contains dividend (upper 
+half of R (Rh) is zero). 
+
+<p>Repeat 32 times:
+<OL>
+  <LI>Shift remainder left 1 bit, R = R << 1.
+  <LI>Subtract divisor from the upper half of R, Rh = Rh - D.
+  <LI>If (R>=0) R0 = 1, else Rh = Rh + D.
+</OL> 
+
+<p>The notation R0 denote the 0-th bit of R. Rh denotes the upper half
+of the 64-bit register R. After the operation, the lower half of R
+contains quotient, and upper half of R contains remainder.
+
+<p>The algorithm can be implement in software see the program
+<A HREF="../assembly-examples/divide.s">divide.s</A>.
+
+<h4>Signed Division</h4>
+For division, there is no algorithm similar to Booth's algorithm
+for signed integers.  For two's complement numbers, we need first
+convert to positive numbers then apply the unsigned division algorithm
+And determine the sign of results afterwards.
+
+<h3>MIPS instructions for Division</h3>
+The machine division instruction is
+<pre>
+   div $4, $5
+</pre>
+which compute the quotient $4/$5, and remainder $4%$5. The quotient
+is put in the special register lo, and the remainder in hi.  We can
+copy from lo or hi to general registers by
+<pre>
+   mflo $2   # $2 = $4/$5, the quotient, move from lo
+   mfhi $3   # $3 = $4%$5, the remainder, move from hi
+</pre>
+<p>The unsigned version of division is <code>divu</code>.  It is more
+convenient to use the assembly instruction in program as, e.g.,
+<pre>
+   div $2, $3, $4   # $2 = $3/$4
+</pre>
+But this is equivalent to MIPS machine instructions:
+<pre>
+   div $3, $4   # machine instruction for division
+   mflo $2      # quotient 
+</pre>
+<p>Note that div is used for both assembly and machine instruction
+depending on the number of operands.
+
+<h3>Suggested Reading</h3>
+<p>Textbook, Computer Organization & Design, pages 205-224.
+ 
+<HR>
+[ <A HREF="week7.html">previous week</A> ][ 
+<A HREF="week10.html">next week</A> ]
+<HR>
+</body>
+</html>
+ 

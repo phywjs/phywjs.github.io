@@ -1,0 +1,911 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 4.2'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     15722,        639]*)
+(*NotebookOutlinePosition[     16373,        662]*)
+(*  CellTagsIndexPosition[     16329,        658]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["CZ3106, final exam 2003", "Title"],
+
+Cell["1.", "Subtitle"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(x = 1; y = x; x = 2; y\)], "Input"],
+
+Cell[BoxData[
+    \(1\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(x = 1; y := x; \ x = 2; \ y\)], "Input"],
+
+Cell[BoxData[
+    \(2\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(1/2\)], "Input"],
+
+Cell[BoxData[
+    \(1\/2\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(8^\((1/3)\)\)], "Input"],
+
+Cell[BoxData[
+    \(2\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \({a, b} c\)], "Input"],
+
+Cell[BoxData[
+    \({a\ c, b\ c}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Plus\  @@ \ {a, b}\)], "Input"],
+
+Cell[BoxData[
+    \(a + b\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Map[#^2 &, {a}]\)], "Input"],
+
+Cell[BoxData[
+    \({a\^2}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Map[f, h[a, b]]\)], "Input"],
+
+Cell[BoxData[
+    \(h[f[a], f[b]]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Apply[Sqrt, \ {4}]\)], "Input"],
+
+Cell[BoxData[
+    \(2\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Head[{}]\)], "Input"],
+
+Cell[BoxData[
+    \(List\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Head[I]\)], "Input"],
+
+Cell[BoxData[
+    \(Complex\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(Clear[x, y]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \({x, y}\  /. \ {x \[Rule] y, y \[Rule] x}\)], "Input"],
+
+Cell[BoxData[
+    \({y, x}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \({x, x, \ x}\  /. \ {z_, \ y__}\  \[Rule] \ z\)], "Input"],
+
+Cell[BoxData[
+    \(x\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(Clear[x, y, z]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \({{1, 2}, {2, 3}} . {a, b}\)], "Input"],
+
+Cell[BoxData[
+    \({a + 2\ b, 2\ a + 3\ b}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(If[i == j, 1, 2, 3]\)], "Input"],
+
+Cell[BoxData[
+    \(3\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Union[{a, a, b}]\)], "Input"],
+
+Cell[BoxData[
+    \({a, b}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \({a}~Join~{b}\)], "Input"],
+
+Cell[BoxData[
+    \({a, b}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(1/3\  // \ N\)], "Input"],
+
+Cell[BoxData[
+    \(0.3333333333333333`\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(f\ @\ x\)], "Input"],
+
+Cell[BoxData[
+    \(f[x]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(MatchQ[x, c_. *x]\)], "Input"],
+
+Cell[BoxData[
+    \(True\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(MatchQ[x, y_]\)], "Input"],
+
+Cell[BoxData[
+    \(True\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Solve[x + a \[Equal] 0, x]\)], "Input"],
+
+Cell[BoxData[
+    \({{x \[Rule] \(-a\)}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(D[Sin[x], {x, 2}]\)], "Input"],
+
+Cell[BoxData[
+    \(\(-Sin[x]\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Integrate[x, x]\)], "Input"],
+
+Cell[BoxData[
+    \(x\^2\/2\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Nest[f, x, 2]\)], "Input"],
+
+Cell[BoxData[
+    \(f[f[x]]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Last[f[a, b]]\)], "Input"],
+
+Cell[BoxData[
+    \(b\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["2.", "Subtitle"],
+
+Cell["(a)", "Subsubtitle"],
+
+Cell[BoxData[{
+    \(\(integ[f_ + g_, \ x_]\  := \ integ[f, x] + integ[g, x];\)\), "\n", 
+    \(integ[c_*f_, x_]\  := \ c\ *\ integ[f, x]\  /; \ FreeQ[c, x]; 
+    integ[x_^n_. , \ x_]\  := \ \((x^\((n + 1)\))\)/\((n + 1)\)\  /; \ 
+        IntegerQ[n]\  && \ n\  \[GreaterEqual] 0;\), "\n", 
+    \(\(integ[c_, x_]\  := \ c*x\  /; \ FreeQ[c, x];\)\), "\n", 
+    \(\(integ[Exp[c_. *x_], x_]\  := \ \((1/c)\)\ *Exp[c*x];\)\), "\n", 
+    \(integ[g_\ *\ Exp[c_. *x_], x_]\  := \ 
+      g*Exp[c*x]/c\  - \ integ[D[g, x]*Exp[c*x], x]/c\)}], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(integ[x^4*Exp[x], x]\)], "Input"],
+
+Cell[BoxData[
+    \(\[ExponentialE]\^x\ x\^4 - 
+      4\ \((\[ExponentialE]\^x\ x\^3 - 
+            3\ \((\[ExponentialE]\^x\ x\^2 - 
+                  2\ \((\(-\[ExponentialE]\^x\) + \[ExponentialE]\^x\ \
+x)\))\))\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(integ[1 + x + 3  x*Exp[2  x], x]\  // \ Simplify\)], "Input"],
+
+Cell[BoxData[
+    \(1\/4\ \((2\ x\ \((2 + x)\) + \[ExponentialE]\^\(2\ x\)\ \((\(-3\) + 
+                6\ x)\))\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["(b) ", "Subsubtitle"],
+
+Cell["\<\
+Clearly, we can integrate any polynomials with arbitrary \
+coefficients:\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(integ[a0\  + \ a1*x\  + \ a6*x^6, x]\)], "Input"],
+
+Cell[BoxData[
+    \(a0\ x + \(a1\ x\^2\)\/2 + \(a6\ x\^7\)\/7\)], "Output"]
+}, Open  ]],
+
+Cell[TextData[{
+  "Or sum of polynomial times an exponential   \[CapitalSigma] ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(a\_n\) x\^n\ \(exp(\(c\_n\) x)\)\)]],
+  ".  This is the general form of functions."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(integ[a0\  + \ a1*x\  + \ b2*x^2*Exp[3  x], x]\)], "Input"],
+
+Cell[BoxData[
+    \(a0\ x + \(a1\ x\^2\)\/2 + 
+      b2\ \((1\/3\ \[ExponentialE]\^\(3\ x\)\ x\^2 - 
+            2\/3\ \((\(-\(\[ExponentialE]\^\(3\ x\)\/9\)\) + 
+                  1\/3\ \[ExponentialE]\^\(3\ x\)\ x)\))\)\)], "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["(c)", "Subsubtitle"],
+
+Cell["The set of integrable functions form an integral domain.", "Text"],
+
+Cell[BoxData[""], "Input"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["3.", "Subtitle"],
+
+Cell["(a)", "Subsubtitle"],
+
+Cell[TextData[{
+  "Addition Table \n           ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(Z\_3\)\(+\)\)\)]],
+  " |\t0\t1\t2\n           ---------------------\n           0\t      |\t0\t1\
+\t2\n           1\t      |\t1\t2\t0   \n           2\t      |\t2\t0\t1\n\n\
+Multiplication Table\n            ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(Z\_3\)\(*\)\)\)]],
+  " |\t0\t1\t2\n           ---------------------\n           0\t      |\t0\t0\
+\t0\n           1\t      |\t0\t1\t2   \n           2\t      |\t0\t2\t1"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell["(b)", "Subsubtitle"],
+
+Cell["\<\
+Additive inverse    of      0     is   0,
+                                             1     is   2,
+                                             2     is   1.\
+\>", "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["(c)", "Subsubtitle"],
+
+Cell["\<\
+Multiplicative inverse  of   0   is  none (no inverse)
+                                                  1   is    1,
+                                                  2   is    2.\
+\>", "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["(d)", "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(PolynomialGCD[1 + x + x^3, 1 - x, Modulus \[Rule] 3]\)], "Input"],
+
+Cell[BoxData[
+    \(2 + x\)], "Output"]
+}, Open  ]],
+
+Cell[TextData[Cell[BoxData[
+    \(TraditionalForm\`\(\(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \)\(\(2\ x\^2\ \
+\ \  + \ 2  x\ \ \ \  + \ 1\)\(\[IndentingNewLine]\)
+    \(\ \)\(2  x + 
+      1\ \ \@\(x\^3\ \  + \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\ \ \
+\ \  + \ 1\)\)\(\[IndentingNewLine]\)
+    \(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \)\(x\^3\ \ \ \  + \ \ 2 
+         x\^2\)\(\[IndentingNewLine]\)
+    \(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \)\(___  ___  ___  ___  ___  \
+___\)\(\[IndentingNewLine]\)
+    \(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\)\(x\^2\ \ \ \  + \ \ \ \ x\)\(\ \ \ \ \ \ \)\(\[IndentingNewLine]\)
+    \(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\)\(x\^2\ \ \  + \ 2  x\)\(\[IndentingNewLine]\)
+    \(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\)\(\(--\(--\(--\(--\(-\[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ 2\)\)\)\)\)\ x\ \ \ \  + \ 1\)\(\[IndentingNewLine]\)
+    \(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \)\(2\ x\ \ \ \  + \ 1\)\(\[IndentingNewLine]\)
+    \(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \)\(___  ___  ___\)\(\[IndentingNewLine]\)
+    \(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \)\(0\)\(\
+\[IndentingNewLine]\)
+    \(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\)\)\)\)]]], "Text"],
+
+Cell[TextData[{
+  "Since ",
+  Cell[BoxData[
+      \(TraditionalForm\`1 - x \[Congruent] 2  x + 1\)]],
+  " divides ",
+  Cell[BoxData[
+      \(TraditionalForm\`1 + x + x\^3\)]],
+  "  exactly, so ",
+  Cell[BoxData[
+      \(TraditionalForm\`GCD(1 + x + x\^3, 1 - x) = 2  x + 1. \)]]
+}], "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["(e)", "Subsubtitle"],
+
+Cell[TextData[{
+  "We could have used Extended Euclidean algorithm, but let us compute \
+inverse first by finding ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\ and\ b\)]],
+  " such that:\n",
+  Cell[BoxData[
+      \(TraditionalForm\`\((a + b\ x)\)\ \((1 - x)\)\  \[Congruent] \ 
+        1\ \ \ mod\ \((1 + x\^2)\)\)]],
+  "   or\n",
+  Cell[BoxData[
+      \(TraditionalForm\`a\  - 
+          b\ x\^2\  + \ \((b - a)\)\ x\  \[Congruent] \ \ a + 
+          b\  + \ \((b - a)\)\ x\ \  \[Congruent] \ 1\)]],
+  ",  so ",
+  Cell[BoxData[
+      \(TraditionalForm\`a + b\  \[Congruent] 1, \ \ b - a \[Congruent] 
+        0\)]],
+  ".   We note that ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\^2 \[Congruent] \ \(-1\)\ mod\ \((1 + x\^2)\)\)]],
+  ".  We have ",
+  Cell[BoxData[
+      \(TraditionalForm\`a = b\)]],
+  ", and ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(2  a = 1\)\(,\)\)\)]],
+  "  or ",
+  Cell[BoxData[
+      \(TraditionalForm\`a = \(b = 2\^\(-1\) \[Congruent] 2. \)\)]],
+  "    So ",
+  Cell[BoxData[
+      \(TraditionalForm\`\((1 - x)\)\^\(-1\)\  = \ 2  x + 2. \)]],
+  "   Thus the final results for the product is:\n",
+  Cell[BoxData[
+      \(TraditionalForm\`\((1 + 
+              x)\) \((1 - x)\)\^\(-1\) \[Congruent] \ \((1 + x)\) \((2  x + 
+              2)\)\  \[Congruent] \ 2 - 2 + \((2 + 2)\) x\  \[Congruent] \ 
+        x\)]],
+  "."
+}], "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["(f)", "Subsubtitle"],
+
+Cell[TextData[{
+  "Condition for square -free is that ",
+  Cell[BoxData[
+      \(TraditionalForm\`GCD(a(x), \ a' \((x)\))\)]],
+  " is a unit.   Compute: ",
+  Cell[BoxData[
+      \(TraditionalForm\`GCD \((1 + x + x\^2, \ 1 + 2  x)\)\)]],
+  "\n\n",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \)\(2  
+          x\ \  + 1\[IndentingNewLine]
+      2  x + 1\ \ \@\(x\^2\ \  + \ \ \ \ x\ \ \  + \ 1\)\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\^2\  + \ \ \ 2  
+          x\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(--\(--\(--\(--\(-\
+\[IndentingNewLine]\ \ \ \ \ 2\)\)\)\)\) x\  + \ 1\ \[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2  
+          x\ \  + \ 1\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(--\(--\(\
+--\[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ 0\)\)\)\)\)\)]]
+}], "Text"],
+
+Cell[TextData[{
+  Cell[BoxData[
+      \(TraditionalForm\`GCD \((1 + x + x\^2, \ 1 + 2  x)\)\  = \ 
+        2  x + 1\)]],
+  ".   Since this is not a unit, the polynomial ",
+  Cell[BoxData[
+      \(TraditionalForm\`1 + x + x\^2\)]],
+  " is not square-free.  The above result also means that ",
+  Cell[BoxData[
+      \(TraditionalForm\`2  x + 1\)]],
+  " is a factor of ",
+  Cell[BoxData[
+      \(TraditionalForm\`1 + x + x\^2\)]],
+  ", since the quotient is also ",
+  Cell[BoxData[
+      \(TraditionalForm\`2  x + 1\)]],
+  ",  we must have ",
+  Cell[BoxData[
+      \(TraditionalForm\`\((2  x + 1)\)\^2 = \ 1 + x + \(\(x\^2\)\(.\)\)\)]],
+  "   Without going through the square-free factorization algorithm, we find \
+the factorization is ",
+  Cell[BoxData[
+      \(TraditionalForm\`\((2  x + 1)\)\^2 \[Congruent] \ \((x + 2)\)\^2\)]],
+  "."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Factor[1 + x + x^2, \ Modulus \[Rule] 3]\)], "Input"],
+
+Cell[BoxData[
+    \(\((2 + x)\)\^2\)], "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["4.", "Subtitle"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Solve[{5  x + 2  y == 7, 2  x + y == 1}, {x, y}]\)], "Input"],
+
+Cell[BoxData[
+    \({{x \[Rule] 5, y \[Rule] \(-9\)}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(matd = {{5, 2}, {2, 1}}\)], "Input"],
+
+Cell[BoxData[
+    \({{5, 2}, {2, 1}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Det[matd]\)], "Input"],
+
+Cell[BoxData[
+    \(1\)], "Output"]
+}, Open  ]],
+
+Cell[TextData[{
+  "Given the above results, the answer can be checked:\n\nmod  p              \
+  x                y               d              ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\_x\)]],
+  "                  ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\_y\)]],
+  "\n          2                1                1                1           \
+   1                     1\n          3                2                0     \
+           1              2                     0\n          5                \
+0                1                1              0                     1\n    \
+      7                5                5                1              5     \
+                5\n         \[Infinity]               5              -9       \
+        1               5                  -9       (that is, Z)"
+}], "Text"]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"4.2 for X",
+ScreenRectangle->{{0, 1280}, {0, 1024}},
+WindowSize->{703, 836},
+WindowMargins->{{111, Automatic}, {Automatic, 18}},
+Magnification->1.5
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 40, 0, 166, "Title"],
+Cell[1819, 55, 22, 0, 94, "Subtitle"],
+
+Cell[CellGroupData[{
+Cell[1866, 59, 55, 1, 39, "Input"],
+Cell[1924, 62, 35, 1, 39, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[1996, 68, 60, 1, 39, "Input"],
+Cell[2059, 71, 35, 1, 39, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2131, 77, 36, 1, 39, "Input"],
+Cell[2170, 80, 38, 1, 61, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2245, 86, 44, 1, 39, "Input"],
+Cell[2292, 89, 35, 1, 39, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2364, 95, 41, 1, 39, "Input"],
+Cell[2408, 98, 46, 1, 39, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2491, 104, 51, 1, 39, "Input"],
+Cell[2545, 107, 39, 1, 39, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2621, 113, 48, 1, 39, "Input"],
+Cell[2672, 116, 40, 1, 43, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2749, 122, 48, 1, 39, "Input"],
+Cell[2800, 125, 47, 1, 39, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2884, 131, 51, 1, 39, "Input"],
+Cell[2938, 134, 35, 1, 39, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3010, 140, 41, 1, 39, "Input"],
+Cell[3054, 143, 38, 1, 39, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3129, 149, 40, 1, 39, "Input"],
+Cell[3172, 152, 41, 1, 39, "Output"]
+}, Open  ]],
+Cell[3228, 156, 44, 1, 39, "Input"],
+
+Cell[CellGroupData[{
+Cell[3297, 161, 73, 1, 39, "Input"],
+Cell[3373, 164, 40, 1, 39, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3450, 170, 77, 1, 39, "Input"],
+Cell[3530, 173, 35, 1, 39, "Output"]
+}, Open  ]],
+Cell[3580, 177, 47, 1, 39, "Input"],
+
+Cell[CellGroupData[{
+Cell[3652, 182, 58, 1, 39, "Input"],
+Cell[3713, 185, 57, 1, 39, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3807, 191, 52, 1, 39, "Input"],
+Cell[3862, 194, 35, 1, 39, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3934, 200, 49, 1, 39, "Input"],
+Cell[3986, 203, 40, 1, 39, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4063, 209, 45, 1, 39, "Input"],
+Cell[4111, 212, 40, 1, 39, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4188, 218, 45, 1, 39, "Input"],
+Cell[4236, 221, 53, 1, 39, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4326, 227, 40, 1, 39, "Input"],
+Cell[4369, 230, 38, 1, 39, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4444, 236, 50, 1, 39, "Input"],
+Cell[4497, 239, 38, 1, 39, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4572, 245, 46, 1, 39, "Input"],
+Cell[4621, 248, 38, 1, 39, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4696, 254, 59, 1, 39, "Input"],
+Cell[4758, 257, 54, 1, 39, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4849, 263, 50, 1, 39, "Input"],
+Cell[4902, 266, 45, 1, 39, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4984, 272, 48, 1, 39, "Input"],
+Cell[5035, 275, 41, 1, 65, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5113, 281, 46, 1, 39, "Input"],
+Cell[5162, 284, 41, 1, 39, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5240, 290, 46, 1, 39, "Input"],
+Cell[5289, 293, 35, 1, 39, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5361, 299, 22, 0, 94, "Subtitle"],
+Cell[5386, 301, 26, 0, 76, "Subsubtitle"],
+Cell[5415, 303, 541, 8, 200, "Input"],
+
+Cell[CellGroupData[{
+Cell[5981, 315, 53, 1, 39, "Input"],
+Cell[6037, 318, 230, 5, 43, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6304, 328, 81, 1, 39, "Input"],
+Cell[6388, 331, 129, 2, 61, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6554, 338, 27, 0, 76, "Subsubtitle"],
+Cell[6584, 340, 96, 3, 46, "Text"],
+
+Cell[CellGroupData[{
+Cell[6705, 347, 69, 1, 39, "Input"],
+Cell[6777, 350, 75, 1, 65, "Output"]
+}, Open  ]],
+Cell[6867, 354, 220, 5, 71, "Text"],
+
+Cell[CellGroupData[{
+Cell[7112, 363, 79, 1, 39, "Input"],
+Cell[7194, 366, 235, 4, 67, "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7478, 376, 26, 0, 76, "Subsubtitle"],
+Cell[7507, 378, 72, 0, 46, "Text"],
+Cell[7582, 380, 26, 0, 39, "Input"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7657, 386, 22, 0, 94, "Subtitle"],
+Cell[7682, 388, 26, 0, 76, "Subsubtitle"],
+Cell[7711, 390, 532, 11, 346, "Text"],
+
+Cell[CellGroupData[{
+Cell[8268, 405, 26, 0, 76, "Subsubtitle"],
+Cell[8297, 407, 183, 4, 96, "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[8517, 416, 26, 0, 76, "Subsubtitle"],
+Cell[8546, 418, 204, 4, 96, "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[8787, 427, 26, 0, 76, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[8838, 431, 85, 1, 39, "Input"],
+Cell[8926, 434, 39, 1, 39, "Output"]
+}, Open  ]],
+Cell[8980, 438, 1572, 25, 320, "Text"],
+Cell[10555, 465, 290, 10, 68, "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10882, 480, 26, 0, 76, "Subsubtitle"],
+Cell[10911, 482, 1363, 40, 196, "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[12311, 527, 26, 0, 76, "Subsubtitle"],
+Cell[12340, 529, 985, 21, 288, "Text"],
+Cell[13328, 552, 848, 24, 146, "Text"],
+
+Cell[CellGroupData[{
+Cell[14201, 580, 73, 1, 39, "Input"],
+Cell[14277, 583, 48, 1, 43, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[14386, 591, 22, 0, 94, "Subtitle"],
+
+Cell[CellGroupData[{
+Cell[14433, 595, 81, 1, 39, "Input"],
+Cell[14517, 598, 67, 1, 39, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[14621, 604, 56, 1, 39, "Input"],
+Cell[14680, 607, 50, 1, 39, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[14767, 613, 42, 1, 39, "Input"],
+Cell[14812, 616, 35, 1, 39, "Output"]
+}, Open  ]],
+Cell[14862, 620, 832, 15, 221, "Text"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

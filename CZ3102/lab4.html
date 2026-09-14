@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>CZ3102, Scientific Modeling, Lab 4</title>
+</head>
+<body>
+
+<H1>Lab 4, due Monday, 8 March 04</H1>
+
+<p><strong>General Considerations</strong>: Your program code
+should be placed at $HOME/CZ3102/lab4/ (and set the permission to 
+world readable).  Programming can be done in C, MATLAB, 
+Mathematica, or Java.  However, you should avoid writing your
+own ODE solver.  Lab 4 will be easier in the sense that it is
+less open-ended. 
+
+<p><strong>Q1</strong>: 
+<p>In the class we have discussed the ecological model -- the
+basic variables are g (the amount of grass), r (the number of
+rabbits), and f (the number of wolves).  The
+Sun provides the energy for grass to grow.  The Sun light is 
+seasonal.  We assume that the growth rate for grass (if there
+were no crowding) is 
+<p> s(t) = s0 + eps * cos(6.28*t/T)
+The over crowding and finite land is modeled by the 
+logistic equation.  In addition, the rabbits eat the grass at the rate
+of e*r.   Thus the differential equation for the growth of grass is
+<p> dg/dt = (s(t) - g/G) g - e*r
+<p>The rabbits grow with a birth rate b, but limited by the
+availability of grass.  Again this is described by a logistic
+equation (or similar to it).  The wolves eat rabbits.  This
+is proportional to how frequent a wolf find a rabbit, which is 
+r*f.  The equation for the number of rabbits is
+<p> dr/dt = (b - r/g)r - a*r*f
+<p>For wolves, the growth rate is assumed to be proportional to 
+the number of rabbits, because the survival of wolves depends on
+rabbits.  The wolves die of natural cause.   The equation is
+<p>df/dt = c*r*f - d*f.
+<p>In the above system of three differential equations, g, r, f are
+unknown functions of t.  G, e, b, a, c, d, s0, eps, T are 
+model constants. They are all nonnegative.
+ 
+<p>Solve the above set of differential equations. For this, you need
+to use an ODE solver, such as the 4-th order Runge-Kutta method.
+I strongly discourage you to write your own solver; use the MATLAB,
+or Mathematica, or "Numerical Recipes in C" functions or subroutines. 
+
+<p>Discuss the following in your report. 
+<p>(0) How do you know you have used the ODE solver correctly?
+That is, inputs are given correctly, the results computed are correct, 
+and you did not make programming errors.
+
+<p>(1) What constants did you
+use, what initial conditions did you use, for some typical plots
+of g, r, and f vs. t (not more than three)?  Are the choices arbitrarily made?
+Or you decided by some rational reasoning.   If you have modified
+the model, discuss that. 
+
+<p>(2) Discuss the general features of the solution, and try to
+interpret what you see in the solution.
+
+<p>(3) Is there an equilibrium point or few equilibria points?  
+If so, find their locations in the phase space (g,r,f).  Are
+they stable or unstable?   How does this correlate with your 
+plots in (1) or what you said in (2).
+
+</body>
+</html>

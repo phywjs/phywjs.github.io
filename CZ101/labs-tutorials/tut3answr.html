@@ -1,0 +1,176 @@
+<html>
+<head>
+<title>CZ1101, Tutorial 3, Answers</title>
+</head>
+<body>
+
+<h1>CZ1101, Tutorial 3, Answers</h1>
+
+<OL>
+<LI> (3.5) The VAX instruction that subtracts 1 from register $5,
+placing the difference back in register $5, and then branches to
+L1 if $5 > 0:
+<pre>
+sobgtr $5, L1    # $5 = $5 - 1; if ($5 > 0) goto L1
+</pre>
+can be done in MIPS as
+<pre>
+   addi $5, $5, -1   # subtract 1, placing the difference back
+   slt  $1, $0, $5   # $1 = 1 if (0 < $5)
+   bne  $1, $0, L1   # branch if ($5 > 0) is true
+</pre>
+
+<LI> (3.6) The single MIPS instruction for this C statement
+<pre>
+a = b + 100;
+</pre>
+is just
+<pre>
+   addi $11, $12, 100   # add an immediate value with b, result in a
+</pre>
+assuming <code>a</code> corresponds to register $11 and <code>b</code> 
+corresponds to register $12.
+
+<LI> (3.7) 
+Assuming <code>c</code> corresponds to register $13 and the array 
+<code>x[]</code> begins at memory location 4,000,000, 
+Assuming that the array is array of words, the C statement
+<pre>
+x[10] = x[11] + c;
+</pre>
+can be translated into MIPS instructions as
+<pre>
+   addi $3, $0, 4000000    # $3 contains starting address of array x[]
+   lw   $4, 44($3)         # load x[11] which is 11*4 bytes array
+   add  $4, $4, $13        # calculate the sum
+   sw   $4, 40($3)         # store in x[10]
+</pre>
+<p>I don't see a way of doing it by a single instruction.
+Since 4000000 is bigger than 16 bits, the value in $3 needs to be set
+in two steps (lui and add).  This requires the knowledge of binary
+representation of the constant 4000000.  We'll learn that in the
+next Chapter 4.  Assembler can do this for you anyway.  We should not
+worry too much about it.
+
+<LI> (3.18) The instruction
+<pre>
+beq $2, $3, L1
+</pre>
+will compare the contents of $2 and $3 and 
+branch to L1 if they are equal.
+Unfortunately, there is no single instruction that can be used to
+compare $2 with an immediate value, such as 14.
+Let's look at the instruction encoding format.
+The op field needs 6 bits, two registers occupied 10 bits,
+and the label (immediate value) used 16 bits.  If one of the
+field for registers is used for an immediate value, the value
+can only be 5-bit wide, which is too small to be useful.  
+The following instructions 
+will branch to L1 if $2 is equal to 14.
+<pre>
+   addi $3, $0, 14
+   beq  $2, $3, L1
+</pre>
+
+<LI> (3.19) Following fragment of C code
+<pre>
+for(i = 0; i <= 100; ++i) {
+   a[i] = b[i] + c;
+}
+</pre>
+can be translated into MIPS instructions as
+(assuming that  a and b are arrays of words at addresses
+1500 and 2000, respectively.  Register $15 is associated with 
+variable i and $16 with c.)
+<pre>
+      addi $4, $0, 1500      # starting address of a[]
+      addi $5, $0, 2000      # starting address of b[]
+      add  $15, $0, $0       # initialize i to zero
+Loop: 
+      slti $2, $15, 101      # if (i >= 101)
+      beq  $2, $0, Exit      # goto exit
+      lw   $3, 0($5)         # load b[i]
+      add  $3, $3, $16       # add the constant c
+      sw   $3, 0($4)         # store in a[i]
+      addi $4, $4, 4         # address for next element of a[]
+      addi $5, $5, 4         # address for next element of b[]
+      addi $15, $15, 1       # increment index i by 1
+      j    Loop              # loop back
+Exit:
+</pre>
+The number of instructions executed for the above program
+is 3 + 9*101 + 2 = 914.  And 101*2 = 202 
+memory data references will be made during execution.
+
+<LI> (4.3-4.5) The problems are to 
+convert decimal number 512, -1,023,  and
+-4,000,000, into 32-bit two's complement binary numbers. 
+Since I know 2 to the power 9 is 512. So The binary
+number for 512 is
+<pre>
+   00000000 00000000 00000010 00000000
+</pre>
+For -1023, we consider the positive number 1023 = 2^10 - 1
+<pre>
+   00000000 00000000 00000011 11111111
+</pre>
+Using the shortcut rule to negate the value
+<pre>
+   11111111 11111111 11111100 00000000   &lt;- Invert
+   11111111 11111111 11111100 00000001 = -1023_ten   &lt;- Add 1
+</pre>
+<p>For -4000000, I don't see any tricks, we have to use the division 
+method. But consider positive value 4000000.
+<pre>
+                 quotient remainder
+   4000000 / 2 = 2000000    0
+   2000000 / 2 = 1000000    0
+   1000000 / 2 =  500000    0
+    500000 / 2 =  250000    0
+    250000 / 2 =  125000    0
+    125000 / 2 =   62500    0
+     62500 / 2 =   31250    0
+     31250 / 2 =   15625    0
+     15625 / 2 =    7812    1
+      7812 / 2 =    3906    0
+      3906 / 2 =    1953    0
+      1953 / 2 =     976    1
+       976 / 2 =     488    0
+       488 / 2 =     244    0
+       244 / 2 =     122    0
+       122 / 2 =      61    0
+        61 / 2 =      30    1
+        30 / 2 =      15    0
+        15 / 2 =       7    1
+         7 / 2 =       3    1
+         3 / 2 =       1    1
+         1 / 2 =       0    1
+</pre>
+So the binary representation for +4000000 is
+<pre>
+   00000000 00111101 00001001 00000000
+</pre>
+So the negated value -4000000 is
+<pre>
+   11111111 11000010 11110111 00000000
+</pre>
+
+   
+<LI> (4.6-4.8) The two's complement value of the bit patterns? 
+<pre>
+1111 1111 1111 1111 1111 1110 0000 1100
+1111 1111 1111 1111 1111 1111 1111 1111
+0111 1111 1111 1111 1111 1111 1111 1111
+</pre>
+Convert the first into positive number 
+<pre>
+   00000000 00000000 00000001 11110100
+</pre>
+This number is 256+128+64+32+16+4 = 500. So the original number is
+-500. 
+<p>The second number is -1.  The last number is the largest
+positive number 2^31-1 = 2147483647.
+
+</OL>
+</body>
+</html>

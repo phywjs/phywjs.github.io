@@ -1,0 +1,79 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Chapter 4&nbsp;&nbsp;&nbsp;&nbsp; The Perceptron</title>
+<meta name="Microsoft Theme" content="loosegst 011, default">
+</head>
+
+<body background="_themes/loosegst/lootextb.jpg" bgcolor="#FFFFCC" text="#000000" link="#CC6633" vlink="#663399" alink="#999900"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica">
+
+<h1><!--mstheme--><font color="#666633">Chapter 4&nbsp;&nbsp;&nbsp;&nbsp; The Perceptron&nbsp;<!--mstheme--></font></h1>
+<h2><!--mstheme--><font color="#330099"><font size="4"><span style="text-transform: uppercase"> perceptron and
+classification</span></font><!--mstheme--></font></h2>
+<p><font size="4">The original perceptron (Rosenblatt, 1958) was fairly
+sophisticated. It consists </font></p>
+<!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/loosegst/loobul1a.gif" width="15" height="15" hspace="13"></td><td valign="top" width="100%"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><font size="4">input layer (representing sensory units)</font><!--mstheme--></font><!--msthemelist--></td></tr>
+  <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/loosegst/loobul1a.gif" width="15" height="15" hspace="13"></td><td valign="top" width="100%"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><font size="4">associator units</font> <font size="4">with lateral
+    connections</font><!--mstheme--></font><!--msthemelist--></td></tr>
+  <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/loosegst/loobul1a.gif" width="15" height="15" hspace="13"></td><td valign="top" width="100%"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><font size="4">response units with lateral connections</font><!--mstheme--></font><!--msthemelist--></td></tr>
+  <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/loosegst/loobul1a.gif" width="15" height="15" hspace="13"></td><td valign="top" width="100%"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><font size="4">feedback between associator and response units.</font><!--mstheme--></font><!--msthemelist--></td></tr>
+<!--msthemelist--></table><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica">
+<p><font size="4">To make the Perceptron theoretically tractable, we consider
+only a single layer Perceptron.</font></p>
+<p><font size="4">Perceptron learning is <b>supervised learning</b>.</font></p>
+<!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/loosegst/loobul1a.gif" width="15" height="15" hspace="13"></td><td valign="top" width="100%"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><font size="4">&quot;Training set&quot; {f<sub>i</sub>,t<sub>i</sub>}:&nbsp;
+    f<sub>i</sub> --- inputs&nbsp;&nbsp;&nbsp;&nbsp; t<sub>i </sub>---target
+    outputs. </font><!--mstheme--></font><!--msthemelist--></td></tr>
+  <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/loosegst/loobul1a.gif" width="15" height="15" hspace="13"></td><td valign="top" width="100%"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><font size="4">Feedback (from the &quot;teacher&quot;) --- whether the
+    mapping is correct or not (or how far off is the T's prediction from t). </font><!--mstheme--></font><!--msthemelist--></td></tr>
+  <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/loosegst/loobul1a.gif" width="15" height="15" hspace="13"></td><td valign="top" width="100%"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><font size="4">Aim: to learn a general mapping: T: f -&gt; g such that T
+    is a good fit to the training data (i.e. g is close to t), and generalizes
+    well to novel inputs. </font><!--mstheme--></font><!--msthemelist--></td></tr>
+<!--msthemelist--></table><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica">
+<p><font size="4"><b>Pattern classification</b></font></p>
+<p><font size="4">Example: Let <b>f</b> be a set of all input patterns
+corresponding to various fonts of a and b, such as <font SIZE="6">{a, A, </font><font SIZE="7">a</font><font SIZE="6">,
+<font face="Arial Black">a</font>,</font><font FACE="Arial" SIZE="6"> </font><font SIZE="6" face="Arial Black">A</font><font FACE="Arial" SIZE="6">,
+</font><font SIZE="6">b, B, </font><font SIZE="7">b</font><font SIZE="6">, <font face="Arial Black">b</font>,</font><font FACE="Arial" SIZE="6">
+</font><font SIZE="6" face="Arial Black">B</font><font FACE="Arial" SIZE="6"> </font><font SIZE="6">}</font>,
+we want to design a pattern classifier that can make a decision about <b>f</b>
+as to whether it means &quot;a&quot; or &quot;b&quot;. Specifically we want to
+find a mapping T such that</font></p>
+<p>&nbsp;&nbsp; <font size="4"> T: <b>f</b> -&gt; (&quot;a&quot;,
+&quot;b&quot;).</font></p>
+<p><font size="4">In this case T can be modeled by a perceptron with two
+possible output value.</font></p>
+<p><font size="4">Nonlinear units are typically used in perceptron. If the
+weight is <b>w</b>, and the threshold is <font face="Symbol">q</font>, then the
+output is given by </font></p>
+<p>&nbsp;&nbsp; <font size="4"> 1, if <b>w.f</b> &gt; <font face="Symbol">q</font></font></p>
+<p>&nbsp;&nbsp; <font size="4"> 0, if <b>w.f</b> &lt; <font face="Symbol">q</font></font></p>
+<p><font size="4">Typically, we extend the weight and input vectors such that
+the last component of <b>w </b>is -<font face="Symbol">q</font> and the last
+component of <b>f</b> is 1.</font></p>
+<p><font size="4">The output is then given by</font></p>
+<p>&nbsp;&nbsp; <font size="4"> 1,&nbsp; if <b>w.f </b>&gt; 0</font></p>
+<p>&nbsp;&nbsp; <font size="4"> 0, if <b>w.f </b>&lt; 0.</font></p>
+<p><font size="4">Classification using perceptron is to find a hyper-plane that
+can divide the inputs. </font></p>
+<p><font size="4">Example: a simple unit consists of two inputs</font></p>
+<p><font size="4">The perceptron learning is to find a right hyper-plane to
+separate the inputs.</font></p>
+<p><font size="4">XOR can not be learnt (no plane can be found to separate the
+inputs)</font></p>
+<p><img border="0" src="IMAGES/NOTES4_1.GIF" width="224" height="228"></p>
+<p><!--webbot bot="Navigation" S-Type="arrows" S-Orientation="horizontal"
+S-Rendering="graphics" B-Include-Home="TRUE" B-Include-Up="TRUE" U-Page S-Target startspan
+--><!--webbot bot="Navigation" endspan i-checksum="0"
+-->
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<!--mstheme--></font></body>
+
+</html>

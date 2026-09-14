@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>CZ1101, Laboratory 4</title>
+</head>
+<body>
+
+<h1>CZ1101, Lab 4, Week 12, 29 Sep-4 Oct,  Due Tuesday, 7  October, 1997</h1>
+
+<blockquote>
+<em> Submitting assembly programs, and report your test outputs.  
+You should write main programs to
+call your functions.   The main program handles interactive input and
+output (see the template of last lab and Appendix A, pages A-45 and A-46 
+for how to do I/O with SPIM).
+</em>
+</blockquote>
+<br>
+<P><a href="shc3.txt">Remark from Shing Gene</a>.
+<br>
+<OL>
+<LI> [20] Write a procedure, gcd, in MIPS assembly
+language, which takes
+two positive integers a  and b from $4 and $5, and  returns the greatest
+common divisor of the two numbers in $2.  Use the Euclid's algorithm 
+(circa 300 B.C.) for the computation:
+<P>(i) Divide a by b. Let the quotient be q and the remainder 
+be r, the quantities are related by a = q b + r, 0 &lt;= r &lt; b.
+<P>(ii) If remainder r = 0, return the  divisor b as result; else
+           if r != 0, replace a by b and b by r, go to step (i).
+<P> Here is an example of the operation of Euclid's algorithm
+for gcd(325,273) = 13,
+<pre>
+  a    q    b    r
+ 325 = 1 x 273 + 52
+ 273 = 5 x 52  + 13
+  52 = 4 x 13  + 0 
+</pre>
+You should use div and  mfhi instructions.  Compute
+gcd(2,2), gcd(12,4), gcd(5,7), gcd(1099,57), gcd(111,618).
+
+<br><br>
+
+<LI> [30] Write a procedure,  expt, in MIPS 
+assembly language, to compute e^x, the exponential function.
+The  expt procedure takes one argument $f12 for the
+input x in single precision floating-point format, and
+returns a value in $f0 for the (single precision) result.   We'll use the
+formula
+<pre>
+e^x = 1 + x + x^2 /2! +  x^3 /3! +  ... + x^n /n! + ...
+</pre>
+<P> Since there are infinite number of terms in the series, we can
+only evaluate the function approximately.  Add enough terms in 
+such a way so that the error, |e^x - expt(x)|, of your function
+is less than 0.00001.
+
+<P> You can use li.s (load immediate single precision), add.s,  mul.s, div.s, 
+abs.s (absolute value), c.lt.s,  bc1t  or other 
+floating-point instructions (see Figure 4.44 of the textbook).
+Compare your assembly program result with a hand calculator for x = -10.0,
+-5.0, 0, 0.2, 1.0, 3.5,
+and 10.   How accurate are your results?    Given reasons that lead
+to finite accuracy. 
+
+
+</OL>
+</body>
+</html>

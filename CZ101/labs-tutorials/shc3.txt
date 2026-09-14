@@ -1,0 +1,78 @@
+From: Yung Shing Gene <shing@cz3.nus.sg>
+To: 1101@cz.nus.sg
+Subject: 1101 Lab #4: Further notes
+
+ 
+Dear all,
+
+Here are some further notes for this week's lab:
+
+Q1 - GCD
+--------
+Like the previous lab, your program should have a 'main' function and a
+'gcd' function (both in the same file). For e.g:
+
+-----
+# descibe the program here
+main: ...       # allocate space on the stack to save $31 & save it.
+
+      ...
+      ...       # the main function here...
+      ...
+
+      ...       # restore $31
+      j $31
+
+# describe gcd function here.
+gcd: ...
+     ...
+     ...
+     j $31
+-------
+
+A few things to note about the structure of the program:
+
+1) Documentation. Give a description of the program in the beginning as
+well as a description of each function (put this where the function is).
+
+--The documentation should also describe the registers/data which the
+function expects to be PASSED to it, as well as the registers/data which
+the function returns. e.g. for the 'gcd' function, the 2 numbers
+on which the GCD is performed, is the data which the 'main' function
+passes to it, so the gcd function expects those two pieces of data
+(specify registers). When the gcd function completes, it _returns_ the
+result to the main program. Specify that register. (there are conventions
+as to which registers are used...this should be described by the lecture
+notes, book, or MIPS assembly language manual).
+
+--for eg: 
+
+# GCD Function
+# <blah..blah..blah..describe what the function does>
+# Expects: arguments in $4 and $5
+# Returns: GCD result in $2
+
+
+2) You will need to save $31 in the 'main' function. This is done by
+allocating some space on the stack and storing $31 there. (see previous
+lab for examples). This is necessary because the original $31 is
+over-written when you execute 'jal' to jump to the 'gcd' function.
+
+3) Submit test output for the values specified in the handout.
+
+Q2 - Expt
+---------
+1) I would suggest that you write an interactive program like in Q1, so
+that you can input many x-values and get the results straight away.
+
+2) Remember to document just like in Q1.
+
+3) Submit test output for the various x-values specified.
+
+4) Draw up a table to compare the results computed with your program, and
+the results obtained from a calculator.
+
+5) Comment on the results as required in the handout.
+
+regards,
+--shing

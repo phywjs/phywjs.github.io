@@ -1,0 +1,94 @@
+<html>
+<head>
+<title>CZ1101, Tutorial 4</title>
+</head>
+<body>
+
+<h1>CZ1101, Tutorial 4, Week 11, 22-27 September, 1997</h1>
+
+
+<blockquote>
+<em><p>You should hand in the solutions to problem 2 and 6 
+in the tutorial class.  Do other problems as well if you can.
+</em>
+</blockquote>
+
+<OL>
+
+
+<LI> (4.10) [5] What hexadecimal number does this binary number
+represent?
+<pre>
+1100 1010 1111 1110 1111 1010 1100 1110
+</pre>
+
+<LI>do* (4.1) [25] The Big Picture on page 243 of the textbook 
+mentions that bits have no inherent meaning.  Given the bit pattern
+<pre>
+1000 1111 1110 1111 1100 0000 0000 0000
+</pre>
+ What does it represent, assuming that it is
+<UL>
+<LI>(a) a two's complement integer?
+<LI> (b) an unsigned integer?
+<LI> (c) a single precision floating-point number?
+<LI> (d) a MIPS instruction?
+</UL>
+
+<LI> (4.21) [10] Find the shortest sequence of MIPS instructions
+to determine the absolute value of a two's complement integer.
+I. e., convert this instruction (accepted by the MIPS assembler):
+<pre>
+abs  $10, $11   # $10 = |$11|
+</pre>
+This instruction means that register $10 has a copy of
+register $11 if register $11 is positive, and the two's
+complement (negatived value) of register $11, if $11 is negative.
+
+<LI> (4.28) [5] The full MIPS instruction set has two more
+logical operations not mentioned thus far:  xor and nor.
+The operation xor stands for exclusive OR, and nor
+stands for not OR.  The table that follows defines these 
+operations on a bit-by-bit basis. 
+<pre>
+     a     b      a xor b      a nor b
+     0     0         0            1
+     0     1         1            0
+     1     0         1            0
+     1     1         0            0
+</pre>
+Show the minimal MIPS instruction sequence for a 
+new instruction called not that takes the one's
+complement (invert 0 and 1) of a source register and
+places it in a destination register. Convert this
+instruction (accepted by the MIPS assembler).
+<pre>
+not  $10, $20
+</pre>
+The not operation in C is the operator `!'.
+
+<LI> [15] Write in 6-bit two's complement representation of the
+integers a=29, b=31, c=-31.  
+(a) Calculate (paper-pencil longhand way) 
+a+b, a-b, b-a, a+c, a-c, and c-a in
+two's complement arithmetic.  Indicate if overflow occurs.
+(b) Similarly, compute a*b, a*c,
+b*c, and b/a.
+
+
+<LI>do* [10] Compute the product of two 5-bit binary numbers,
+10101*01011: 
+<UL>
+<LI> (a) Assuming that the bits represent unsigned values,
+            compute in paper-pencil (longhand) way.
+<LI> (b) Follow the steps of third multiplication algorithm.
+<LI> (c) Consider the values as two's complement 5-bit numbers,
+computer by Booth algorithm the paper-pencil (longhand) way.
+<LI> (d) Same as (c) but step by step machine way. 
+<LI> (e) What is the decimal equivalent of the results in
+(a) to (d) above.
+</UL>
+
+</OL>
+</body>
+</html>

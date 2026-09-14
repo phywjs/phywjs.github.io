@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0050)http://www.cz3.nus.edu.sg/~wangjs/CZ3102/lab3.html -->
+<HTML><HEAD><TITLE>CZ3102, Scientific Modeling, Lab 3</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<META content="MSHTML 6.00.2800.1400" name=GENERATOR></HEAD>
+<BODY>
+<H1>Lab 3, due Monday, 23 Feb 04</H1>
+<P><STRONG>Q1</STRONG>: In class we have discussed the problem of soap film 
+between to coaxial rings. The soap film takes a shape that minimizes the total 
+surface energy, <PRE>   E = g S
+</PRE>where g is the surface energy per unit area and S is the total area. The 
+minimization is subject to the constraints that the the film spans a distance b 
+and the ring radius is a. 
+<P>(1) Implement a matlab or Mathematica function that computes the surface area 
+of the film, with a given functional form of soap film by r(x), such that 
+r(0)=r(b)=a. Give a test example to show that your program is correct. 
+<P>(2) Verify that the solution <PRE>   r(x) = c1 cosh((x-c2)/c1)
+</PRE>satisfies the differential equation <PRE>   r r'' - (r')^2 - 1  = 0
+</PRE>
+<P>(3) This equation is the solution of minimum E or S. c2 is found to be b/2 
+(due to the requirement that r(0)=r(b)=a). Find the c1/a numerically by solving 
+the equation <PRE>a = c1 cosh(b/(2c1))
+</PRE>for each b/a, using some of the methods you learnt in numerical methods I 
+or II. Use the solution data to draw the folding catastrophe bifurcation diagram 
+(i.e., a diagram of b/a vs c1/a). c1 is the minimum radius at the center of 
+film. You can measure all quantities in units of the ring radius a. 
+<P>(4) Determine the stability of the fold catastrophe curve numerically 
+(actually you need this result to draw the diagram in (3); solid line for stable 
+equilibrium and dotted line for unstable equilibrium). To do this, compute the 
+value S using the solution in (3) and program in (1), and compute the same with 
+a slightly perturbed curve (by addition a small function dr(x), such that 
+dr(0)=dr(b)=0). Compare the results to determine if it is a minimum or maximum. 
+</P></BODY></HTML>

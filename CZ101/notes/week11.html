@@ -1,0 +1,328 @@
+<html>
+<head>
+<title>CZ1101, Lecture Notes, Week 11</title>
+</head>
+<body>
+
+<HR>
+<p>Links to other weeks notes
+[ <A HREF="cz101notes.html">2</A> ][ <A HREF="week3.html">3</A> ][
+ <A HREF="week4.html">4</A> ][ <A HREF="week5.html">5</A> ][ <A 
+HREF="week6.html">6</A> ][ <A HREF="week7.html">7</A> ]
+[ <A HREF="week8.html">8</A> ][ <A HREF="week10.html">10</A> ](
+ <A HREF="week11.html">11</A> )[ <A HREF="week12.html">12</A> ][ 
+ <A HREF="week13.html">13</A> ]
+<HR>
+
+<h2>Week 11, 22/25 September, 1997</h2>
+
+<h3>Hardware Software Interface</h3>
+<h4>Floating-point registers</h4>
+<p>MIPS R2000 system consists of a CPU, and a separate floating-point
+unit (FPU) referred as Coprocessor 1.  Coprocessor 0 handle exceptions
+and other tasks.  
+
+<p>Floating-point registers reside in FPU.
+There are 16 floating-point registers on MIPS used for floating-point
+calculations.  They are called $f0, $f2, $f4, ..., f$30.  Only even
+numbered registers should appear in most of the instructions.  If the
+number is a single precision number, the even numbered register
+is used.  Double precision number use two floating-point registers,
+e.g., $f2, $f3.
+
+
+<h4>Floating-point instructions</h4>
+This table shows some of the most frequently used floating-point
+instructions.  The operands of these instructions must be floating-point 
+registers.
+<pre>
+                     single precision       double precision
+
+   add                    add.s                  add.d
+   subtract               sub.s                  sub.d
+   multiply               mul.s                  mul.d
+   divide                 div.s                  div.d
+   
+   load                     l.s                    l.d
+   store                    s.s                    s.d
+   load immediate          li.s                   li.d
+
+   compare lt            c.lt.s                 c.lt.d
+   eq, le, ...           c.eq.s                 c.eq.d
+
+   branch on comparison true       bc1t
+   branch on comparison false      bc1f
+
+   move from FP reg to general reg               mfc1
+   move to FP reg from general reg               mtc1
+</pre>
+Please refer to Fig. 4.44 and Appendix A of the textbook
+for syntax and complete list.
+
+<h4>An example with floating-point instructions</h4>
+<p>Write an assembly procedure poly to evaluate the value of the
+polynomial
+<pre>
+   f = a[0] + a[1] * x + a[2] * x^2 + ... + a[n] * x^n.
+</pre>
+where a[i] is given as an array of float type coefficients, n is an integer
+for the order of the polynomial, and x is the variable of type float. 
+
+<p>An efficient method is the Horner's method, by noting     
+<pre>
+   f = a[0] + a[1] * x + a[2] * x^2 + ... + a[n] * x^n
+     = a[0] + x * ( a[1] + x * ( a[2] + ... + x * ( a[n-1] + x * (a[n] + 0))...)
+</pre>
+we can compute with the following steps (algorithm)
+<pre>
+       i = n;
+       y = 0;
+Loop:  y = a[i] + (x * y);
+       i = i - 1;
+       if (i>=0) goto Loop;
+       return y.
+</pre>
+
+
+<p>With the Horner algorithm for polynomial evaluation given above,
+we can write the <A HREF="../assembly-examples/poly.s">assembly program</A>
+as below.  We'll write the program as a function (or called procedure).
+We assume that the address of a is in $4, the value n in
+$5, x is loaded in $6.   The result is put in $f0.   The register
+usage for passing values into a function or return result of the
+function is not arbitrary, but follows certain convention.  We'll
+discuss this later in Appendix A.
+<pre>
+poly:
+        li.s  $f0, 0.0          # y = 0, running and return result
+        mtc1  $6  $f12          # x, move to float register
+Loop:
+        mul.s $f14, $f12, $f0   # compute (x * y)
+        mul   $2, $5, 4         # $5 = i, compute address of a[i]
+        addu  $3, $2, $4        # a + (i*4)
+        l.s   $f16, 0($3)       # a[i], load coefficient
+        add.s $f0, $f16, $f14   # y = a[i] + (x*y)
+        addi  $5, $5, -1        # decrease i
+        slt   $2, $5, $0        # $2 = 1 if i < 0 
+        beq   $2, $0, Loop      # goto Loop if i >= 0 
+        j     $31
+</pre>
+
+<h4>The use of floating-point comparison</h4>
+<p>(1) With integer comparison and branch, we use something like
+<pre>
+   slt  $3, $4, $5    # $3 = 1 if $4<$5
+   bne  $3, $0, L     # go to L if condition true
+</pre>
+<p>(2) Floating-point comparison is treated differently, e.g.,
+<pre>
+   c.lt.s  $f0, $f2   # set FPU condition flag to true if $f0 < $f2 
+   bc1t L             # branch if FPU condition flag is true.
+</pre>
+
+<h3>Accurate Arithmetic</h3>
+IEEE standard requires two extra bits called guard and round, to hold
+the intermediate result. Without them, the result will be less accurate.
+
+<p>Example: Add 2.56 x 10^0 to 2.34 x 10^2, assuming that we have
+three significant decimal digits, with and without guard and round digits.
+
+<p>With extra 2 digits (guard and round)
+<pre>
+   2.56 x 10^0 = 0.0256 x 10^2
+               + 2.3400 x 10^2
+            ------------------
+                 2.3656 x 10^2
+</pre>
+After rounding, the result is 2.37 x 10^2.
+
+<p>Without extra bits
+<pre>
+   2.56 x 10^0 = 0.02 x 10^2
+               + 2.34 x 10^2
+            ------------------
+                 2.36 x 10^2
+</pre>
+So, the answer is off by 1 in the last digit. 
+
+<h4>Rounding Method</h4>
+Four types of rounding methods are defined in IEEE standards, they are
+<pre>
+    Method                    examples     round to 3 significant figures 
+
+   Round up                   300.45              301 
+  (toward +infinity)         -300.45              300
+                              0.07622             0.0763
+                              5.5550              5.56
+ 
+   Round down                 300.45              300
+   (toward -infinity)        -300.45             -301
+                              0.07622             0.0762
+                              5.5550              5.55
+
+   Truncate                   300.45              300
+   (toward zero)             -300.45             -300
+                              0.07622             0.0762
+                              5.5550              5.55
+
+   Round to nearest even      300.45              300
+                             -300.45             -300
+                              0.07622             0.0762
+                              5.5550              5.56
+                              5.5450              5.54
+</pre>
+The last rounding method is implemented in most computers.  Round
+to the nearest picks the number nearest to the original number. When
+two numbers are equally near (e.g. 5.556 and 5.554 are equally
+near to 5.555), round (add 1 to the last digit) or truncate the
+number so that the result digit is even.    
+
+<h4>Precision of floating-point numbers</h4>
+<p>Floating-point numbers are approximation to the real numbers in
+mathematics.  In single precision (float), 23 bits are used for the fractional
+part. Together with the implicit leading 1, we have 24 significant
+binary digits.  Converting into decimal, it means that we have
+24 * log_10 2 = 0.3 * 24 = 7 decimal digits.  In other words,
+single precision is accurate to seven significant decimal digits.
+For double precision, it is precise with 53 * 0.3 = 16 significant
+decimal figures. 
+
+<p>Since the computer representation of real numbers contains
+discrete and finite number of values, while real numbers are 
+continuous and uncountably infinite many, most real numbers are
+represented only approximately.  The maximum error is half
+the size of the gap between representable numbers. 
+
+<p>Given a representable number x, the number just slight smaller (or larger)
+is the one that the significand f differs by 2^{-23} (last bit).  So 
+the gap size around x is 
+<pre>
+   Absolute Error = gap/2 = 2^{e-127} delta f / 2
+                  = 2^{e-127} 2^{-24} = x 2^{-24}   
+                  = 6.0 10^{-8} x,
+   Relative Error = Absolute Error / x = 10^{-7}.
+</pre>
+Note that the gap is proportional to x, and relative error is
+a constant 0.0000001, that is, there are seven significant figures.
+
+<p>Example: Given the number
+<pre>
+   x = 0 10110011 10000100101100001110110
+</pre>
+What are the numbers just slightly smaller and larger that x?
+<p>Answer:
+<pre>
+   x - delta = 0 10110011 10000100101100001110101
+   x + delta = 0 10110011 10000100101100001110111
+</pre>
+So the gap can be computed exactly as
+<pre>
+   delta = 2^{e-127} (0.00000000000000000000001_two)
+         = 2^{e-127} 2^{-23}
+</pre>
+And the relative error (more precisely, maximum relative error) is
+<pre>
+   delta/(2*x) = 2^{-24} = 4 x 10^{-8}
+</pre>
+
+<h3>IEEE Floating-Point Representations</h3>
+
+<p><strong>Problem</strong>: (1) What is the decimal value of this 
+IEEE single-precision floating-point number?
+<pre>
+   0011 1111 0101 0000 0000 0000 0000 0000
+</pre>
+<p>Answer: s = 0, e = 01111110 = 126, f = 0.101 = 1/2 + 1/8 = 0.625.
+So the value is (1+f) 2^(e-127) = 1.625 x 2^(-1) = 0.8125.
+<p>(2) What is the IEEE single-precision floating-point representation
+for the decimal number -3.25.
+<p>Answer: 3 = 11_two, 0.25 = 0.01_two. So, 3.25 = 11.01_two = 1.101 x 2^1.
+Thus s = 1, e - 127 = 1, or e = 128, f = 0.101, the pattern is
+<pre>
+   1 10000000 10100000000000000000000
+</pre>
+
+<p>Besides the normal numbers, IEEE representation also has other types
+of symbolic entities to aid the computation.  They are the infinities
+and NaN (not-a-number).
+
+<h4>Plus and minus infinities</h4>
+
+In single precision format, mathematical infinity is represented as
+<pre>
+   +infinity  0 11111111 00000000000000000000000
+   -infinity  1 11111111 00000000000000000000000
+</pre>
+<p>Infinities are represented by e=255, and f = 0.
+The infinities behave the way we expected. For example
+1.0/0.0 = +Infinity, +Infinity - 10 = +Infinity. 1/Infinity = 0.
+
+<h4>Not-A-Number (NaN)</h4>
+<p>If e=255 (all ones), and f != 0, then the pattern is considered
+not a number!  NaN can be generated during computation, e.g.,
+0.0/0.0 = NaN, Infinity - Infinity = NaN.  If your program output
+produces a NaN, it is a good indication that something is wrong
+with your program. 
+
+<h4>Zeros</h4>
+<p>There are two versions of zeros. Zeros are presented by
+<pre>
+   0 00000000 00000000000000000000000  (0+)  or
+   1 00000000 00000000000000000000000  (0-)
+</pre>
+
+<h4>Denormalized number</h4>
+When e = 0, and f != 0, the value of the pattern is interpreted differently,
+<pre>
+   (-1)^s x f x 2^{-126}
+</pre>
+This type of number is called denormalized since the leading digit is
+not 1.  
+
+<p>Question: What is the smallest denormalized number in simple precision?
+
+<p>Answer: Smallest f is 2^{-23}, so the smallest denormalized number
+is 2^{-23} x 2^{-126} = 2^{-149} = 10^{-45}.  
+
+<h3>Summary of IEEE 754 floating-point number single precision</h3>
+<p> sign s takes 1 bit, exponent e takes 8 bits, and significand
+(fraction) takes the rest of 23 bits.  According to the value of e,
+we have the following situations.
+
+<OL>
+ <LI> Normalize number: e = 1 to 254.  The value is 
+        (-1)^s x ( 1 + f ) x 2^{e-127}.
+ <LI> Infinity and NaN: e = 255.  If f = 0, value is (-1)^s * Infinity.
+      If f != 0, the pattern is Not-A-Number.
+ <LI> Denormalized number: e = 0, the value is (-1)^s x f x 2^{-126}.
+ <LI> Zero is s = 0 or 1, e = 0, f = 0.
+</OL>
+
+<h3>Fallacies and Pitfalls</h3>
+<p>Pitfall: Forgetting that floating-point addition is not associative
+  [hence x + (y + z) != (x + y) + z].
+ <p>Example: x = 1.0, y = -1.0, z = 1.0E-8 = 0.00000001, in single
+precision.  Then
+<pre>
+   x + ( y + z ) = 1.0 + (-1.0 + 1.0E-8) = 1.0 + (-1.0) = 0.0,
+   (x + y) + z = (1.0 + (-1.0)) + 1.0E-8 = 0 + 1.0E-8 = 1.0E-8.
+</pre>
+
+<h4>Concluding Remarks</h4>
+<UL>
+  <LI>Computer arithmetic has limited range and precision.
+  <LI>Bit patterns have no inherent meaning.
+  <LI>IEEE 754 floating-point standard.
+  <LI>Floating-point instructions.
+</UL>
+
+<h4>Suggested Reading</h4>
+<P>The textbook, "Computer Organization & Design", pages 238-257.
+
+<HR>
+[ <A HREF="week10.html">previous week</A> ][ 
+<A HREF="week12.html">next week</A> ]
+<HR>
+</body>
+</html>
+ 

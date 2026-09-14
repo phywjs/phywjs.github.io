@@ -1,0 +1,754 @@
+(************** Content-type: application/mathematica **************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     14971,        553]*)
+(*NotebookOutlinePosition[     16000,        588]*)
+(*  CellTagsIndexPosition[     15912,        582]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell["\<\
+Lecture Two,
+15 January 2003
+DEFINING FUNCTIONS\
+\>", "Title"],
+
+Cell["Simple One-Line Function Definition", "Subtitle"],
+
+Cell[BoxData[
+    \(f[x_]\  := \ x^2\)], "Input"],
+
+Cell["\<\
+The above line defines a function that takes the square of its argument.   x_ \
+(a symbol  x with an underscore) is called a pattern (which \"match\" \
+anything), and := is called delayed assignment, different from assignment =.  \
+We use the function like this (without the underscore):\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(f[2]\)], "Input"],
+
+Cell[BoxData[
+    \(4\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(f[a]\)], "Input"],
+
+Cell[BoxData[
+    \(a\^2\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(f[1 + x]\)], "Input"],
+
+Cell[BoxData[
+    \(\((1 + x)\)\^2\)], "Output"]
+}, Open  ]],
+
+Cell["This function takes any argument, including strings:", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(f["\<this\>"]\)], "Input"],
+
+Cell[BoxData[
+    \("this"\^2\)], "Output"]
+}, Open  ]],
+
+Cell["Assignment = and Delayed Assignment :=", "Subtitle"],
+
+Cell["\<\
+= (or Set[ ])  : the right-hand side expression is evaluated, and result sets \
+to the variable (expression) on the left-hand side.
+:= (or SetDelayed[ ]) : the right-hand side expression without evaluation is \
+set to the variable (expression) on the left-hand side.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(a\  = \ 3; \ x\  = \ a + 1\)], "Input"],
+
+Cell[BoxData[
+    \(4\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(?x\)\)], "Input"],
+
+Cell[BoxData[
+    \("Global`x"\)], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[
+      StyleBox[\(x\  = \ 4\),
+        ShowStringCharacters->True,
+        NumberMarks->True],
+      InputForm[ 
+        Definition[ x]],
+      Editable->True,
+      AutoDelete->True]], "Print"]
+}, Open  ]],
+
+Cell["\<\
+With Set command \"=\", we associate number 4 with the variable x, since a + \
+1 has been evaluated to 4 before set the value for x.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(a\  = \ 3; \ x\  := \ a\  + \ 1\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(?x\)\)], "Input"],
+
+Cell[BoxData[
+    \("Global`x"\)], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[
+      StyleBox[\(x\  := \ a\  + \ 1\),
+        ShowStringCharacters->True,
+        NumberMarks->True],
+      InputForm[ 
+        Definition[ x]],
+      Editable->True,
+      AutoDelete->True]], "Print"]
+}, Open  ]],
+
+Cell["\<\
+With SetDelayed :=, we associated a + 1 with x, the expression a+1 is delayed \
+for evaluation. \
+\>", "Text"],
+
+Cell["How to see all the variables defined/used by the user?", "Text"],
+
+Cell["Clear or Remove a Function or Variable", "Subtitle"],
+
+Cell["\<\
+When we say Clear[x], the value associated with x is cleared, but the \
+variable x still exists; to remove x completely from the memory, use \
+Remove[x].   Clear or remove symbol when it is no longer needed.\
+\>", "Text"],
+
+Cell["More on Function Definition", "Subtitle"],
+
+Cell["\<\
+If we like to have a function that takes only integer, we can say:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(g[x_Integer]\  := \ x^2\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \({g[3], \ g[x], \ g[3.5]}\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{"9", ",", \(g[x]\), ",", 
+        RowBox[{"g", "[", 
+          StyleBox["3.5`",
+            StyleBoxAutoDelete->True,
+            PrintPrecision->2], "]"}]}], "}"}]], "Output"]
+}, Open  ]],
+
+Cell[TextData[{
+  "If an expression such as g[x] or g[3.5] is given to ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " for which ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " does not known how to evaluate, it is returned without evaluation."
+}], "Text"],
+
+Cell["We can define a function with any number of arguments:", "Text"],
+
+Cell[BoxData[
+    \(h[a_, \ b_, \ c_]\  := \ \((a + b + c)\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(h[1, 2, q]\)], "Input"],
+
+Cell[BoxData[
+    \(3 + q\)], "Output"]
+}, Open  ]],
+
+Cell["We can define function with a variable number of arguments:", "Text"],
+
+Cell[BoxData[
+    \(v[a__]\  := \ Plus[a]\)], "Input"],
+
+Cell["\<\
+The Plus[ ] function adds up its arguments.  In fact, Plus[ ] is the internal \
+form of  addition +;  e.g.,  a + b is identical to Plus[a,b]. \
+\>", "Text"],
+
+Cell[BoxData[
+    \({v[1], \ v[1, 3], \ v[1, 2, 3, 4]}\)], "Input"],
+
+Cell["\<\
+Two underscores match one or more arguments, three underscores match zero or \
+more auguments.\
+\>", "Text"],
+
+Cell["\<\
+Function Definition with More than One-Line of Code: Programs\
+\>", "Subtitle"],
+
+Cell["\<\
+If we define a function with slightly complicated code of more than one line, \
+we can use the Module[ ] to group the code as a single unit.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(\(prog[
+        x_]\)\(\ \)\(:=\)\(\ \)\(Module[\ {a, b, c}, \ \n\t\t\ta\  = \ 
+          1; \n\t\t\tb\  = \ 2; \n\t\t\tc\  = \ a\  + \ b; \n\t\t\tx\  + \ 
+          c]\)\(\t\)\)\)], "Input"],
+
+Cell["\<\
+Note: the variables in the first list {a,b,c} specify LOCAL variables to this \
+function. Statements are separated by semicolon \";\".   The return value of \
+the function is last expression, x + c, without an ending semicolon.  The \
+argument x must be treated as a constant, rather than a variable (i.e., you \
+cannot do, e.g., x = a + b).\
+\>", "Text"],
+
+Cell[BoxData[
+    \(prog[3]\)], "Input"],
+
+Cell["Parentheses/Brackets in Mathematica", "Subtitle"],
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " distinguishes carefully various form of brackets for syntactic purpose."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\((\ \ \ )\)\ \ \ \ \ \ Round\ parenthesis\ for\ grouping\), "\
+\[IndentingNewLine]", 
+    \(\([\ \ ]\)\ \ \ \ \ \ \ Square\ bracket\ for\ arguments\), "\
+\[IndentingNewLine]", 
+    \({\ \ }\ \ \ \ \ \ \ Braces\ for\ List\), "\[IndentingNewLine]", 
+    \(\([\([\ ]\)]\)\ \ \ Double\ bracket\ for\ indexing\)}], "Input"],
+
+Cell["Semi-Colon vs. Coma", "Subtitle"],
+
+Cell["\<\
+Semi-colon  \";\" separates multiple expressions.  You can put any number of \
+them in your code.
+
+Coma \",\" separates argument list.   The number of comas are dictated by the \
+syntax requirement.  You can not put them arbitrarily.  Examples:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(x = 3; \ y\  = \ x^2; \ z\  = \ x + 1\)], "Input"],
+
+Cell[BoxData[
+    \(func[x_]\  := \ Module[{}, \ x^2]\)], "Input"],
+
+Cell["Patterns", "Subtitle"],
+
+Cell[TextData[{
+  "Pattern is an important concept in ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  "'s syntax:  f[x_] is a pattern.  Patterns are used for matching an \
+expression.  So f[x_] matched any expression with an explicit f, followed by \
+square brackets with x_ being replaced by any expression.  So f[x_] matches \
+f[1], f[x], or f[\"this\"], but not g[2].   If pattern matches, the \
+definition associated with that pattern is executed.   In the above example, \
+f[something] is replaced by something^2.  \n\ng[x_Integer]  matches a \
+function g with integer argument, so, it matches g[2], but not g[a] (assuming \
+we did not say a = 3, so it is not an integer).  Unmatched patterns are not \
+executed and returned the same as input.   h[a_, b_, c_] matches function h \
+with three arbitrary arguments.\n\nv[a__] (two underscores) matches function \
+v with 1 or more arguments.  So it matches v[1], v[1,2],  or v[a,b,c].\n\nYou \
+can test if pattern pattn match expression expr by the command:"
+}], "Text"],
+
+Cell[BoxData[
+    \(MatchQ[expr, \ pattn]\)], "Input"],
+
+Cell["For example,", "Text"],
+
+Cell[BoxData[
+    \(MatchQ[f[y], \ f[x_]]\)], "Input"],
+
+Cell["Here are some more examples of patterns:", "Text"],
+
+Cell[BoxData[{
+    \(f[n_]\ \ \ \ \ \ \ \ \ \ \ f\ with\ any\ argument\ named\ n\), "\
+\[IndentingNewLine]", 
+    \(f[n_, m_]\ \ f\ with\ two\ argument\), "\[IndentingNewLine]", 
+    \(f[n_, n_]\ \ two\ \ idential\ argument\), "\[IndentingNewLine]", 
+    \(x^n_\ \ \ \ \ \ \ \ \ \ \ \ \ x\ to\ any\ power\), \
+"\[IndentingNewLine]", 
+    \(x_^n_\ \ \ \ \ \ \ \ \ \ any\ expr\ to\ any\ power\), "\
+\[IndentingNewLine]", 
+    \(a_\  + \ 
+      b_\ \ \ \ \ \ \ a\ sum\ of\ two\ expressions\), "\[IndentingNewLine]", 
+    \({a1_, \ a2_}\ \ a\ list\ of\ two\ exprs\)}], "Input"],
+
+Cell["More on Patterns  _:  _?  _/;", "Subtitle"],
+
+Cell["\<\
+The function j[ ] has optional arguments with default values 1 and 2.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(j[x_, \ y_:  1, z_:  2]\  = \ jp[x, y, z]\)], "Input"],
+
+Cell["The function below accepts only prime numbers as input:", "Text"],
+
+Cell[BoxData[
+    \(p[n_?PrimeQ]\  := \ n^2\)], "Input"],
+
+Cell["\<\
+Similarly, the following function is defined only if the input satisfies a \
+specified condition:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(h[n_Integer\  /; \ n > \ 2]\  := \ n^3\)], "Input"],
+
+Cell["\<\
+We can also specify the condition at the end of the definition:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(h2[n_Integer]\  := \ n^3\ \ \  /; \ n\  > \ 2\)], "Input"],
+
+Cell["Multiple Definitions to the Same Symbol", "Subtitle"],
+
+Cell["\<\
+We can associate several definitions, differentiated by different pattern \
+matchings. [Similar to the concept of polymorphism and function overloading \
+in C++.]\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(\(Remove[f];\)\), "\[IndentingNewLine]", 
+    \(\(f[n_Integer]\  := \ n;\)\), "\[IndentingNewLine]", 
+    \(\(f[x_Real]\  := \ Floor[x];\)\), "\[IndentingNewLine]", 
+    \(\(f[c_Complex]\  := \ Re[c];\)\), "\[IndentingNewLine]", 
+    \(\(f[x_, \ n_Integer]\  := \ x^n;\)\)}], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(?f\)\)], "Input"],
+
+Cell["Global`f", "Print",
+  CellTags->"Info3251552865-2002582"],
+
+Cell[BoxData[
+    InterpretationBox[GridBox[{
+          {GridBox[{
+                {\(f[n_Integer] := n\)},
+                {" "},
+                {\(f[x_Real] := Floor[x]\)},
+                {" "},
+                {\(f[c_Complex] := Re[c]\)},
+                {" "},
+                {\(f[x_, n_Integer] := x\^n\)}
+                },
+              GridBaseline->{Baseline, {1, 1}},
+              ColumnWidths->0.999,
+              ColumnAlignments->{Left}]}
+          },
+        GridBaseline->{Baseline, {1, 1}},
+        ColumnAlignments->{Left}],
+      Definition[ "f"],
+      Editable->False]], "Print",
+  CellTags->"Info3251552865-2002582"]
+}, Open  ]],
+
+Cell[TextData[{
+  "When there are multiple definitions associated with a symbol, the first \
+one matching the input will be used.  [",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " tries to apply the more specific one first before apply more general \
+one.] "
+}], "Text"],
+
+Cell["Substitution Operations", "Subtitle"],
+
+Cell["\<\
+A convenient way for evaluating an expression is by variable substitution. \
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\((1 + x)\)^5\ \ \  /. \ x -> \ 3\)], "Input"],
+
+Cell[BoxData[
+    \(1024\)], "Output"]
+}, Open  ]],
+
+Cell["\<\
+While x = 3 globally sets x to 3, x -> 3 replaces x by 3 only locally at the \
+current expression.  The symbol x itself is untouched.\
+\>", "Text"],
+
+Cell["\<\
+The combined operator -> (minus sign followed by arrow without a space) is \
+known as replacement Rule.   x->3 is the same as Rule[x,3].    /.  (slash \
+followed by a period) is substitution operator.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \({Sin[x], Cos[x], Exp[x]} /. x -> 0\)], "Input"],
+
+Cell[BoxData[
+    \({0, 1, 1}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Solve[x^2\  + \ 3  x\  - 1\  == \ 0, x]\)], "Input"],
+
+Cell[BoxData[
+    \({{x \[Rule] 1\/2\ \((\(-3\) - \@13)\)}, {x \[Rule] 
+          1\/2\ \((\(-3\) + \@13)\)}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(x\  /. \ %19\  // \ N\)], "Input"],
+
+Cell[BoxData[
+    \({\(-3.30277563773199478`\), 0.302775637731994562`}\)], "Output"]
+}, Open  ]],
+
+Cell["\<\
+Expression of the form x -> 1.2 is called a rule, and output from solving an \
+equation gives you a list of rules.  \
+\>", "Text"],
+
+Cell["\<\
+What is the difference between { x -> 1, y -> 2}  vs { {x->1},{x->2}}?\
+\>", "Text"],
+
+Cell["\<\
+Prefix, Postfix, and Infix Notation 
+for Function Application.\
+\>", "Subtitle"],
+
+Cell["We normally say Sin[x], but we could say:", "Text"],
+
+Cell[BoxData[
+    \(Sin\ @\ Pi\)], "Input"],
+
+Cell[BoxData[
+    \(Pi\  // \ Sin\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \({a, b, c}\ ~Join~\ {d, f}\)], "Input"],
+
+Cell[BoxData[
+    \({a, b, c, d, f}\)], "Output"]
+}, Open  ]],
+
+Cell["The *fixes", "Subsubtitle"],
+
+Cell[BoxData[{
+    \(f[x]\ \ \ \ \ \ \ \ \ \ Apply\ function\ \ usual\ form\), "\
+\[IndentingNewLine]", 
+    \(f\ @\ x\ \ \ \ \ \ \ \ \ Prefix\ form\), "\[IndentingNewLine]", 
+    \(x\  // \ f\ \ \ \ \ Postfix\ form\), "\[IndentingNewLine]", 
+    \(a\ ~f~\ 
+        b\ \ \ Infix\ form\ \((if\ f\ takes\ two\ arguments)\)\)}], "Input"],
+
+Cell[BoxData[
+    \(Clear[x, y]\)], "Input"],
+
+Cell["Precedence of @ vs //", "Subtitle"],
+
+Cell[BoxData[
+    \(f\ @\ x\  + \ y\)], "Input"],
+
+Cell[BoxData[
+    \(x\  + \ y\  // \ f\)], "Input"],
+
+Cell[BoxData[
+    \(x\ ~f~\ y\)], "Input"],
+
+Cell["\<\
+
+READINGS:\
+\>", "Title"],
+
+Cell["\<\
+On function definitions:  Sec. 1.7
+On patterns: Sec. 2.3\
+\>", "Subtitle"]
+},
+FrontEndVersion->"4.1 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 695}},
+WindowSize->{1016, 668},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+PrintingCopies->1,
+PrintingPageRange->{Automatic, Automatic},
+ShowSelection->True,
+Magnification->3,
+StyleDefinitions -> "Classroom.nb"
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{
+  "Info3251552865-2002582"->{
+    Cell[11347, 400, 63, 1, 67, "Print",
+      CellTags->"Info3251552865-2002582"],
+    Cell[11413, 403, 642, 19, 346, "Print",
+      CellTags->"Info3251552865-2002582"]}
+  }
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{
+  {"Info3251552865-2002582", 15715, 573}
+  }
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1705, 50, 72, 4, 648, "Title"],
+Cell[1780, 56, 55, 0, 119, "Subtitle"],
+Cell[1838, 58, 49, 1, 143, "Input"],
+Cell[1890, 61, 311, 5, 285, "Text"],
+
+Cell[CellGroupData[{
+Cell[2226, 70, 37, 1, 143, "Input"],
+Cell[2266, 73, 35, 1, 141, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2338, 79, 37, 1, 143, "Input"],
+Cell[2378, 82, 38, 1, 143, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2453, 88, 41, 1, 143, "Input"],
+Cell[2497, 91, 48, 1, 143, "Output"]
+}, Open  ]],
+Cell[2560, 95, 68, 0, 81, "Text"],
+
+Cell[CellGroupData[{
+Cell[2653, 99, 46, 1, 143, "Input"],
+Cell[2702, 102, 43, 1, 143, "Output"]
+}, Open  ]],
+Cell[2760, 106, 58, 0, 190, "Subtitle"],
+Cell[2821, 108, 290, 5, 297, "Text"],
+
+Cell[CellGroupData[{
+Cell[3136, 117, 59, 1, 143, "Input"],
+Cell[3198, 120, 35, 1, 141, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3270, 126, 39, 1, 143, "Input"],
+Cell[3312, 129, 43, 1, 69, "Print"],
+Cell[3358, 132, 230, 8, 69, "Print"]
+}, Open  ]],
+Cell[3603, 143, 156, 3, 183, "Text"],
+Cell[3762, 148, 64, 1, 143, "Input"],
+
+Cell[CellGroupData[{
+Cell[3851, 153, 39, 1, 143, "Input"],
+Cell[3893, 156, 43, 1, 69, "Print"],
+Cell[3939, 159, 239, 8, 69, "Print"]
+}, Open  ]],
+Cell[4193, 170, 120, 3, 132, "Text"],
+Cell[4316, 175, 70, 0, 81, "Text"],
+Cell[4389, 177, 58, 0, 119, "Subtitle"],
+Cell[4450, 179, 231, 4, 234, "Text"],
+Cell[4684, 185, 47, 0, 119, "Subtitle"],
+Cell[4734, 187, 90, 2, 81, "Text"],
+Cell[4827, 191, 56, 1, 143, "Input"],
+
+Cell[CellGroupData[{
+Cell[4908, 196, 57, 1, 143, "Input"],
+Cell[4968, 199, 222, 6, 141, "Output"]
+}, Open  ]],
+Cell[5205, 208, 278, 8, 185, "Text"],
+Cell[5486, 218, 70, 0, 81, "Text"],
+Cell[5559, 220, 73, 1, 143, "Input"],
+
+Cell[CellGroupData[{
+Cell[5657, 225, 43, 1, 143, "Input"],
+Cell[5703, 228, 39, 1, 141, "Output"]
+}, Open  ]],
+Cell[5757, 232, 75, 0, 81, "Text"],
+Cell[5835, 234, 54, 1, 143, "Input"],
+Cell[5892, 237, 166, 3, 132, "Text"],
+Cell[6061, 242, 67, 1, 143, "Input"],
+Cell[6131, 245, 118, 3, 132, "Text"],
+Cell[6252, 250, 89, 2, 190, "Subtitle"],
+Cell[6344, 254, 164, 3, 183, "Text"],
+Cell[6511, 259, 213, 4, 347, "Input"],
+Cell[6727, 265, 365, 6, 336, "Text"],
+Cell[7095, 273, 40, 1, 143, "Input"],
+Cell[7138, 276, 55, 0, 119, "Subtitle"],
+Cell[7196, 278, 156, 4, 133, "Text"],
+Cell[7355, 284, 340, 6, 296, "Input"],
+Cell[7698, 292, 39, 0, 119, "Subtitle"],
+Cell[7740, 294, 268, 6, 360, "Text"],
+Cell[8011, 302, 70, 1, 143, "Input"],
+Cell[8084, 305, 66, 1, 143, "Input"],
+Cell[8153, 308, 28, 0, 119, "Subtitle"],
+Cell[8184, 310, 1030, 16, 1072, "Text"],
+Cell[9217, 328, 54, 1, 143, "Input"],
+Cell[9274, 331, 28, 0, 81, "Text"],
+Cell[9305, 333, 54, 1, 143, "Input"],
+Cell[9362, 336, 56, 0, 81, "Text"],
+Cell[9421, 338, 573, 11, 449, "Input"],
+Cell[9997, 351, 49, 0, 119, "Subtitle"],
+Cell[10049, 353, 93, 2, 132, "Text"],
+Cell[10145, 357, 74, 1, 143, "Input"],
+Cell[10222, 360, 71, 0, 81, "Text"],
+Cell[10296, 362, 56, 1, 143, "Input"],
+Cell[10355, 365, 121, 3, 132, "Text"],
+Cell[10479, 370, 71, 1, 143, "Input"],
+Cell[10553, 373, 87, 2, 81, "Text"],
+Cell[10643, 377, 78, 1, 143, "Input"],
+Cell[10724, 380, 59, 0, 119, "Subtitle"],
+Cell[10786, 382, 186, 4, 183, "Text"],
+Cell[10975, 388, 305, 5, 347, "Input"],
+
+Cell[CellGroupData[{
+Cell[11305, 397, 39, 1, 143, "Input"],
+Cell[11347, 400, 63, 1, 67, "Print",
+  CellTags->"Info3251552865-2002582"],
+Cell[11413, 403, 642, 19, 346, "Print",
+  CellTags->"Info3251552865-2002582"]
+}, Open  ]],
+Cell[12070, 425, 281, 7, 235, "Text"],
+Cell[12354, 434, 43, 0, 119, "Subtitle"],
+Cell[12400, 436, 99, 2, 132, "Text"],
+
+Cell[CellGroupData[{
+Cell[12524, 442, 66, 1, 143, "Input"],
+Cell[12593, 445, 38, 1, 141, "Output"]
+}, Open  ]],
+Cell[12646, 449, 157, 3, 183, "Text"],
+Cell[12806, 454, 224, 4, 234, "Text"],
+
+Cell[CellGroupData[{
+Cell[13055, 462, 67, 1, 143, "Input"],
+Cell[13125, 465, 43, 1, 141, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[13205, 471, 72, 1, 143, "Input"],
+Cell[13280, 474, 123, 2, 245, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[13440, 481, 54, 1, 143, "Input"],
+Cell[13497, 484, 84, 1, 141, "Output"]
+}, Open  ]],
+Cell[13596, 488, 140, 3, 132, "Text"],
+Cell[13739, 493, 94, 2, 132, "Text"],
+Cell[13836, 497, 90, 3, 190, "Subtitle"],
+Cell[13929, 502, 57, 0, 81, "Text"],
+Cell[13989, 504, 43, 1, 143, "Input"],
+Cell[14035, 507, 46, 1, 143, "Input"],
+
+Cell[CellGroupData[{
+Cell[14106, 512, 58, 1, 143, "Input"],
+Cell[14167, 515, 49, 1, 141, "Output"]
+}, Open  ]],
+Cell[14231, 519, 33, 0, 172, "Subsubtitle"],
+Cell[14267, 521, 334, 6, 347, "Input"],
+Cell[14604, 529, 44, 1, 143, "Input"],
+Cell[14651, 532, 41, 0, 119, "Subtitle"],
+Cell[14695, 534, 48, 1, 143, "Input"],
+Cell[14746, 537, 51, 1, 143, "Input"],
+Cell[14800, 540, 42, 1, 143, "Input"],
+Cell[14845, 543, 35, 3, 348, "Title"],
+Cell[14883, 548, 84, 3, 190, "Subtitle"]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

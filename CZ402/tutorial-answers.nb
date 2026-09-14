@@ -1,0 +1,1951 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 4.2'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     65938,       1844]*)
+(*NotebookOutlinePosition[     66803,       1874]*)
+(*  CellTagsIndexPosition[     66714,       1868]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell["Answers to Selected Tutorial Problems", "Title"],
+
+Cell["Tutorial 2, Q4", "Subtitle"],
+
+Cell[TextData[{
+  "Define operators in vector calculus: divergence \[Del] \[CenterDot] A, \
+curl \[Del] \[Cross] A, gradient ",
+  Cell[BoxData[
+      \(TraditionalForm\`\[Del]f\)]],
+  ", and Laplacian ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(\[Del]\^2 f\)\(.\)\)\)]],
+  "  We  can use the following definitions which work in any dimensions \
+except \[Del] \[Cross] A, which is specific to three dimensions.  Note that \
+\[Del] = ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          FormBox[
+            RowBox[{\(\[Sum]\+\(i = 1\)\%d\), 
+              SubscriptBox[
+                StyleBox["e",
+                  FontWeight->"Bold"], "i"]}],
+            "TraditionalForm"], \(\[PartialD]\_i\)}], TraditionalForm]]],
+  ", where ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          SubscriptBox[
+            StyleBox["e",
+              FontWeight->"Bold"], "i"], " "}], TraditionalForm]]],
+  "is unit vector in ",
+  Cell[BoxData[
+      \(TraditionalForm\`i\)]],
+  "-th direction.  Also, ",
+  Cell[BoxData[
+      \(TraditionalForm\`\[Del]\^2 
+          f = \[Del]\(\(\[CenterDot]\)\(\ \)\((\[Del]f)\)\)\)]],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(\( (*\ Vector\ calculus\ examples, \ 
+      f\ for\ scalar, \ \((must\ be\ an\ explicit\ function\ of\ the\ \
+coordinates)\), v\ for\ vector, \ \((represented\ as\ a\ list)\), \ 
+      arg\ is\ a\ list\ of\ coordiates, \(\(.\)\(e\)\) . g, {x, y, 
+        z}\ *) \)\(\[IndentingNewLine]\)\(\[IndentingNewLine]\)\(\(Div[v_, 
+          arg_] := Inner[D, v, arg, Plus];\)\[IndentingNewLine]
+    \(Curl[{v1_, v2_, v3_}, {x_, y_, z_}] := \ {D[v3, y] - D[v2, z], \ 
+          D[v1, z] - D[v3, x], D[v2, x] - D[v1, y]};\)\[IndentingNewLine]
+    \(Grad[f_, arg_] := \(D[f, #] &\) /@ arg\ ;\)\ \[IndentingNewLine]
+    Laplacian[f_, arg_] := Div[Grad[f, arg], arg]\)\)\)], "Input"],
+
+Cell["Tutorial 3, Q2 & 3", "Subtitle"],
+
+Cell["\<\
+The function func[ ] selects the entries in a list that are positive numbers. \
+ The order of the elements are preserved.   It does this by moving the \
+members of the first list to second list one by one in ff[ ].   Note that \
+definitions will be applied recursively until none of the rules can be \
+applied. \
+\>", "Text"],
+
+Cell[BoxData[{
+    \(\(func[l_] := ff[l, {}];\)\), "\n", 
+    \(\(ff[{}, r_] := r;\)\), "\n", 
+    \(\(ff[{h_, t___}, {r___}] := ff[{t}, {r, h}] /; h > 0;\)\), "\n", 
+    \(ff[{h_, t___}, {r___}] := 
+      ff[{t}, {r}] /; \((h \[LessEqual] 0 || 
+            Head[h] \[Equal] Symbol)\)\)}], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(func[{1, 2, a, \(-3\), 7}]\)], "Input"],
+
+Cell[BoxData[
+    \({1, 2, 7}\)], "Output"]
+}, Open  ]],
+
+Cell["\<\
+The following program counts the repeated consecutive elements, producing a \
+list of pairs of {element, count}. \
+\>", "Text"],
+
+Cell[BoxData[
+    \(runEncode[lst_List] := 
+      Map[{#, 1} &, 
+          lst] //. {u___, {v_, r_}, {v_, s_}, w___} \[Rule] {u, {v, r + s}, 
+            w}\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(runEncode[{a, a, b, 1, 2, 2, 2, d}]\)], "Input"],
+
+Cell[BoxData[
+    \({{a, 2}, {b, 1}, {1, 1}, {2, 3}, {d, 1}}\)], "Output"]
+}, Open  ]],
+
+Cell[TextData[StyleBox["", "Subtitle"]], "Subsubtitle"],
+
+Cell["Tutorial 3, Q4", "Subtitle"],
+
+Cell[TextData[{
+  "The best way to read/write data that are in regular array or matrix form \
+appears to be the command ",
+  StyleBox["Import[ ]",
+    FontFamily->"Terminal"],
+  " and ",
+  StyleBox["Export[ ]",
+    FontFamily->"Terminal"],
+  "."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(?Export\)\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{"\<\"Export[\\\"file.ext\\\", expr] exports data to a file, \
+converting it to a format corresponding to the file extension ext. \
+Export[\\\"file\\\", expr, \\\"format\\\"] exports data to a file, converting \
+it to the specified format.\"\>", " ", 
+      ButtonBox[
+        StyleBox["More\[Ellipsis]",
+          "SR"],
+        ButtonData:>"Export",
+        Active->True,
+        ButtonStyle->"RefGuideLink"]}]], "Print",
+  CellTags->"Info3258874817-5707250"]
+}, Open  ]],
+
+Cell["Tutorial 4, Q2", "Subtitle"],
+
+Cell[TextData[{
+  "Quaternions are expressions of the form\n\t",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          RowBox[{"a", " ", 
+            StyleBox["1",
+              FontWeight->"Bold"]}], " ", "+", " ", 
+          RowBox[{"b", " ", 
+            StyleBox["i",
+              FontWeight->"Bold",
+              FontSlant->"Plain"]}], "+", 
+          RowBox[{"c", " ", 
+            StyleBox["j",
+              FontWeight->"Bold",
+              FontSlant->"Plain"]}], 
+          StyleBox[" ",
+            FontWeight->"Bold",
+            FontVariations->{"CompatibilityType"->0}], "+", " ", 
+          RowBox[{"d", " ", 
+            StyleBox["k",
+              FontWeight->"Bold",
+              FontSlant->"Plain"]}]}], TraditionalForm]]],
+  "\nwhere ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          SuperscriptBox[
+            StyleBox["i",
+              FontWeight->"Bold",
+              FontSlant->"Plain"], "2"], "=", 
+          RowBox[{
+            SuperscriptBox[
+              StyleBox["j",
+                FontWeight->"Bold",
+                FontSlant->"Plain"], "2"], "=", 
+            RowBox[{
+              SuperscriptBox[
+                StyleBox["k",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], "2"], "=", 
+              RowBox[{"-", 
+                StyleBox["1",
+                  FontWeight->"Bold"]}]}]}]}], TraditionalForm]]],
+  ".  In addition, the product of ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          StyleBox["i",
+            FontWeight->"Bold",
+            FontSlant->"Plain"], ",", 
+          StyleBox["j",
+            FontWeight->"Bold",
+            FontSlant->"Plain"], ",", 
+          StyleBox["k",
+            FontWeight->"Bold",
+            FontSlant->"Plain"]}], TraditionalForm]]],
+  "behaves like cross product of unit vector in three dimensions, such as ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          RowBox[{
+            StyleBox["i",
+              FontWeight->"Bold",
+              FontSlant->"Plain"], " ", 
+            StyleBox["j",
+              FontWeight->"Bold",
+              FontSlant->"Plain"]}], " ", "=", " ", 
+          RowBox[{
+            RowBox[{
+              RowBox[{"-", 
+                StyleBox["j",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"]}], " ", 
+              StyleBox["i",
+                FontWeight->"Bold",
+                FontSlant->"Plain"]}], "=", " ", 
+            StyleBox["k",
+              FontWeight->"Bold",
+              FontSlant->"Plain"]}]}], TraditionalForm]]],
+  ".  The question is the algebraic domain of the quaternions. "
+}], "Text"],
+
+Cell[TextData[{
+  "It is clear that it is a ring: addition is a group, with ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{"0", "=", " ", 
+          RowBox[{
+            RowBox[{"0", " ", 
+              StyleBox["1",
+                FontWeight->"Bold"]}], "+", 
+            RowBox[{"0", " ", 
+              StyleBox["i",
+                FontWeight->"Bold",
+                FontSlant->"Plain"]}], "+", 
+            RowBox[{"0", " ", 
+              StyleBox["j",
+                FontWeight->"Bold",
+                FontSlant->"Plain"]}], "+", 
+            RowBox[{"0", " ", 
+              StyleBox["k",
+                FontWeight->"Bold",
+                FontSlant->"Plain"]}]}]}], TraditionalForm]]],
+  " the additive identity.  Multiplication is distributive over addition.  \
+The multiplicative identity is ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  ".  Most importantly, multiplication is associative.   To show this we just \
+need to show that the basis are associative: e.g.,\n\t",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          RowBox[{
+            RowBox[{
+              RowBox[{"(", 
+                RowBox[{
+                  StyleBox["i",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"], " ", 
+                  StyleBox["j",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"]}], ")"}], " ", 
+              StyleBox["k",
+                FontWeight->"Bold",
+                FontSlant->"Plain"]}], " ", "=", " ", 
+            RowBox[{
+              RowBox[{
+                StyleBox["k",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], " ", 
+                StyleBox["k",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"]}], " ", "=", " ", 
+              RowBox[{"-", 
+                StyleBox["1",
+                  FontWeight->"Bold"]}]}]}], ","}], TraditionalForm]]],
+  " ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          RowBox[{
+            RowBox[{
+              StyleBox["i",
+                FontWeight->"Bold",
+                FontSlant->"Plain"], " ", 
+              RowBox[{"(", 
+                RowBox[{
+                  StyleBox["j",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"], " ", 
+                  StyleBox["k",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"]}], ")"}]}], " ", "=", " ", 
+            RowBox[{
+              RowBox[{
+                StyleBox["i",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], " ", 
+                StyleBox["i",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"]}], " ", "=", " ", 
+              RowBox[{"-", 
+                StyleBox["1",
+                  FontWeight->"Bold"]}]}]}], ","}], TraditionalForm]]],
+  " so  ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          RowBox[{
+            RowBox[{"(", 
+              RowBox[{
+                StyleBox["i",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], " ", 
+                StyleBox["j",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"]}], ")"}], " ", 
+            StyleBox["k",
+              FontWeight->"Bold",
+              FontSlant->"Plain"]}], " ", "=", 
+          StyleBox[" ",
+            FontWeight->"Bold",
+            FontSlant->"Italic"], 
+          RowBox[{
+            StyleBox["i",
+              FontWeight->"Bold",
+              FontSlant->"Plain"], " ", 
+            RowBox[{"(", 
+              RowBox[{
+                StyleBox["j",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], " ", 
+                StyleBox["k",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"]}], ")"}]}]}], TraditionalForm]]],
+  " also\n\t",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          RowBox[{
+            RowBox[{
+              RowBox[{"(", 
+                RowBox[{
+                  StyleBox["i",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"], " ", 
+                  StyleBox["i",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"]}], ")"}], " ", 
+              StyleBox["k",
+                FontWeight->"Bold",
+                FontSlant->"Plain"]}], " ", "=", " ", 
+            RowBox[{"-", " ", 
+              StyleBox["k",
+                FontWeight->"Bold",
+                FontSlant->"Plain"]}]}], ",", " "}], TraditionalForm]]],
+  " ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          RowBox[{
+            RowBox[{
+              StyleBox["i",
+                FontWeight->"Bold",
+                FontSlant->"Plain"], " ", 
+              RowBox[{"(", 
+                RowBox[{
+                  StyleBox["i",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"], " ", 
+                  StyleBox["k",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"]}], ")"}]}], " ", "=", " ", 
+            RowBox[{
+              RowBox[{
+                StyleBox["i",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], " ", 
+                RowBox[{"(", 
+                  RowBox[{"-", 
+                    StyleBox["j",
+                      FontWeight->"Bold",
+                      FontSlant->"Plain"]}], ")"}]}], " ", "=", " ", 
+              RowBox[{
+                RowBox[{"-", 
+                  RowBox[{"(", 
+                    RowBox[{
+                      StyleBox["i",
+                        FontWeight->"Bold",
+                        FontSlant->"Plain"], " ", 
+                      StyleBox["j",
+                        FontWeight->"Bold",
+                        FontSlant->"Plain"]}], ")"}]}], " ", "=", " ", 
+                RowBox[{"-", 
+                  StyleBox["k",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"]}]}]}]}], ","}], TraditionalForm]]],
+  " so  ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          RowBox[{
+            RowBox[{"(", 
+              RowBox[{
+                StyleBox["i",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], " ", 
+                StyleBox["i",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"]}], ")"}], " ", 
+            StyleBox["k",
+              FontWeight->"Bold",
+              FontSlant->"Plain"]}], " ", "=", " ", 
+          RowBox[{
+            StyleBox["i",
+              FontWeight->"Bold",
+              FontSlant->"Plain"], " ", 
+            RowBox[{"(", 
+              RowBox[{
+                StyleBox["i",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], " ", 
+                StyleBox["k",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"]}], ")"}]}]}], TraditionalForm]]],
+  ", and \n\t",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          RowBox[{
+            RowBox[{
+              RowBox[{"(", 
+                RowBox[{
+                  StyleBox["i",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"], " ", 
+                  StyleBox["j",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"]}], ")"}], " ", 
+              StyleBox["i",
+                FontWeight->"Bold",
+                FontSlant->"Plain"]}], " ", "=", "  ", 
+            RowBox[{
+              RowBox[{
+                StyleBox["k",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], " ", 
+                StyleBox["i",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"]}], " ", "=", 
+              StyleBox["j",
+                FontWeight->"Bold",
+                FontSlant->"Plain"]}]}], ",", " "}], TraditionalForm]]],
+  " ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          RowBox[{
+            RowBox[{
+              StyleBox["i",
+                FontWeight->"Bold",
+                FontSlant->"Plain"], " ", 
+              RowBox[{"(", 
+                RowBox[{
+                  StyleBox["j",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"], " ", 
+                  StyleBox["i",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"]}], ")"}]}], " ", "=", " ", 
+            RowBox[{
+              RowBox[{
+                StyleBox["i",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], 
+                StyleBox[" ",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], 
+                RowBox[{"(", 
+                  RowBox[{"-", 
+                    StyleBox["k",
+                      FontWeight->"Bold",
+                      FontSlant->"Plain"]}], ")"}]}], " ", "=", " ", 
+              RowBox[{
+                RowBox[{"-", 
+                  RowBox[{"(", 
+                    RowBox[{
+                      StyleBox["i",
+                        FontWeight->"Bold",
+                        FontSlant->"Plain"], " ", 
+                      StyleBox["k",
+                        FontWeight->"Bold",
+                        FontSlant->"Plain"]}], ")"}]}], " ", "=", " ", 
+                StyleBox["j",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"]}]}]}], ","}], TraditionalForm]]],
+  " so  ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          RowBox[{
+            RowBox[{"(", 
+              RowBox[{
+                StyleBox["i",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], " ", 
+                StyleBox["j",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"]}], ")"}], " ", 
+            StyleBox["i",
+              FontWeight->"Bold",
+              FontSlant->"Plain"]}], " ", "=", " ", 
+          RowBox[{
+            StyleBox["i",
+              FontWeight->"Bold",
+              FontSlant->"Plain"], " ", 
+            RowBox[{"(", 
+              RowBox[{
+                StyleBox["j",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], " ", 
+                StyleBox["i",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"]}], ")"}]}]}], TraditionalForm]]],
+  ", and \n\t",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          RowBox[{
+            RowBox[{
+              RowBox[{"(", 
+                RowBox[{
+                  StyleBox["i",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"], " ", 
+                  StyleBox["i",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"]}], ")"}], " ", 
+              StyleBox["i",
+                FontWeight->"Bold",
+                FontSlant->"Plain"]}], " ", "=", " ", 
+            RowBox[{"-", 
+              StyleBox[" ",
+                FontWeight->"Bold",
+                FontSlant->"Italic"], 
+              StyleBox["i",
+                FontWeight->"Bold",
+                FontSlant->"Plain"]}]}], ",", " "}], TraditionalForm]]],
+  " ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          RowBox[{
+            RowBox[{
+              StyleBox["i",
+                FontWeight->"Bold",
+                FontSlant->"Plain"], " ", 
+              RowBox[{"(", 
+                RowBox[{
+                  StyleBox["i",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"], " ", 
+                  StyleBox["i",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"]}], ")"}]}], " ", "=", " ", 
+            RowBox[{
+              RowBox[{
+                StyleBox["i",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], " ", 
+                RowBox[{"(", 
+                  RowBox[{"-", 
+                    StyleBox["1",
+                      FontWeight->"Bold"]}], ")"}]}], "  ", "=", " ", 
+              RowBox[{"-", 
+                StyleBox["i",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"]}]}]}], ","}], TraditionalForm]]],
+  " so  ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          RowBox[{
+            RowBox[{"(", 
+              RowBox[{
+                StyleBox["i",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], " ", 
+                StyleBox["i",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"]}], ")"}], " ", 
+            StyleBox["i",
+              FontWeight->"Bold",
+              FontSlant->"Plain"]}], " ", "=", 
+          StyleBox[" ",
+            FontWeight->"Bold",
+            FontSlant->"Italic"], 
+          RowBox[{
+            StyleBox["i",
+              FontWeight->"Bold",
+              FontSlant->"Plain"], " ", 
+            RowBox[{"(", 
+              RowBox[{
+                StyleBox["i",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], " ", 
+                StyleBox["i",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"]}], ")"}]}]}], TraditionalForm]]],
+  ", and so on.  I believe all the 3\[Cross]3\[Cross]3=27 cases can be \
+verified."
+}], "Text"],
+
+Cell[TextData[{
+  "It is not a field since elements don't commute.  However, each nonzero \
+element has an inverse.  Let us give an explicit formula for inverse.   \
+Consider\n",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{"(", 
+          RowBox[{
+            RowBox[{"a", " ", 
+              StyleBox["1",
+                FontWeight->"Bold"]}], " ", "+", " ", 
+            RowBox[{"b", " ", 
+              StyleBox["i",
+                FontWeight->"Bold",
+                FontSlant->"Plain"]}], "+", 
+            RowBox[{"c", " ", 
+              StyleBox["j",
+                FontWeight->"Bold",
+                FontSlant->"Plain"]}], 
+            StyleBox[" ",
+              FontWeight->"Bold",
+              FontVariations->{"CompatibilityType"->0}], "+", " ", 
+            RowBox[{"d", " ", 
+              StyleBox["k",
+                FontWeight->"Bold",
+                FontSlant->"Plain"]}]}], 
+          StyleBox[")",
+            FontWeight->"Bold",
+            FontSlant->"Plain"]}], TraditionalForm]]],
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          RowBox[{"(", 
+            RowBox[{
+              RowBox[{"a", " ", 
+                StyleBox["1",
+                  FontWeight->"Bold"]}], " ", "-", " ", 
+              RowBox[{"b", " ", 
+                StyleBox["i",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"]}], "-", 
+              RowBox[{"c", " ", 
+                StyleBox["j",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"]}], 
+              StyleBox[" ",
+                FontWeight->"Bold",
+                FontVariations->{"CompatibilityType"->0}], "-", 
+              RowBox[{"d", " ", 
+                StyleBox["k",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"]}]}], 
+            StyleBox[")",
+              FontWeight->"Bold",
+              FontSlant->"Plain"]}], 
+          StyleBox["=",
+            FontWeight->"Plain"], 
+          RowBox[{
+            RowBox[{
+              SuperscriptBox[
+                StyleBox["a",
+                  FontWeight->"Plain"], "2"], "+", \(b\^2\), "+", \(c\^2\), 
+              "+", \(d\^2\)}], " ", "=", " ", \(\(R\^2\)\(.\)\)}]}], 
+        TraditionalForm]]],
+  "\nThe cross terms vanish due to, e.g., ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          RowBox[{
+            RowBox[{
+              StyleBox["i",
+                FontWeight->"Bold",
+                FontSlant->"Plain"], " ", 
+              StyleBox["j",
+                FontWeight->"Bold",
+                FontSlant->"Plain"]}], " ", "+", " ", 
+            RowBox[{
+              StyleBox["j",
+                FontWeight->"Bold",
+                FontSlant->"Plain"], " ", 
+              StyleBox["i",
+                FontWeight->"Bold",
+                FontSlant->"Plain"]}]}], " ", "=", " ", "0."}], 
+        TraditionalForm]]],
+  "   Divide ",
+  Cell[BoxData[
+      \(TraditionalForm\`R\^2\)]],
+  " to both sides of the above equation, as long as ",
+  Cell[BoxData[
+      \(TraditionalForm\`R\)]],
+  " is not zero, we find:\n",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          SuperscriptBox[
+            RowBox[{"(", 
+              RowBox[{
+                RowBox[{"a", " ", 
+                  StyleBox["1",
+                    FontWeight->"Bold"]}], " ", "+", " ", 
+                RowBox[{"b", " ", 
+                  StyleBox["i",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"]}], "+", 
+                RowBox[{"c", " ", 
+                  StyleBox["j",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"]}], 
+                StyleBox[" ",
+                  FontWeight->"Bold",
+                  FontVariations->{"CompatibilityType"->0}], "+", " ", 
+                RowBox[{"d", " ", 
+                  StyleBox["k",
+                    FontWeight->"Bold",
+                    FontSlant->"Plain"]}]}], 
+              StyleBox[")",
+                FontWeight->"Bold",
+                FontSlant->"Plain"]}], \(-1\)], "="}], TraditionalForm]]],
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          RowBox[{"(", 
+            RowBox[{
+              RowBox[{"a", " ", 
+                StyleBox["1",
+                  FontWeight->"Bold"]}], " ", "-", " ", 
+              RowBox[{"b", " ", 
+                StyleBox["i",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"]}], "-", 
+              RowBox[{"c", " ", 
+                StyleBox["j",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"]}], 
+              StyleBox[" ",
+                FontWeight->"Bold",
+                FontVariations->{"CompatibilityType"->0}], "-", 
+              RowBox[{"d", " ", 
+                StyleBox["k",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"]}]}], 
+            StyleBox[")",
+              FontWeight->"Bold",
+              FontSlant->"Plain"]}], "/", 
+          RowBox[{
+            RowBox[{"(", 
+              RowBox[{
+                SuperscriptBox[
+                  StyleBox["a",
+                    FontWeight->"Plain"], "2"], "+", \(b\^2\), "+", \(c\^2\), 
+                "+", \(d\^2\)}], ")"}], "."}]}], TraditionalForm]]],
+  "\n\nAnother representation of the quaternions is to identify the basis \
+with the matrices (related to Pauli matrices):\n\t",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  "=",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{"(", GridBox[{
+              {"1", "0"},
+              {"0", "0"}
+              }], ")"}], TraditionalForm]]],
+  ",  ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          StyleBox["i",
+            FontWeight->"Bold",
+            FontSlant->"Plain"], "=", 
+          RowBox[{"(", GridBox[{
+                {"i", "0"},
+                {"0", "i"}
+                }], ")"}]}], TraditionalForm]]],
+  ",  ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          StyleBox["j",
+            FontWeight->"Bold",
+            FontSlant->"Plain"], "=", 
+          RowBox[{"(", GridBox[{
+                {"0", "1"},
+                {\(-1\), "0"}
+                }], ")"}]}], TraditionalForm]]],
+  ",  ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          StyleBox["k",
+            FontWeight->"Bold",
+            FontSlant->"Plain"], "=", 
+          RowBox[{"(", GridBox[{
+                {"0", "i"},
+                {"i", "0"}
+                }], ")"}]}], TraditionalForm]]],
+  ",     ",
+  Cell[BoxData[
+      \(TraditionalForm\`i = \@\(-1\)\)]],
+  "\nThen the addition and multiplication correspond to matrix addition and \
+multiplication."
+}], "Text"],
+
+Cell["Tutorial 4, Q3.", "Subtitle"],
+
+Cell[TextData[{
+  "This question discusses the relationship between polynomials modulo ",
+  Cell[BoxData[
+      \(TraditionalForm\`\((1 + x\^2)\)\)]],
+  " and complex number ",
+  Cell[BoxData[
+      \(TraditionalForm\`\((a + b\ i)\)\)]],
+  ".  Such polynomials are always of the form\n\t",
+  Cell[BoxData[
+      \(TraditionalForm\`a\  + \ b\ x\)]],
+  ",   ",
+  Cell[BoxData[
+      \(TraditionalForm\`a, \ b\  \[Element] \ R\)]],
+  "\nAddition forms an Abelian group with 0 as additive identity.  \
+Multiplication identity is 1.  Each nonzero element has an inverse:  The \
+argument is similar to Q2.  Since we have\n\t",
+  Cell[BoxData[{
+      \(TraditionalForm\`\((a + b\ x)\)\ \((\ 
+            a\  - \ b\ x)\)\ mod\ \((1 + x\^2)\)\  = \ 
+        a\^2 - \(b\^2\) x\^2\ mod\ \((1 + x\^2)\)\), "\[IndentingNewLine]", 
+      \(TraditionalForm\`\(\(=\)\(\ \)\(a\^2 + b\^2\)\)\)}]],
+  "\nThus ",
+  Cell[BoxData[
+      \(TraditionalForm\`\((a + b\ x)\)\^\(-1\)\ mod\ \((1 + 
+              x\^2)\)\  = \ \((a - b\ x)\)/\((a\^2 + b\^2)\)\ mod\ \((1 + 
+              x\^2)\)\)]],
+  ".   We have used the fact that ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\^2\ mod\ \((1 + x\^2)\)\  = \ \(-1. \)\)]],
+  "  Association and distribution are automatic for polynomials.  So it forms \
+a field. "
+}], "Text"],
+
+Cell[TextData[{
+  "We can identify a linear polynomial ",
+  Cell[BoxData[
+      \(TraditionalForm\`a + b\ x\)]],
+  " with a vector ",
+  Cell[BoxData[
+      \(TraditionalForm\`\((a, b)\)\)]],
+  ".  The set of these vectors form a linear vector space.  In a linear \
+vector space, we can add\n ",
+  Cell[BoxData[
+      \(TraditionalForm\`\((a, b)\) + \((c, d)\) = \((a + c, b + d)\)\)]],
+  ".  \n We can multiply vector with a number\n \[Lambda] ",
+  Cell[BoxData[
+      \(TraditionalForm\`\((a, \ 
+          b)\)\  = \ \((\[Lambda]\ a, \ \[Lambda]b)\)\)]],
+  ".  \n Zero vector is (0,0), and two basis vectors of the space can be \
+choosing to be (1,0) and (0,1).  At most two vectors are linearly \
+independent.  Any vector can be expressioned as a linear combination of the \
+basis.  The space is two dimensional."
+}], "Text"],
+
+Cell[TextData[{
+  "We see that the rules for addition and multiplication for the polynomials \
+mod ",
+  Cell[BoxData[
+      \(TraditionalForm\`\((1 + x\^2)\)\)]],
+  " is exactly the same as that for complex numbers:\n",
+  Cell[BoxData[
+      \(TraditionalForm\`\((a + b\ x)\)\  + \ \((c\  + \ d\ x)\)\  = \ \((a + 
+              c)\)\  + \ \((b + d)\) 
+            x\ , \[IndentingNewLine]\((a + b\ x)\)\ *\((c + 
+              d\ x)\)\ \  = \ \((a\ c\  - \ 
+              b\ d)\)\  + \ \((b\ c + a\ d)\)\ \(\(x\ \ \ \ \ \ \ [
+                mod\ \((1 + x\^2)\)]\)\(.\)\)\)]],
+  "\nFor complex number, we have\n",
+  Cell[BoxData[
+      \(TraditionalForm\`\((a + b\ i)\)\  + \ \((c\  + \ d\ i)\)\  = \ \((a + 
+              c)\)\  + \ \((b + d)\) 
+            i\ , \n\((a + b\ i)\)\ *\((c + d\ i)\)\ \  = \ \((a\ c\  - \ 
+              b\ d)\)\  + \ \((b\ c + 
+                a\ d)\)\ i\ , \ \ \ i\  = \ \(\(\@\(-1\)\)\(.\)\)\)]],
+  "\nWhere ",
+  Cell[BoxData[
+      \(TraditionalForm\`a, b, c, \(\(d\)\(\ \)\(\[Element]\)\(\ \)\)\)]],
+  "R.  Thus the mapping from polynomial ",
+  Cell[BoxData[
+      \(TraditionalForm\`\((a + b\ x)\)\)]],
+  " to the set of complex number ",
+  Cell[BoxData[
+      \(TraditionalForm\`\((a + i\ b)\)\)]],
+  ", identifying the real part of the complex number with the constant term \
+",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " and imaginary part with ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(b\)\(\ \)\)\)]],
+  "the coefficient of ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\)]],
+  ", is a one-to-one and onto mapping.  Thus the field of polynomials mod ",
+  Cell[BoxData[
+      \(TraditionalForm\`\((1 + x\^\(\(2\)\(\ \)\))\)\)]],
+  " and the complex number C are isomorphic to each other."
+}], "Text"],
+
+Cell["Tutorial 5, Q2", "Subtitle"],
+
+Cell[TextData[{
+  "Consider Gaussian integers of the form\n\tG: ",
+  Cell[BoxData[
+      \(TraditionalForm\`a + b\ i\)]],
+  ",  ",
+  Cell[BoxData[
+      \(TraditionalForm\`a, \ b\  \[Element] \ Z, \)]],
+  " ",
+  Cell[BoxData[
+      \(TraditionalForm\`i = \@\(-1\)\)]],
+  ".\nWe want to show that it is an Euclidean domain."
+}], "Text"],
+
+Cell["\<\
+(a) To show that Gaussian integers form a ring, we note that addition is \
+closed and is an Abelian group, with 0 as additive identity.  Multiplication \
+is associative (since this is so for complex numbers).  The multiplicative \
+identity is 1.  Multiplication is distributive over addition.\
+\>", "Text"],
+
+Cell["\<\
+Cancellation law is valid for complex numbers, so it is also valid for \
+Gaussian integers. Thus the set of Gaussian integers form an integral domain.\
+\
+\>", "Text"],
+
+Cell[TextData[{
+  "We now need to see how to do division with Gaussian integers, such that\n\t\
+",
+  Cell[BoxData[
+      \(TraditionalForm\`a = 
+        b\ q\  + \ 
+          r, \ \ \ \ \ \(\(|\)\(r\)\(|\)\(\ \)\(\(<\)\(\ \
+\)\(\(|\)\(b\)\(|\)\)\)\), \ \ \ \ a, \ b, \ 
+      q, \ \(\(r\)\(\ \)\(\[Element]\)\(\ \)\)\)]],
+  "G.\nWe try to find the answer in C.  Let denote ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\ b\^\(-1\) = \(\(c\  + \ 
+            i\ d\)\(\ \ \)\(\[Element]\)\)\)]],
+  "C, where ",
+  Cell[BoxData[
+      \(TraditionalForm\`c\)]],
+  " and ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\)]],
+  " are real numbers. We separate out a nearest integer part and a fractional \
+part for ",
+  Cell[BoxData[
+      \(TraditionalForm\`c\)]],
+  " and ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\)]],
+  ":\n\t",
+  Cell[BoxData[
+      \(TraditionalForm\`c\  = \ 
+        c\_I + c', \ \ \ \(\(|\)\(c'\)\(|\)\(\ \)\(\(\[LessEqual]\)\(\ \)\(1/
+            2\)\)\), \[IndentingNewLine]d = \ 
+        c\_I + d', \ \ \ \ \ \(\(|\)\(d'\)\(|\)\(\ \)\(\(\[LessEqual]\)\(\ \)\
+\(1/2\)\)\), \)]],
+  "\nwhere ",
+  Cell[BoxData[
+      \(TraditionalForm\`c\_I\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\_I\)]],
+  " \[Element] Z.  This is possible as a given real number is at most  1/2 \
+away from the nearest integer.  Let the quotient ",
+  Cell[BoxData[
+      \(TraditionalForm\`q = \ c\_I + i\ d\_I\)]],
+  ", then ",
+  Cell[BoxData[
+      \(TraditionalForm\`a - b\ q\  = \ r\)]],
+  " must be in G.  This is obvious since ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(a\)\(,\)\)\)]],
+  " ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  " and ",
+  Cell[BoxData[
+      \(TraditionalForm\`q\)]],
+  " are in G, and G is a ring.   We only need to show ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(\(|\)\(r\)\(|\)\(\ \)\(\(<\)\(\ \
+\)\(\(|\)\(b\)\(|\)\)\)\)\(:\)\)\)]],
+  "  \n\t",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(|\)\(r\)\(|\)\)\  = \ \(\(\(|\)\(a - 
+              b\ q\)\(|\)\) = \(\(\(|\)\(b(c + \ i\ d)\  - \ 
+                b\ q\)\(|\)\)\  = \ \(\(\(|\)\(b || 
+                  c' + i\ \
+d'\)\(|\)\(\[IndentingNewLine]\)\(\(\[LessEqual]\)\(\ \)\(\(|\)\(b\)\(|\)\(\ \
+\)\(\@\(\((1/2)\)\^2 + \((1/2)\)\^\(\(2\)\(\ \)\)\)\)\)\)\) = \(\(|\)\(b\)\(|\
+\)\(\(\(/\)\(\@2\)\)\(<\)\)\(|\)\(b\)\(|\)\(.\)\)\)\)\)\)]]
+}], "Text"],
+
+Cell[TextData[{
+  "(b) Units are the numbers that have inverses.  Clearly\n\t",
+  Cell[BoxData[
+      \(TraditionalForm\`1*1 = 1\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`\((\(-1\))\)*\((\(-1\))\)\  = \ 
+        1, \ \ \ i*\((\(-i\))\)\  = 1\)]],
+  ".\nThe units ",
+  Cell[BoxData[
+      \(TraditionalForm\`u\)]],
+  " in G are 1, ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(-1\), \ i, \ and\  - \(\(i\)\(.\)\)\)]],
+  " Examples of primes are 2, 3, 5, 7, ..., ",
+  Cell[BoxData[
+      \(TraditionalForm\`1 + i\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`1 - i, \ 3 + 5\ \(\(i\)\(.\)\)\)]],
+  "  ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " and ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  " are associates of each other if ",
+  Cell[BoxData[
+      \(TraditionalForm\`a | b\)]],
+  " and ",
+  Cell[BoxData[
+      \(TraditionalForm\`b | a\)]],
+  ".   Then ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " and ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  " must be related by  a unit ",
+  Cell[BoxData[
+      \(TraditionalForm\`u\)]],
+  ", i.e., ",
+  Cell[BoxData[
+      \(TraditionalForm\`a = u\ b\)]],
+  ".   For examples, 3 and ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(-3\)\)]],
+  " are associates, so is 3 and 3 ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(i\)\(.\)\)\)]],
+  "  "
+}], "Text"],
+
+Cell["Tutorial 5, Q3.", "Subtitle"],
+
+Cell[TextData[{
+  "Let work out the steps of extended Euclidean algorithm.  The division \
+algorithm gives the recursive relation for remainder sequence:\n\t",
+  Cell[BoxData[
+      \(TraditionalForm\`r\_n\  - \ r\_\(n + 1\)\ q\_n = 
+        r\_\(n + 2\); \ \ \ \ \ r\_0 = a, \ r\_1 = b, \ n = 0, \ 1, \ 
+      2, \  ... \)]],
+  "\n",
+  Cell[BoxData[
+      \(TraditionalForm\`q\_n\)]],
+  " is the quotient of ",
+  Cell[BoxData[
+      \(TraditionalForm\`r\_n\)]],
+  " divided by ",
+  Cell[BoxData[
+      \(TraditionalForm\`r\_\(n + 1\)\)]],
+  ".  We stop when the remainder becomes zero; the last nonzero remainder is \
+the GCD.  Similarly\n\t",
+  Cell[BoxData[{
+      \(TraditionalForm\`s\_n\  - \ s\_\(n + 1\)\ q\_n = 
+        s\_\(n + 2\); \ \ \ \ \ s\_0 = 1, \ s\_1 = 0, \ n = 0, \ 1, \ 
+      2, \  ... \), "\[IndentingNewLine]", 
+      \(TraditionalForm\`t\_n\  - \ t\_\(n + 1\)\ \ q\_n = 
+        t\_\(n + 2\); \ \ \ \ \ \ \ t\_0 = 0, \ t\_1 = 1, \ n = 0, \ 1, \ 
+      2, \  ... \)}]],
+  "\nsuch that \n\t",
+  Cell[BoxData[
+      \(TraditionalForm\`r\_n = a\ s\_n + \(\(b\)\(\ \)\(t\_n\)\(\ \)\)\)]],
+  "   for ",
+  Cell[BoxData[
+      \(TraditionalForm\`n\  = 0, \ 1, \ 2, \  ... \)]],
+  "\nWe used a notation that is different from Algorithm 2.1 which makes \
+thing clearer.  The important quantity to compute is ",
+  Cell[BoxData[
+      \(TraditionalForm\`q\_n\)]],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "We start with ",
+  Cell[BoxData[
+      \(TraditionalForm\`r\_0 = \(a(x)\  = 
+          4  x\^4 + 13  x\^3 + 15  x\^2 + 7  x + 1\)\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`r\_1 = \(b(x)\  = 2  x\^3 + x\^2 - 4  x - 3\)\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`s\_0 = 1, \ s\_1 = 0, \ t\_0 = 0, \ t\_1 = 1, \)]],
+  " and compute ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(q\_0\)\(.\)\)\)]],
+  "\n                              \n\t",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \)\(2  
+          x\ \ \ \  + \ 11\/2\[IndentingNewLine]
+      2  x\^3\  + \ x\^2\  - \ 4  x\  - \ 
+        3\ \@\(\(4  x\^4\)\(\ \)\(+\)\(\ \)\(13  x\^3\)\(\ \)\(+\)\(\ \)\(15  \
+x\^\(\(2\)\(\ \)\)\)\(+\)\(\ \)\(7  x\)\(\ \ \)\(+\)\(\ \ \)\(1\)\(\ \ \)\)\
+\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4  x\^4\  + \ \ \ \ 2 
+           x\^3\ \ \  - \ 8  x\^2\ \  - \ 6\ x\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \[HorizontalLine]\ \ \ \(\(\(\(\(\(\(\(\(\
+\[HorizontalLine]--\)--\)--\)--\)--\)--\)--\)--\)--\) - \[IndentingNewLine]\ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 11\ x\^\(\(3\)\(\ \
+\)\)\ \ \  + 23\ x\^2\  + 13\ x\ \ \  + 1\ \[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 11\
+\ x\^3 + \ \(11\/2\) x\^2\  - 22  x\  - 33\/2\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(--\(--\(--\(\
+--\(--\(--\(--\(--\(--\[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(35\/2\)\)\)\)\)\)\)\)\)\) 
+          x\^2 + 35  x + 35\/2\)\)\)]]
+}], "Text"],
+
+Cell[TextData[{
+  "Thus, ",
+  Cell[BoxData[
+      \(TraditionalForm\`q\_0 = 2  x + 11\/2\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`r\_2 = \(35\/2\) \((x\^2 + 2  x + 1)\)\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`s\_2 = \(s\_0 - \(s\_1\) q\_0 = 1\)\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`t\_2 = \ \(t\_0 - \(t\_1\) 
+              q\_0 = \ \(\(-q\_0\) = \(-2\) x\  - 11\/2\)\)\)]],
+  ".  We now do the second division:"
+}], "Text"],
+
+Cell[TextData[{
+  "\n\t",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(\t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \)\(\(4\/35\) x\  - 6\/35\[IndentingNewLine]
+      \(35\/2\) x\^2\  + \ 35  x\  + \ 
+        35\/2\ \@\(\(\ \)\(\(2  x\^3\)\(\ \)\(+\)\(\ \ \ \)\(x\^2\)\(\ \
+\)\(-\)\(\ \)\(4 \( x\^\ \)\)\(-\)\(3\)\(\ \ \)\)\)\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2  x\^3\  + \ 4  x\^2\  + 
+        2\ x\ \[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \[HorizontalLine]\ \ \ \(\(\(\(\(\(\
+\[HorizontalLine]--\)--\)--\)--\)--\)--\)\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(-3\) 
+          x\^\(\(2\)\(\ \)\)\  - 6\ x\  - 3\ \[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(-3\) 
+          x\^2\  - 6  x\  - 3\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(--\(--\(--\(\
+--\(\(--\[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0\)\(\ \ \)\)\)\)\)\)\)\)\)]]
+}], "Text"],
+
+Cell[TextData[{
+  "Thus, ",
+  Cell[BoxData[
+      \(TraditionalForm\`q\_1 = \(4\/35\) x - 6\/35\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`r\_3 = 0\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`s\_3 = \(s\_1 - \(s\_2\) q\_1 = \(0 - 
+              1*q\_1 = \(-\(4\/35\)\) x + 6\/35\)\)\)]],
+  ",  ",
+  Cell[BoxData[
+      \(TraditionalForm\`t\_3 = \(t\_1 - \(t\_2\) q\_1 = \ 
+          1\  - \(\((\(-2\) x - 11\/2)\)\(*\)\)\)\)]],
+  Cell[BoxData[
+      \(TraditionalForm\`\((\(4\/35\) x - 6\/35)\)\)]],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(GCD(a(x), b(x))\)\(=\)\)\)]],
+  Cell[BoxData[
+      \(TraditionalForm\`\(35\/2\) x\^2 + 35  x + 35\/2\)]],
+  ",  ",
+  Cell[BoxData[
+      \(TraditionalForm\`s(x) = \(s\_2 = 1\)\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`t(x) = \(t\_2 = \(-2\) x - 11\/2\)\)]],
+  ".   ",
+  Cell[BoxData[
+      \(TraditionalForm\`s(x)\)]],
+  " and ",
+  Cell[BoxData[
+      \(TraditionalForm\`t(x)\)]],
+  " is such that we have ",
+  Cell[BoxData[
+      \(TraditionalForm\`GCD(a(x), 
+          b(x)) = \(s(x)\) \(a(x)\) + \(t(x)\) \(\(b(x)\)\(.\)\)\)]],
+  "  We can verify:"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(a = 
+        4  x^4 + 13  x^3 + 15  x^2 + 7  x + 1;\)\), "\[IndentingNewLine]", 
+    \(\(b = 2  x^3 + x^2 - 4  x - 3;\)\), "\[IndentingNewLine]", 
+    \(\(s = 1;\)\), "\[IndentingNewLine]", 
+    \(\(t = \(-2\) x - 11/2;\)\), "\[IndentingNewLine]", 
+    \(\(gcd = 35/2  x^2 + 35  x + 35/2;\)\), "\[IndentingNewLine]", 
+    \(Simplify[gcd\  - \ a*s - b*t]\)}], "Input"],
+
+Cell[BoxData[
+    \(0\)], "Output"]
+}, Open  ]],
+
+Cell["Tutorial 5, Q1", "Subtitle"],
+
+Cell[TextData[{
+  "Given the following equations:\n\t",
+  Cell[BoxData[
+      \(TraditionalForm\`2  x + \ 4  y - 2  z = 
+        1, \[IndentingNewLine]2  x + \ \ \ \ \ y\  + \ \ \ z = 
+        3, \[IndentingNewLine]5  x\  - 3  y + 7  z = 0, \)]],
+  "\nWe solve it first in Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_3\)]],
+  ", Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_5\)]],
+  ", Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_7\)]],
+  ", Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_11\)]],
+  ".   We can use either the positive representation (numbers range from 0 to \
+",
+  Cell[BoxData[
+      \(TraditionalForm\`p - 1\)]],
+  "),  or symmetric representation ( numbers from ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(-\((p - 1)\)\)/2\)]],
+  " to ",
+  Cell[BoxData[
+      \(TraditionalForm\`\((p - 1)\)/2\)]],
+  ").   I'll use positive presentation in solving the equations. "
+}], "Text"],
+
+Cell[TextData[{
+  "Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_3\)]],
+  ":\n\t",
+  Cell[BoxData[
+      \(TraditionalForm\`2  x + y + z = 1, \[IndentingNewLine]2  x + y + z = 
+        0, \[IndentingNewLine]2  x\ \  + \ z\  = \ 0. \)]],
+  "\nThe system is inconsistent, as the first two equations has the same \
+coefficients but different right-hand side.  There is no solution.   In any \
+case the determinant ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\  \[Congruent] 0\ \ \(\((mod\ 3)\)\(.\)\)\)]],
+  "\t"
+}], "Text"],
+
+Cell[TextData[{
+  "Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_\(\(5\)\(:\)\)\)]],
+  "\n\t",
+  Cell[BoxData[{
+      \(TraditionalForm\`2  x + 4  y + 3  z = 1, \ \ \ \ \ \ \ \ \ \((1)\)\), 
+    "\[IndentingNewLine]", 
+      \(TraditionalForm\`2  x + y + z\  = \ 
+        3, \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \((2)\)\), "\[IndentingNewLine]", 
+      \(TraditionalForm\`0\ x\  + 2  y + 2  z\  = 
+        0. \ \ \ \ \ \ \ \ \ \((3)\)\)}]],
+  "\nTo be able to preserve the value of determinant we use only steps that \
+don't multiply a number to an equation.  First, we replace (2) by  ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\((2)\)\(-\)\)\)]],
+  "(1), get\n\t[2\t4\t3\t1]\n\t[0\t2\t3\t2]\t(because ",
+  Cell[BoxData[
+      \(TraditionalForm\`1 - 4 \[Congruent] \(-3\) \[Congruent] 
+        2\ mod\ 5\)]],
+  ")\n\t[0\t2\t2\t0]\t\nNow we do ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\((3)\)\(-\)\)\)]],
+  "(2), we get\n\t[2\t4\t3\t1]\n\t[0\t2\t3\t2]\n\t[\t0\t4\t3]\t(because ",
+  Cell[BoxData[
+      \(TraditionalForm\`2 - 3 \[Congruent] \(-1\) \[Congruent] 
+        4\ mod\ 5\)]],
+  ")\nso the determinant is obtained from the product of the diagonal \
+elements ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\  \[Congruent] 2*2*4 \[Congruent] 16 \[Congruent] 
+        1\ mod\ \ 5\)]],
+  ".  Using the backward substitution step, we get \n\t ",
+  Cell[BoxData[
+      \(TraditionalForm\`z \[Congruent] \((4\^\(-1\)*3)\)\  \[Congruent] \ 
+        4*3 \[Congruent] 12 \[Congruent] 
+        2\ mod\ 5, \[IndentingNewLine]y \[Congruent] 
+        2\^\(-1\)*\((2 - 3  z)\) \[Congruent] 
+        3*\((2 - 3*2)\) \[Congruent] \(-12\) \[Congruent] 
+        3  mod\ 5, \[IndentingNewLine]x \[Congruent] 
+          2\^\(-1\)*\((1 - 3  z - 4  y)\)\  = \ 4\ mod\ 5. \)]],
+  "\nThe values for ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\_x = x\ d\  \[Congruent] \ 4, \ 
+      d\_y = y\ d \[Congruent] 3, \ d\_z = z\ d \[Congruent] 2, \)]],
+  " all mod 5."
+}], "Text"],
+
+Cell[TextData[{
+  "The steps for Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_7\)]],
+  "and Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_11\)]],
+  " are similar.  We find the following results (ignore the case of ",
+  Cell[BoxData[
+      \(TraditionalForm\`p = 3\)]],
+  "):\n",
+  Cell[BoxData[{
+      \(TraditionalForm\`\
+p\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ d\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ d\
+\_x\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ d\_y\ \ \ \ \ \ \ \ \ \ \ \ \ d\_z\), 
+    "\[IndentingNewLine]", 
+      \(TraditionalForm\`\
+5\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3\
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2\), "\[IndentingNewLine]", 
+      \(TraditionalForm\`\
+7\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 6\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0\
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\), "\[IndentingNewLine]", 
+      \(TraditionalForm\`\
+11\ \ \ \ \ \ \ \ \ \ \ \ \ \ 6\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 10\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8\
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1\)}]]
+}], "Text"],
+
+Cell[TextData[{
+  "Using the Chinese remainder theorem, we reconstruct solutions in Z for the \
+4 quantities ",
+  Cell[BoxData[
+      \(TraditionalForm\`d, \ d\_x, \ d\_y, \ \(\(d\_z\)\(.\)\)\)]],
+  "   For example, using the mix-radix expansion, let\n",
+  Cell[BoxData[
+      \(TraditionalForm\`d\  = \ v\_0 + \(v\_1\) 5 + \(v\_2\) 5*7\)]],
+  ".\nIn mod 5,  we get  ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\ mod\ 5\  = \ \(1\  = \ v\_0\)\)]],
+  ".   In mod 7, we have ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\ mod\ 7\  = \ \(v\_0 + \(v\_1\) 5\  = \ \(1 + 
+              5  v\_1 = \ 6\)\)\)]],
+  ".   So ",
+  Cell[BoxData[
+      \(TraditionalForm\`v\_1 = \ \(\(5\^\(-1\)\) \((6 - 1)\) = \(3*5 = 
+            1\ mod\ 7\)\)\)]],
+  ".  Inverse of 5 in mod 7 is 3, since  ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(3*5\)\(=\)\)\)]],
+  " 15 \[Congruent] 1 mod 7.   In mod 11, we get ",
+  Cell[BoxData[
+      \(TraditionalForm\`6 = 1 + 1*5 + v\_2*5*7\)]],
+  ", or  ",
+  Cell[BoxData[
+      \(TraditionalForm\`0 = \(v\_2\) 5*7\)]],
+  ", so ",
+  Cell[BoxData[
+      \(TraditionalForm\`v\_2 = 0. \)]],
+  "   Thus ",
+  Cell[BoxData[
+      \(TraditionalForm\`d \[Congruent] \ 6\ mod\ \((5*7*11)\)\  = \ 
+        6\ mod\ \ 385. \)]]
+}], "Text"],
+
+Cell[TextData[{
+  "Similarly for ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\_x\)]],
+  ", we get  ",
+  Cell[BoxData[
+      \(TraditionalForm\`v\_0 = \ 4\)]],
+  ".  In mod 7, we get  0 = 4 + ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(v\_1\) 5\)]],
+  ", so ",
+  Cell[BoxData[
+      \(TraditionalForm\`v\_1 = \(\(5\^\(-1\)\) \((\(-4\))\) = \(3*\((\(-4\))\
+\) \[Congruent] \(-12\) = 2\ mod\ 7. \)\)\)]],
+  "   In mod 11, we have ",
+  Cell[BoxData[
+      \(TraditionalForm\`10 = 4 + 2*5 + v\_2*35\)]],
+  ",  or ",
+  Cell[BoxData[
+      \(TraditionalForm\`v\_2 = \ \(\((35)\)\^\(-1\)\) \((\(-4\))\) \
+\[Congruent] \(2\^\(-1\)\) \((\(-4\))\) \[Congruent] 
+          6*\((\(-4\))\) \[Congruent] 9\ mod\ 11\)]],
+  ".   Thus ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\_x = \(4 + 2*5 + 9*5*7 = 
+          329 \[Congruent] \(-56\)\ mod\ 385\)\)]],
+  ".   The second number is in symmetric representation.  To be able to \
+handle negative solutions in equations, the final answers have to be in the \
+symmetrical representation.   Go through the steps for ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\_y\)]],
+  "and ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\_z\)]],
+  ", we find:\n\t",
+  Cell[BoxData[
+      \(TraditionalForm\`d = 6, \ \ \ d\_x = \(-56\), \ \ \ d\_y = 
+        63, \ \ \ d\_z = 67\)]],
+  "     (mod 385).\nThus the solution for ",
+  Cell[BoxData[
+      \(TraditionalForm\`x, y, z\)]],
+  " in Q is (due to Cramer's rule)\n\t",
+  Cell[BoxData[
+      \(TraditionalForm\`x = \(d\_x/
+            d = \(\(-\(56\/6\)\) = \(-\(28\/3\)\)\)\), \[IndentingNewLine]y = \
+\(d\_y/d = \(63\/6 = 21\/2\)\), \[IndentingNewLine]z = \(d\_z/
+            d = \(\(67\/6\)\(.\)\)\)\)]]
+}], "Text"],
+
+Cell["Tutorial 6.  Q3.", "Subtitle"],
+
+Cell[TextData[{
+  "We compute the square-free factorization of the polynomial with \
+coefficient in Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_2\)]],
+  "\n\t",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{\(b(x)\), "=", 
+          
+          RowBox[{\(x\^10 + x\^6 + x\^5 + x\^3 + x\^2 + 1\), "      ", 
+            "\[Element]", "  ", 
+            RowBox[{
+              SubscriptBox[
+                StyleBox["Z",
+                  FontSlant->"Plain"], "2"], "[", "x", "]"}]}]}], 
+        TraditionalForm]]],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "The steps for square-free factorization are:\n\tLet ",
+  Cell[BoxData[
+      \(TraditionalForm\`a = \ \(\(a\_1\) a\_2\^2\ a\_3\^3 ... \) 
+          a\_k\^k\)]],
+  " (",
+  Cell[BoxData[
+      \(TraditionalForm\`a\_j\)]],
+  "are square-free factor),\n\t(1)  compute ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(c = \(GCD(a, a') = \(\(a\_2\) a\_3\^2 ... \) 
+              a\_k\^\(k - 1\)\);\)\)]],
+  "\n\t(2)  compute factor of ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(a\)\(,\)\)\)]],
+  "  ",
+  Cell[BoxData[
+      \(TraditionalForm\`w = \(a/c = \(\(a\_1\) \(a\_2\) a\_3 ... \) 
+            a\_k\)\)]],
+  ";\n\t(3)  compute another GCD,  ",
+  Cell[BoxData[
+      \(TraditionalForm\`y = \(GCD(w, c) = \(\(a\_2\) a\_3 ... \) a\_k\)\)]],
+  ";\n\t(4)  the first factor is given by ",
+  Cell[BoxData[
+      \(TraditionalForm\`z = \(w/y = a\_1\)\)]],
+  ";\n\t(5)  Let ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\  \[LeftArrow] \ c\)]],
+  ", repeat step (1) to (4),  last step is then ",
+  Cell[BoxData[
+      \(TraditionalForm\`GCD(a, a') = \(\(unit\)\(.\)\)\)]],
+  "\n\t(6) If ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(a' = 0\)\(,\)\)\)]],
+  " do ",
+  Cell[BoxData[
+      \(TraditionalForm\`a \[LeftArrow] a\^\(1/p\)\)]],
+  " and factor ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(a\)\(.\)\)\)]]
+}], "Text"],
+
+Cell[TextData[{
+  "First iteration: \n",
+  Cell[BoxData[
+      \(TraditionalForm\`a = a(x), \ 
+      a' = \(b' \((x)\) = 
+          10  x\^9 + 6  x\^5 + 5  x\^4 + 3  x\^2 + 2  x \[Congruent] \ 
+            x\^4 + x\^2\ \ \ mod\ 2\)\)]],
+  ".\n",
+  Cell[BoxData[
+      \(TraditionalForm\`c = \(GCD(a, 
+            a') = \(\(GCD(x\^10 + x\^6 + x\^5 + x\^3 + x\^2 + 1, 
+              x\^4 + x\^2)\)\(.\)\)\)\)]],
+  "\nTo compute the above GCD, we do long division mod 2.\n",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \)\(x\^6\ \  + x\^4\  + x\[IndentingNewLine]
+      x\^4 + 
+        x\^2\ \ \ \@\(x\^10\ \ \ \ \ \  + \ \ \ \ \ \ \ x\^6 + x\^5 + x\^3 + \
+x\^2 + 1\)\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\^10 + 
+        x\^8\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ___  ___  ___  ___  ___  ___  ___ \
+ ___  __\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ x\^8\ \ \  + \ x\^6\  + x\^5 + x\^3 + x\^2 + 1\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ x\^8\ \ \  + \ x\^6\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ __\ \ \ \ _\
+__  ___  ___  ___  ___  ___  _\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\^5 + x\^3 + 
+        x\^2\ \  + \ 1\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\^5 + 
+        x\^3\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ___  ___  ___  ___  ___\
+\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ x\^2\  + \ 1\)\)\)]],
+  "\t\n(note that  ",
+  Cell[BoxData[
+      \(TraditionalForm\`1 \[Congruent] \(-1\)\ mod\ 2, \ 
+      2 \[Congruent] 0\ mod\ 2\)]],
+  ").\nContinuing with the Euclidean algorithm, we have:\n",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \)\(x\^2\[IndentingNewLine]
+      x\^2 + 1\ \ \ \ \ \ \@\(x\^4\ \ \  + \ \ \ x\^2\)\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\^4\ \ \ \  + \ \ \
+x\^2\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ___  ___  __\
+\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ 0\)\)\)]],
+  "\nThus ",
+  Cell[BoxData[
+      \(TraditionalForm\`c = \(GCD(a, a') = x\^2 + 1. \)\)]],
+  "\n",
+  Cell[BoxData[
+      \(TraditionalForm\`w = a/\(\(c\)\(:\)\)\)]],
+  "\n",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(\[IndentingNewLine]\)\(\ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \)\(x\^8\ \  + x\^6\  + x\^3\  + 
+        1\[IndentingNewLine]
+      x\^2 + 
+        1\ \ \ \@\(x\^10\ \ \ \ \ \  + \ \ \ \ \ \ \ x\^6 + x\^5 + x\^3 + \
+x\^2 + 1\)\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\^10 + 
+        x\^8\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ___  ___  ___  ___  ___  ___  ___ \
+ ___  __\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ x\^8\ \ \  + \ x\^6\  + x\^5 + x\^3 + x\^2 + 1\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ x\^8\ \ \  + \ x\^6\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ __\ \ \ \ _\
+__  ___  ___  ___  ___  ___  _\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\^5 + x\^3 + 
+        x\^2\ \  + \ 1\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\^5 + 
+        x\^3\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ___  ___  ___  ___  ___\
+\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ x\^2\  + \ 1\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\^2 + \ 1\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ ___  ___\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0\)\)\)]],
+  "\nso ",
+  Cell[BoxData[
+      \(TraditionalForm\`w = x\^8 + x\^6 + x\^3 + 1\)]],
+  ".\nNow ",
+  Cell[BoxData[
+      \(TraditionalForm\`y = \(GCD(w, 
+            c) = \(\(GCD(x\^8 + x\^6 + x\^3 + 1, \ x\^2 + 1)\)\(:\)\)\)\)]],
+  "\n",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \)\
+\(x\^6\ \  + x\[IndentingNewLine]
+      x\^2 + 
+        1\ \ \ \@\(x\^8\ \ \  + \ \ x\^6\  + \ x\^3\ \ \ \ \ \ \ \ \ \ \ \ \  \
++ \ 1\)\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\^8\ \  + \ \ \ x\^6\
+\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ___  ___  ___  ___  ___  ___  __\
+\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\^3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  + 
+        1\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\^3\ \  + x\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ __\ \ \ \ _\
+__  ___  ___  ___  __\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\ \ \ \ \  + \ \
+\ 1\)\)\)]],
+  "\nContinue with the division:\n",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \)\(x\ \ \
+\  + \ 1\[IndentingNewLine]
+      x + 1\ \@\(x\^2\ \ \ \ \ \ \ \ \ \ \ \ \ \  + \ 1\)\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\^2\  + x\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ___  ___  ___  _\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\ \ \ \ \
+\  + \ 1\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\ \ \ \ \
+\  + \ 1\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ___  ___  _\
+\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ 0\)\)\)]],
+  "\nSo ",
+  Cell[BoxData[
+      \(TraditionalForm\`y = \(GCD(w, c) = 1 + x\)\)]],
+  ".  Thus the first factor ",
+  Cell[BoxData[
+      \(TraditionalForm\`z = \(w/
+            y = \(a\_1 = \((x\^8 + x\^6 + x\^3 + 1)\)/\((1 + x)\)\)\)\)]],
+  ".\n",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \)\(x\^7 \
++ x\^6\  + x\^2\  + x\ \  + \ 1\[IndentingNewLine]
+      x + 
+        1\ \@\(x\^8\ \ \ \ \ \ \ \ \ \ \ \  + x\^6 + x\^3\ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \  + 1\)\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\^8 + x\^7\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ___  ___  ___  ___  ___  ___  ___  __\
+\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\^7 + 
+        x\^6\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\^7 + 
+        x\^6\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ___  ___  ___  ___  \
+___  ___  __\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\^3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \  + 1\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\^3 + x\^2\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ___  ___  ___  ___\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\^2\ \ \ \ \ \ \ \
+\ \ \ \  + 1\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\^2 + 
+        x\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ___  ___  ___\
+\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ x\ \  + \ 1\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ x\ \  + \ 1\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ ___  __\[IndentingNewLine]
+      \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ 0\)\)\)]],
+  "\nSo ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\_1 = \ x\^7 + x\^6 + x\^2 + x + 1\)]],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "We have finished first iteration.  Now we enter second iteration for \
+computation of ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\_2\)]],
+  ".   Let ",
+  Cell[BoxData[
+      \(TraditionalForm\`a = \(c = x\^2 + 1\)\)]],
+  ",  the new ",
+  Cell[BoxData[
+      \(TraditionalForm\`c = \(GCD(a, a') = \(GCD(x\^2 + 1, \ 0) = 
+            x\^2 + 1\)\)\)]],
+  ".   We are in trouble because the derivative of ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " (which is ",
+  Cell[BoxData[
+      \(TraditionalForm\`2  x\)]],
+  ")  is zero  (in mod 2).   Thus we have to evoke step (6).   We write \n\t\
+",
+  Cell[BoxData[
+      \(TraditionalForm\`a = \(\((x\^2 + 1)\)\  = \ \((b(x))\)\^2\)\)]],
+  ",\nand find the polynomial ",
+  Cell[BoxData[
+      \(TraditionalForm\`b(x)\)]],
+  ".  Since ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " is quadratic, so ",
+  Cell[BoxData[
+      \(TraditionalForm\`b(x)\)]],
+  " must be linear.   There are only 4 linear polynomial in Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_2\)]],
+  ", there are 0, 1, ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(x\)\(,\)\)\)]],
+  " ",
+  Cell[BoxData[
+      \(TraditionalForm\`x + 1\)]],
+  ".   Clearly\n",
+  Cell[BoxData[
+      \(TraditionalForm\`\((1 + x)\)\^2 \[Congruent] \ 
+        x\^2 + 1\ \ mod\ 2\)]],
+  ".  Since ",
+  Cell[BoxData[
+      \(TraditionalForm\`1 + x\)]],
+  " can not be factored further, we conclude that ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(a\_2 = 1\)\(,\)\)\)]],
+  " and ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\_3 = \((1 + x)\)\)]],
+  ".   This is because old ",
+  Cell[BoxData[
+      \(TraditionalForm\`c\)]],
+  " during the first iteration (new ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " in second iteration) is ",
+  Cell[BoxData[
+      \(TraditionalForm\`c = \(a\_2\) a\_3\^2\)]],
+  ".\nThe final result for square-free factorization is \n",
+  Cell[BoxData[
+      \(TraditionalForm\`a(
+          x)\  = \ \((x\^7 + x\^6 + x\^2 + x + 1)\) \((x + 1)\)\^3\)]],
+  "."
+}], "Text"]
+},
+FrontEndVersion->"4.2 for Microsoft Windows",
+ScreenRectangle->{{0, 1280}, {0, 941}},
+WindowSize->{680, 856},
+WindowMargins->{{277, Automatic}, {Automatic, 9}},
+Magnification->1.5,
+StyleDefinitions -> "Classroom.nb"
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{
+  "Info3258874817-5707250"->{
+    Cell[5432, 171, 486, 11, 135, "Print",
+      CellTags->"Info3258874817-5707250"]}
+  }
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{
+  {"Info3258874817-5707250", 66602, 1861}
+  }
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1754, 51, 54, 0, 174, "Title"],
+Cell[1811, 53, 34, 0, 62, "Subtitle"],
+Cell[1848, 55, 1146, 35, 119, "Text"],
+Cell[2997, 92, 692, 10, 358, "Input"],
+Cell[3692, 104, 38, 0, 62, "Subtitle"],
+Cell[3733, 106, 335, 6, 119, "Text"],
+Cell[4071, 114, 298, 6, 202, "Input"],
+
+Cell[CellGroupData[{
+Cell[4394, 124, 59, 1, 72, "Input"],
+Cell[4456, 127, 43, 1, 71, "Output"]
+}, Open  ]],
+Cell[4514, 131, 137, 3, 67, "Text"],
+Cell[4654, 136, 169, 4, 150, "Input"],
+
+Cell[CellGroupData[{
+Cell[4848, 144, 68, 1, 72, "Input"],
+Cell[4919, 147, 74, 1, 71, "Output"]
+}, Open  ]],
+Cell[5008, 151, 55, 0, 97, "Subsubtitle"],
+Cell[5066, 153, 34, 0, 62, "Subtitle"],
+Cell[5103, 155, 257, 9, 68, "Text"],
+
+Cell[CellGroupData[{
+Cell[5385, 168, 44, 1, 72, "Input"],
+Cell[5432, 171, 486, 11, 135, "Print",
+  CellTags->"Info3258874817-5707250"]
+}, Open  ]],
+Cell[5933, 185, 34, 0, 62, "Subtitle"],
+Cell[5970, 187, 2636, 81, 169, "Text"],
+Cell[8609, 270, 13088, 389, 297, "Text"],
+Cell[21700, 661, 6601, 200, 384, "Text"],
+Cell[28304, 863, 35, 0, 62, "Subtitle"],
+Cell[28342, 865, 1299, 31, 345, "Text"],
+Cell[29644, 898, 827, 19, 271, "Text"],
+Cell[30474, 919, 1756, 43, 363, "Text"],
+Cell[32233, 964, 34, 0, 62, "Subtitle"],
+Cell[32270, 966, 335, 11, 117, "Text"],
+Cell[32608, 979, 316, 5, 119, "Text"],
+Cell[32927, 986, 176, 4, 67, "Text"],
+Cell[33106, 992, 2354, 68, 388, "Text"],
+Cell[35463, 1062, 1354, 51, 195, "Text"],
+Cell[36820, 1115, 35, 0, 62, "Subtitle"],
+Cell[36858, 1117, 1393, 36, 366, "Text"],
+Cell[38254, 1155, 2183, 40, 349, "Text"],
+Cell[40440, 1197, 468, 15, 77, "Text"],
+Cell[40911, 1214, 1581, 25, 271, "Text"],
+Cell[42495, 1241, 538, 18, 77, "Text"],
+Cell[43036, 1261, 637, 22, 72, "Text"],
+
+Cell[CellGroupData[{
+Cell[43698, 1287, 390, 7, 202, "Input"],
+Cell[44091, 1296, 35, 1, 71, "Output"]
+}, Open  ]],
+Cell[44141, 1300, 34, 0, 62, "Subtitle"],
+Cell[44178, 1302, 906, 29, 216, "Text"],
+Cell[45087, 1333, 523, 14, 216, "Text"],
+Cell[45613, 1349, 1957, 46, 643, "Text"],
+Cell[47573, 1397, 1104, 25, 177, "Text"],
+Cell[48680, 1424, 1247, 35, 238, "Text"],
+Cell[49930, 1461, 1691, 47, 388, "Text"],
+Cell[51624, 1510, 36, 0, 62, "Subtitle"],
+Cell[51663, 1512, 534, 18, 79, "Text"],
+Cell[52200, 1532, 1338, 40, 307, "Text"],
+Cell[53541, 1574, 10355, 199, 2174, "Text"],
+Cell[63899, 1775, 2035, 67, 383, "Text"]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

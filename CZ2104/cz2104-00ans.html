@@ -1,0 +1,114 @@
+<html>
+<head><title>CZ2104 (Semester I 00/01) final exam anwsers</title></head>
+
+<body>
+
+<h2>CZ2104 (Semester I 00/01) final exam anwsers </h2>
+
+<p>
+1. Minimum size of a frame buffer = 320x480 bits = 19200 bytes
+
+<p>
+2. 
+<pre>
+#include <GL/glut.h>
+
+GLfoat pos_x, pos_y;
+
+void moveto(GLfloat x, GLfloat y)
+{ 
+   pos_x = x;
+   pos_y = y;
+}
+
+void lineto(GLfloat x, GLfloat y)
+{
+  glBegin(GL_LINES);
+    glVertex2f(pos_x, pos_y);
+    glVertex2f(x, y);
+  glEnd();
+  pos_x = x;
+  pos_y = y;
+}
+</pre>
+
+<p>
+3. 
+(a) vector,
+(b) meaningless,
+(c) point,
+(d) meaningless, unless alpha = 0 or -1,
+(e) vector,
+(f) scalar,
+(g) vector,
+(h) point,
+(i) meaningless.
+
+
+<p>
+4.
+<pre>
+double x_earth, y_earth, x_moon, y_moon;
+
+void idle(void)
+{
+  orbits(&x_earth, &y_earth, &x_moon, &y_moon, 0.01);
+  glutPostRedisplay();
+}
+
+void display(void)
+{
+
+   glClear(GL_BUFFER_BIT);
+   glcolor3f(1.0, 1.0, 1.0);
+   circle(1.5, 0.0, 0.0);
+   glcolor3f(0.0, 0.0, 1.0);
+   circle(1.0, x_earth, y_earth);
+   glcolor3f(1.0, 1.0, 0.0);
+   circle(0.25, x_moon, y_moon);
+   
+   glFlush();
+   glutSwapBuffer();
+}
+
+void init(void)
+{
+  glClearColor(0.0, 0.0, 0.0, 0.0);
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  gluotho2D(-10.0, 10.0, -10.0, 10.0);
+  glMatrixMode(GL_MODELVIEW);
+}
+
+void circle(double r, double x, double y)
+{
+  ... (omitted)
+}
+</pre>
+
+<p>
+5. 
+a. a square with coordinates (0,-1), (1,-1), (0, -2), (1, -2).
+b. M = [ 1 0 0 0; 0 1 0 0; 0 0 0 -1; 0 0 0 1].
+c. The coordinates are (0,1/5), (0, 2/5), (-1/5,1/5), (-1/5,2/5);
+   (0,1/6), (0,2/6), (1/6,1/6), (-1/6, 2/6).
+d. 
+<pre>
+ glMatrixMode(GL_PROJECTION)
+ glLoadIndentity();
+ glScale(-1,-1, 0);
+ glFrustum(...);
+ glLookAt(0, 0, 0, 0, 0, 5, 0, 1, 0);
+ glMatrixMode(GL_MODELVIEW);
+</pre>
+
+<p>
+6.
+  a. ... omitted
+  b. P(u) = u^T M P
+     i.e., x = 3u - 6u^2 + 4u^3,  y = (u-u^2)3/2 (after some algebra).
+
+  c. No.
+
+</body>
+</html>

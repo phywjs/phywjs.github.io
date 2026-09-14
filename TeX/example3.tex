@@ -1,0 +1,38 @@
+\xmpheader 3/{Fonts and special characters}
+\chardef \\ = `\\ % Let \\ denote a backslash
+
+\font\tencmss = cmss10  % Load some unstandard fonts
+\font\tencmssbx = cmssbx10
+\font\bigbf = cmbx10 scaled \magstep2  % You can use \magstep1 upto \magstep5.
+
+{\it Here are a few words in an italic font}, {\bf a few words in a boldface font}, {\it and a\/
+{\bf mixture} of two, with two\/ {\rm roman words} inserted}.  Where an italic font is followed by
+a nonitalic font, we've inserted an ``italic correction'' ({\tt \\/}) to make spacing look right.
+Here's a {\sevenrm smaller} word---but the standard \TeX\ fonts won't give you anything smaller
+than {\fiverm this}. The standard font like the current one is called cmr10.  {\tencmss But now
+we are using cmss10} {\tencmssbx or in its bold version}.  Here is a {\bigbf big A}.  You can magnify 
+the whole document by saying {\tt \\magnification \\magstep1}, at the very beginning of the file.
+
+If you need any of the characters:
+\medskip
+\centerline{\$ \quad \& \quad \# \quad \_ \quad \% \quad 
+\char`\^ \quad \char`\~ \quad $\{$ \quad $\}$ \quad $\backslash$}
+% The \quad inserts an em space between charaters.
+\medskip
+\noindent you'll need to write them a special way. Look at the input to see how to do it. 
+
+\TeX\ has the accents and letters that you'll need for French words such as {\it r\^ ole\/} and
+{\it \'el\`eve}, for German words such as {\it Schu\ss}, and for words in several other languages
+as well.  You'll find a complete list of \TeX's accents and letters of European languages in the
+\TeX book. 
+
+You can also get Greek letters such as ``$\alpha$'' and ``$\Omega$'' for use in math, card suits
+such as ``$\spadesuit$'' and ``$\diamondsuit$'', music symbols such as ``$\sharp$'' and
+``$\flat$'', and many other special symbols.  \TeX\ will only accept these sorts of special symbols
+in its ``math mode'', so you'll to enclose them within `{\tt \$}' characters.  Here are some
+more strange-looking symbols, $\Upsilon$, $\varpi$, $\partial$, $\wr$,
+and $\hookleftarrow$.
+
+Many files are involved in the \TeX\ system. The {\tt .mf} file contains the source codes for
+the metafont program, which generate {\tt .tfm} and {\tt .pk} font files.  Most part of \TeX's
+definitions are in the file {\tt plain.tex}.  

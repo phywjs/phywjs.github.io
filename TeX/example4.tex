@@ -1,0 +1,34 @@
+\xmpheader 4/{Spacing, rules, and boxes}
+Here's an example of a ``description list''. \par
+% Call the indentation for descriptions \descindent, to avoid repetitive
+% constructs, we'' define a macro
+\newdimen\descindent \descindent = 8pc
+\def\describe#1{\par\noindent \llap{\hbox to \descindent{\bf #1\hfil}}}
+{\leftskip = \descindent \parskip = 0.5 \baselineskip
+% Move the description to the left of the paragraph.
+\describe{Queen of Hearts}An ill-tempered woman, prone to saying ``Off with his head!'' 
+at the slightest provocation.
+\describe{Cheshire Cat}A cat with an enormous smile that Alice found in a tree.
+\describe{Mock Turtles}A lachrymose creature, quite a storyteller, who was a companion 
+to the Cryphon.  Reputedly the principal ingredient of Mock Turtle Soup.
+\par}
+\bigskip\hrule\bigskip % A line with vertical space around it.
+Here's an example of some words in a ruled box, just as Lewis Carroll wrote them:
+\medskip
+% Put 8pt of space between the text and the surrounding rules.
+\hbox{\vrule\vbox{\hrule
+   \hbox spread 8 pt{\hfil\vbox spread 8pt {\vfil
+       \hbox{Who would not give all else for twop}%
+       \hbox{ennyworth only of Beautiful Soup?}%
+   \vfil}\hfil}
+\hrule}\vrule}%
+\medskip
+\smallskip
+\line{\hfil\hbox to 3 in{\leaders\hbox{ * }\hfil}\hfil}
+\bigskip
+\line{\hskip -4pt\vrule\hfil\vbox{Here we've gotten the effect of a revision bar on the material 
+in this paragrah.  The revision bar might indicate a change.}}
+
+You use the Unix command {\tt tex $file$} to evoke the \TeX\ program; which translate your \TeX\ 
+source into {\tt $file$.dvi}. Then {\tt dvips $file$} produces {\tt $file$.ps}, which you can
+send to printer. You can view the {\tt dvi} file by {\tt xdvi} and {\tt ps} file by {\tt ghostview}.

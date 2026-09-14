@@ -1,0 +1,272 @@
+<html>
+<head>
+<title>CZ101, Lab 1 Requirement</title>
+</head>
+<body>
+<hr>
+<h1>Lab #1 Requirements</h1>
+
+<OL>
+ <LI> Submit your assembly programs for Questions 1 & 2.
+
+ <LI> Make sure you comment your programs appropriately. i.e. have:
+
+   <OL>
+    <LI> A header comment block stating:
+
+        <P> (i)   your name, lab group, date and filename of the program
+
+        <P> (ii)  a brief description of what the program does (don't just
+              say that this program is for Ques #2 - this is not
+              acceptable)
+
+        <p> (iii) if your program is a procedure/function which will be
+              called by another program, state the arguments (parameters)
+              that your function expects (e.g. expects an integer in $4);
+              and also what the function returns (e.g. returns an
+              integer in $2). See below for more on procedures/functions.
+
+    <LI> Appropriate comments next to your code describing what a
+        particular section of code does. Do not over-comment. Things that
+        are obvious need not be commented. Try to describe what you are
+        trying to do with that section of code.
+ 
+    <LI> Use whitespace (e.g. blank lines) to separate logical sections
+        of code.
+
+    <LI> Format your code in an easy-to-read way.
+    </OL>
+
+<LI> You do NOT need to submit the C programs used to test your assembly
+    programs.
+
+</OL>
+
+<hr>
+<h1>Grading Policies</h1>
+
+Your programs will be graded on 3 main areas:
+
+<OL>
+<LI> Correctness - your program must work according to the specifications.
+
+<LI> Comments - you must comment your program appropriately. See above
+               for the kind of comments you need. Take note that this
+               is important and carries almost as much weightage as
+               Correctness.
+ 
+<LI> Style - your programming style i.e. efficient algorithms, proper use
+            of loops and branches, etc.
+
+</OL>
+
+
+<HR>
+<H1>Notes on Lab #1</H1>
+
+<h2>Procedures, Functions, and Sub-programs</h2>
+<p>These terms can be used inter-changeably. Basically this is like a boss
+delegating some work to his workers. In programming, the 'boss' is
+usually the "main" program, and the 'workers' are the procedures or
+functions that are assigned some work.
+
+<p>Just as a boss will give input data to the worker in order for the worker
+to carry out the task (eg. calculate something), the main program must
+supply the function with data. We call this "arguments" or "parameters"
+Also the boss expects the worker to give him results, so in the same way,
+the function must return some data to the main program. (note: the main
+program is also said to "call" a function, and to the function, the main
+program is the "calling" function)
+  
+<p>For example:
+
+The main program wants to calculate a sum of 2 integers, so we can write
+the program as the main function (note that the main "program" is also
+a function/procedure) calling a procedure called "sum", which takes 2
+integer arguments (the numbers to be summed) and returns an integer
+(the result of the summation).
+
+in C:
+<pre>
+        int sum(int a, int b)      /* a function called "sum" 
+                                      expecting 2 integers a & b to be 
+                                      given by the calling program */
+        {
+          return (a+b);
+        }
+
+        main()
+        {
+          int c;
+          c = sum(1,2);   /* here the main() calls the sum() function
+                             and c will get the results of the sum() */
+        }
+</pre>
+
+<p>For this lab, we will have a C program (the test programs given by
+Dr Wang) calling an assembly program (written by you). Arguments are
+passed to your assembly functions through registers $4, $5, and
+the C program expects the return results from the assembly function
+in register $2.
+
+<hr>
+<h2>Compilation</h2>
+<p>You may compile both the C program and the assembly program together
+on the same line, e.g:
+<pre>
+  cc c_prog.c asm_prog.s -o run_me
+</pre>
+<p>Recall that the "-o" option specifies the executable file to produce.
+If you omit it, then the executable will be called "a.out".
+
+<p>Note: make sure your C program has the ".c" behind the name, and make
+      sure the assembly program has the ".s" behind as well.
+ 
+<hr>
+
+<p>Just a couple more tips to help you with this week's lab assignment:
+
+<OL>
+<LI> You will need the two C programs, provided by Dr Wang, for this lab.
+   Use xmosaic, go to the CZ101 Lab #1 web page, click on the two
+   C programs (<A HREF="../assembly-examples/callbcopy.c">callbcopy.c</A> 
+   and <A HREF="../assembly-examples/callbfind.c">callbfind.c</A>) 
+   and save it to your 
+   directory (by pulling down the FILE menu, followed by a choice of
+   SAVE AS, followed by clicking OK button).
+
+<LI> For your assembly programs, they should have the following structure,
+   e.g. for Q#1:
+
+<pre>
+            .text
+            .globl bcopy    <----  note: these labels must correspond
+    bcopy:                               with the name of the function 
+            :                            being called, in the C program.
+            :
+            <your program here>
+            :
+            :
+            j $31
+</pre>
+
+<LI> For Q#2, remember that when testing a byte to see whether it is a 'b' 
+   or not, you are comparing against the 
+<A HREF="ascii.html">ASCII value</A> of 'b'.
+
+</OL>
+
+
+<hr>
+<p>If you have any further questions, please contact me.
+
+<p>rgds,
+<p>shing (shing@galaxy.cz3.nus.sg)
+<hr>
+<h1>More Hints on Lab 1</h1>
+
+<h3>Question 1</h3>
+<p>The question asks for an assembly program that copies a sequence
+of bytes from one location in memory to another location.  The
+memory locations are GIVEN from the calling program (the callbcopy.c),
+by passing parameters in $4 and $5.  At the very beginning, 
+$4 contains the starting address
+of the source, and $5 contains the starting address of the destination.
+The sequence of bytes (array) is marked as terminated by a null byte
+(a byte with the value 0).  
+
+<p>For illustration purpose, let us assume that $4 contains the number 100,
+and $5 contains 60.  Here are what happen for the contents of memory
+and registers.
+<pre>
+Just before bcopy start:                        After executing bcopy:   
+
+            address   content                       address   content
+
+               ...    | ... |                        ...    | ... |    
+               59     |     |                        59     |     |
+     $5  ->    60     |     |                        60     | 65  |
+               61     |     |                        61     | 66  | 
+               62     |     |                        62     | 67  |
+               63     |     |                        63     |  0  | 
+               64     |     |                        64     | ... |
+               ...    | ... |                        ...    | ... |
+
+               99     | ... |                        99     | ... |
+     $4  ->   100     | 65  |                       100     | 65  |
+              101     | 66  |                       101     | 66  |
+              102     | 67  |                       102     | 67  |
+              103     |  0  |                       103     |  0  |
+              104     | ... |                       104     | ... |
+              ...     | ... |                       ...     | ... |
+
+   $4 = 100, $5 = 60                        $2 = 3, $4 = ..., $5 = ...
+</pre>
+<p>In other words, the bytes at location 100, 101, 102, and 103 are
+copied to location 60, 61, 62, and 63, respectively.  Unspecified entries
+may contain unpredictable values.  Note that each byte has a unique
+address, consecutive bytes differ in addresses by 1. (Each word
+has 4 bytes, thus next word is 4 bytes away).
+
+<p>Before executing bcopy, $4 contains 100, and $5 contains 60,
+in the above example.  We don't care  about the values in $4 and $5
+after execution of bcopy.
+but $2 should contain the number of bytes copied, not counting the
+last byte of value 0.  So, the above example should have 3 in
+$2 as the return value of the function bcopy.
+
+<p>Note that if $4 contains 100, then
+<pre>
+   lb $3, 0($4)
+</pre>
+makes $3 contain 65, the value at memory address 0 + $4 = 0 + 100 = 100. 
+$3 does NOT contain the value 100. On the other hand 
+<pre>
+   add $3, $0, $4
+</pre>
+makes $3 contain the value 100, as in $4.
+
+<h3>Question 2</h3>
+<p>This question asks you to find 'b' in a sequence of bytes. The character
+'b' in memory is just a number, in this case the number 98. See
+the <A HREF="ascii.html">ASCII table</A> for the correspondence between 
+printing characters and internal presentation in computer.
+
+<p>Again, let us assume, for the seek of concreteness, that the memory
+and register contents look like these:
+<pre>
+Before program execution:              After execution:
+      address   contents
+
+       1001     | ... |                 MEMORY NO CHANGE
+$4 ->  1002     | 105 |
+       1003     | 109 |
+       1004     |  98 |
+       1005     | 105 |
+       1006     |  98 |
+       1007     | 101 |
+       1008     |   0 |
+       1009     | ... |
+
+ $4 = 1002, $5 = ...                    $2 = 1004, $4 = ..., 
+</pre>
+<p>This sequence of bytes representing the string "imbibe".  $4 is the
+first and only argument for this function bfind.  The value in $4 is
+set by the calling program (in this case, the C program callbfind.c).
+You should load a byte into a register from memory to see if it is
+a 'b' (i.e. 98) or value 0.  You start from the address given in 
+$4 ($4=1002 in the above example), if is not a 'b' or 0, look at the
+next byte, and so on until you find a 'b' or 0.   
+
+<p>After the first 'b' or 0 is found,  before returning to calling
+program, you should make sure that $2 contains the address of the byte
+you have just found.  In the above example, $2 should contain 1004, which
+is the address of the first 'b' in "imbibe".
+
+
+<hr>
+<p>[<A HREF="lab1.html">To Lab 1 questions</A>][<A 
+HREF="../../cz101.html">To CZ101 main page</A>]
+<hr>
+</body>
+</html>

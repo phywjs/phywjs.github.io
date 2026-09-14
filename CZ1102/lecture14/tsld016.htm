@@ -1,0 +1,79 @@
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Context-Type" CONTEXT="text/html;charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft Internet Assistant for PowerPoint 97">
+ <TITLE>Function for Matrix Multiplication</TITLE> 
+</HEAD>
+
+<BODY     >
+
+ <H1>Function for Matrix Multiplication</H1> 
+ <P><UL>
+<LI><H2>
+</H2>
+</UL><UL>
+<H2>/* Multiply matrix m1 by m2, store the product in matrix m3 */
+</H2>
+</UL><UL>
+<H2>void mult(int m1[][MAXSIZE],
+</H2>
+</UL><UL>
+<H2>          int m2[][MAXSIZE],
+</H2>
+</UL><UL>
+<H2>          int m3[][MAXSIZE],
+</H2>
+</UL><UL>
+<H2>          int n)
+</H2>
+</UL><UL>
+<H2>{
+</H2>
+</UL><UL>
+<H2>   int i, j, k;
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>   for(i = 0; i &#060 n; ++i)
+</H2>
+</UL><UL>
+<H2>      for(j = 0; j &#060 n; ++j) {
+</H2>
+</UL><UL>
+<H2>         m3[i][j] = 0;
+</H2>
+</UL><UL>
+<H2>         for(k = 0; k &#060 n; ++k)
+</H2>
+</UL><UL>
+<H2>            m3[i][j] += m1[i][k] *
+</H2>
+</UL><UL>
+<H2>                            m2[k][j];
+</H2>
+</UL><UL>
+<H2>      }
+</H2>
+</UL><UL>
+<H2>}
+</H2>
+</UL></P>
+<P></P> 
+<P>
+<TABLE>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld015.htm">Previous slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld017.htm">Next slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="tsld001.htm">Back to first slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="sld016.htm">View graphic version</A> </TD>
+</TABLE>
+<BR>
+</P>
+
+
+
+</Body>
+</HTML>

@@ -1,0 +1,505 @@
+<html>
+<head>
+<title>CZ1101, Lecture Notes, Week 5</title>
+</head>
+<body>
+
+<HR>
+<p>Links to other weeks' notes
+[ <A HREF="cz101notes.html">2</A> ][ <A HREF="week3.html">3</A> ][
+ <A HREF="week4.html">4</A> ]( <A HREF="week5.html">5</A> )[ <A 
+HREF="week6.html">6</A> ][ <A HREF="week7.html">7</A> ][
+ <A HREF="week8.html">8</A> ][ <A HREF="week10.html">10</A> ]
+<HR>
+
+<h2>Week 5, 11/14 August, 1997</h2>
+
+<h3>Branch instructions</h3>
+<p>In this week, we'll learn one of the very important classes of instructions
+besides arithmetic and data transfer instructions - branch instructions.
+The branch instructions change the way code is executed. 
+Normally, the instructions are executed in the order given as in the
+program.  Branch instructions cause the execution to jump backwards or
+forwards in memory where the program are stored.  
+
+<p>To motivate the usefulness of branch instructions, let us see how
+do we compute
+<pre>
+   1^3 + 2^3 + 3^3 + 4^3 + ... + 1000^3?
+</pre> 
+Answer: (1) Do additions 1000 times explicitly; the program will have several
+thousand lines. (2) Use code repeatedly, i.e., looping.  The program 
+has only a dozen lines.  Here is the idea:
+<pre>
+   1.   Let sum = 0, and n = 0
+   2.   increase n by 1
+   3.   compute y = n*n*n
+   4.   add y to sum
+   5.   if n < 1000 repeat the step 2, otherwise the computation is done.
+</pre>
+We know how to write part of the code
+<pre>
+   add $4, $4, $3   # step 2, assuming $3 = 1, n in $4
+   mul $5, $4, $4   # part of step 3, $5 = n*n
+   mul $5, $5, $4   # $5 = n cubed
+   add $8, $8, $5   # step 4, assuming $8 contains sum
+</pre>
+We need two more things to make it a loop: a label and a
+conditional branch instruction.  A <strong>Label</strong> marks a 
+(memory) location in an assembly program.  We have already seen
+a label, the <code>main:</code>.   A label is a name followed
+by a semi-colon.  The complete 
+<a href="../assembly-examples/cubesum.s">program</a> would look like this.
+<pre>
+ # This program computes 
+ # 1^3 + 2^3 + 3^3 + 4^3 + ... + N^3
+ # using loop. N is a value loaded in $6
+main:
+                   # How registers are used:
+   li, $6, 10      # $6, the limit N
+   li, $8, 0       # $8, the sum
+   li, $4, 0       # $4=n, runs from 1 to N
+   li, $3, 1       # $3, constant 1
+
+L: add $4, $4, $3  # increment n by 1
+   mul $5, $4, $4  # $5 = n^2
+   mul $5, $5, $4  # $5 = n^3
+   add $8, $8, $5  # add n^3 to sum
+   bne $4, $6, L   # go back if n!=N
+
+   j $31
+</pre>
+This program is general in that you can set N to be any value,
+not only N=10. Note the comments in the program. Good comments are useful
+for you or your reader/grader to understand the program better.   In particular,
+you should explain the purpose of registers used.
+
+
+<h3>Instructions for making decisions</h3>
+<pre>
+   beq register1, register2, L1   # branch if equal
+   bne register1, register2, L1   # branch if not equal
+</pre>
+<p>These two instructions direct the machine to execute
+the instruction elsewhere if the condition is met. L1 is
+a constant called label, the value is computed and assigned
+by the assembler.  It tells the computer to execute the instruction
+a distance L1 away from the current instruction.
+<p>Example: What is the assembly language equivalent of the following
+C program?
+<pre>
+      if(i==j) goto L1;
+      f = g + h;
+ L1:  f = f - i;
+</pre>
+<p> Answer (assuming, f, g, h, i, j takes the registers $16, $17, $18, $19, and 
+$20)
+<pre>
+      beq $19, $20, L1   # goto L1 if i equals j
+      add $16, $17, $18  # f = g + h (skipped if i equals j)
+L1:   sub $16, $16, $19  # f = f - i (always executed)
+</pre>
+
+<h3>Loops again</h3>
+<p>Example: The C program is below.  Translate into MIPS assembly language. 
+<pre>
+   Loop:   g = g + A[i];
+           i = i + j;
+           if(i != h) goto Loop;
+</pre>
+<p>Answer (assuming g, h, i, j, and 4 takes registers $17, $18, $19, $20, and
+$10)
+<pre>
+Loop: mul $9, $19, $10    # reg $9 = i * 4
+      lw  $8, Astart($9)  # reg $8 = A[i]
+      add $17, $17, $8    # g = g + A[i]
+      add $19, $19, $20   # i = i + j
+      bne $19, $18, Loop  # goto Loop if i not equal h
+</pre>
+Here is perhaps the first time you meet array.  Array in C is declared
+as, e.g., 
+<pre>
+   int A[5];    /* array with five elements A[0], A[1], ..., A[4] */
+</pre>
+From assembly program point of view, array is a piece of contiguous
+memory, characterized by a starting address and a size of the memory.
+The <code>Astart</code> above is a symbolic constant denoting this starting address.
+
+
+<h3>Unconditional branch</h3>
+<p>The instruction
+<pre>
+   j Label
+</pre>
+unconditionally jump to the instruction marked by the Label. Example
+<pre>
+   if(i == j) f = g + h;   /* C program */
+   else f = g - h;
+</pre>
+<p>Answer (assuming f, g, h, i, j takes registers $16, $17, $18, $19, and $20).
+<pre>
+      bne $19, $20, Else
+      add $16, $17, $18
+      j Exit
+Else: sub $16, $17, $18
+Exit:
+</pre>
+
+<h3>Test for less than</h3>
+<p>The instruction
+<pre>
+   slt $8, $19, $20    # set on less than
+</pre>
+set the register $8 to 1 if $19 &lt; $20, otherwise, register $8 is set to 0.
+
+<p><CODE>slt, beq</CODE>, and <CODE>bne</CODE> are sufficient to implement 
+all types of conditional branches (One of our tutorial problem deals 
+with this).  E.g., the assembly language
+<pre>
+   blt $16, $17, Less  # branch if $16 &lt; $17
+</pre>
+is translated to the hardware as
+<pre>
+   slt $1, $16, $17
+   bne $1, $0, Less
+</pre>
+<p>The blt is not a machine instruction in the sense that it does not
+have a corresponding binary machine code. The assembler or the
+SPIM simulator always replaces it by the two true machine instructions
+show above.  We call such instructions pseudo-instructions.
+Register $1 is reserved for the assembler to handle pseudo-instructions
+like the one above.  Load immediate <code>li</code> is also a 
+pseudo-instruction.
+
+<h3>While loop</h3>
+<pre>
+   while(save[i] == k) {
+      i = i + j;
+   }
+</pre>
+<p>Assuming i, j, k, and 4 takes registers $19, $20, $21, and $10, and
+the starting address of the array is at <CODE>Sstart</CODE>.
+<pre>
+Loop: mul $9, $19, $10
+      lw  $8, Sstart($9)
+      bne $8, $21, Exit
+      add $19, $19, $20
+      j Loop
+Exit:
+</pre>
+ 
+<h4>Load immediate values</h4>
+<p>The general loading instruction copies a value from memory into register,
+<pre>
+   lw $8, 4($9)  # load value at address 4 + $9 into $8
+</pre>
+<p>Load small number (16-bit) into $8 can be done more efficiently
+<pre>
+   addi $8, $0, 4  # $8 = 0 + 4 = 4
+</pre>
+
+<h4>Immediate values are 16-bit long</h4>
+The MIPS instruction
+<pre>
+   addi, $8, $9, 4
+</pre>
+is represented as
+<pre>
+   8   9   8        4
+   op  rs  rt   immediate
+</pre>
+<p>Since the bit width for the immediate value is only 16-bit wide,
+(the total width is 32-bit), the immediate values must small enough to
+fit into the 16-bit field, (namely from -2^15 to 2^15 -1).  What happen
+if a larger value is used?
+
+<h4>Set on less than immediate (slti)</h4>
+<p>Similarly, for the comparison instruction (set on less than), we
+can use
+<pre>
+   slti $8, $18, 10
+</pre>
+Only the last register can be replaced by an immediate value.
+<h3>An Example</h3>
+<p>(This example is not in the textbook.)
+Assuming that $4 contains the starting address of array A[],
+that is, A[0] has the address given by the content of $4,
+A[1] has the address given by the content of $4 plus 4, 
+A[2] with address given by the content of $4 plus 8, and so on.  
+Similarly, $5 contains
+the starting address of array B[], compute the sum of the
+first 4 words (array elements) of A, and put the result in to B[0].
+We can picture the memory and registers situation, for example,
+as below
+<pre>
+   Reg   Content                         Address   Memory content   Array
+   ...                                                ...
+   $4      8                                4         ...
+   $5     36                                8          5             A[0]
+   ...                                     12          0             A[1]
+                                           16          2             A[2]
+                                           20          6             A[3]
+                                           24         ...            A[4]
+                                           28         ...            ...
+                                           32         ...            ...
+                                           36         ...            B[0] 
+                                           40                        B[1]
+                                           ...        ...            ...
+</pre>
+<p>In C, one can simply write
+<pre>
+   B[0] = A[0] + A[1] + A[2] + A[3];
+</pre>
+for the desired sum.  For the machine, one has to break into small steps.
+We use $2 for temporary value of sum, $8 is used to load the
+array value. 
+<pre>
+   add  $2, $0, $0,  # initialized $2 to zero
+   lw   $8, 0($4)    # load A[0]
+   add  $2, $2, $8   # add A[0] to the sum
+   addi $4, $4, 4    # address of next word
+   lw   $8, 0($4)    # load A[1]
+   add  $2, $2, $8   # add A[1] to the sum
+   addi $4, $4, 4    # address of next word
+   lw   $8, 0($4)    # load A[2]
+   add  $2, $2, $8   # add A[2] to the sum
+   addi $4, $4, 4    # address of next word
+   lw   $8, 0($4)    # load A[3]
+   add  $2, $2, $8   # add A[3] to the sum
+   sw   $2, 0($5)    # store result in B[0]
+</pre>
+<p>The above strategy would not be practical if we want to add 100 elements.
+So, C has another solution:
+<pre>
+   sum = 0;
+   for(i = 0; i &lt; 4; ++i) {
+      sum = sum + A[i];
+   }
+   B[0] = sum;
+</pre>
+The looping can be implemented by branch and jump instructions. A shorter 
+and more general version in assembly language can be
+<pre>
+       add  $2, $0, $0      # sum = 0
+       add  $3, $0, $0      # i = 0
+Loop:  slti $9, $3, 4       # $9 = 1 if (i<4), looping until i equal 4 
+       beq  $9, $0, Exit    # if (i>=4) goto Exit
+       lw   $8, 0($4)       # load A[i]
+       add  $2, $2, $8      # add A[i] to sum
+       addi $4, $4, 4       # address of next element
+       addi $3, $3, 1       # increment i
+       j    Loop            # jump to the beginning
+Exit:  sw   $2, 0($5)       # save result in B[0]
+</pre>
+
+<h3>A Quiz</h3>
+<p>What are the memory and register contents after the following
+program's execution?  Initial values in memory and registers are
+given as shown.
+<pre>
+main:                                       Initial Memory
+   addi  $4, $0, 28      # (1)            address contents
+   lw    $5, 0($4)       # (2)                 4  | ... |
+   beq   $4, $5, L       # (3)                 8  | -1  |
+   sub   $2, $4, $5      # (4)                12  |  0  |
+   addi  $2, $2, -1      # (5)                16  | 113 |
+   sw    $5, -4($2)      # (6)                20  | 20  | 
+L: add   $3, $0, $4      # (7)                24  |  8  |
+   slt   $6, $4, $5      # (8)                28  |  7  |
+   sw    $6, 13($5)      # (9)                32  | -2  |
+                                              36  |  1  |
+                                              40  |1109 |
+Initially, registers contain                  ..  | ... |
+   $2 = 0 
+   $3 = 5 
+   $4 = 1007
+   $5 = 98
+   $6 = 0
+</pre>
+<p>Here is the answer: After (1), $4 contains 28 (by adding 0 with 28).
+After (2), $5 has the value of memory at address 0+$4=28, namely 7.
+0($4) is used to compute a value 0+$4=0+28=28.  The result 28 is
+used as an address.  Looking at the contents in memory at address 28,
+7 is stored there. This value 7 is loaded (put into) register $5.
+The memory is not altered by a load.
+Instruction (3) does not lead to a branch to L: since $4=28 and $5=7;
+they are not equal.  After (4) $2 contains 28 - 7 = 21.  After
+(5) $2 = 21 - 1 = 20.  (6) The value in $5 (7 now) is stored at
+memory location -4 + $2 = (-4) + 20 = 16. Namely, the contents at
+location 16 (113) is replaced by 7. Only store alters the
+value in memory.  After (7), $3 gets a copy
+of $4.  i.e., $3 = 28.  After (8) $6 = 0 ($4 is not less than $5) 
+since $4 > $5 (28>7). 
+The last instruction saves 0 (value of $6) at memory location
+13 + $5 = 13 + 7 = 20.  That is, at memory location 20, the
+content 20 is replaced by 0.  So the final memory and registers look
+like these:
+<pre>
+                                    Memory
+                              address contents
+                                  4   | ... |
+ $2 = 20                          8   | -1  |
+ $3 = 28                         12   |  0  |
+ $4 = 28                         16   |  7  |
+ $5 =  7                         20   |  0  |
+ $6 =  0                         24   |  8  |
+                                 28   |  7  |
+                                 32   | -2  |
+                                 36   |  1  |
+                                 40   |1109 |    
+                                 44   | ... |
+</pre>
+<p>Only the <strong>data transfer instructions</strong> 
+(lw and sw) have something to do
+with memory.  Only the store instruction can change memory.
+All other <strong>arithmetic instructions</strong> 
+(add, addi, sub, slt, slti)
+use and change the values of registers. They have nothing to do with
+memory. <strong>Conditional instructions</strong>
+(beq, bne, j) control the order of instruction execution.  The
+<strong>jump and link instruction</strong> (jal) changes $31 and also 
+changes the order of instruction execution (function calls).
+We'll discuss jal later.
+
+<h3>Another Exercise</h3>
+<p>Consider the program and the initial values for registers and memory.
+What are the values in registers and memory when program stops?
+Blank entries mean that there values are unspecified.
+<pre>
+        addi $2, $0, 4                   Memory
+There:  sub  $4, $5, $2            address contents
+        lw   $5, 0($4)                12  | ... |
+        sw   $4, 0($5)                16  |  24 |
+        bne  $4, $5, There            20  |  20 |
+                                      24  |     |
+   $2 = ..., $4 = ..., $5 = 20        28  | ... | 
+</pre> 
+<p><A HREF="trickprog.html">Answer.</A>
+
+
+<h3>Summary of MIPS architecture</h3>
+<UL>
+<LI>MIPS operands
+<UL>
+  <LI>32 registers $0, $1, $2, ..., $31.  $0 always equals 0. $1
+      is reserved by the assembler.
+  <LI>2^{30} memory words. Memory can be accessed only by data
+      transfer instructions lw, and sw.  MIPS uses byte addresses.
+</UL>
+<LI>Assembly language
+<UL>
+   <LI>Arithmetic
+<pre>
+   add  $1, $2, $3    # $1 = $2 + $3
+   sub  $1, $2, $3    # $1 = $2 - $3
+   mul  $1, $2, $3    # $1 = $2 * $3
+</pre>
+   <LI>Data Transfer
+<pre>
+   lw $7, 100($8)    # $7 = Memory[$8+100]
+   sw $7, 100($8)    # Memory[$8+100] = $7
+</pre>
+   <LI>Conditional Branch
+<pre>
+   beq $1, $2, L     # if($1==$2) goto L
+   bne $1, $2, L     # if($1!=$2) goto L
+   slt $1, $2, $3    # if($2<$3) $1=1; else $1=0
+</pre>
+   <LI>Unconditional Jump
+<pre>
+   j  L            # goto location indicated by L
+</pre>
+   <LI>Immediate Value
+<pre>
+   li   $1, 4         # $1 = 4
+   addi $1, $2, 5     # $1 = $2 + 5
+   slti $1, $2, 10    # $1 = 1 if $2&lt;10, otherwise $1 = 0
+</pre>
+</UL>
+<LI> MIPS machine language
+<UL>
+  <LI>
+<pre>
+Name Format op   rs    rt    rd   shamt funct    | example
+
+add    R    0     2     3     1     0     32     | add $1,$2,$3
+sub    R    0     2     3     1     0     34     | sub $1,$2,$3
+lw     I   35     2     1       100              | lw $1,100($2)
+sw     I   43     2     1       100              | sw $1,100($2)
+beq    I    4     1     2       100              | beq $1,$2,100
+bne    I    5     1     2       100              | bne $1,$2,100
+slt    R    0     2     3     1     0     42     | slt $1,$2,$3
+j      J    2            10000                   | j 10000
+</pre>
+</UL>
+</UL>
+
+<h3>Fallacies and Pitfalls</h3>
+<UL>
+  <LI> <strong>Fallacy</strong>: More powerful instructions mean higher
+            performance. FALSE: VAX as a counterexample.
+
+  <LI> <strong>Pitfall</strong>: Writing in assembly language in
+           order to obtain the highest performance.   It was true in the
+           pass, but not now.  Modern compilers produce code equal or
+           better than human assembly code.
+
+  <LI> <strong>Pitfall</strong>: Forgetting that sequential word addresses
+           in machines with byte addressing do not differ by 1.
+</UL>
+
+<h3>Concluding Remarks</h3>
+
+<UL>
+  <LI> <strong>Stored-program concept</strong>: Instructions and data
+         are all stored in memory as numbers; memory contents can be 
+         altered.
+
+  <LI> <strong>Instruction set design principles</strong>: 
+       <OL>
+         <LI> Smaller is faster.
+         <LI> Simplicity favors regularity.
+         <LI> Good design demands compromise.
+         <LI> Make the common case fast.
+       </OL>
+  <LI> <strong>MIPS instruction set</strong>:
+      <OL>
+        <LI> Arithmetic instructions are used for assignment/computation 
+             statement in high-level language.
+        <LI> Data transfer instructions are mostly find in array processing.
+        <LI> conditional branches are for if and loops.
+        <LI> unconditional jumps are for procedure calls.
+      </OL>
+</UL>
+
+<h3>Some popular computer architecture</h3>
+<UL> 
+ <LI>Intel <a href="http://hobbes.eece.mu.edu/pub/eece190/demo/projects.html">8086</a>, 80386, Pentium, used for PC, very popular, of course.
+ <LI><a href="http://mock.ctstateu.edu/~kjell/">DEC VAX</a>, popular in the 80s, also used by most for teaching assembly
+     programming in the 80s, even 90s.
+ <LI>MIPS R2000, R3000, R4000, R10000. Our 3nd year lab
+     is equipped with MIPS CPU, R3000, I think. 
+ <LI><a href="http://devworld.apple.com/dev/techsupport/develop/issue21/21balance.html">PowerPC</a>, 601, 620, a joint effort by IBM, Motorola, and Apple companies.
+ <LI>DEC Alpha 21064, 21164, one of the workstations setting on my desk.
+</UL>
+
+<p>The first two families are classified as complex instruction set 
+computer (CISC), due to the nature of the instruction set architecture;
+the last three, reduced instruction set computer (RISC), which become
+very popular in recent years.  RISC computers are very similar to each
+other. Learning MIPS will give you a foundation to pick up the others
+very quickly.  MIPS is also one of the early (pure) RISC system, with
+simple and elegant instruction set.  That's why we choose MIPS, even
+if our First Year Lab has Pentium CPUs.
+
+ 
+<h3>Suggested Reading</h3>
+<p>Textbook "Computer Organization & Design", Chapter 3, page 110-118.
+page 147-150. 
+
+<HR>
+[ <A HREF="week4.html">previous week</A> ][ 
+<A HREF="week6.html">next week</A> ]
+<HR>
+</body>
+</html>

@@ -1,0 +1,374 @@
+(************** Content-type: application/mathematica **************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      6459,        254]*)
+(*NotebookOutlinePosition[      7157,        278]*)
+(*  CellTagsIndexPosition[      7113,        274]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[StyleBox["FUNCTIONAL PROGRAMMING STYLE",
+  FontWeight->"Bold"]], "Title"],
+
+Cell["", "Subtitle"],
+
+Cell["\<\
+Functional programming style applies functions to expression rather than \
+through control of execution flow to achieve the computational result.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(fac[n_]\  := \ Times\  @@ \ Range[n]\)], "Input"],
+
+Cell["\<\
+@@ is the Apply[ ] operator; Times @@ expr is short form for Apply[Times, \
+expr]. \
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Range[4]\)], "Input"],
+
+Cell[BoxData[
+    \({1, 2, 3, 4}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Apply[Times, \ {1, 2, 3, 4}]\)], "Input"],
+
+Cell[BoxData[
+    \(24\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Apply[Plus, \ {1, 2, 3, 4}]\)], "Input"],
+
+Cell[BoxData[
+    \(10\)], "Output"]
+}, Open  ]],
+
+Cell["Observe that:", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Times\  @@ \ \((a + b + c)\)\)], "Input"],
+
+Cell[BoxData[
+    \(a\ b\ c\)], "Output"]
+}, Open  ]],
+
+Cell["Map[f, expr] is another function of similar style.", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Map[f, \ h[a, b, c]]\)], "Input"],
+
+Cell[BoxData[
+    \(h[f[a], f[b], f[c]]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Map[Sin, \ {1, \ Pi/2, \ 2  Pi}]\)], "Input"],
+
+Cell[BoxData[
+    \({Sin[1], 1, 0}\)], "Output"]
+}, Open  ]],
+
+Cell["Concept of Pure Function in Mathematica", "Title"],
+
+Cell["\<\
+The first argument in Apply[ ], or Map[ ] requires just the name of the \
+function, e.g., Sin, not Sin[x].  We call such objects pure functions.  You \
+can think of a pure function as a mathematical operator, ready to act on an \
+expression.   Here is a general way of defining a pure function.  Note that \
+Function[x,x^2] is equivalent to #^2 &.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Function[x, \ x^2]\)], "Input"],
+
+Cell[BoxData[
+    \(Function[x, x\^2]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Map[\ #^2\ \  &, \ {1, 2, 3}]\)], "Input"],
+
+Cell[BoxData[
+    \({1, 4, 9}\)], "Output"]
+}, Open  ]],
+
+Cell[TextData[{
+  "Let me show you a program that find zero of a function, ",
+  StyleBox["f(x)=0",
+    FontSlant->"Italic"],
+  ", by applying FixedPoint[ ]; another example of functional programming \
+style.  First the built-in function:"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(?FixedPoint\)\)], "Input"],
+
+Cell[BoxData[
+    \("FixedPoint[f, expr] starts with expr, then applies f repeatedly until \
+the result no longer changes."\)], "Print"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(newtonzero[f_, \ x0_]\  := \ 
+      Module[\ {x, \ fp = f'}, \ \[IndentingNewLine]x\  = \ 
+          FixedPoint[\((# - f[#]/fp[#])\) &, \ 
+            x0]; \[IndentingNewLine]x\[IndentingNewLine]]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(newtonzero[\((Cos[#] - #)\) &, \ 0.0]\)], "Input"],
+
+Cell[BoxData[
+    \(0.7390851332151607`\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FindRoot[\ Cos[x] \[Equal] x, \ {x, \ 0}]\)], "Input"],
+
+Cell[BoxData[
+    \({x \[Rule] 0.739085133385284`}\)], "Output"]
+}, Open  ]],
+
+Cell["\<\
+We can give newtonzero another definition so that it accept normal function \
+(not pure function) as input.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(newtonzero[expr_, \ x_Symbol, \ x0_Real]\  := 
+      newtonzero[Function[x, expr], \ x0]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(newtonzero[Cos[x]\  - \ x, \ x, \ 0.3]\)], "Input"],
+
+Cell[BoxData[
+    \(0.7390851332151607`\)], "Output"]
+}, Open  ]],
+
+Cell["\<\
+Here is the way usage message is entered for newtonzero, you get the message \
+when enter ?newtonzero:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(newtonzero::usage\  = "\<newtonzero[f,x0] finds f[x]=0, with trial \
+starting value x0.  f must be a pure function while x0 should be Real.  \
+newtonzero[expr, x, x0] finds x such that expr=0, where expr is an expression \
+in the variable x (a symbol), and x0 is the starting value (a Real). N.B. the \
+iterations need not always converge.\>"\)], "Input"],
+
+Cell[TextData[{
+  "More single-line ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " definitions:\nVector calculus"
+}], "Subtitle"],
+
+Cell[BoxData[
+    \(Grad[f_, \ arg_]\  := \ \(D[f, #] &\)\  /@ \ arg\)], "Input"],
+
+Cell[BoxData[
+    \(Div[v_, \ arg_]\  := \ Inner[D, \ v, \ arg, \ Plus]\)], "Input"],
+
+Cell[BoxData[
+    \(JocobianMatrix[f_, \ v_]\  := \ Outer[D, \ f, \ v]\)], "Input"],
+
+Cell[BoxData[
+    \(TripleProduct[a_, \ b_, \ c_]\  := \ Det[{a, b, c}]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Grad[x^2 + y^2 + z^2, {x, y, z}]\)], "Input"],
+
+Cell[BoxData[
+    \({2\ x, 2\ y, 2\ z}\)], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"4.1 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 695}},
+WindowSize->{1016, 668},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+Magnification->3,
+StyleDefinitions -> "Classroom.nb"
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1705, 50, 87, 1, 495, "Title"],
+Cell[1795, 53, 20, 0, 119, "Subtitle"],
+Cell[1818, 55, 169, 3, 183, "Text"],
+Cell[1990, 60, 69, 1, 143, "Input"],
+Cell[2062, 63, 107, 3, 132, "Text"],
+
+Cell[CellGroupData[{
+Cell[2194, 70, 41, 1, 143, "Input"],
+Cell[2238, 73, 46, 1, 141, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2321, 79, 61, 1, 143, "Input"],
+Cell[2385, 82, 36, 1, 141, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2458, 88, 60, 1, 143, "Input"],
+Cell[2521, 91, 36, 1, 141, "Output"]
+}, Open  ]],
+Cell[2572, 95, 29, 0, 81, "Text"],
+
+Cell[CellGroupData[{
+Cell[2626, 99, 61, 1, 143, "Input"],
+Cell[2690, 102, 41, 1, 141, "Output"]
+}, Open  ]],
+Cell[2746, 106, 66, 0, 81, "Text"],
+
+Cell[CellGroupData[{
+Cell[2837, 110, 53, 1, 143, "Input"],
+Cell[2893, 113, 53, 1, 141, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2983, 119, 65, 1, 143, "Input"],
+Cell[3051, 122, 48, 1, 141, "Output"]
+}, Open  ]],
+Cell[3114, 126, 56, 0, 498, "Title"],
+Cell[3173, 128, 371, 6, 336, "Text"],
+
+Cell[CellGroupData[{
+Cell[3569, 138, 51, 1, 143, "Input"],
+Cell[3623, 141, 51, 1, 143, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3711, 147, 62, 1, 143, "Input"],
+Cell[3776, 150, 43, 1, 141, "Output"]
+}, Open  ]],
+Cell[3834, 154, 250, 6, 184, "Text"],
+
+Cell[CellGroupData[{
+Cell[4109, 164, 48, 1, 143, "Input"],
+Cell[4160, 167, 136, 2, 216, "Print"]
+}, Open  ]],
+Cell[4311, 172, 229, 4, 398, "Input"],
+
+Cell[CellGroupData[{
+Cell[4565, 180, 70, 1, 143, "Input"],
+Cell[4638, 183, 53, 1, 141, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4728, 189, 74, 1, 143, "Input"],
+Cell[4805, 192, 64, 1, 141, "Output"]
+}, Open  ]],
+Cell[4884, 196, 131, 3, 132, "Text"],
+Cell[5018, 201, 121, 2, 245, "Input"],
+
+Cell[CellGroupData[{
+Cell[5164, 207, 71, 1, 143, "Input"],
+Cell[5238, 210, 53, 1, 141, "Output"]
+}, Open  ]],
+Cell[5306, 214, 126, 3, 132, "Text"],
+Cell[5435, 219, 375, 5, 704, "Input"],
+Cell[5813, 226, 141, 5, 262, "Subtitle"],
+Cell[5957, 233, 81, 1, 143, "Input"],
+Cell[6041, 236, 84, 1, 194, "Input"],
+Cell[6128, 239, 83, 1, 194, "Input"],
+Cell[6214, 242, 84, 1, 194, "Input"],
+
+Cell[CellGroupData[{
+Cell[6323, 247, 65, 1, 143, "Input"],
+Cell[6391, 250, 52, 1, 141, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

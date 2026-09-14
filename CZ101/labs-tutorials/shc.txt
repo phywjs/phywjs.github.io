@@ -1,0 +1,139 @@
+Date: Thu, 4 Sep 1997 12:24:42 +0800 (SGT)
+From: Yung Shing Gene <shing@cz3.nus.sg>
+Subject: Lab #1 comments
+
+Dear all,
+
+Your Lab #1 will be returned this afternoon so please pick it up from the
+lab. 
+
+The grades were based on the following:
+1) Grades are in 1/3rd increments i.e. c, c+, b-, b, b+, etc
+2) If you met the basic requirements of each question, you would get a
+straight B.
+3) If only one question correct then it's a C.
+4) You get extra credit (1/3 grade) for each 'feature' you add i.e. for
+using loops, and getting output with spim.
+5) Likewise for minor mistakes, the grade drops by 1/3. Minor mistakes
+include insufficient/inappropriate comments, careless mistakes, etc.
+ 
+Here are some comments on the common mistakes that many of you make:
+
+Q1
+--
+Some of you are still not able to read/write in hexadecimal and convert
+between decimal-binary-hexadecimal. e.g.:
+
+sw $3, 12($2)  # $2=0x10000000
+       ^^
+       this is in decimal.
+
+0x10000000 + 12 = 0x1000000c and not 0x10000012.
+
+Some also wrote 0x1000000 + 16 = 0x1000000g. 'g' has no meaning in
+hexadecimal. 0x10000000+16 = 0x10000010.
+
+
+Q2
+--
+
+1) Comments in the code:
+
+   e.g:
+          add $11, $8, $10   # $11 = 1+3 = 4
+
+   This kind of comment doesn't tell the reader anything. Something like
+   "$11 = 1 + n" is more helpful in describing which part of the formula
+   is being calculated.
+
+2) Also, don't forget to write a brief program description in the
+   header.
+
+3) Loops.
+
+   a) Some of you did something like:
+
+       # calc. LHS
+       L:  add ...
+           ...
+           ...
+           bne $10,$8,L   # go back to L if n!=3
+  
+           j M
+
+       # calc RHS
+       M:  ...
+
+      Why put the 'j M' instruction? Execution will carry on to M without   
+      the 'j M'.
+
+   b) Some also had:
+
+       bne $10,$8,L  # go back to L if n!=3
+       beq $10,$8,M  # go to M if n==3
+
+      The beq instruction is redundant since, if n=3, the bne will not
+      cause a jump back to L, and execution will just continue on.
+
+4) Output
+
+   a) In the future please do not print out every step of the program!
+      Just run the program, and print out the appropriate registers at 
+      the end. Or if you need to print out registers in the middle of the 
+      program, then set a breakpoint there and print at the breakpoint.
+
+      e.g.:
+      (spim) load "verify_n4.s"
+      (spim) run
+      (spim) print $9
+      Reg 9 = 0x00000062 (98)
+      ...etc...
+
+   b) You were also supposed to make some sort of comment on your results.
+      Don't print all the steps of the program and hope you hit upon the
+      answer. This only shows that you don't know what you're doing.
+
+
+Lastly, a word on copying. I know that many of you copy from each other.
+It's really quite easy to see because you make the exact same mistakes and
+use the exact same algorithms even though you change register/label names.
+Some of you, when you copy, you don't even copy the entire program! 
+
+Now, I am not against you working together, sharing ideas, and tackling
+the problems together -- this is good. But if you just copy without
+understanding, then the only person who is going to suffer is yourself,
+because you won't know your stuff come exam time. The assignments are
+there to help you understand the course material -- learning programming
+and computers require hands on experience i.e. you have to program to
+learn how to program.
+
+So if you have trouble with your program, don't just copy someone else's.
+Seek help to try to understand how to do it. Read the books (don't just
+rely on lecture notes), ask friends, ask Dr Wang or myself, practice
+programming. Make the effort--you won't regret it. If you expect to be
+spoon-fed with "exam-answers" then I'm afraid you've come to the wrong
+institution for education.
+
+One last bit of advice when doing assignments/tests/etc. Don't just
+blindly work through the problem/program and hope you hit the answer along
+the way. Ask yourself: "What is question designed to test?", "What does
+the instructor want to see, through this question?" For example, the 1st
+question in the lab was designed to test your understanding of
+assembly instructions, registers, memory, and hexadecimal numbers. Can you
+put the right values in the correct locations (registers and memory
+locations)? 
+
+If you have problems or questions, please feel free to contact me. As I
+mentioned earlier, the best way to get me is thru email (shing@cz3.nus.sg)
+or call me at 8745214 (leave a message if I'm not around).
+
+regards,
+--Shing Gene
+  TA, CZ1101
+
+                  X> X> X> X> X> X> X> X> X> X> X> X> X> 
+                    Yung Shing Gene      CARPE JESUS
+                    shing@cz3.nus.sg    SEIZE THE WAY!
+                  <X <X <X <X <X <X <X <X <X <X <X <X <X
+
+

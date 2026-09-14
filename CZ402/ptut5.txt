@@ -1,0 +1,59 @@
+\input notesmac.tex
+\nopagenumbers
+
+\centerline{\titlefont Symbolic Computing, Tutorial 5/6}
+\bigskip
+\line{Dr.~WANG Jian-Sheng \hfill 3:00pm Thu, 27 March/10 April 1997}
+\bigskip
+\bigskip
+%----------------------------------------------------------------------- 
+
+\problem In this problem you will show that, in a certain sense, if the
+zero equivalence problem can be solved for a given class of expressions
+then the general simplification problem can also be solved.  Let E be
+a class of expressions and let $f$ be a normal function defined on E.
+Suppose there is an algorithm A which will generate all of the 
+syntactically valid expressions in the class E, in lexicographically
+increasing order. (That is, Algorithm A generates all syntactically
+valid expressions containing $l$ characters, for $l=1$, then $l=2$,
+then $l=3$, etc.  and the expressions of a fixed length $l$ are 
+generated in increasing order with respect to some encoding of
+the characters.)
+\itemitem{(a)} Define a {\sl simplification function} $g$ on E in
+terms of normal function $f$ and algorithm A such that $g$ is a
+canonical function and moreover the canonical form $g(a)$ of any
+expression $a \in {\rm E}$ is the {\sl shortest} expression
+equivalent to $a$.  
+\itemitem{(b)} If E is a class of expressions obtained by performing
+the operations of addition and multiplication on the elements in a
+quotient field Q(D) of an integral domain D then the usual canonical
+function (i.e., ``form a common denominator'' and ``reduce to lowest
+terms'') is not a simplification in the sense of the function $g$ of 
+part (a). Illustrate this fact for the field Q of rational numbers 
+by give examples of expressions of the form
+$$ {a_1 \over b_1} + {a_2 \over b_2} + {a_3 \over b_3 } $$
+\itemitem{} (where $a_i, b_i \in {\rm Z}$ and $a_i/b_i$ is in lowest terms, for
+$i=1,2,3$) such that ``reduced form'' of the expression requires
+more characters for its representation than the original expression.
+
+\problem Consider a set E generated from $1$, $x$, $e^x$, and $\log x$ by
+addition, subtraction and multiplication. For examples, $1 + 3 x$,
+$e^{2x} - x$, or $x \log x$ below to E. 
+What is the algebraic domain (ring? integral domain? or field?) of E? 
+Define a normal and a canonical function on E (if possible at al).
+
+\problem Calculate the square-free factorization (Algorithm~8.1) by hand of
+$$ 1 - 2x + 2 x^3 - x^4 \quad \in {\rm Z}[x].$$
+
+\problem Calculate the square-free factorization (Algorithm~8.3) by hand of
+$$ b(x) = x^{10} + x^6 + x^5 + x^3 + x^2 + 1 \quad \in {\rm Z}_2[x].$$
+
+\problem Factor the polynomials $a(x)$ and $b(x)$ in Z$_2[x]$ using Berlekamp's
+algorithm (by hand).  Note that Berlekamp's algorithm works only for 
+square-free polynomials.
+$$\eqalign{ a(x) & =  x^{15} - 1, \cr
+b(x) & =  x^{10} + x^6 + x^5 + x^3 + x^2 + 1. \cr
+}$$
+
+\bye
+

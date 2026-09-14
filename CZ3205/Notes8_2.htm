@@ -1,0 +1,116 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Chapter 2</title>
+<meta name="Microsoft Theme" content="loosegst 011, default">
+</head>
+
+<body background="lootextb.jpg" bgcolor="#FFFFCC" text="#000000" link="#CC6633" vlink="#663399" alink="#999900"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><!--mstheme--></font>
+
+<h1><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#666633">Metropolis
+and Gibbs sampling<!--mstheme--></font></h1>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><!--mstheme--></font><h2><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#330099">Metropolis
+algorithm<!--mstheme--></font></h2>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><p><font size="4">In
+1953 Metropolis et al proposed one of the first Markov chain Monte Carlo
+sampling algorithm which is very general and surprisingly efficient for
+generating an arbitrary given distribution P(X).&nbsp; In Metropolis sampling,
+we first propose a move, X -&gt; X'.&nbsp; In our previous example, we may
+consider chosen a particular pair (ij) and change n<sub>ij</sub> to the other
+possible value (0 to 1, or 0 to 1).&nbsp;&nbsp; We then compute the acceptance
+rate</font></p>
+
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; a = min</font><font size="5">(</font><font size="4">1,
+P(X')/P(X)</font><font size="5">)</font><font size="4">.</font></p>
+
+<p><font size="4">the move is accepted with probability a, and rejected with
+probability 1 - a.&nbsp;&nbsp; Operationally, we draw a random number 0 &lt; r
+&lt; 1, and compare it with a.&nbsp; If r &lt; a, the move is accepted, the new
+state is X'.&nbsp; Otherwise, the move is rejected, and the current state is
+still X. </font></p>
+
+<p><font size="4">If we use canonical distribution, P(X) = exp(-E(X))/Z,&nbsp;
+the acceptance rate is then</font></p>
+
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; min</font><font size="5">(</font><font size="4">1,
+exp[ - (E(X') - E(X))/(kT)]</font><font size="5">)</font><font size="4"> = min</font><font size="5">(</font><font size="4">1,
+exp( - <font face="Symbol">D</font>E/kT)</font><font size="5">)</font><font size="4">.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(1)</font></p>
+
+<p><font size="4">A general method to find the correct acceptance rate or flip
+rate is consider the so-called detailed balance equation</font></p>
+
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; P(X) W(X - X') = P(X')
+PW(X -X')</font>.</p>
+
+<p><font size="4">Justification of the above takes us to the theory of Markov
+chains and stochastic processes, for which we'll not discuss them here.&nbsp;
+Roughly speaking, you can identity W with a.&nbsp; The acceptance rate is not
+unique, there are many possible choices.&nbsp; Another choice that also satisfy
+the above detailed balance equation is</font></p>
+
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; b = 1/</font><font size="5">(</font><font size="4">1
++ exp(<font face="Symbol">D</font>E/kT)</font><font size="5">)</font><font size="4">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(2)</font></p>
+
+<p><font size="4">this is known as heat-bath algorithm.&nbsp; Using the
+expression for E(n), the energy increment is given by </font></p>
+
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; <font face="Symbol">D</font>E
+= </font><font size="5">(</font><font size="4"> d<sub>ij</sub> - <font face="Symbol">g</font>
++ <font face="Symbol">g</font> </font><font face="Symbol" size="5">S</font><font size="4"><sub>(k=/=j)</sub>
+n<sub>ik </sub>+ <font face="Symbol">g</font> </font><font face="Symbol" size="5">S</font><font size="4"><sub>(k=/=i)</sub>
+n<sub>jk</sub> </font><font size="5">)</font><font size="4"> <font face="Symbol">D</font>n<sub>ij</sub>,</font></p>
+
+<p><font size="4">where <font face="Symbol">D</font>n<sub>ij</sub> is the
+difference between the new value and old value of n<sub>ij</sub>.&nbsp; We leave
+as an exercise to verify this. </font></p>
+
+<!--mstheme--></font><h2><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#330099">Gibbs
+Sampling<!--mstheme--></font></h2>
+
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><p><font size="4">Gibbs
+sampling is another class of sampling algorithm with the same aim as the
+Metropolis or heat bath algorithm.&nbsp;&nbsp; The idea is the following.&nbsp;
+Pick a particular variable n<sub>ij</sub> of fixed pair (ij) [at random].&nbsp;
+Let's erase it's value so we do not know whether n<sub>ij</sub> is 0 or 1.&nbsp;
+But since we know the values of all other variables, we can ask the question of
+what is the probability for n<sub>ij</sub> = 0 (or 1) given the states of all
+other variables.&nbsp; This is the conditional probability of n<sub>ij</sub>
+given all other variables.&nbsp;&nbsp; Using the basic fact about conditional
+probability</font></p>
+
+<p><font size="4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; P(A|B) = P(A and
+B)/P(B)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font></p>
+
+<p><font size="4">we find (for n<sub>ij</sub> = 0)</font></p>
+
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; P(n<sub>ij</sub>=0) =
+exp</font><font size="5">(</font><font size="4"> - E(n, n<sub>ij</sub>=0) </font><font size="5">)</font><font size="4">/
+</font><font face="Symbol" size="5">S</font><font size="4">n<sub>ij</sub> exp</font><font size="5">(</font><font size="4">-E(n)</font><font size="5">)</font><font size="4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(3)</font></p>
+
+<p><font size="4">where E(n) is the energy function.&nbsp; For the matching
+problem, it is given in the previous section.&nbsp; E(n, n<sub>ij</sub>=0) is
+the energy of the system when the given pair (ij) take n<sub>ij</sub> = 0 and
+the rest of variables takes arbitrary values.&nbsp; The denominator is the Gibbs
+weight exp(-E(n)) summed up the two possible values that n<sub>ij</sub> can
+take, namely n<sub>ij</sub> = 0 and 1.&nbsp;&nbsp; Note that P(n<sub>ij</sub>=0)
++ P(n<sub>ij</sub>=1) = 1.</font></p>
+
+<p><font size="4">Problem: Using the expression for E(n) from the previous
+section for the matching problem, derive an concrete expression for P(n<sub>ij</sub>=0)
+and P(n<sub>ij</sub>=1).&nbsp;&nbsp; Explain exactly how you would use Gibbs
+sampling on a computer.</font></p>
+
+<p><font size="4">To do a simulated annealing for the matching problem, we can
+use either Metropolis algorithm (1), or the heat-bath algorithm (2), or the
+Gibbs sampling (3).&nbsp; They are more or less equivalent in terms of
+efficiency. </font></p>
+
+<!--mstheme--></font></body>
+
+</html>

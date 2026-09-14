@@ -1,0 +1,226 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Chapter 2</title>
+<meta name="Microsoft Theme" content="loosegst 011, default">
+</head>
+
+<body background="lootextb.jpg" bgcolor="#FFFFCC" text="#000000" link="#CC6633" vlink="#663399" alink="#999900"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><!--mstheme--></font>
+
+<h1><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#666633">Hopfield's
+Networks<!--mstheme--></font></h1>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica">
+
+<p>&nbsp;</p>
+<!--mstheme--></font>
+
+<h2><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#330099">Introduction<!--mstheme--></font></h2>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><p><font size="4">In
+most of the previous lectures, we assume that the neural network has inputs x<sub>i</sub>
+and output y<sub>j</sub> computed from the inputs.&nbsp;&nbsp; The basic
+equation for the output is</font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; y<sub>j</sub> = f( <font face="Symbol">S</font><sub>i</sub>
+w<sub>ji</sub>x<sub>i</sub>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(1)</font></p>
+<p><font size="4">This clear distinction of inputs/outputs is convenient and
+useful.&nbsp; However, there are situations that is also useful to consider a
+autonomous system without external inputs.&nbsp; Hopfield's network is one such
+example.&nbsp; In Hopfield's network model, we identify the output y<sub>j</sub>
+is the same variable x<sub>j</sub>.&nbsp; So the above equation now becomes</font></p>
+<p><font size="4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x<sub>j</sub> = f( <font face="Symbol">S</font><sub>i</sub>
+w<sub>ji</sub>x<sub>i</sub>)</font></p>
+<p><font size="4">This equation can be used either synchronously or
+asynchronously.&nbsp; For easy analysis and good analog with physical systems in
+statistical physics, we shall consider asynchronous updating only.&nbsp; In this
+case, we pick a neuron j at random (or in some ordered fashion), then apply the
+above updating method to get the new value the neuron j.&nbsp;&nbsp; This is
+normally done until a fixed point is reached, or some other convergence
+criterion is satisfied.&nbsp; </font></p>
+<p>&nbsp;</p>
+<!--mstheme--></font>
+
+<h2><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#330099">Hopfield's
+Model<!--mstheme--></font></h2>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica">
+
+<p><font size="4">The Hopfield's model is a McCulloch-Pitts type model in the
+sense that the value x takes only discrete values.&nbsp; Instead of using n = 0
+and 1, it is convenient and natural to use x = -1 and 1.&nbsp;&nbsp;Such a
+variable is called a (classical) spin, in analogy with magnetic property of an
+atom.&nbsp;&nbsp; Clearly,
+they are related linearly by x = 2n-1.&nbsp;&nbsp; The nonlinear transformation
+function will be a sign function sgn(u),&nbsp; h(u) = -1 for u &lt; 0 and 1 for
+u &gt;= 0.&nbsp;&nbsp; In addition, we assume that w is symmetric.&nbsp; That is</font></p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="4">&nbsp; w<sub>ij</sub> = w<sub>ji</sub></font></p>
+
+<p><font size="4">This requirement is important for some theoretical
+consideration.&nbsp; In particular, it guarantees the existence of an energy
+function.&nbsp;&nbsp; Biology of the brain does not support is assumption.&nbsp;
+So some say that this symmetry assumption is one step backward from
+biology.&nbsp;&nbsp; However, the Hopfield's model has interesting properties
+and can be used as a &quot;content-addressable&quot; memory. </font></p>
+
+<!--mstheme--></font>
+
+<h2><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#330099">&nbsp;<!--mstheme--></font></h2>
+
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><!--mstheme--></font>
+
+<h2><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#330099">Energy
+Function<!--mstheme--></font></h2>
+
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica">
+
+<p><font size="4">One of the most important contribution of the Hopfield's work
+[1982] was to introduce the concept of an energy function into neural network
+theory.&nbsp;&nbsp; For the model above, the energy function is</font></p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="4">E = - (1/2) <font face="Symbol">S</font><sub>ij</sub>
+w<sub>ij</sub> x<sub>i</sub> x<sub>j</sub> = - (1/2) x W x<sup>T</sup></font></p>
+
+<p><font size="4">where x = -1 or +1, w<sub>ij</sub> = w<sub>ji</sub> is the
+synaptic strength, the summation is over all possible ordered pair (ij).&nbsp;&nbsp;
+For each configuration {x}, there is an energy associated with it.&nbsp; Some
+has higher energy, others has a lower energy.&nbsp;&nbsp; The central property
+of an energy function is that it always decreases at least remain constant as
+the system evolves according to its dynamic rule.&nbsp;&nbsp; This means that
+the system evolves into a minimum in energy on the energy
+&quot;landscape&quot;.&nbsp;&nbsp; The minimum need not to be absolute minimum;
+the system can develop into a local minimum.&nbsp;&nbsp; The energy function of
+this form is known as (mean-field) Ising model.</font></p>
+
+<p><font size="4">Let us show that the dynamics indeed reduces energy or at least
+non-increasing.&nbsp;&nbsp; Let the energy in state x be E and that after change
+be E'.&nbsp;&nbsp; The value at site k is&nbsp;</font></p>
+
+<p>&nbsp;&nbsp;&nbsp;<font size="4">&nbsp;&nbsp;&nbsp;&nbsp; x'<sub>k</sub> =
+sgn( <font face="Symbol">S</font><sub>i</sub>
+w<sub>ki</sub>x<sub>i</sub>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (summation excludes i
+= k)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (2)</font></p>
+
+<p><font size="4">If x'<sub>k</sub> = x<sub>k</sub>, the state has no change,
+thus the energy is the same.&nbsp; If x'<sub>k</sub> not equal x<sub>k</sub>, we
+must have x'<sub>k</sub> = - x<sub>k</sub>.&nbsp; Let compute the energy
+difference between the two configurations</font></p>
+
+<p>&nbsp;&nbsp;&nbsp;<font size="4">&nbsp;&nbsp;&nbsp;&nbsp; E' - E = - (1/2) <font face="Symbol">S</font><sub>ij</sub>
+w<sub>ij</sub> x'<sub>i</sub> x'<sub>j</sub>  + (1/2) <font face="Symbol">S</font><sub>ij</sub>
+w<sub>ij</sub> x<sub>i</sub> x<sub>j</sub> &nbsp;</font></p>
+
+<p><font size="4">We note that the primed variables are the same as for the
+unprimed ones, x'<sub>i</sub> = x<sub>i</sub>, except for i = k.&nbsp; In this
+case, x'<sub>k</sub> = - x<sub>k</sub>.&nbsp;&nbsp; Thus the (ij) terms not
+involving k cancel exactly.&nbsp; The terms involving k are</font></p>
+
+<p>&nbsp;&nbsp;&nbsp;<font size="4">&nbsp;&nbsp;&nbsp;&nbsp; E' - E =&nbsp; ( - <font face="Symbol">S</font><sub>i</sub>
+w<sub>ki</sub> x'<sub>k</sub> x<sub>i</sub> - <font face="Symbol">S</font><sub>i</sub>
+w<sub>ik</sub> x<sub>i</sub> x'<sub>k</sub> - w<sub>kk</sub> x'<sub>k</sub> x'<sub>k</sub>
++ <font face="Symbol">S</font><sub>i</sub> w<sub>ki</sub> x<sub>k</sub> x<sub>i</sub>
++ <font face="Symbol">S</font><sub>i</sub> w<sub>ik</sub> x<sub>i</sub> x<sub>k</sub>
++ w<sub>kk</sub> x<sub>k</sub> x<sub>k</sub>)/2</font></p>
+
+<p><font size="4">Since w<sub>ik</sub> = w<sub>ki</sub>, and x<sub>k</sub>*x<sub>k</sub>
+= x'<sub>k</sub>*x'<sub>k</sub> = 1, we have</font></p>
+
+<p>&nbsp;&nbsp;&nbsp;<font size="4">&nbsp;&nbsp;&nbsp;&nbsp; E' - E = - 2 x'<sub>k</sub>
+(<font face="Symbol">S</font><sub>i</sub> w<sub>ki</sub> x<sub>i</sub>)</font></p>
+
+<p><font size="4">Since the sign of x'<sub>k</sub> is the same as the sum, the
+term&nbsp; x'<sub>k</sub> * (<font face="Symbol">S</font><sub>i</sub> w<sub>ki</sub>
+x<sub>i</sub>) is always position, and thus E' &lt; E.&nbsp; Combined with the
+case of x'<sub>k</sub> = x<sub>k</sub>, we always have E' &lt;= E.</font></p>
+
+<p><font size="4">The self-coupling terms w<sub>kk</sub> may actually be omitted
+altogether, both from the dynamical rule (as we did) and in the energy function.</font></p>
+
+<p>&nbsp;</p>
+
+<!--mstheme--></font><h2><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#330099"><font size="4">Content-Addressable
+Memory</font><!--mstheme--></font></h2>
+
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><p><font size="4">The
+main use of Hopfield's model is as a sort of memory.&nbsp; Unlike conventional
+computer memory, our brain remember things even if some fractional neurons
+die.&nbsp; The information is stored nonlocally.&nbsp; We recall the memory by
+associate and some fragment of the events.&nbsp;&nbsp; The Hopfield's model has
+some similarity to the biological brain.&nbsp; In the Hopfield model, the memory
+is stored in the synaptic strength w.&nbsp; Consider storing only one pattern in
+the network.&nbsp; This pattern is the output (state) of running the dynamics
+such that it reaches a fixed point:</font></p>
+
+<p>&nbsp;&nbsp;&nbsp;<font size="4">&nbsp;&nbsp;&nbsp;&nbsp; sgn(<font face="Symbol">S</font><sub>j</sub>
+w<sub>ij</sub> <font face="Symbol">x</font><sub>j</sub>) = <font face="Symbol">x</font><sub>i</sub>&nbsp;&nbsp;&nbsp;
+(for all i)</font></p>
+<p><font size="4">What choice of w has this property?&nbsp; It is easy to see
+that this is true if we take</font></p>
+<p>&nbsp;&nbsp;&nbsp;<font size="4">&nbsp;&nbsp;&nbsp;&nbsp; w<sub>ij</sub> =
+const <font face="Symbol">x</font><sub>i</sub> <font face="Symbol">x</font><sub>j</sub></font></p>
+<p><font size="4">For later convenience we take const 1/N, where N is the number
+of neurons.&nbsp; Such a choice is also robust.&nbsp; Even if part of starting
+values are wrong, since the sign of the sum is dominated by majority of the
+variables, the system will quick relax to its attractor.&nbsp;&nbsp; We also
+note that this is essentially a Hebbian learn rule, as the strength is
+proportional to the activities of two neurons connecting the two.&nbsp;&nbsp;</font></p>
+<p><font size="4">To store many patterns, we simply add each pattern to the
+matrix W</font></p>
+<p>&nbsp;&nbsp;&nbsp;<font size="4">&nbsp;&nbsp;&nbsp;&nbsp; W &lt;- W + <font face="Symbol">x</font><sup>T</sup>
+<font face="Symbol">x</font>/N</font></p>
+<p><font size="4">Or equivalently for p patterns</font></p>
+<p>&nbsp;&nbsp;&nbsp;<font size="4">&nbsp;&nbsp;&nbsp;&nbsp; w<sub>ij</sub> =
+(1/N) <font face="Symbol">S</font><sup>p</sup><sub>u=1</sub> <font face="Symbol">x</font><sup>u</sup><sub>i</sub>
+<font face="Symbol">x</font><sup>u</sup><sub>j</sub></font></p>
+<p><font size="4">Here, there is no learning process, the information is put in
+by &quot;hand&quot;.</font></p>
+<p><font size="4">&nbsp;</font></p>
+<p><font size="4">Some questions to think:</font></p>
+<!--mstheme--></font>
+<!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <!--msthemelist--><tr>
+    <!--msthemelist--><td valign="baseline" width="42"><img src="loobul1a.gif" width="15" height="15" hspace="13"></td>
+    <td valign="top" width="100%"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><font size="4">Why
+      a pattern is stable (if at all) against the dynamics in the case with p
+      patterns?</font><!--mstheme--></font><!--msthemelist--></td>
+  </tr>
+  <!--msthemelist--><tr>
+    <!--msthemelist--><td valign="baseline" width="42"><img src="loobul1a.gif" width="15" height="15" hspace="13"></td>
+    <td valign="top" width="100%"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><font size="4">What
+      you might think happen if p is sufficiently large?</font><!--mstheme--></font><!--msthemelist--></td>
+  </tr>
+<!--msthemelist--></table>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica">
+<p>&nbsp;</p>
+<!--mstheme--></font>
+<h2><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#330099"><font size="4">Finite
+&quot;Temperature Dynamics&quot;</font><!--mstheme--></font></h2>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica">
+<p><font size="4">Here and in the next Chapter, we introduce the concept of
+stochastic dynamics.&nbsp; So far the rule of the dynamics, Eq. (1) or similar,
+above, is deterministic.&nbsp; Its value is know for sure giving the values of
+all other nodes.&nbsp; A very interesting and instructive idea is introduce
+noise to the system so that the value taken is to some extent by chance.&nbsp; A
+Glauber dynamics goes as follows.&nbsp; Pick a neuron (site) i at random as
+before.&nbsp; </font><font size="4">h<sub>i</sub>&nbsp; = <font face="Symbol">S</font><sub>j</sub>
+w<sub>ij</sub>x<sub>j</sub>.&nbsp;&nbsp; Set x<sub>i</sub> = +1 with probability
+f(h<sub>i</sub>) and x<sub>i</sub> = -1 with probability 1-f(h<sub>i</sub>),
+where the function f is defined as</font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; f(h) = 1/(1 +
+exp(-2h/T))</font></p>
+<p><font size="4">T is a parameter control the noise.&nbsp; If T = infinity, the
+spin values are totally at random.&nbsp; On the other hand, if T = 0, the
+dynamics reduces to the previous case given by equation (2) above.&nbsp;&nbsp;
+This temperature T is not the physical temperature of your brain, but just a
+formal parameter of the model.&nbsp; The concept of temperature will appear
+again in the next Chapter on Boltzmann machine. </font></p>
+<p><font size="4">One reason for introducing a finite-temperature model is that
+it makes close contact with the theory of statistical mechanics.&nbsp; The
+machinery developed there can be used for the analysis of the neural network
+models.</font></p>
+<p><font size="4">In the <a href="hopfield.nb">Mathematica program</a> we should examples of Hopfield
+memory storage and retrieval.</font></p>
+<!--mstheme--></font></body>
+
+</html>

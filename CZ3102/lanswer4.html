@@ -1,0 +1,81 @@
+<html>
+<head><title>Answers to Lab1 4</title></head>
+<body>
+<h1>Outline Answers to Lab 4</h1>
+
+<p>As far as programming is concerned, this lab is exactly the same
+as before, so we concentration on other aspects of the problems.  
+This is only an outline to the answers.  That means your lab
+report should be more detailed and attached with figures and 
+programs.
+
+<h3>Q1</h3>
+
+(a)
+By rescaling t with t'=ct, we can get rid of the constant g/L.
+In the new variable t', the derivatives are now related by
+<p> dq/dt = dq/dt'*dt'/dt = c*dq/dt'
+<p> d^2q/dt^2 = c^2 *dq/dt'^2
+<p>Thus, if we take c^2 = g/L, i.e., c = sqrt(g/L), then the equation
+becomes dimensionless
+<p> d^2 q/dt'^2 + sin(q) = 0
+
+<p>(b) most students can draw something similar to Fig.5.11.  The point is that
+we need certain number of different initial conditions to cover the
+(q, dq/dt) space.  Please do label the curve to indicate the direction
+of the flow.  
+
+<p>Actually, we can draw these curves without solving
+the equations, we can use the energy conservation equation.  But 
+this can be down only if the energy is conserved.  The current method
+of solving the equation is more general.
+
+<p>(c) There are three type of distinct regions in the phase space,
+(i) these close to (0,0) [or (2k*pi,0), k = ..., -2,-1,0,1,...], and 
+(ii) these at (pi,0) [or translated in q by multiple of 2pi], and (iii) these
+with large enough |dq/dt|.  Case (i) is near a stable fixed point (0,0),
+although it is not an attractor. Here the pendulum makes small amplitude
+oscillations.   Case (ii) is near a unstable fixed point.
+(pi,0) is an equilibrium point, but any small perturbation renders
+the pendulum moving away from it.  Note that the pendulum is in the
+upper vertical direction. Case (iii) corresponds to high velocity such 
+that the pendulum is rotating counter-clockwise (if dq/dt>0) or
+clockwise (if dq/dt<0) about origin.  Here it is, of course, not
+in equilibrium. 
+
+<p>(d) If we have two solutions with initial conditions that are very
+close to each other, it will remain close until the time is so large
+that the two solutions are out of phase (due to different periods
+of the solutions).  But for pendulum, it is nearly always true
+that 
+<P> | q_1(t) - q_2(t) | < c *delta
+<P> for sufficiently small delta and any finite time interval. 
+where c should be a constant independent of delta.  This means that 
+if we reduce
+delta by a factor of 10, the error should decrease by a factor of
+10. The move of the pendulum is not chaotic.
+
+<h3>Q2</h3>
+
+(a) In the Lorenz equation, it  is useful to look at where are the
+fixed points (if any), and whether they are stable.  From this, we
+can classify the general behavior of the equation.  For small r,
+the typical case  is approach to stable equilibrium.  For very large
+r it may approach a limit cycle [periodic solution].  For intermediate
+range, it is very irregular.  There are two unstable fixed points,
+but the motion is attracted to both of them.  It dances around them
+here and there.  This is known as 'strange' attractor.
+
+<P>(b) In the case of approaching to stable fixed point, the error
+decrease to 0 between two solutions.  However, in the so-called
+chaotic region, no matter how small you start with a delta, the
+error becomes many times larger after some time t, thus the
+error cannot be bounded by delta.   After that time t, we practically
+loss predictability.  The solution is so sensitive to the initial
+condition that any small error leads to completely different result.
+
+<h2>Mark Scheme</h2>
+<P>Due to the qualitative nature of some of the questions asked in
+the lab, we decide to give grades A, B, C, D only, as in lab 3.
+</body>
+</html>

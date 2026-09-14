@@ -1,0 +1,85 @@
+\input notesmac.tex
+\nopagenumbers
+\centerline{\titlefont Tech and Tools, Lab 5 \& 6}
+\bigskip
+\line{Dr.~WANG Jian-Sheng \hfill  5/7 and 12/14 October 1999}
+\bigskip
+\noindent {\sl You might need to read the lecture notes or books not 
+yet covered in class.  Programming in Fortran 90 is assumed if not
+stated otherwise.}
+\medskip
+%--------------------------------------------------------------------
+\problem {\sc Control statements and I/O} (Metcalf \& Reid, chapter~4,
+exercise~2, page~73)
+\item{} The first two terms of the Fibonacci series are both 1,
+$F_0 = F_1 = 1$, and all subsequent terms are defined as the
+sum of the preceding two terms, $F_n = F_{n-1} + F_{n-2}$. 
+Write a Fortran 77 program which reads an integer value {\tt LIMIT}
+and which computes and prints the first {\tt LIMIT} 
+terms of the series.  Make sure your program compile with
+{\tt f77} and {\tt f90}.
+
+\problem {\sc Control statements and I/O} (Metcalf \& Reid, chapter~4,
+exercise~3, page~73)
+\item{} The coefficients of successive orders of the binomial expansion
+are shown in the normal Pascal triangle form as
+\ttbg
+    1
+   1 1
+  1 2 1
+ 1 3 3 1
+1 4 6 4 1
+  .....
+\tted
+\item{} where the numbers at a given order are obtained by adding 1 at
+the left and right ends and summing the two numbers at the previous order.
+Write a program which reads an integer value {\tt LIMIT} and prints the
+first {\tt LIMIT} lines of this Pascal triangle.  Use array sections
+if you can.
+
+\medskip
+%--------------------------------------------------------------------
+\problem {\sc Keyword and optional arguments}
+\item{} (a) Define your own version of logarithmic function {\tt LOGB(X,
+BASE)} such that the argument {\tt BASE} is optional.  If the {\tt
+BASE} is omitted, {\tt LOGB(X)} means natural logarithm (base $e$), 
+otherwise {\tt LOGB(X, BASE)} is logarithm in the specified base. 
+You may use the intrinsic function {\tt LOG(X)} or {\tt LOG10(X)}.
+\item{} (b) Test your function in a main program.  Note that an
+interface specification block is required.
+
+\medskip
+%--------------------------------------------------------------------
+\problem {\sc Traveling problem}
+\item{} Suppose you want to visit a large number of world famous
+cities, starting from Singapore.  To minimize cost, 
+the total distances traveled must be a
+minimum.  You want to write a Fortran program to schedule your itinerary.
+You are giving an input data file (posted at Tech and Tools homepage,
+{\tt http://www.cz3.nus.edu.sg/\char`~wangjs/SMA\_C6/citydata.dat})
+containing a list of cities to be visited.
+The data file also specifies the location of the cities in the form of 
+four numbers $lat_d$ $lat_m$ $long_d$ $long_m$, specifying the 
+latitude and longitude of a city in degree and minute.  For example,
+Singapore is located at latitude $1^\circ\,17'$ and longitude
+$103^\circ\,51'$, so the four numbers are {\tt 1 17 \ 103 51}.
+The question is to find a shortest path which passes through each city
+exactly once, assuming direct flight (straightest path) between cities.
+\item{} (a) Write a function that returns the distance in kilometer
+between two cities when the locations in latitude and longitude are
+given as arguments.  Let assume that the Earth is a perfect sphere with
+radius $R = 6370$ kilometers. 
+\item{} (b) Use the following algorithm (Greedy Algorithm)
+to find the best path: choose
+the first city, {\tt "Singapore" },
+as the starting point; choose the second one that is
+closest to the first one; choose the third one closest to the second 
+one, excluding cities already visited;
+and so on until all cities are traveled. To make a complete trip 
+you will return to the first city.   Output the total distance
+traveled and the sequence of the cities passed.
+\item{} (c) Is your answer really the absolute optimal choice?  
+In other words, is the total distance a global minimum?
+
+\bye
+

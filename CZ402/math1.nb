@@ -1,0 +1,821 @@
+(************** Content-type: application/mathematica **************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     16413,        620]*)
+(*NotebookOutlinePosition[     17111,        644]*)
+(*  CellTagsIndexPosition[     17067,        640]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[StyleBox["INTRODUCTION:\nNumerical v.s. Symbolic\nComputing\n\n\
+LT20, 4:00-6:00pm\nWed, 8 Jan 2003",
+  FontWeight->"Bold"]], "Title"],
+
+Cell["", "Subtitle"],
+
+Cell["A. Numerical Computation", "Subtitle"],
+
+Cell[TextData[{
+  "With some exceptions, most programming languages are designed for \
+numerical computing, e.g., Fortran, C, and matlab package. The most obvious \
+limitations are (1) limited range of integers, (2) finite accuracy of \
+floating-point numbers.",
+  StyleBox["\n", "Subtitle"]
+}], "Text"],
+
+Cell["B. Symbolic Computing", "Subtitle"],
+
+Cell["\<\
+Symbolic computing environment overcomes the two limitations (arbitrary sizes \
+for integers, and a user-specified accuracy in floating point calculation).   \
+Most importantly, symbolic packages provide the ability of manipulating \
+formulas, e.g., differentiation or integration of a function.  The \
+disadvantage of symbolic systems is that it is typically many times slower \
+than a compiled program.
+\
+\>", "Text"],
+
+Cell["Symbolic Packages (Languages)", "Subtitle"],
+
+Cell[TextData[{
+  "(1)  ",
+  StyleBox["LISP",
+    FontWeight->"Bold",
+    FontColor->RGBColor[0, 0, 1]],
+  ":  low level but powerful programming language.\n(2)  ",
+  StyleBox["Maple, Mathematica",
+    FontWeight->"Bold",
+    FontColor->RGBColor[0, 0, 1]],
+  ":  two popular symbolic computing packages.\n(3)  and many other special \
+packages: ",
+  StyleBox["reduce, axiom",
+    FontWeight->"Bold",
+    FontColor->RGBColor[0, 0, 1]],
+  ", etc.\n"
+}], "Text"],
+
+Cell[TextData[StyleBox["How to run Mathematica",
+  FontColor->RGBColor[1, 0, 0]]], "Subtitle"],
+
+Cell["A. Text-Based Interfaces", "Subtitle"],
+
+Cell["Log into your UNIX system, type", "Text"],
+
+Cell[BoxData[
+    \(math\)], "Input"],
+
+Cell["\<\
+You are engaged in a dialog with the system, one line at time, RETURN to \
+enter an input.\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["How to run Mathematica",
+    FontColor->RGBColor[1, 0, 0]],
+  "\nB. Notebook Interfaces (GUI)"
+}], "Subtitle"],
+
+Cell[TextData[{
+  "Log into your Windows system (Start button, Programs, ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  "),  or UNIX GUI, click or type"
+}], "Text"],
+
+Cell[BoxData[
+    \(mathematica\)], "Input"],
+
+Cell[TextData[{
+  "You can access the help as well as the whole book \"",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  ": a system for doing Mathematics by Computer\" by S. Wolfram inside the ",
+  StyleBox["Mathematica.",
+    FontSlant->"Italic"]
+}], "Text"],
+
+Cell[BoxData[{
+    RowBox[{\(IMPORTANT : \ You\ execute\ an\ Mathematica\ Expression\ with\),
+       " "}], "\n", 
+    RowBox[{"\t\t", 
+      StyleBox[\(SHIFT - ENTER\),
+        FontColor->RGBColor[0, 0, 1]]}]}], "Input"],
+
+Cell["Arbitrary Large Integers", "Subtitle"],
+
+Cell["Simple integer calculations", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(2 + 2\)], "Input"],
+
+Cell[BoxData[
+    \(4\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(2^90\)], "Input"],
+
+Cell[BoxData[
+    \(1237940039285380274899124224\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    RowBox[{
+      StyleBox["+",
+        FontColor->RGBColor[0, 0, 1]], 
+      RowBox[{",", " ", 
+        RowBox[{
+          StyleBox["-",
+            FontColor->RGBColor[0, 0, 1]], 
+          RowBox[{",", " ", 
+            RowBox[{
+              StyleBox["*",
+                FontColor->RGBColor[0, 0, 1]], 
+              RowBox[{",", " ", 
+                RowBox[{
+                  StyleBox["/",
+                    FontColor->RGBColor[0, 0, 1]], 
+                  RowBox[{",", " ", 
+                    RowBox[{
+                      RowBox[{
+                        StyleBox["^",
+                          FontColor->RGBColor[0, 0, 1]], " ", "\n", "for"}], 
+                      " ", "add"}], ",", "subtract", ",", "multiply", ",", 
+                    " ", "divide", ",", \(and\ power\), 
+                    ",", \(as\ \(\(usual\)\(.\)\)\)}]}]}]}]}]}]}]}]], "Input"],
+
+Cell["Space can be used as multiplication sign, e.g.,", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(2\ 3\)], "Input"],
+
+Cell[BoxData[
+    \(6\)], "Output"]
+}, Open  ]],
+
+Cell[TextData[StyleBox["[This can cause unintended result as x*y is same as x \
+y, but xy without a space between x and y is a single variable called xy.]",
+  FontColor->GrayLevel[0.333333]]], "Text"],
+
+Cell["\<\
+Integer functions (GCD[a,b], greatest common divisor, FactorInteger[a], etc):\
+\
+\>", "Text"],
+
+Cell[BoxData[
+    \(GCD[10, 4]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FactorInteger[40]\)], "Input"],
+
+Cell[BoxData[
+    \({{2, 3}, {5, 1}}\)], "Output"]
+}, Open  ]],
+
+Cell[TextData[{
+  "This means 40 = ",
+  Cell[BoxData[
+      \(TraditionalForm\`2\^3\)]],
+  " 5."
+}], "Text"],
+
+Cell[BoxData[
+    StyleBox[\(Function\ arguments\ are\ enclosed\ in\ square\ \(\(brakets\ [\
+\  ... \ ]\)\(.\)\)\),
+      FontColor->GrayLevel[0.500008]]], "Input"],
+
+Cell["Floating Point with Arbitrary Precision", "Subtitle"],
+
+Cell["Floating point numbers are entered with the decimal point:", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(2.3\  + \ 1.2\)], "Input"],
+
+Cell[BoxData[
+    \(3.5`\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(3.14159265358979323850000 - \ Pi\)], "Input"],
+
+Cell[BoxData[
+    \(3.735661672049679358`3.6773*^-20\)], "Output"]
+}, Open  ]],
+
+Cell[TextData[{
+  "You can type as many digits as you like, they are all significant.  Pi or \
+\[Pi] is a symbolic representation of the exact value of \[Pi] (not an \
+approximate of it), i.e., the ratio of circumference to diameter of a circle. \
+  Beside Pi, we also have E (such that Log[E] = 1), I = ",
+  Cell[BoxData[
+      \(TraditionalForm\`\@\(-1\)\)]],
+  ", and Infinity (\[Infinity]), as symbolic math constants.  In summary:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(Pi\ or\ \[Pi]\ \ \ \ \ \ \ \ 3.14159 ... \), "\[IndentingNewLine]", 
+    \(E\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2.71828 ... \), "\
+\[IndentingNewLine]", 
+    \(I\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \@\(-1\)\ \ \((imaginary\ \
+unit)\)\), "\[IndentingNewLine]", 
+    \(Infinity\ \ or\ \ \[Infinity]\ \ \ \ \ \ \ \ \ \ \ \ \ \)}], "Input"],
+
+Cell["\<\
+The function N[...] converts an exact number into floating point. (N[ ] does \
+not increase the precision of a number, though).\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(N[Pi, 25]\)], "Input"],
+
+Cell[BoxData[
+    \(3.141592653589793238462643383279502884`25\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[{
+    RowBox[{
+      StyleBox[\(Mathematica' s\ rules\),
+        FontSize->14], 
+      StyleBox[" ",
+        FontSize->14], "\n"}], "\[IndentingNewLine]", 
+    StyleBox[\(for\ numerical\ \(calculations : \n\t\t\(\((1)\) : \ 
+            If\ input\ is\ exact\)\), \ 
+      the\ computation\ will\ be\ performed\ exactly . \n\t\t\(\((2)\) : \ 
+            If\ input\ is\ approximate\), \ the\ result\ is\ approximate, \ 
+      with\ accuracy\ not\ great\ than\ the\ \(\(input\)\(.\)\)\),
+      FontSize->18]}], "Input"],
+
+Cell["\<\
+Precision[ ] tells you the number of significant figures, the Accuracy[ ] \
+tells you the number of digits after the decimal point.  SetPrecision[ ] \
+raises precision to required number of significant figures.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Precision[1.34]\)], "Input"],
+
+Cell[BoxData[
+    \(16\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Accuracy[134.0]\)], "Input"],
+
+Cell[BoxData[
+    \(14\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(x\  = \ SetPrecision[1.3, \ 28]\)], "Input"],
+
+Cell[BoxData[
+    \(1.300000000000000044408920985006261616945`28\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Precision[x]\)], "Input"],
+
+Cell[BoxData[
+    \(28\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(y\  = \ x\ *\ 1.0; \ Precision[y]\)], "Input"],
+
+Cell[BoxData[
+    \(16\)], "Output"]
+}, Open  ]],
+
+Cell[TextData[{
+  "Why x has 28 digits of precision but y is only 16?   (This is because ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " works with two types of floating-point numbers, machine precision and \
+arbitrary precision.  If input is given with less than machine precision, it \
+will take as machine precision.)"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " has a large collection of math functions such as the table below.  Note \
+that all functions take arguments in the form of square brackets, and all \
+built-in functions are Capitalized."
+}], "Text"],
+
+Cell[BoxData[{
+    RowBox[{\(Sqrt[x]\), "                 ", 
+      StyleBox["square",
+        FontColor->RGBColor[0, 0, 1]], 
+      StyleBox[" ",
+        FontColor->RGBColor[0, 0, 1]], 
+      StyleBox["root",
+        FontColor->RGBColor[0, 0, 1]], 
+      StyleBox[" ",
+        FontColor->RGBColor[0, 0, 1]], 
+      StyleBox[\((\@x)\),
+        FontColor->RGBColor[0, 0, 1]]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{\(Exp[x]\), " ", "or", " ", \(E^x\), "     ", 
+        StyleBox["exponential",
+          FontColor->RGBColor[0, 0, 1]]}], 
+      StyleBox[" ",
+        FontColor->RGBColor[0, 0, 1]]}], "\[IndentingNewLine]", 
+    RowBox[{\(Log[x]\), "                    ", 
+      StyleBox["natural",
+        FontColor->RGBColor[0, 0, 1]], 
+      StyleBox[" ",
+        FontColor->RGBColor[0, 0, 1]], 
+      StyleBox["log",
+        FontColor->RGBColor[0, 0, 1]]}], "\[IndentingNewLine]", 
+    RowBox[{\(Log[b, x]\), "             ", 
+      StyleBox["logarithm",
+        FontColor->RGBColor[0, 0, 1]], 
+      StyleBox[" ",
+        FontColor->RGBColor[0, 0, 1]], 
+      StyleBox["to",
+        FontColor->RGBColor[0, 0, 1]], 
+      StyleBox[" ",
+        FontColor->RGBColor[0, 0, 1]], 
+      StyleBox["base",
+        FontColor->RGBColor[0, 0, 1]], 
+      StyleBox[" ",
+        FontColor->RGBColor[0, 0, 1]], 
+      StyleBox["b",
+        FontColor->RGBColor[0, 0, 1]]}], "\[IndentingNewLine]", 
+    RowBox[{\(Sin[x]\), ",", \(Cos[x]\), ",", 
+      RowBox[{\(Tan[x]\), "    ", 
+        StyleBox["trig",
+          FontColor->RGBColor[0, 0, 1]]}]}], "\[IndentingNewLine]", 
+    RowBox[{\(n!\), "                             ", 
+      StyleBox["factorial",
+        FontColor->RGBColor[0, 0, 1]]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{\(Abs[x]\), "                    ", 
+        StyleBox["absolute",
+          FontColor->RGBColor[0, 0, 1],
+          Background->None], 
+        StyleBox[" ",
+          FontColor->RGBColor[0, 0, 1],
+          Background->None], 
+        StyleBox["value",
+          FontColor->RGBColor[0, 0, 1],
+          Background->None]}], 
+      StyleBox[
+        RowBox[{
+          StyleBox["  ",
+            FontColor->RGBColor[0, 0, 1],
+            Background->None], 
+          StyleBox[" ",
+            Background->RGBColor[0, 0, 1]]}]]}], "\[IndentingNewLine]", \(Max[
+      a, b,  .. ]\), "\[IndentingNewLine]", 
+    RowBox[{\(Mod[n, m]\), "             ", 
+      StyleBox["n",
+        FontColor->RGBColor[0, 0, 1]], 
+      StyleBox["  ",
+        FontColor->RGBColor[0, 0, 1]], 
+      StyleBox["modulo",
+        FontColor->RGBColor[0, 0, 1]], 
+      StyleBox["  ",
+        FontColor->RGBColor[0, 0, 1]], 
+      StyleBox["m",
+        FontColor->RGBColor[0, 0, 1]]}]}], "Input"],
+
+Cell["\<\
+See the mathematica quick reference sheet or Sec.3.2 for more.\
+\>", "Text"],
+
+Cell["Symbol Data Type", "Subtitle"],
+
+Cell[TextData[{
+  "Like any programming languages, ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " provided with the usual data type of integer, floating point numbers and \
+advanced structures.   In addition, ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " provides a type called \"Symbol\" for symbolic computation.  For \
+example:"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(x\  + \ 3  x\)], "Input"],
+
+Cell[BoxData[
+    \(4\ x\)], "Output"]
+}, Open  ]],
+
+Cell["\<\
+The function Head[...] tells you what data type a particular expression is.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Head[x]\)], "Input"],
+
+Cell[BoxData[
+    \(Symbol\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Head[3]\)], "Input"],
+
+Cell[BoxData[
+    \(Integer\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Head[3\  + \ I\ ]\)], "Input"],
+
+Cell[BoxData[
+    \(Complex\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Head[2.0]\)], "Input"],
+
+Cell[BoxData[
+    \(Real\)], "Output"]
+}, Open  ]],
+
+Cell["Some Examples of Symbolic Computation", "Subtitle"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Expand[\ \((1 + x)\)^2]\)], "Input"],
+
+Cell[BoxData[
+    \(1 + 2\ x + x\^2\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Factor[\ 1\  + \ 4\ x\  + \ 3  x^2]\)], "Input"],
+
+Cell[BoxData[
+    \(\((1 + x)\)\ \((1 + 3\ x)\)\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(Solve[\ {y^2\  + \ x\  - y\  == 0, \ 
+        y\  - \ x^2\ \  + 2 \[Equal] \ 0}, \ {x, y}]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(D[Sin[x], x]\)], "Input"],
+
+Cell[BoxData[
+    \(Cos[x]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(D[x^2, \ {x, \ 2}]\)], "Input"],
+
+Cell[BoxData[
+    \(2\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Integrate[\ \((1 + x)\)^3/\((1 - x^2)\)^2, \ x]\)], "Input"],
+
+Cell[BoxData[
+    \(\(-\(2\/\(\(-1\) + x\)\)\) + Log[\(-1\) + x]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Simplify[Sin[x]^2\  + \ Cos[x]^2]\)], "Input"],
+
+Cell[BoxData[
+    \(1\)], "Output"]
+}, Open  ]],
+
+Cell["\<\
+
+Graphical Computations
+\
+\>", "Subtitle"],
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " supports graphics in a convenient way, as well as more advanced \
+programming environment.  A simple plot :"
+}], "Text"],
+
+Cell[BoxData[
+    \(Plot[\ Sin[x], \ {x, \ \(-Pi\), \ Pi}]\)], "Input"],
+
+Cell[BoxData[
+    \(Plot3D[\ 
+      Exp[\(-\((x^2 + y^2)\)\)], \ {x, \ \(-2\), 2}, \ {y, \ \(-2\), \ 
+        2}]\)], "Input"],
+
+Cell[BoxData[
+    \(g = \ 
+      Graphics[\ {\ Circle[{1, 2}, 0.5], \ 
+          Line[\ {{0, 0}, \ {1, 0}, \ {1, 1}}]}]\)], "Input"],
+
+Cell[BoxData[
+    \(Show[g, \ AspectRatio\  -> \ Automatic]\)], "Input"],
+
+Cell["READINGS", "Title"],
+
+Cell[TextData[{
+  "Introduction to ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  ":  section 1.1 to 1.6\nNotebook interface section 1.3.4 to 1.3.9.\n(Part \
+of Chapter 1, A Practical Introduction to ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  ").\n\nThe section number refers to the on-line \nas well as printed ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " book sections."
+}], "Subtitle"]
+},
+FrontEndVersion->"4.1 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 695}},
+WindowSize->{1016, 668},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+Magnification->3,
+StyleDefinitions -> "Classroom.nb"
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1705, 50, 148, 2, 1091, "Title"],
+Cell[1856, 54, 20, 0, 119, "Subtitle"],
+Cell[1879, 56, 44, 0, 119, "Subtitle"],
+Cell[1926, 58, 303, 6, 317, "Text"],
+Cell[2232, 66, 41, 0, 119, "Subtitle"],
+Cell[2276, 68, 429, 8, 450, "Text"],
+Cell[2708, 78, 49, 0, 119, "Subtitle"],
+Cell[2760, 80, 459, 15, 322, "Text"],
+Cell[3222, 97, 94, 1, 119, "Subtitle"],
+Cell[3319, 100, 44, 0, 119, "Subtitle"],
+Cell[3366, 102, 47, 0, 81, "Text"],
+Cell[3416, 104, 37, 1, 143, "Input"],
+Cell[3456, 107, 114, 3, 132, "Text"],
+Cell[3573, 112, 138, 4, 190, "Subtitle"],
+Cell[3714, 118, 174, 5, 134, "Text"],
+Cell[3891, 125, 44, 1, 143, "Input"],
+Cell[3938, 128, 267, 7, 186, "Text"],
+Cell[4208, 137, 221, 5, 296, "Input"],
+Cell[4432, 144, 44, 0, 119, "Subtitle"],
+Cell[4479, 146, 43, 0, 81, "Text"],
+
+Cell[CellGroupData[{
+Cell[4547, 150, 38, 1, 143, "Input"],
+Cell[4588, 153, 35, 1, 141, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4660, 159, 37, 1, 143, "Input"],
+Cell[4700, 162, 62, 1, 141, "Output"]
+}, Open  ]],
+Cell[4777, 166, 889, 23, 245, "Input"],
+Cell[5669, 191, 63, 0, 81, "Text"],
+
+Cell[CellGroupData[{
+Cell[5757, 195, 37, 1, 143, "Input"],
+Cell[5797, 198, 35, 1, 141, "Output"]
+}, Open  ]],
+Cell[5847, 202, 200, 2, 132, "Text"],
+Cell[6050, 206, 103, 3, 132, "Text"],
+Cell[6156, 211, 43, 1, 143, "Input"],
+
+Cell[CellGroupData[{
+Cell[6224, 216, 50, 1, 143, "Input"],
+Cell[6277, 219, 50, 1, 141, "Output"]
+}, Open  ]],
+Cell[6342, 223, 108, 5, 81, "Text"],
+Cell[6453, 230, 164, 3, 194, "Input"],
+Cell[6620, 235, 59, 0, 119, "Subtitle"],
+Cell[6682, 237, 74, 0, 81, "Text"],
+
+Cell[CellGroupData[{
+Cell[6781, 241, 46, 1, 143, "Input"],
+Cell[6830, 244, 38, 1, 141, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6905, 250, 65, 1, 143, "Input"],
+Cell[6973, 253, 66, 1, 143, "Output"]
+}, Open  ]],
+Cell[7054, 257, 448, 8, 336, "Text"],
+Cell[7505, 267, 362, 6, 306, "Input"],
+Cell[7870, 275, 151, 3, 132, "Text"],
+
+Cell[CellGroupData[{
+Cell[8046, 282, 42, 1, 143, "Input"],
+Cell[8091, 285, 75, 1, 141, "Output"]
+}, Open  ]],
+Cell[8181, 289, 530, 11, 911, "Input"],
+Cell[8714, 302, 234, 4, 234, "Text"],
+
+Cell[CellGroupData[{
+Cell[8973, 310, 48, 1, 143, "Input"],
+Cell[9024, 313, 36, 1, 141, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[9097, 319, 48, 1, 143, "Input"],
+Cell[9148, 322, 36, 1, 141, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[9221, 328, 64, 1, 143, "Input"],
+Cell[9288, 331, 78, 1, 141, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[9403, 337, 45, 1, 143, "Input"],
+Cell[9451, 340, 36, 1, 141, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[9524, 346, 66, 1, 143, "Input"],
+Cell[9593, 349, 36, 1, 141, "Output"]
+}, Open  ]],
+Cell[9644, 353, 344, 7, 286, "Text"],
+Cell[9991, 362, 270, 6, 235, "Text"],
+Cell[10264, 370, 2719, 76, 565, "Input"],
+Cell[12986, 448, 86, 2, 81, "Text"],
+Cell[13075, 452, 36, 0, 119, "Subtitle"],
+Cell[13114, 454, 368, 10, 236, "Text"],
+
+Cell[CellGroupData[{
+Cell[13507, 468, 45, 1, 143, "Input"],
+Cell[13555, 471, 38, 1, 141, "Output"]
+}, Open  ]],
+Cell[13608, 475, 99, 2, 132, "Text"],
+
+Cell[CellGroupData[{
+Cell[13732, 481, 40, 1, 143, "Input"],
+Cell[13775, 484, 40, 1, 141, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[13852, 490, 40, 1, 143, "Input"],
+Cell[13895, 493, 41, 1, 141, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[13973, 499, 50, 1, 143, "Input"],
+Cell[14026, 502, 41, 1, 141, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[14104, 508, 42, 1, 143, "Input"],
+Cell[14149, 511, 38, 1, 141, "Output"]
+}, Open  ]],
+Cell[14202, 515, 57, 0, 190, "Subtitle"],
+
+Cell[CellGroupData[{
+Cell[14284, 519, 56, 1, 143, "Input"],
+Cell[14343, 522, 49, 1, 143, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[14429, 528, 68, 1, 143, "Input"],
+Cell[14500, 531, 61, 1, 141, "Output"]
+}, Open  ]],
+Cell[14576, 535, 123, 2, 194, "Input"],
+
+Cell[CellGroupData[{
+Cell[14724, 541, 45, 1, 143, "Input"],
+Cell[14772, 544, 40, 1, 141, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[14849, 550, 51, 1, 143, "Input"],
+Cell[14903, 553, 35, 1, 141, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[14975, 559, 80, 1, 194, "Input"],
+Cell[15058, 562, 78, 1, 166, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[15173, 568, 66, 1, 143, "Input"],
+Cell[15242, 571, 35, 1, 141, "Output"]
+}, Open  ]],
+Cell[15292, 575, 52, 4, 261, "Subtitle"],
+Cell[15347, 581, 192, 5, 133, "Text"],
+Cell[15542, 588, 71, 1, 143, "Input"],
+Cell[15616, 591, 126, 3, 194, "Input"],
+Cell[15745, 596, 132, 3, 245, "Input"],
+Cell[15880, 601, 72, 1, 143, "Input"],
+Cell[15955, 604, 25, 0, 198, "Title"],
+Cell[15983, 606, 426, 12, 690, "Subtitle"]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

@@ -1,0 +1,106 @@
+Hi all,
+
+You should be able to pick up your lab #2 assignment from the lab 
+by today. I'd just like to write a few remarks on the programs:
+
+1) Program documentation/Comments
+   ------------------------------
+   Generally, most of you have commented your programs appropriately,
+   although sometimes without enough detail. Writing a description
+   for a stand-alone program is different from a description for a
+   procedure/function. For a complete stand-alone program, a brief
+   description of what it does is usually sufficient. However, a
+   procedure/function requires more specifics.
+
+   For a procedure, you need to specify the arguments which it
+   expects and what the procedure returns. Especially for assembly
+   language procedures, you need to detail the locations of these
+   arguments/return values. Also to be complete, registers used
+   should be listed and described.
+
+   I would suggest, for clarity and conciseness, to have something
+   like the following:
+
+   /* This procedure does....blah, blah, blah ... 
+      Arguments expected: ....
+      Returns: ...
+      Registers used: ...   
+   */
+
+   The rationale behind this is that you want to provide enough
+   information to the programmer (you or somebody else) who wants to
+   use your procedure, so that he/she does not have to read all
+   your code to understand how to call your procedure. The programmer
+   wants to know WHAT the procedure does, HOW to call the procedure,
+   and what results it RETURNS.
+   
+   I take comments and documentation seriously, and it will affect
+   your grade significantly.
+
+2) Register Usage and Argument Passing
+   -----------------------------------
+   So far I have closed one eye to proper register usage as most of you
+   have not learned how to use appropriate registers. Starting with 
+   this week's Lab #4, I will be paying  more and more attention to 
+   these details. 
+
+   As programmers it is our responsibility to write programs that work
+   and work in all situations. Therefore we must follow the rules and
+   conventions laid down by the designers of the CPU, which in our case
+   is the MIPS CPU. To quote from the Assembly Language Programmers'
+   Guide, "Attempts to use these general registers in other ways
+   (from what is expected) can produce unexpected results."
+
+   The Guide has a table that specifies register use - pay attention 
+   to it and follow it. Note especially registers that need to be
+   saved across procedure calls (i.e. when procedures call other
+   procedures).
+
+   Also, another common mistake is that when calling the bfind procedure 
+   from bcount, many people used values in various registers that
+   bfind used. You cannot do this. Although it may work, it will only
+   work some of the time i.e. it is NOT guranteed to work under all
+   situations. Remember that procedures can only return integer type results
+   in $2, i.e. only 1 value can be returned.
+
+3) Stack usage
+   -----------
+   Similar to Remark #2 above, on register use, I will also be looking
+   more and more closely at how well and how appropriately you use the
+   stack.
+
+   The details of stack usage is in the Programmers' guide but the
+   essential points which I will be looking for is this:
+
+    - that registers that need to be saved will be saved on the stack
+    - the data saved on the stack is ordered according to convention
+      i.e. from low (numerically smaller) addresses to high
+      addresses--arguments for calling other procedures, registers
+      to be saved, followed by other local or temp data.
+
+   Of course, to be complete, the .mask and .frame should be 
+   specified.   (*** I'll not introduce these two assembler directives
+   at all, since the Patterson and Hennessy do not discuss them. 
+   Comments added by Dr. Wang Jian-Sheng ***)
+
+4) Simplicity
+   ----------
+   Don't over complicate your programs--assembly language is hard
+   enough to read as it is! Keep your programs as simple as you
+   can.
+
+
+If you have problems, or you have questions regarding your programs,
+please come and talk to me or send me email.
+
+rgds,
+--shing
+==========================================================================
+Yung Shing Gene                
+Dept of Computational Science    | email:  shing@galaxy.cz3.nus.sg
+Faculty of Science               |         cscysg@nus.sg
+National University of Singapore | 
+Lower Kent Ridge Road            | WWW: http://www.cz3.nus.sg:8100/~shing/
+Singapore 119260                 |
+==========================================================================
+

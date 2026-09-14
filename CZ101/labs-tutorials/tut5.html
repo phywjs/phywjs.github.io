@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>CZ1101, Tutorial 5</title>
+</head>
+<body>
+
+<h1>CZ1101, Tutorial 5, 6-11 October, 1997</h1>
+
+<blockquote>
+<em><p>Do the problems before going to the tutorial class.
+You need not hand in the solutions.
+</em>
+</blockquote>
+
+<OL>
+
+<LI> (4.11-4.13) [15] What are the IEEE single precision
+representations for the numbers 10.0, 10.5, and 0.1?  (Give the
+32-bit patterns for the numbers).  What are the IEEE double
+precision representations for the same set of numbers?
+
+<LI> (4.41) [5] Add 6.42_ten x 10^1 to
+9.51_ten x 10^2 in decimal notation, assuming
+that you have only three significant digits, first with
+guard and round digits and then without them.
+ 
+
+<LI> [15] Multiply 8.76_ten x 10^1 
+to 1.47_ten x 10^2. This time, in binary
+floating point with 4 bits of significand.  You need to
+find the binary representations first.
+
+<LI> [15] For arithmetic done in IEEE single-precision 
+floating point format (with guard and round bits),
+give a positive number x that when added to 1.0
+produces the result x. That is, give a value for x such
+that x>0 and x+1.0 = x.  What is the smallest number x
+that satisfies the condition?  What if the computation is in
+double precision?
+
+<LI> (4.22) [10] Find the shortest sequence of MIPS 
+instructions to determine if there is a carry out from
+the addition of two registers, say register $11 and $12.
+Place a 0 or 1 in register $10 if carry out is 0 or 1,
+respectively.
+
+<LI> (4.23) [15] Find the shortest sequence of MIPS instructions
+to perform double precision integer addition.  Assume that
+one 64-bit two's complement integer is in register 
+$12 and $13 and another is in registers $14 and $15.
+The sum is to be placed in registers $10 and $11.  In this
+example the most significant word of the 64-bit integer
+is found in the even-numbered registers, and the least
+significant word is found in the odd-numbered registers.
+[You need answer to (4.22)].
+ 
+
+<LI> (4.24) [20] Find the shortest sequence of MIPS instructions
+to perform double precision integer multiplication.  Assume that
+one 64-bit, unsigned integer is in registers $12 and $13
+and another is in registers $14 and $15.  The 128-bit product
+is to be placed in registers $8, $9, $10, and $11.  The most
+significant word is found in the lower numbered registers, and the 
+least significant word is found in the higher numbered registers in
+this example. Hint: Write out the formula for (a 2^{32} + b) x
+( c 2^{32} + d). 
+
+
+</OL>
+</body>
+</html>

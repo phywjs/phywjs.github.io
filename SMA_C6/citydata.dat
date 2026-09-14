@@ -1,0 +1,21 @@
+    CITY        Latitude   Longitude
+            degree minute degree minute
+ "Amsterdam"     52  21      4  54 
+ "Beijing"       39  55    116  25 
+ "Berlin"        52  31     13  24 
+ "Brussels"      50  50      4  21 
+ "Chicago"       41  50    -87 -45 
+ "Copenhagen"    55  43     12  34 
+ "Geneva"        46  10      6   9 
+ "Hong Kong"     22  15    114  10 
+ "London"        51  30      0 -10 
+ "Los Angeles"   34   4   -118 -15 
+ "Moscow"        55  45     37  35 
+ "New York"      40  43    -74  -1 
+ "Paris"         48  52      2  20 
+ "Rome"          41  53     12  30 
+ "San Francisco" 37  48   -122 -24 
+ "Seoul"         37  33    126  58 
+ "Shanghai"      31  14    121  30 
+ "Singapore"      1  17    103  51 
+ "Tokyo"         35  42    139  46 

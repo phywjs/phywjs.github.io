@@ -1,0 +1,3306 @@
+(************** Content-type: application/mathematica **************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     97336,       3105]*)
+(*NotebookOutlinePosition[     98072,       3130]*)
+(*  CellTagsIndexPosition[     98028,       3126]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[StyleBox["SMA 5202 Computing Technologies and Tools\n(By A/Prof \
+Wang Jian-Sheng)",
+  FontFamily->"Arial"]], "Title"],
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " Lab Part II (Solutions)"
+}], "Title"],
+
+Cell["Question 1", "Subtitle"],
+
+Cell[CellGroupData[{
+
+Cell["Part (a): k = 0.1", "Section"],
+
+Cell[BoxData[
+    \(Remove["\<Global`*\>"]\)], "Input"],
+
+Cell[BoxData[
+    \(A[k_]\  := \ {{0.6, \ 0.5}, \ {\(-k\), \ 1.2}}\)], "Input"],
+
+Cell[BoxData[
+    \(\(x0\  = \ {100, \ 1000};\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Eigenvalues[A[0.1]]\)], "Input"],
+
+Cell[BoxData[
+    \(TraditionalForm\`{1.0999999999999999`, 0.7`}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(x\  = \ 
+        Table[MatrixPower[A[0.1], i] . x0, \ {i, 1, 100}];\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(ListPlot[Table[{i, x[\([i, 1]\)]}, \ {i, \ 1, \ 100}], 
+      PlotJoined -> True\ ]\)], "Input"],
+
+Cell[GraphicsData["PostScript", "\<\
+%!
+%%Creator: Mathematica
+%%AspectRatio: .61803 
+MathPictureStart
+/Mabs {
+Mgmatrix idtransform
+Mtmatrix dtransform
+} bind def
+/Mabsadd { Mabs
+3 -1 roll add
+3 1 roll add
+exch } bind def
+%% Graphics
+%%IncludeResource: font Courier
+%%IncludeFont: Courier
+/Courier findfont 10  scalefont  setfont
+% Scaling calculations
+0.0238095 0.00952381 0.0147151 7.05807e-008 [
+[.21429 .00222 -6 -9 ]
+[.21429 .00222 6 0 ]
+[.40476 .00222 -6 -9 ]
+[.40476 .00222 6 0 ]
+[.59524 .00222 -6 -9 ]
+[.59524 .00222 6 0 ]
+[.78571 .00222 -6 -9 ]
+[.78571 .00222 6 0 ]
+[.97619 .00222 -9 -9 ]
+[.97619 .00222 9 0 ]
+[.01131 .15588 -28.5 -6.25 ]
+[.01131 .15588 0 6.25 ]
+[.01131 .29704 -28.5 -6.25 ]
+[.01131 .29704 0 6.25 ]
+[.01131 .4382 -28.5 -6.25 ]
+[.01131 .4382 0 6.25 ]
+[.01131 .57936 -28.5 -6.25 ]
+[.01131 .57936 0 6.25 ]
+[ 0 0 0 0 ]
+[ 1 .61803 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+0 g
+.25 Mabswid
+[ ] 0 setdash
+.21429 .01472 m
+.21429 .02097 L
+s
+[(20)] .21429 .00222 0 1 Mshowa
+.40476 .01472 m
+.40476 .02097 L
+s
+[(40)] .40476 .00222 0 1 Mshowa
+.59524 .01472 m
+.59524 .02097 L
+s
+[(60)] .59524 .00222 0 1 Mshowa
+.78571 .01472 m
+.78571 .02097 L
+s
+[(80)] .78571 .00222 0 1 Mshowa
+.97619 .01472 m
+.97619 .02097 L
+s
+[(100)] .97619 .00222 0 1 Mshowa
+.125 Mabswid
+.07143 .01472 m
+.07143 .01847 L
+s
+.11905 .01472 m
+.11905 .01847 L
+s
+.16667 .01472 m
+.16667 .01847 L
+s
+.2619 .01472 m
+.2619 .01847 L
+s
+.30952 .01472 m
+.30952 .01847 L
+s
+.35714 .01472 m
+.35714 .01847 L
+s
+.45238 .01472 m
+.45238 .01847 L
+s
+.5 .01472 m
+.5 .01847 L
+s
+.54762 .01472 m
+.54762 .01847 L
+s
+.64286 .01472 m
+.64286 .01847 L
+s
+.69048 .01472 m
+.69048 .01847 L
+s
+.7381 .01472 m
+.7381 .01847 L
+s
+.83333 .01472 m
+.83333 .01847 L
+s
+.88095 .01472 m
+.88095 .01847 L
+s
+.92857 .01472 m
+.92857 .01847 L
+s
+.25 Mabswid
+0 .01472 m
+1 .01472 L
+s
+.02381 .15588 m
+.03006 .15588 L
+s
+gsave
+.01131 .15588 -28.5 -4.25 Mabsadd m
+1 1 Mabs scale
+/Courier findfont 10 scalefont setfont
+(2) show
+/Math1Mono findfont 10 scalefont setfont
+(\\264) show
+/Courier findfont 10 scalefont setfont
+(10) show
+0 5.25 rmoveto
+/Courier findfont 7.5 scalefont setfont
+(6) show
+grestore
+.02381 .29704 m
+.03006 .29704 L
+s
+gsave
+.01131 .29704 -28.5 -4.25 Mabsadd m
+1 1 Mabs scale
+/Courier findfont 10 scalefont setfont
+(4) show
+/Math1Mono findfont 10 scalefont setfont
+(\\264) show
+/Courier findfont 10 scalefont setfont
+(10) show
+0 5.25 rmoveto
+/Courier findfont 7.5 scalefont setfont
+(6) show
+grestore
+.02381 .4382 m
+.03006 .4382 L
+s
+gsave
+.01131 .4382 -28.5 -4.25 Mabsadd m
+1 1 Mabs scale
+/Courier findfont 10 scalefont setfont
+(6) show
+/Math1Mono findfont 10 scalefont setfont
+(\\264) show
+/Courier findfont 10 scalefont setfont
+(10) show
+0 5.25 rmoveto
+/Courier findfont 7.5 scalefont setfont
+(6) show
+grestore
+.02381 .57936 m
+.03006 .57936 L
+s
+gsave
+.01131 .57936 -28.5 -4.25 Mabsadd m
+1 1 Mabs scale
+/Courier findfont 10 scalefont setfont
+(8) show
+/Math1Mono findfont 10 scalefont setfont
+(\\264) show
+/Courier findfont 10 scalefont setfont
+(10) show
+0 5.25 rmoveto
+/Courier findfont 7.5 scalefont setfont
+(6) show
+grestore
+.125 Mabswid
+.02381 .05001 m
+.02756 .05001 L
+s
+.02381 .0853 m
+.02756 .0853 L
+s
+.02381 .12059 m
+.02756 .12059 L
+s
+.02381 .19117 m
+.02756 .19117 L
+s
+.02381 .22646 m
+.02756 .22646 L
+s
+.02381 .26175 m
+.02756 .26175 L
+s
+.02381 .33233 m
+.02756 .33233 L
+s
+.02381 .36762 m
+.02756 .36762 L
+s
+.02381 .40291 m
+.02756 .40291 L
+s
+.02381 .47349 m
+.02756 .47349 L
+s
+.02381 .50878 m
+.02756 .50878 L
+s
+.02381 .54407 m
+.02756 .54407 L
+s
+.02381 .61465 m
+.02756 .61465 L
+s
+.25 Mabswid
+.02381 0 m
+.02381 .61803 L
+s
+0 0 m
+1 0 L
+1 .61803 L
+0 .61803 L
+closepath
+clip
+newpath
+.5 Mabswid
+.03333 .01475 m
+.04286 .01478 L
+.05238 .0148 L
+.0619 .01482 L
+.07143 .01484 L
+.08095 .01486 L
+.09048 .01488 L
+.1 .0149 L
+.10952 .01492 L
+.11905 .01494 L
+.12857 .01496 L
+.1381 .01499 L
+.14762 .01501 L
+.15714 .01504 L
+.16667 .01508 L
+.17619 .01511 L
+.18571 .01515 L
+.19524 .0152 L
+.20476 .01524 L
+.21429 .0153 L
+.22381 .01535 L
+.23333 .01542 L
+.24286 .01549 L
+.25238 .01557 L
+.2619 .01565 L
+.27143 .01575 L
+.28095 .01585 L
+.29048 .01596 L
+.3 .01609 L
+.30952 .01622 L
+.31905 .01637 L
+.32857 .01654 L
+.3381 .01672 L
+.34762 .01692 L
+.35714 .01714 L
+.36667 .01739 L
+.37619 .01766 L
+.38571 .01795 L
+.39524 .01827 L
+.40476 .01863 L
+.41429 .01902 L
+.42381 .01945 L
+.43333 .01992 L
+.44286 .02044 L
+.45238 .02102 L
+.4619 .02165 L
+.47143 .02234 L
+.48095 .0231 L
+.49048 .02394 L
+.5 .02486 L
+Mistroke
+.50952 .02588 L
+.51905 .027 L
+.52857 .02822 L
+.5381 .02958 L
+.54762 .03106 L
+.55714 .0327 L
+.56667 .03449 L
+.57619 .03647 L
+.58571 .03865 L
+.59524 .04104 L
+.60476 .04367 L
+.61429 .04657 L
+.62381 .04975 L
+.63333 .05326 L
+.64286 .05711 L
+.65238 .06135 L
+.6619 .06602 L
+.67143 .07115 L
+.68095 .07679 L
+.69048 .083 L
+.7 .08983 L
+.70952 .09734 L
+.71905 .1056 L
+.72857 .11469 L
+.7381 .12468 L
+.74762 .13568 L
+.75714 .14778 L
+.76667 .16108 L
+.77619 .17572 L
+.78571 .19182 L
+.79524 .20953 L
+.80476 .22901 L
+.81429 .25044 L
+.82381 .27402 L
+.83333 .29995 L
+.84286 .32847 L
+.85238 .35985 L
+.8619 .39436 L
+.87143 .43232 L
+.88095 .47409 L
+.89048 .52002 L
+.9 .57055 L
+Mfstroke
+.9 .57055 m
+.90814 .61803 L
+s
+% End of Graphics
+MathPictureEnd
+\
+\>"], "Graphics",
+  ImageSize->{288, 177.938},
+  ImageMargins->{{35, 0}, {0, 0}},
+  ImageRegion->{{0, 1}, {0, 1}},
+  ImageCache->GraphicsData["Bitmap", "\<\
+CF5dJ6E]HGAYHf4PAg9QL6QYHg<PAVmbKF5d0`40004P0000/A000`40O003h00Oogoo8Goo003oOolQ
+Ool00?moob5oo`00ogoo8Goo003oOolQOol004]oo`@000=oo`8002]oo`<0009oo`8002Qoo`<000Ao
+o`8002Uoo`8000Aoo`8002Ioo`D0009oo`8000Aoo`8000=oo`00Bgoo00<007ooOol00goo00@007oo
+Ool002]oo`04001oogoo0002Ool00`00Oomoo`0UOol01000Oomoo`000Woo00@007ooOol002Moo`04
+001oogoo0002Ool01000Oomoo`009goo00D007ooOomoo`00009oo`04001oogoo0002Ool10001Ool1
+Ool004aoo`03001oogoo009oo`04001oogoo000XOol500001Goo001oogoo00009goo00@007ooOol0
+009oo`04001oogoo000WOol01000Oomoo`000Woo00@007ooOol002Moo`05001oogooOol00002Ool0
+1000Oomoo`000Woo0@000Goo0Goo001=Ool01@00Oomoogoo00000Woo00<007ooOol09Woo00@007oo
+Ool0009oo`04001oogoo000WOol30003Ool01000Oomoo`00:7oo0P000goo00@007ooOol002Moo`05
+001oogooOol00002Ool01000Oomoo`000Woo0@000Goo0Goo001;Ool01000Oomoo`000Woo00@007oo
+Ool002Uoo`03001oo`00009oo`04001oogoo000XOol00`00Oomoo`02Ool01000Oomoo`009goo00@0
+07ooOol0009oo`04001oogoo000WOol01@00Oomoogoo00000Woo00@007ooOol0009oo`40005oo`5o
+o`00C7oo0P0017oo0P00:goo0P000goo0P00:Goo0`000goo0P00:Goo0P0017oo0P009goo0P0017oo
+0P0017oo0P000goo003oOolQOol001moo`03001oogoo0?ioo`007goo00<007ooOol0oWoo000OOol0
+0`00Oomoo`3nOol001moo`03001oogoo0?ioo`006Gooo`001@000goo000OOol00`00Oomoo`0:Ool0
+0`00Oomoo`09Ool00`00Oomoo`09Ool00`00Oomoo`09Ool00`00Oomoo`0:Ool00`00Oomoo`08OolS
+0003Ool00`00Oomoo`09Ool00`00Oomoo`0:Ool00`00Oomoo`09Ool00`00Oomoo`09Ool00`00Oomo
+o`0:Ool00`00Oomoo`09Ool00`00Oomoo`09Ool00`00Oomoo`0:Ool00`00Oomoo`09Ool00`00Oomo
+o`09Ool00`00Oomoo`0:Ool00`00Oomoo`07Ool001moo`03001oogoo02ioo`03001oogoo02moo`03
+001oogoo00Ioo``001aoo`03001oogoo02ioo`03001oogoo02moo`03001oogoo00Moo`007goo00<0
+07ooOol0MGoo2P00Ogoo000OOol00`00Oomoo`1oOol7001hOol001moo`03001oogoo08Ioo`D007=o
+o`007goo00<007ooOol0Rgoo1@00KWoo000OOol00`00Oomoo`2@Ool2001/Ool001moo`03001oogoo
+099oo`D006Moo`007goo0P00V7oo0`00I7oo000OOol00`00Oomoo`2JOol2001ROol001moo`03001o
+ogoo09aoo`<005moo`007goo00<007ooOol0Wgoo0P00GGoo000OOol00`00Oomoo`2QOol2001KOol0
+01moo`03001oogoo0:=oo`8005Uoo`007goo00<007ooOol0YGoo00<007ooOol0EWoo000OOol00`00
+Oomoo`2VOol2001FOol001moo`03001oogoo0:Qoo`8005Aoo`007goo0P00Zgoo00<007ooOol0DGoo
+000OOol00`00Oomoo`2[Ool00`00Oomoo`1@Ool001moo`03001oogoo0:aoo`03001oogoo04moo`00
+7goo00<007ooOol0[Goo0P00Cgoo000OOol00`00Oomoo`2_Ool00`00Oomoo`1<Ool001moo`03001o
+ogoo0;1oo`03001oogoo04]oo`007goo00<007ooOol0/Goo00<007ooOol0BWoo000OOol00`00Oomo
+o`2bOol00`00Oomoo`19Ool001moo`03001oogoo0;=oo`03001oogoo04Qoo`007goo00<007ooOol0
+]7oo00<007ooOol0Agoo000OOol2002fOol00`00Oomoo`16Ool001moo`03001oogoo0;Ioo`03001o
+ogoo04Eoo`007goo00<007ooOol0]goo00<007ooOol0A7oo000OOol00`00Oomoo`2hOol00`00Oomo
+o`13Ool001moo`03001oogoo0;Uoo`03001oogoo049oo`0000=oo`0000000P000Woo00H007ooOomo
+o`00Ool50002Ool20009Ool00`00Oomoo`2iOol00`00Oomoo`12Ool00003Ool007oo00Eoo`03001o
+o`0000Aoo`05001oogooOol00002Ool00`00Oomoo`06Ool00`00Oomoo`2jOol00`00Oomoo`11Ool0
+009oo`03001oogoo00Aoo`03001oogoo00=oo`05001oogooOol00002Ool00`00Oomoo`06Ool00`00
+Oomoo`2kOol00`00Oomoo`10Ool000=oo`03001oogoo009oo`03001oo`0000Aoo`05001oogooOol0
+0002Ool00`00Oomoo`06Ool00`00Oomoo`2lOol00`00Oomoo`0oOol00005Ool007ooOol00002Ool0
+1@00Oomoogoo00000goo00D007ooOomoo`00009oo`03001oogoo00Ioo`<00;aoo`03001oogoo03mo
+o`000Woo0P002Woo0P0017oo0P002Goo00<007ooOol0_Goo00<007ooOol0?Woo000IOol00fmkJeYS
+6003Ool00`00Oomoo`2nOol00`00Oomoo`0mOol001Uoo`03IcUoofmk00=oo`03001oogoo0;ioo`03
+001oogoo03eoo`006Goo00=BU6<HIcT00goo00<007ooOol0_goo00<007ooOol0?7oo000IOol00fLi
+Oomoo`03Ool00`00Oomoo`30Ool00`00Oomoo`0kOol001Yoo`03IcU[FWoo009oo`03001oogoo0<1o
+o`03001oogoo03]oo`007goo00<007ooOol0`Goo00<007ooOol0>Woo000OOol00`00Oomoo`31Ool0
+0`00Oomoo`0jOol001moo`800<=oo`03001oogoo03Uoo`007goo00<007ooOol0`goo00<007ooOol0
+>7oo000OOol00`00Oomoo`33Ool00`00Oomoo`0hOol001moo`03001oogoo0<Aoo`03001oogoo03Mo
+o`007goo00<007ooOol0a7oo00<007ooOol0=goo000OOol00`00Oomoo`35Ool00`00Oomoo`0fOol0
+01moo`03001oogoo0<Eoo`03001oogoo03Ioo`007goo00<007ooOol0aWoo00<007ooOol0=Goo000O
+Ool00`00Oomoo`36Ool00`00Oomoo`0eOol001moo`800<Qoo`03001oogoo03Aoo`007goo00<007oo
+Ool0agoo00<007ooOol0=7oo000OOol00`00Oomoo`38Ool00`00Oomoo`0cOol001moo`03001oogoo
+0<Qoo`03001oogoo03=oo`007goo00<007ooOol0bGoo00<007ooOol0<Woo000OOol00`00Oomoo`39
+Ool00`00Oomoo`0bOol001moo`03001oogoo0<Yoo`03001oogoo035oo`007goo00<007ooOol0bWoo
+00<007ooOol0<Goo000OOol00`00Oomoo`3;Ool00`00Oomoo`0`Ool001moo`800<aoo`03001oogoo
+031oo`007goo00<007ooOol0bgoo00<007ooOol0<7oo000OOol00`00Oomoo`3<Ool00`00Oomoo`0_
+Ool001moo`03001oogoo0<aoo`03001oogoo02moo`007goo00<007ooOol0c7oo00<007ooOol0;goo
+000OOol00`00Oomoo`3=Ool00`00Oomoo`0^Ool000=oo`<00003Ool007oo009oo`03001oo`0000@0
+009oo`8000Uoo`03001oogoo0<eoo`03001oogoo02ioo`0017oo00L007ooOomoo`00Ool00004Ool0
+1@00Oomoogoo00000Woo00<007ooOol01Woo00<007ooOol0cWoo00<007ooOol0;Goo00000goo0000
+00030003Ool00`00Oomoo`03Ool01@00Oomoogoo00000Woo00<007ooOol01Woo00<007ooOol0cWoo
+00<007ooOol0;Goo00001Goo001oogoo00000goo00<007oo000017oo00D007ooOomoo`00009oo`03
+001oogoo00Ioo`<00<moo`03001oogoo02aoo`000Woo00<007oo00000Woo00D007ooOomoo`0000=o
+o`05001oogooOol00002Ool00`00Oomoo`06Ool00`00Oomoo`3?Ool00`00Oomoo`0/Ool000=oo`80
+00Uoo`8000Aoo`8000=oo`03Kg][FV<H00=oo`03001oogoo0<moo`03001oogoo02aoo`006Goo00=W
+>GooKg/00goo00<007ooOol0d7oo00<007ooOol0:goo000IOol00e:DHaQW>@03Ool00`00Oomoo`3@
+Ool00`00Oomoo`0[Ool001Uoo`03IcUoogoo00=oo`03001oogoo0=1oo`03001oogoo02]oo`006Woo
+00=W>F]JOol00Woo00<007ooOol0d7oo00<007ooOol0:goo000OOol00`00Oomoo`3AOol00`00Oomo
+o`0ZOol001moo`03001oogoo0=5oo`03001oogoo02Yoo`007goo0P00dWoo00<007ooOol0:Woo000O
+Ool00`00Oomoo`3AOol00`00Oomoo`0ZOol001moo`03001oogoo0=9oo`03001oogoo02Uoo`007goo
+00<007ooOol0dWoo00<007ooOol0:Goo000OOol00`00Oomoo`3BOol00`00Oomoo`0YOol001moo`03
+001oogoo0=9oo`03001oogoo02Uoo`007goo00<007ooOol0dgoo00<007ooOol0:7oo000OOol00`00
+Oomoo`3COol00`00Oomoo`0XOol001moo`03001oogoo0==oo`03001oogoo02Qoo`007goo0P00eGoo
+00<007ooOol09goo000OOol00`00Oomoo`3DOol00`00Oomoo`0WOol001moo`03001oogoo0=Aoo`03
+001oogoo02Moo`007goo00<007ooOol0eGoo00<007ooOol09Woo000OOol00`00Oomoo`3EOol00`00
+Oomoo`0VOol001moo`03001oogoo0=Eoo`03001oogoo02Ioo`007goo00<007ooOol0eWoo00<007oo
+Ool09Goo000OOol00`00Oomoo`3FOol00`00Oomoo`0UOol001moo`03001oogoo0=Ioo`03001oogoo
+02Eoo`007goo00<007ooOol0eWoo00<007ooOol09Goo000OOol2003HOol00`00Oomoo`0TOol001mo
+o`03001oogoo0=Moo`03001oogoo02Aoo`007goo00<007ooOol0egoo00<007ooOol097oo000OOol0
+0`00Oomoo`3GOol00`00Oomoo`0TOol001moo`03001oogoo0=Moo`03001oogoo02Aoo`0000Aoo`00
+000000=oo`06001oogooOol007oo1@000Woo0P002Goo00<007ooOol0f7oo00<007ooOol08goo0000
+1Goo001oogoo00000goo00<007oo000017oo00D007ooOomoo`00009oo`03001oogoo00Ioo`03001o
+ogoo0=Qoo`03001oogoo02=oo`0000Eoo`00Oomoo`0000Aoo`03001oogoo00=oo`05001oogooOol0
+0002Ool00`00Oomoo`06Ool00`00Oomoo`3HOol00`00Oomoo`0SOol00004Ool000000004Ool00`00
+Ool00004Ool01@00Oomoogoo00000Woo00<007ooOol01Woo00<007ooOol0f7oo00<007ooOol08goo
+0002Ool00`00Oomoo`02Ool01@00Oomoogoo00000goo00D007ooOomoo`00009oo`03001oogoo00Io
+o`<00=Uoo`03001oogoo029oo`000Woo0`002Goo0P0017oo0P002Goo00<007ooOol0fGoo00<007oo
+Ool08Woo000IOol00fmkJeYS6003Ool00`00Oomoo`3IOol00`00Oomoo`0ROol001Uoo`03IcUoofmk
+00=oo`03001oogoo0=Uoo`03001oogoo029oo`006Goo00=BU6<HIcT00goo00<007ooOol0fWoo00<0
+07ooOol08Goo000IOol00fLiOomoo`03Ool00`00Oomoo`3JOol00`00Oomoo`0QOol001Yoo`03IcU[
+FWoo009oo`03001oogoo0=Yoo`03001oogoo025oo`007goo00<007ooOol0fWoo00<007ooOol08Goo
+000OOol00`00Oomoo`3KOol00`00Oomoo`0POol001moo`800=aoo`03001oogoo021oo`007goo00<0
+07ooOol0fgoo00<007ooOol087oo000OOol00`00Oomoo`3KOol00`00Oomoo`0POol001moo`03001o
+ogoo0=]oo`03001oogoo021oo`007goo00<007ooOol0g7oo00<007ooOol07goo000OOol00`00Oomo
+o`3LOol00`00Oomoo`0OOol001moo`03001oogoo0=aoo`03001oogoo01moo`007goo00<007ooOol0
+g7oo00<007ooOol07goo000OOol00`00Oomoo`3LOol00`00Oomoo`0OOol001moo`800=eoo`03001o
+ogoo01moo`007goo00<007ooOol0gGoo00<007ooOol07Woo000OOol00`00Oomoo`3MOol00`00Oomo
+o`0NOol001moo`03001oogoo0=eoo`03001oogoo01ioo`007goo00<007ooOol0gGoo00<007ooOol0
+7Woo000OOol00`00Oomoo`3MOol00`00Oomoo`0NOol001moo`03001oogoo0=ioo`03001oogoo01eo
+o`007goo00<007ooOol0gWoo00<007ooOol07Goo000OOol00`00Oomoo`3NOol00`00Oomoo`0MOol0
+01moo`800=moo`03001oogoo01eoo`007goo00<007ooOol0ggoo00<007ooOol077oo000OOol00`00
+Oomoo`3OOol00`00Oomoo`0LOol001moo`03001oogoo0=moo`03001oogoo01aoo`007goo00<007oo
+Ool0ggoo00<007ooOol077oo000OOol00`00Oomoo`3POol00`00Oomoo`0KOol0009oo`8000=oo`06
+001oogooOol007oo1@000Woo0P002Goo00<007ooOol0h7oo00<007ooOol06goo00001Goo001oogoo
+00000goo00<007oo000017oo00D007ooOomoo`00009oo`03001oogoo00Ioo`03001oogoo0>1oo`03
+001oogoo01]oo`0000Eoo`00Oomoo`0000Aoo`03001oogoo00=oo`05001oogooOol00002Ool00`00
+Oomoo`06Ool00`00Oomoo`3POol00`00Oomoo`0KOol0009oo`8000Aoo`03001oo`0000Aoo`05001o
+ogooOol00002Ool00`00Oomoo`06Ool3003POol00`00Oomoo`0KOol00005Ool007ooOol00002Ool0
+1@00Oomoogoo00000goo00D007ooOomoo`00009oo`03001oogoo00Ioo`03001oogoo0>1oo`03001o
+ogoo01]oo`000Woo0P002Woo0P0017oo0P000goo00=_Nf]JHaP00goo00<007ooOol0hGoo00<007oo
+Ool06Woo000IOol00fLiOom_N`03Ool00`00Oomoo`3QOol00`00Oomoo`0JOol001Uoo`03DYAS66Li
+00=oo`03001oogoo0>5oo`03001oogoo01Yoo`006Goo00=W>GooOol00goo00<007ooOol0hGoo00<0
+07ooOol06Woo000JOol00fLiJeYoo`02Ool00`00Oomoo`3QOol00`00Oomoo`0JOol001moo`03001o
+ogoo0>5oo`03001oogoo01Yoo`007goo00<007ooOol0hWoo00<007ooOol06Goo000OOol2003SOol0
+0`00Oomoo`0IOol001moo`03001oogoo0>9oo`03001oogoo01Uoo`00ogoo8Goo003oOolQOol00?mo
+ob5oo`00ogoo8Goo0000\
+\>"],
+  ImageRangeCache->{{{0, 287}, {176.938, 0}} -> {-12.8858, -908570, 0.406066, \
+54792.5}}],
+
+Cell[BoxData[
+    FormBox[
+      TagBox[\(\[SkeletonIndicator]  Graphics  \[SkeletonIndicator]\),
+        False,
+        Editable->False], TraditionalForm]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(ListPlot[Table[{i, x[\([i, 2]\)]}, \ {i, \ 1, \ 100}], 
+      PlotJoined -> True\ ]\)], "Input"],
+
+Cell[GraphicsData["PostScript", "\<\
+%!
+%%Creator: Mathematica
+%%AspectRatio: .61803 
+MathPictureStart
+/Mabs {
+Mgmatrix idtransform
+Mtmatrix dtransform
+} bind def
+/Mabsadd { Mabs
+3 -1 roll add
+3 1 roll add
+exch } bind def
+%% Graphics
+%%IncludeResource: font Courier
+%%IncludeFont: Courier
+/Courier findfont 10  scalefont  setfont
+% Scaling calculations
+0.0238095 0.00952381 0.0147151 7.05807e-008 [
+[.21429 .00222 -6 -9 ]
+[.21429 .00222 6 0 ]
+[.40476 .00222 -6 -9 ]
+[.40476 .00222 6 0 ]
+[.59524 .00222 -6 -9 ]
+[.59524 .00222 6 0 ]
+[.78571 .00222 -6 -9 ]
+[.78571 .00222 6 0 ]
+[.97619 .00222 -9 -9 ]
+[.97619 .00222 9 0 ]
+[.01131 .15588 -28.5 -6.25 ]
+[.01131 .15588 0 6.25 ]
+[.01131 .29704 -28.5 -6.25 ]
+[.01131 .29704 0 6.25 ]
+[.01131 .4382 -28.5 -6.25 ]
+[.01131 .4382 0 6.25 ]
+[.01131 .57936 -28.5 -6.25 ]
+[.01131 .57936 0 6.25 ]
+[ 0 0 0 0 ]
+[ 1 .61803 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+0 g
+.25 Mabswid
+[ ] 0 setdash
+.21429 .01472 m
+.21429 .02097 L
+s
+[(20)] .21429 .00222 0 1 Mshowa
+.40476 .01472 m
+.40476 .02097 L
+s
+[(40)] .40476 .00222 0 1 Mshowa
+.59524 .01472 m
+.59524 .02097 L
+s
+[(60)] .59524 .00222 0 1 Mshowa
+.78571 .01472 m
+.78571 .02097 L
+s
+[(80)] .78571 .00222 0 1 Mshowa
+.97619 .01472 m
+.97619 .02097 L
+s
+[(100)] .97619 .00222 0 1 Mshowa
+.125 Mabswid
+.07143 .01472 m
+.07143 .01847 L
+s
+.11905 .01472 m
+.11905 .01847 L
+s
+.16667 .01472 m
+.16667 .01847 L
+s
+.2619 .01472 m
+.2619 .01847 L
+s
+.30952 .01472 m
+.30952 .01847 L
+s
+.35714 .01472 m
+.35714 .01847 L
+s
+.45238 .01472 m
+.45238 .01847 L
+s
+.5 .01472 m
+.5 .01847 L
+s
+.54762 .01472 m
+.54762 .01847 L
+s
+.64286 .01472 m
+.64286 .01847 L
+s
+.69048 .01472 m
+.69048 .01847 L
+s
+.7381 .01472 m
+.7381 .01847 L
+s
+.83333 .01472 m
+.83333 .01847 L
+s
+.88095 .01472 m
+.88095 .01847 L
+s
+.92857 .01472 m
+.92857 .01847 L
+s
+.25 Mabswid
+0 .01472 m
+1 .01472 L
+s
+.02381 .15588 m
+.03006 .15588 L
+s
+gsave
+.01131 .15588 -28.5 -4.25 Mabsadd m
+1 1 Mabs scale
+/Courier findfont 10 scalefont setfont
+(2) show
+/Math1Mono findfont 10 scalefont setfont
+(\\264) show
+/Courier findfont 10 scalefont setfont
+(10) show
+0 5.25 rmoveto
+/Courier findfont 7.5 scalefont setfont
+(6) show
+grestore
+.02381 .29704 m
+.03006 .29704 L
+s
+gsave
+.01131 .29704 -28.5 -4.25 Mabsadd m
+1 1 Mabs scale
+/Courier findfont 10 scalefont setfont
+(4) show
+/Math1Mono findfont 10 scalefont setfont
+(\\264) show
+/Courier findfont 10 scalefont setfont
+(10) show
+0 5.25 rmoveto
+/Courier findfont 7.5 scalefont setfont
+(6) show
+grestore
+.02381 .4382 m
+.03006 .4382 L
+s
+gsave
+.01131 .4382 -28.5 -4.25 Mabsadd m
+1 1 Mabs scale
+/Courier findfont 10 scalefont setfont
+(6) show
+/Math1Mono findfont 10 scalefont setfont
+(\\264) show
+/Courier findfont 10 scalefont setfont
+(10) show
+0 5.25 rmoveto
+/Courier findfont 7.5 scalefont setfont
+(6) show
+grestore
+.02381 .57936 m
+.03006 .57936 L
+s
+gsave
+.01131 .57936 -28.5 -4.25 Mabsadd m
+1 1 Mabs scale
+/Courier findfont 10 scalefont setfont
+(8) show
+/Math1Mono findfont 10 scalefont setfont
+(\\264) show
+/Courier findfont 10 scalefont setfont
+(10) show
+0 5.25 rmoveto
+/Courier findfont 7.5 scalefont setfont
+(6) show
+grestore
+.125 Mabswid
+.02381 .05001 m
+.02756 .05001 L
+s
+.02381 .0853 m
+.02756 .0853 L
+s
+.02381 .12059 m
+.02756 .12059 L
+s
+.02381 .19117 m
+.02756 .19117 L
+s
+.02381 .22646 m
+.02756 .22646 L
+s
+.02381 .26175 m
+.02756 .26175 L
+s
+.02381 .33233 m
+.02756 .33233 L
+s
+.02381 .36762 m
+.02756 .36762 L
+s
+.02381 .40291 m
+.02756 .40291 L
+s
+.02381 .47349 m
+.02756 .47349 L
+s
+.02381 .50878 m
+.02756 .50878 L
+s
+.02381 .54407 m
+.02756 .54407 L
+s
+.02381 .61465 m
+.02756 .61465 L
+s
+.25 Mabswid
+.02381 0 m
+.02381 .61803 L
+s
+0 0 m
+1 0 L
+1 .61803 L
+0 .61803 L
+closepath
+clip
+newpath
+.5 Mabswid
+.03333 .0148 m
+.04286 .01481 L
+.05238 .01482 L
+.0619 .01484 L
+.07143 .01485 L
+.08095 .01487 L
+.09048 .01488 L
+.1 .0149 L
+.10952 .01492 L
+.11905 .01494 L
+.12857 .01496 L
+.1381 .01499 L
+.14762 .01501 L
+.15714 .01504 L
+.16667 .01508 L
+.17619 .01511 L
+.18571 .01515 L
+.19524 .0152 L
+.20476 .01524 L
+.21429 .0153 L
+.22381 .01535 L
+.23333 .01542 L
+.24286 .01549 L
+.25238 .01557 L
+.2619 .01565 L
+.27143 .01575 L
+.28095 .01585 L
+.29048 .01596 L
+.3 .01609 L
+.30952 .01622 L
+.31905 .01637 L
+.32857 .01654 L
+.3381 .01672 L
+.34762 .01692 L
+.35714 .01714 L
+.36667 .01739 L
+.37619 .01766 L
+.38571 .01795 L
+.39524 .01827 L
+.40476 .01863 L
+.41429 .01902 L
+.42381 .01945 L
+.43333 .01992 L
+.44286 .02044 L
+.45238 .02102 L
+.4619 .02165 L
+.47143 .02234 L
+.48095 .0231 L
+.49048 .02394 L
+.5 .02486 L
+Mistroke
+.50952 .02588 L
+.51905 .027 L
+.52857 .02822 L
+.5381 .02958 L
+.54762 .03106 L
+.55714 .0327 L
+.56667 .03449 L
+.57619 .03647 L
+.58571 .03865 L
+.59524 .04104 L
+.60476 .04367 L
+.61429 .04657 L
+.62381 .04975 L
+.63333 .05326 L
+.64286 .05711 L
+.65238 .06135 L
+.6619 .06602 L
+.67143 .07115 L
+.68095 .07679 L
+.69048 .083 L
+.7 .08983 L
+.70952 .09734 L
+.71905 .1056 L
+.72857 .11469 L
+.7381 .12468 L
+.74762 .13568 L
+.75714 .14778 L
+.76667 .16108 L
+.77619 .17572 L
+.78571 .19182 L
+.79524 .20953 L
+.80476 .22902 L
+.81429 .25045 L
+.82381 .27402 L
+.83333 .29995 L
+.84286 .32847 L
+.85238 .35985 L
+.8619 .39436 L
+.87143 .43233 L
+.88095 .47409 L
+.89048 .52002 L
+.9 .57055 L
+Mfstroke
+.9 .57055 m
+.90814 .61803 L
+s
+% End of Graphics
+MathPictureEnd
+\
+\>"], "Graphics",
+  ImageSize->{288, 177.938},
+  ImageMargins->{{35, 0}, {0, 0}},
+  ImageRegion->{{0, 1}, {0, 1}},
+  ImageCache->GraphicsData["Bitmap", "\<\
+CF5dJ6E]HGAYHf4PAg9QL6QYHg<PAVmbKF5d0`40004P0000/A000`40O003h00Oogoo8Goo003oOolQ
+Ool00?moob5oo`00ogoo8Goo003oOolQOol004]oo`@000=oo`8002]oo`<0009oo`8002Qoo`<000Ao
+o`8002Uoo`8000Aoo`8002Ioo`D0009oo`8000Aoo`8000=oo`00Bgoo00<007ooOol00goo00@007oo
+Ool002]oo`04001oogoo0002Ool00`00Oomoo`0UOol01000Oomoo`000Woo00@007ooOol002Moo`04
+001oogoo0002Ool01000Oomoo`009goo00D007ooOomoo`00009oo`04001oogoo0002Ool10001Ool1
+Ool004aoo`03001oogoo009oo`04001oogoo000XOol500001Goo001oogoo00009goo00@007ooOol0
+009oo`04001oogoo000WOol01000Oomoo`000Woo00@007ooOol002Moo`05001oogooOol00002Ool0
+1000Oomoo`000Woo0@000Goo0Goo001=Ool01@00Oomoogoo00000Woo00<007ooOol09Woo00@007oo
+Ool0009oo`04001oogoo000WOol30003Ool01000Oomoo`00:7oo0P000goo00@007ooOol002Moo`05
+001oogooOol00002Ool01000Oomoo`000Woo0@000Goo0Goo001;Ool01000Oomoo`000Woo00@007oo
+Ool002Uoo`03001oo`00009oo`04001oogoo000XOol00`00Oomoo`02Ool01000Oomoo`009goo00@0
+07ooOol0009oo`04001oogoo000WOol01@00Oomoogoo00000Woo00@007ooOol0009oo`40005oo`5o
+o`00C7oo0P0017oo0P00:goo0P000goo0P00:Goo0`000goo0P00:Goo0P0017oo0P009goo0P0017oo
+0P0017oo0P000goo003oOolQOol001moo`03001oogoo0?ioo`007goo00<007ooOol0oWoo000OOol0
+0`00Oomoo`3nOol001moo`03001oogoo0?ioo`006Gooo`001@000goo000OOol00`00Oomoo`0:Ool0
+0`00Oomoo`09Ool00`00Oomoo`09Ool00`00Oomoo`09Ool00`00Oomoo`0:Ool00`00Oomoo`08OolS
+0003Ool00`00Oomoo`09Ool00`00Oomoo`0:Ool00`00Oomoo`09Ool00`00Oomoo`09Ool00`00Oomo
+o`0:Ool00`00Oomoo`09Ool00`00Oomoo`09Ool00`00Oomoo`0:Ool00`00Oomoo`09Ool00`00Oomo
+o`09Ool00`00Oomoo`0:Ool00`00Oomoo`07Ool001moo`03001oogoo02ioo`03001oogoo02moo`03
+001oogoo00Ioo``001aoo`03001oogoo02ioo`03001oogoo02moo`03001oogoo00Moo`007goo00<0
+07ooOol0MGoo2P00Ogoo000OOol00`00Oomoo`1oOol7001hOol001moo`03001oogoo08Ioo`D007=o
+o`007goo00<007ooOol0Rgoo1@00KWoo000OOol00`00Oomoo`2@Ool2001/Ool001moo`03001oogoo
+099oo`D006Moo`007goo0P00V7oo0`00I7oo000OOol00`00Oomoo`2JOol2001ROol001moo`03001o
+ogoo09aoo`<005moo`007goo00<007ooOol0Wgoo0P00GGoo000OOol00`00Oomoo`2QOol2001KOol0
+01moo`03001oogoo0:=oo`8005Uoo`007goo00<007ooOol0YGoo00<007ooOol0EWoo000OOol00`00
+Oomoo`2VOol2001FOol001moo`03001oogoo0:Qoo`8005Aoo`007goo0P00Zgoo00<007ooOol0DGoo
+000OOol00`00Oomoo`2[Ool00`00Oomoo`1@Ool001moo`03001oogoo0:aoo`03001oogoo04moo`00
+7goo00<007ooOol0[Goo0P00Cgoo000OOol00`00Oomoo`2_Ool00`00Oomoo`1<Ool001moo`03001o
+ogoo0;1oo`03001oogoo04]oo`007goo00<007ooOol0/Goo00<007ooOol0BWoo000OOol00`00Oomo
+o`2bOol00`00Oomoo`19Ool001moo`03001oogoo0;=oo`03001oogoo04Qoo`007goo00<007ooOol0
+]7oo00<007ooOol0Agoo000OOol2002fOol00`00Oomoo`16Ool001moo`03001oogoo0;Ioo`03001o
+ogoo04Eoo`007goo00<007ooOol0]goo00<007ooOol0A7oo000OOol00`00Oomoo`2hOol00`00Oomo
+o`13Ool001moo`03001oogoo0;Uoo`03001oogoo049oo`0000=oo`0000000P000Woo00H007ooOomo
+o`00Ool50002Ool20009Ool00`00Oomoo`2iOol00`00Oomoo`12Ool00003Ool007oo00Eoo`03001o
+o`0000Aoo`05001oogooOol00002Ool00`00Oomoo`06Ool00`00Oomoo`2jOol00`00Oomoo`11Ool0
+009oo`03001oogoo00Aoo`03001oogoo00=oo`05001oogooOol00002Ool00`00Oomoo`06Ool00`00
+Oomoo`2kOol00`00Oomoo`10Ool000=oo`03001oogoo009oo`03001oo`0000Aoo`05001oogooOol0
+0002Ool00`00Oomoo`06Ool00`00Oomoo`2lOol00`00Oomoo`0oOol00005Ool007ooOol00002Ool0
+1@00Oomoogoo00000goo00D007ooOomoo`00009oo`03001oogoo00Ioo`<00;aoo`03001oogoo03mo
+o`000Woo0P002Woo0P0017oo0P002Goo00<007ooOol0_Goo00<007ooOol0?Woo000IOol00fmkJeYS
+6003Ool00`00Oomoo`2nOol00`00Oomoo`0mOol001Uoo`03IcUoofmk00=oo`03001oogoo0;ioo`03
+001oogoo03eoo`006Goo00=BU6<HIcT00goo00<007ooOol0_goo00<007ooOol0?7oo000IOol00fLi
+Oomoo`03Ool00`00Oomoo`30Ool00`00Oomoo`0kOol001Yoo`03IcU[FWoo009oo`03001oogoo0<1o
+o`03001oogoo03]oo`007goo00<007ooOol0`Goo00<007ooOol0>Woo000OOol00`00Oomoo`31Ool0
+0`00Oomoo`0jOol001moo`800<=oo`03001oogoo03Uoo`007goo00<007ooOol0`goo00<007ooOol0
+>7oo000OOol00`00Oomoo`33Ool00`00Oomoo`0hOol001moo`03001oogoo0<Aoo`03001oogoo03Mo
+o`007goo00<007ooOol0a7oo00<007ooOol0=goo000OOol00`00Oomoo`35Ool00`00Oomoo`0fOol0
+01moo`03001oogoo0<Eoo`03001oogoo03Ioo`007goo00<007ooOol0aWoo00<007ooOol0=Goo000O
+Ool00`00Oomoo`36Ool00`00Oomoo`0eOol001moo`800<Qoo`03001oogoo03Aoo`007goo00<007oo
+Ool0agoo00<007ooOol0=7oo000OOol00`00Oomoo`38Ool00`00Oomoo`0cOol001moo`03001oogoo
+0<Qoo`03001oogoo03=oo`007goo00<007ooOol0bGoo00<007ooOol0<Woo000OOol00`00Oomoo`39
+Ool00`00Oomoo`0bOol001moo`03001oogoo0<Yoo`03001oogoo035oo`007goo00<007ooOol0bWoo
+00<007ooOol0<Goo000OOol00`00Oomoo`3;Ool00`00Oomoo`0`Ool001moo`800<aoo`03001oogoo
+031oo`007goo00<007ooOol0bgoo00<007ooOol0<7oo000OOol00`00Oomoo`3<Ool00`00Oomoo`0_
+Ool001moo`03001oogoo0<aoo`03001oogoo02moo`007goo00<007ooOol0c7oo00<007ooOol0;goo
+000OOol00`00Oomoo`3=Ool00`00Oomoo`0^Ool000=oo`<00003Ool007oo009oo`03001oo`0000@0
+009oo`8000Uoo`03001oogoo0<eoo`03001oogoo02ioo`0017oo00L007ooOomoo`00Ool00004Ool0
+1@00Oomoogoo00000Woo00<007ooOol01Woo00<007ooOol0cWoo00<007ooOol0;Goo00000goo0000
+00030003Ool00`00Oomoo`03Ool01@00Oomoogoo00000Woo00<007ooOol01Woo00<007ooOol0cWoo
+00<007ooOol0;Goo00001Goo001oogoo00000goo00<007oo000017oo00D007ooOomoo`00009oo`03
+001oogoo00Ioo`<00<moo`03001oogoo02aoo`000Woo00<007oo00000Woo00D007ooOomoo`0000=o
+o`05001oogooOol00002Ool00`00Oomoo`06Ool00`00Oomoo`3?Ool00`00Oomoo`0/Ool000=oo`80
+00Uoo`8000Aoo`8000=oo`03Kg][FV<H00=oo`03001oogoo0<moo`03001oogoo02aoo`006Goo00=W
+>GooKg/00goo00<007ooOol0d7oo00<007ooOol0:goo000IOol00e:DHaQW>@03Ool00`00Oomoo`3@
+Ool00`00Oomoo`0[Ool001Uoo`03IcUoogoo00=oo`03001oogoo0=1oo`03001oogoo02]oo`006Woo
+00=W>F]JOol00Woo00<007ooOol0d7oo00<007ooOol0:goo000OOol00`00Oomoo`3AOol00`00Oomo
+o`0ZOol001moo`03001oogoo0=5oo`03001oogoo02Yoo`007goo0P00dWoo00<007ooOol0:Woo000O
+Ool00`00Oomoo`3AOol00`00Oomoo`0ZOol001moo`03001oogoo0=9oo`03001oogoo02Uoo`007goo
+00<007ooOol0dWoo00<007ooOol0:Goo000OOol00`00Oomoo`3BOol00`00Oomoo`0YOol001moo`03
+001oogoo0=9oo`03001oogoo02Uoo`007goo00<007ooOol0dgoo00<007ooOol0:7oo000OOol00`00
+Oomoo`3COol00`00Oomoo`0XOol001moo`03001oogoo0==oo`03001oogoo02Qoo`007goo0P00eGoo
+00<007ooOol09goo000OOol00`00Oomoo`3DOol00`00Oomoo`0WOol001moo`03001oogoo0=Aoo`03
+001oogoo02Moo`007goo00<007ooOol0eGoo00<007ooOol09Woo000OOol00`00Oomoo`3EOol00`00
+Oomoo`0VOol001moo`03001oogoo0=Eoo`03001oogoo02Ioo`007goo00<007ooOol0eWoo00<007oo
+Ool09Goo000OOol00`00Oomoo`3FOol00`00Oomoo`0UOol001moo`03001oogoo0=Ioo`03001oogoo
+02Eoo`007goo00<007ooOol0eWoo00<007ooOol09Goo000OOol2003HOol00`00Oomoo`0TOol001mo
+o`03001oogoo0=Moo`03001oogoo02Aoo`007goo00<007ooOol0egoo00<007ooOol097oo000OOol0
+0`00Oomoo`3GOol00`00Oomoo`0TOol001moo`03001oogoo0=Moo`03001oogoo02Aoo`0000Aoo`00
+000000=oo`06001oogooOol007oo1@000Woo0P002Goo00<007ooOol0f7oo00<007ooOol08goo0000
+1Goo001oogoo00000goo00<007oo000017oo00D007ooOomoo`00009oo`03001oogoo00Ioo`03001o
+ogoo0=Qoo`03001oogoo02=oo`0000Eoo`00Oomoo`0000Aoo`03001oogoo00=oo`05001oogooOol0
+0002Ool00`00Oomoo`06Ool00`00Oomoo`3HOol00`00Oomoo`0SOol00004Ool000000004Ool00`00
+Ool00004Ool01@00Oomoogoo00000Woo00<007ooOol01Woo00<007ooOol0f7oo00<007ooOol08goo
+0002Ool00`00Oomoo`02Ool01@00Oomoogoo00000goo00D007ooOomoo`00009oo`03001oogoo00Io
+o`<00=Uoo`03001oogoo029oo`000Woo0`002Goo0P0017oo0P002Goo00<007ooOol0fGoo00<007oo
+Ool08Woo000IOol00fmkJeYS6003Ool00`00Oomoo`3IOol00`00Oomoo`0ROol001Uoo`03IcUoofmk
+00=oo`03001oogoo0=Uoo`03001oogoo029oo`006Goo00=BU6<HIcT00goo00<007ooOol0fWoo00<0
+07ooOol08Goo000IOol00fLiOomoo`03Ool00`00Oomoo`3JOol00`00Oomoo`0QOol001Yoo`03IcU[
+FWoo009oo`03001oogoo0=Yoo`03001oogoo025oo`007goo00<007ooOol0fWoo00<007ooOol08Goo
+000OOol00`00Oomoo`3KOol00`00Oomoo`0POol001moo`800=aoo`03001oogoo021oo`007goo00<0
+07ooOol0fgoo00<007ooOol087oo000OOol00`00Oomoo`3KOol00`00Oomoo`0POol001moo`03001o
+ogoo0=]oo`03001oogoo021oo`007goo00<007ooOol0g7oo00<007ooOol07goo000OOol00`00Oomo
+o`3LOol00`00Oomoo`0OOol001moo`03001oogoo0=aoo`03001oogoo01moo`007goo00<007ooOol0
+g7oo00<007ooOol07goo000OOol00`00Oomoo`3LOol00`00Oomoo`0OOol001moo`800=eoo`03001o
+ogoo01moo`007goo00<007ooOol0gGoo00<007ooOol07Woo000OOol00`00Oomoo`3MOol00`00Oomo
+o`0NOol001moo`03001oogoo0=eoo`03001oogoo01ioo`007goo00<007ooOol0gGoo00<007ooOol0
+7Woo000OOol00`00Oomoo`3MOol00`00Oomoo`0NOol001moo`03001oogoo0=ioo`03001oogoo01eo
+o`007goo00<007ooOol0gWoo00<007ooOol07Goo000OOol00`00Oomoo`3NOol00`00Oomoo`0MOol0
+01moo`800=moo`03001oogoo01eoo`007goo00<007ooOol0ggoo00<007ooOol077oo000OOol00`00
+Oomoo`3OOol00`00Oomoo`0LOol001moo`03001oogoo0=moo`03001oogoo01aoo`007goo00<007oo
+Ool0ggoo00<007ooOol077oo000OOol00`00Oomoo`3POol00`00Oomoo`0KOol0009oo`8000=oo`06
+001oogooOol007oo1@000Woo0P002Goo00<007ooOol0h7oo00<007ooOol06goo00001Goo001oogoo
+00000goo00<007oo000017oo00D007ooOomoo`00009oo`03001oogoo00Ioo`03001oogoo0>1oo`03
+001oogoo01]oo`0000Eoo`00Oomoo`0000Aoo`03001oogoo00=oo`05001oogooOol00002Ool00`00
+Oomoo`06Ool00`00Oomoo`3POol00`00Oomoo`0KOol0009oo`8000Aoo`03001oo`0000Aoo`05001o
+ogooOol00002Ool00`00Oomoo`06Ool3003POol00`00Oomoo`0KOol00005Ool007ooOol00002Ool0
+1@00Oomoogoo00000goo00D007ooOomoo`00009oo`03001oogoo00Ioo`03001oogoo0>1oo`03001o
+ogoo01]oo`000Woo0P002Woo0P0017oo0P000goo00=_Nf]JHaP00goo00<007ooOol0hGoo00<007oo
+Ool06Woo000IOol00fLiOom_N`03Ool00`00Oomoo`3QOol00`00Oomoo`0JOol001Uoo`03DYAS66Li
+00=oo`03001oogoo0>5oo`03001oogoo01Yoo`006Goo00=W>GooOol00goo00<007ooOol0hGoo00<0
+07ooOol06Woo000JOol00fLiJeYoo`02Ool00`00Oomoo`3QOol00`00Oomoo`0JOol001moo`03001o
+ogoo0>5oo`03001oogoo01Yoo`007goo00<007ooOol0hWoo00<007ooOol06Goo000OOol2003SOol0
+0`00Oomoo`0IOol001moo`03001oogoo0>9oo`03001oogoo01Uoo`00ogoo8Goo003oOolQOol00?mo
+ob5oo`00ogoo8Goo0000\
+\>"],
+  ImageRangeCache->{{{0, 287}, {176.938, 0}} -> {-12.8858, -908570, 0.406066, \
+54792.5}}],
+
+Cell[BoxData[
+    FormBox[
+      TagBox[\(\[SkeletonIndicator]  Graphics  \[SkeletonIndicator]\),
+        False,
+        Editable->False], TraditionalForm]], "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Part (a): k = 0.18", "Section"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Eigenvalues[A[0.18]]\)], "Input"],
+
+Cell[BoxData[
+    \(TraditionalForm\`{0.8999999999999999`, 0.8999999999999999`}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(x = Table[MatrixPower[A[0.18], i] . x0, {i, 1, 100}];\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(ListPlot[Table[{i, x[\([i, 1]\)]}, \ {i, \ 1, \ 100}], 
+      PlotJoined -> True\ ]\)], "Input"],
+
+Cell[GraphicsData["PostScript", "\<\
+%!
+%%Creator: Mathematica
+%%AspectRatio: .61803 
+MathPictureStart
+/Mabs {
+Mgmatrix idtransform
+Mtmatrix dtransform
+} bind def
+/Mabsadd { Mabs
+3 -1 roll add
+3 1 roll add
+exch } bind def
+%% Graphics
+%%IncludeResource: font Courier
+%%IncludeFont: Courier
+/Courier findfont 10  scalefont  setfont
+% Scaling calculations
+0.0238095 0.00952381 0.0147151 0.000316519 [
+[.21429 .00222 -6 -9 ]
+[.21429 .00222 6 0 ]
+[.40476 .00222 -6 -9 ]
+[.40476 .00222 6 0 ]
+[.59524 .00222 -6 -9 ]
+[.59524 .00222 6 0 ]
+[.78571 .00222 -6 -9 ]
+[.78571 .00222 6 0 ]
+[.97619 .00222 -9 -9 ]
+[.97619 .00222 9 0 ]
+[.01131 .09384 -18 -4.5 ]
+[.01131 .09384 0 4.5 ]
+[.01131 .17297 -18 -4.5 ]
+[.01131 .17297 0 4.5 ]
+[.01131 .2521 -18 -4.5 ]
+[.01131 .2521 0 4.5 ]
+[.01131 .33123 -24 -4.5 ]
+[.01131 .33123 0 4.5 ]
+[.01131 .41036 -24 -4.5 ]
+[.01131 .41036 0 4.5 ]
+[.01131 .48949 -24 -4.5 ]
+[.01131 .48949 0 4.5 ]
+[.01131 .56862 -24 -4.5 ]
+[.01131 .56862 0 4.5 ]
+[ 0 0 0 0 ]
+[ 1 .61803 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+0 g
+.25 Mabswid
+[ ] 0 setdash
+.21429 .01472 m
+.21429 .02097 L
+s
+[(20)] .21429 .00222 0 1 Mshowa
+.40476 .01472 m
+.40476 .02097 L
+s
+[(40)] .40476 .00222 0 1 Mshowa
+.59524 .01472 m
+.59524 .02097 L
+s
+[(60)] .59524 .00222 0 1 Mshowa
+.78571 .01472 m
+.78571 .02097 L
+s
+[(80)] .78571 .00222 0 1 Mshowa
+.97619 .01472 m
+.97619 .02097 L
+s
+[(100)] .97619 .00222 0 1 Mshowa
+.125 Mabswid
+.07143 .01472 m
+.07143 .01847 L
+s
+.11905 .01472 m
+.11905 .01847 L
+s
+.16667 .01472 m
+.16667 .01847 L
+s
+.2619 .01472 m
+.2619 .01847 L
+s
+.30952 .01472 m
+.30952 .01847 L
+s
+.35714 .01472 m
+.35714 .01847 L
+s
+.45238 .01472 m
+.45238 .01847 L
+s
+.5 .01472 m
+.5 .01847 L
+s
+.54762 .01472 m
+.54762 .01847 L
+s
+.64286 .01472 m
+.64286 .01847 L
+s
+.69048 .01472 m
+.69048 .01847 L
+s
+.7381 .01472 m
+.7381 .01847 L
+s
+.83333 .01472 m
+.83333 .01847 L
+s
+.88095 .01472 m
+.88095 .01847 L
+s
+.92857 .01472 m
+.92857 .01847 L
+s
+.25 Mabswid
+0 .01472 m
+1 .01472 L
+s
+.02381 .09384 m
+.03006 .09384 L
+s
+[(250)] .01131 .09384 1 0 Mshowa
+.02381 .17297 m
+.03006 .17297 L
+s
+[(500)] .01131 .17297 1 0 Mshowa
+.02381 .2521 m
+.03006 .2521 L
+s
+[(750)] .01131 .2521 1 0 Mshowa
+.02381 .33123 m
+.03006 .33123 L
+s
+[(1000)] .01131 .33123 1 0 Mshowa
+.02381 .41036 m
+.03006 .41036 L
+s
+[(1250)] .01131 .41036 1 0 Mshowa
+.02381 .48949 m
+.03006 .48949 L
+s
+[(1500)] .01131 .48949 1 0 Mshowa
+.02381 .56862 m
+.03006 .56862 L
+s
+[(1750)] .01131 .56862 1 0 Mshowa
+.125 Mabswid
+.02381 .03054 m
+.02756 .03054 L
+s
+.02381 .04637 m
+.02756 .04637 L
+s
+.02381 .06219 m
+.02756 .06219 L
+s
+.02381 .07802 m
+.02756 .07802 L
+s
+.02381 .10967 m
+.02756 .10967 L
+s
+.02381 .1255 m
+.02756 .1255 L
+s
+.02381 .14132 m
+.02756 .14132 L
+s
+.02381 .15715 m
+.02756 .15715 L
+s
+.02381 .1888 m
+.02756 .1888 L
+s
+.02381 .20463 m
+.02756 .20463 L
+s
+.02381 .22045 m
+.02756 .22045 L
+s
+.02381 .23628 m
+.02756 .23628 L
+s
+.02381 .26793 m
+.02756 .26793 L
+s
+.02381 .28376 m
+.02756 .28376 L
+s
+.02381 .29958 m
+.02756 .29958 L
+s
+.02381 .31541 m
+.02756 .31541 L
+s
+.02381 .34706 m
+.02756 .34706 L
+s
+.02381 .36289 m
+.02756 .36289 L
+s
+.02381 .37871 m
+.02756 .37871 L
+s
+.02381 .39454 m
+.02756 .39454 L
+s
+.02381 .42619 m
+.02756 .42619 L
+s
+.02381 .44202 m
+.02756 .44202 L
+s
+.02381 .45784 m
+.02756 .45784 L
+s
+.02381 .47367 m
+.02756 .47367 L
+s
+.02381 .50532 m
+.02756 .50532 L
+s
+.02381 .52114 m
+.02756 .52114 L
+s
+.02381 .53697 m
+.02756 .53697 L
+s
+.02381 .5528 m
+.02756 .5528 L
+s
+.02381 .58445 m
+.02756 .58445 L
+s
+.02381 .60027 m
+.02756 .60027 L
+s
+.02381 .6161 m
+.02756 .6161 L
+s
+.25 Mabswid
+.02381 0 m
+.02381 .61803 L
+s
+0 0 m
+1 0 L
+1 .61803 L
+0 .61803 L
+closepath
+clip
+newpath
+.5 Mabswid
+.03333 .19197 m
+.04286 .30813 L
+.05238 .39929 L
+.0619 .46928 L
+.07143 .52142 L
+.08095 .5586 L
+.09048 .58327 L
+.1 .59757 L
+.10952 .60332 L
+.11905 .60209 L
+.12857 .59523 L
+.1381 .58386 L
+.14762 .56896 L
+.15714 .55135 L
+.16667 .53172 L
+.17619 .51065 L
+.18571 .48862 L
+.19524 .46604 L
+.20476 .44323 L
+.21429 .42048 L
+.22381 .39799 L
+.23333 .37594 L
+.24286 .35447 L
+.25238 .33368 L
+.2619 .31365 L
+.27143 .29443 L
+.28095 .27607 L
+.29048 .25859 L
+.3 .24199 L
+.30952 .22627 L
+.31905 .21142 L
+.32857 .19742 L
+.3381 .18426 L
+.34762 .1719 L
+.35714 .16032 L
+.36667 .14948 L
+.37619 .13936 L
+.38571 .12991 L
+.39524 .12111 L
+.40476 .11291 L
+.41429 .10529 L
+.42381 .09821 L
+.43333 .09164 L
+.44286 .08555 L
+.45238 .07991 L
+.4619 .07469 L
+.47143 .06986 L
+.48095 .0654 L
+.49048 .06128 L
+.5 .05747 L
+Mistroke
+.50952 .05396 L
+.51905 .05073 L
+.52857 .04775 L
+.5381 .045 L
+.54762 .04248 L
+.55714 .04015 L
+.56667 .03802 L
+.57619 .03605 L
+.58571 .03425 L
+.59524 .03259 L
+.60476 .03107 L
+.61429 .02968 L
+.62381 .0284 L
+.63333 .02722 L
+.64286 .02615 L
+.65238 .02516 L
+.6619 .02426 L
+.67143 .02343 L
+.68095 .02268 L
+.69048 .02198 L
+.7 .02135 L
+.70952 .02077 L
+.71905 .02024 L
+.72857 .01976 L
+.7381 .01931 L
+.74762 .01891 L
+.75714 .01854 L
+.76667 .0182 L
+.77619 .01789 L
+.78571 .01761 L
+.79524 .01735 L
+.80476 .01712 L
+.81429 .01691 L
+.82381 .01671 L
+.83333 .01653 L
+.84286 .01637 L
+.85238 .01622 L
+.8619 .01609 L
+.87143 .01596 L
+.88095 .01585 L
+.89048 .01575 L
+.9 .01566 L
+.90952 .01557 L
+.91905 .01549 L
+.92857 .01542 L
+.9381 .01536 L
+.94762 .0153 L
+.95714 .01525 L
+.96667 .0152 L
+.97619 .01515 L
+Mistroke
+Mfstroke
+% End of Graphics
+MathPictureEnd
+\
+\>"], "Graphics",
+  ImageSize->{288, 177.938},
+  ImageMargins->{{35, 0}, {0, 0}},
+  ImageRegion->{{0, 1}, {0, 1}},
+  ImageCache->GraphicsData["Bitmap", "\<\
+CF5dJ6E]HGAYHf4PAg9QL6QYHg<PAVmbKF5d0`40004P0000/A000`40O003h00Oogoo8Goo003oOolQ
+Ool00?moob5oo`00B7oo10000goo0P00:goo0`000Woo0P00:Goo0`0017oo0P00:Woo0P0017oo0P00
+9goo1@000Woo0P0017oo0P000goo0018Ool00`00Oomoo`03Ool01000Oomoo`00:goo00@007ooOol0
+009oo`03001oogoo02Ioo`04001oogoo0002Ool01000Oomoo`00:7oo00@007ooOol0009oo`04001o
+ogoo000XOol01@00Oomoogoo00000Woo00@007ooOol0009oo`40005oo`5oo`00BGoo00<007ooOol0
+0Woo00@007ooOol002Qoo`D00005Ool007ooOol0000XOol01000Oomoo`000Woo00@007ooOol002Qo
+o`04001oogoo0002Ool01000Oomoo`00:7oo00D007ooOomoo`00009oo`04001oogoo0002Ool10001
+Ool1Ool004Yoo`05001oogooOol00002Ool00`00Oomoo`0VOol01000Oomoo`000Woo00@007ooOol0
+02Qoo`<000=oo`04001oogoo000YOol20003Ool01000Oomoo`00:7oo00D007ooOomoo`00009oo`04
+001oogoo0002Ool10001Ool1Ool004Qoo`04001oogoo0002Ool01000Oomoo`00:Goo00<007oo0000
+0Woo00@007ooOol002Uoo`03001oogoo009oo`04001oogoo000XOol01000Oomoo`000Woo00@007oo
+Ool002Qoo`05001oogooOol00002Ool01000Oomoo`000Woo0@000Goo0Goo0019Ool20004Ool2000[
+Ool20003Ool2000ZOol30003Ool2000ZOol20004Ool2000XOol20004Ool20004Ool20003Ool00?mo
+ob5oo`00ogoo8Goo000KOol00`00Oomoo`3oOol3Ool001]oo`03001oogoo0?moo`=oo`006goo00<0
+07ooOol0ogoo0goo000KOol00`00Oomoo`3oOol3Ool001Eoool000T000=oo`006goo00<007ooOol0
+2Goo00<007ooOol02Woo00<007ooOol02Goo00<007ooOol02Woo00<007ooOol02Goo00<007ooOol0
+2Woo00<007ooOol02Woo00<007ooOol02Goo00<007ooOol02Woo00<007ooOol02Goo00<007ooOol0
+2Woo00<007ooOol02Goo00<007ooOol02Woo00<007ooOol02Goo00<007ooOol00Woo5P002goo00<0
+07ooOol02Goo00<007ooOol02Woo00<007ooOol02Woo00<007ooOol01goo000KOol00`00Oomoo`2T
+Ool=001AOol001]oo`03001oogoo09Yoo`X005ioo`006goo0P00U7oo1`00J7oo000KOol00`00Oomo
+o`2>Ool5001_Ool001]oo`03001oogoo08Uoo`D007Aoo`006goo00<007ooOol0QWoo0`00NGoo000K
+Ool20022Ool5001lOol001]oo`03001oogoo07moo`80085oo`006goo00<007ooOol0O7oo0`00Pgoo
+000KOol00`00Oomoo`1jOol20026Ool001]oo`8007Qoo`<008Qoo`006goo00<007ooOol0MGoo0P00
+Rgoo000KOol00`00Oomoo`1cOol2002=Ool001]oo`03001oogoo075oo`8008moo`006goo0P00LGoo
+00<007ooOol0Sgoo000KOol00`00Oomoo`1]Ool3002BOol001]oo`03001oogoo06]oo`8009Eoo`00
+1goo10000goo0P0017oo0P001Goo00<007ooOol0JWoo00<007ooOol0UGoo0007Ool00`00Oomoo`03
+Ool01000Oomoo`000Woo00@007ooOol000Aoo`03001oogoo06Uoo`03001oogoo09Ioo`0027oo00<0
+07ooOol01Goo00@007ooOol0009oo`03001oogoo009oo`8006Qoo`8009Uoo`002Goo00<007ooOol0
+0Woo0P000goo00@007ooOol000Aoo`03001oogoo06Ioo`03001oogoo09Uoo`001goo00@007ooOol0
+00=oo`03001oogoo009oo`04001oogoo0004Ool00`00Oomoo`1UOol00`00Oomoo`2JOol000Qoo`80
+00Aoo`<000=oo`8000Eoo`03001oogoo06Aoo`03001oogoo09]oo`006goo0P00Hgoo0P00WWoo000K
+Ool00`00Oomoo`1QOol00`00Oomoo`2NOol001]oo`03001oogoo061oo`03001oogoo09moo`006goo
+00<007ooOol0Ggoo00<007ooOol0X7oo000KOol2001NOol2002SOol001]oo`03001oogoo05aoo`03
+001oogoo0:=oo`006goo00<007ooOol0Fgoo00<007ooOol0Y7oo000KOol00`00Oomoo`1KOol00`00
+Oomoo`2TOol001]oo`8005]oo`03001oogoo0:Eoo`006goo00<007ooOol0F7oo0P00Z7oo000KOol0
+0`00Oomoo`1GOol00`00Oomoo`2XOol001]oo`03001oogoo05Ioo`03001oogoo0:Uoo`006goo0P00
+Egoo00<007ooOol0ZGoo000KOol00`00Oomoo`1EOol00`00Oomoo`2ZOol000Qoo`8000Aoo`8000Ao
+o`8000Eoo`03001oogoo05Aoo`03001oogoo0:]oo`001goo00@007ooOol0009oo`04001oogoo0002
+Ool01000Oomoo`0017oo00<007ooOol0Dgoo00<007ooOol0[7oo000:Ool01000Oomoo`000Woo00@0
+07ooOol0009oo`03001oogoo009oo`8005=oo`03001oogoo0:eoo`0027oo0P000goo00@007ooOol0
+009oo`04001oogoo0004Ool00`00Oomoo`1AOol00`00Oomoo`2^Ool000Qoo`03001oogoo009oo`04
+001oogoo0002Ool01000Oomoo`0017oo00<007ooOol0DGoo00<007ooOol0[Woo0008Ool30003Ool2
+0004Ool20005Ool00`00Oomoo`1@Ool00`00Oomoo`2_Ool001]oo`03001oogoo04moo`03001oogoo
+0;1oo`006goo0`00CWoo00<007ooOol0/Goo000KOol00`00Ool0001>Ool00`00Oomoo`2aOol001]o
+o`03001oo`0004eoo`03001oogoo0;9oo`006goo00<007oo0000C7oo00<007ooOol0/goo000KOol3
+001<Ool00`00Oomoo`2cOol001]oo`03001oo`0004]oo`03001oogoo0;Aoo`006goo00@007ooOol0
+04Yoo`03001oogoo0;Aoo`006goo00@007ooOol004Uoo`03001oogoo0;Eoo`006goo0P0000=oo`00
+Ool0Agoo00<007ooOol0]Woo000KOol01000Oomoo`00Agoo00<007ooOol0]goo000KOol01000Oomo
+o`00AWoo00<007ooOol0^7oo000KOol01000Oomoo`00AWoo00<007ooOol0^7oo000KOol200000goo
+001oo`14Ool00`00Oomoo`2iOol001]oo`04001oogoo0015Ool00`00Oomoo`2iOol000Uoo`03001o
+ogoo009oo`8000Aoo`8000Eoo`04001oogoo0014Ool00`00Oomoo`2jOol000Uoo`05001oogooOol0
+0002Ool01000Oomoo`000Woo00<007ooOol00Woo00@007ooOol004=oo`03001oogoo0;]oo`002Goo
+00<007ooOol017oo00@007ooOol0009oo`03001oogoo009oo`80009oo`03001oogoo041oo`03001o
+ogoo0;]oo`002Woo00@007ooOomoo`8000=oo`04001oogoo0004Ool01@00Oomoogoo0000@Goo00<0
+07ooOol0_7oo0007Ool01000Oomoo`000goo00<007ooOol00Woo00@007ooOol000Aoo`05001oogoo
+Ool00011Ool00`00Oomoo`2lOol000Moo`@000=oo`<000=oo`8000Eoo`05001oogooOol00010Ool0
+0`00Oomoo`2mOol001]oo`80009oo`03001oogoo03ioo`03001oogoo0;eoo`006goo00D007ooOomo
+o`0003moo`03001oogoo0;ioo`006goo00D007ooOomoo`0003moo`03001oogoo0;ioo`006goo00D0
+07ooOomoo`0003ioo`03001oogoo0;moo`006goo00D007ooOomoo`0003eoo`03001oogoo0<1oo`00
+6goo0P000Woo00<007ooOol0>goo00<007ooOol0`7oo000KOol00`00Oomoo`02Ool00`00Oomoo`0i
+Ool00`00Oomoo`31Ool001]oo`03001oogoo009oo`03001oogoo03Uoo`03001oogoo0<5oo`006goo
+00<007ooOol00Woo00<007ooOol0>7oo00<007ooOol0`Woo000KOol20003Ool00`00Oomoo`0hOol0
+0`00Oomoo`32Ool001]oo`03001oogoo009oo`03001oogoo03Moo`03001oogoo0<=oo`006goo00<0
+07ooOol00Woo00<007ooOol0=goo00<007ooOol0`goo000KOol00`00Oomoo`02Ool00`00Oomoo`0f
+Ool00`00Oomoo`34Ool001]oo`8000=oo`03001oogoo03Ioo`03001oogoo0<Aoo`006goo00<007oo
+Ool00Woo00<007ooOol0=Goo00<007ooOol0aGoo00000goo000000030002Ool20004Ool20004Ool2
+0005Ool00`00Oomoo`02Ool00`00Oomoo`0eOol00`00Oomoo`35Ool000=oo`05001oogooOol00002
+Ool01000Oomoo`000Woo00@007ooOol0009oo`03001oogoo009oo`03001oogoo009oo`03001oogoo
+03Eoo`03001oogoo0<Eoo`000goo00D007ooOomoo`00009oo`04001oogoo0002Ool01000Oomoo`00
+0Woo00<007ooOol00Woo0P000goo00<007ooOol0=7oo00<007ooOol0aWoo0003Ool01@00Oomoogoo
+00000Woo00@007ooOol0009oo`04001oogoo0002Ool00`00Oomoo`02Ool00`00Oomoo`03Ool00`00
+Oomoo`0cOol00`00Oomoo`36Ool000=oo`05001oogooOol00002Ool01000Oomoo`000Woo00@007oo
+Ool0009oo`03001oogoo009oo`03001oogoo00=oo`03001oogoo039oo`03001oogoo0<Moo`000Woo
+0P0017oo0P0017oo0P0017oo0P001Goo00<007ooOol00goo00<007ooOol0<Woo00<007ooOol0agoo
+000KOol20004Ool00`00Oomoo`0aOol00`00Oomoo`38Ool001]oo`03001oogoo00=oo`03001oogoo
+035oo`03001oogoo0<Qoo`006goo00<007ooOol00goo00<007ooOol0<7oo00<007ooOol0bGoo000K
+Ool00`00Oomoo`03Ool00`00Oomoo`0`Ool00`00Oomoo`39Ool001]oo`8000Aoo`03001oogoo02mo
+o`03001oogoo0<Yoo`006goo00<007ooOol00goo00<007ooOol0;goo00<007ooOol0bWoo000KOol0
+0`00Oomoo`03Ool00`00Oomoo`0_Ool00`00Oomoo`3:Ool001]oo`03001oogoo00=oo`03001oogoo
+02ioo`03001oogoo0<]oo`006goo00<007ooOol00goo00<007ooOol0;Woo00<007ooOol0bgoo000K
+Ool20005Ool00`00Oomoo`0/Ool00`00Oomoo`3<Ool001]oo`03001oogoo00Aoo`03001oogoo02ao
+o`03001oogoo0<aoo`006goo00<007ooOol017oo00<007ooOol0:goo00<007ooOol0cGoo000KOol0
+0`00Oomoo`04Ool00`00Oomoo`0[Ool00`00Oomoo`3=Ool001]oo`8000Eoo`03001oogoo02Yoo`03
+001oogoo0<ioo`006goo00<007ooOol017oo00<007ooOol0:Woo00<007ooOol0cWoo00000goo0000
+000300000goo000000020003Ool20004Ool20005Ool00`00Oomoo`04Ool00`00Oomoo`0ZOol00`00
+Oomoo`3>Ool000=oo`05001oogooOol00005Ool01000Oomoo`000Woo00@007ooOol000Aoo`03001o
+ogoo00Aoo`03001oogoo02Uoo`03001oogoo0<moo`000goo00<007ooOol00Woo00<007ooOol01Goo
+00@007ooOol0009oo`03001oogoo009oo`8000Eoo`03001oogoo02Uoo`03001oogoo0<moo`000goo
+00<007ooOol00goo00<007ooOol00Woo0P000goo00@007ooOol000Aoo`03001oogoo00Eoo`03001o
+ogoo02Qoo`03001oogoo0<moo`000goo00D007ooOomoo`00009oo`05001oogooOol00004Ool01000
+Oomoo`0017oo00<007ooOol01Goo00<007ooOol09goo00<007ooOol0d7oo0002Ool20004Ool20004
+Ool30003Ool20005Ool00`00Oomoo`05Ool00`00Oomoo`0WOol00`00Oomoo`3@Ool001]oo`8000Io
+o`03001oogoo02Ioo`03001oogoo0=5oo`006goo00<007ooOol01Goo00<007ooOol09Woo00<007oo
+Ool0dGoo000KOol00`00Oomoo`05Ool00`00Oomoo`0UOol00`00Oomoo`3BOol001]oo`03001oogoo
+00Ioo`03001oogoo02Aoo`03001oogoo0=9oo`006goo0P001goo00<007ooOol08goo00<007ooOol0
+dgoo000KOol00`00Oomoo`06Ool00`00Oomoo`0SOol00`00Oomoo`3COol001]oo`03001oogoo00Io
+o`03001oogoo02=oo`03001oogoo0==oo`006goo00<007ooOol01Woo00<007ooOol08Woo00<007oo
+Ool0e7oo000KOol20007Ool00`00Oomoo`0ROol00`00Oomoo`3DOol001]oo`03001oogoo00Moo`03
+001oogoo025oo`03001oogoo0=Aoo`006goo00<007ooOol01goo00<007ooOol087oo00<007ooOol0
+eGoo000KOol00`00Oomoo`07Ool00`00Oomoo`0POol00`00Oomoo`3EOol001]oo`03001oogoo00Mo
+o`03001oogoo01moo`03001oogoo0=Ioo`006goo0P0027oo00<007ooOol07goo00<007ooOol0eWoo
+000KOol00`00Oomoo`07Ool00`00Oomoo`0NOol00`00Oomoo`3GOol00003Ool0000000<0009oo`80
+00Aoo`8000Aoo`8000Eoo`03001oogoo00Qoo`03001oogoo01eoo`03001oogoo0=Moo`000goo00D0
+07ooOomoo`00009oo`04001oogoo0002Ool01000Oomoo`000Woo00<007ooOol00Woo00<007ooOol0
+27oo00<007ooOol077oo00<007ooOol0f7oo0003Ool00`00Oomoo`04Ool01000Oomoo`000Woo00@0
+07ooOol0009oo`03001oogoo009oo`8000Uoo`03001oogoo01aoo`03001oogoo0=Qoo`000goo00<0
+07ooOol00Woo0P000goo00@007ooOol0009oo`04001oogoo0004Ool00`00Oomoo`08Ool00`00Oomo
+o`0LOol00`00Oomoo`3HOol000=oo`03001oogoo009oo`03001oogoo009oo`04001oogoo0002Ool0
+1000Oomoo`0017oo00<007ooOol027oo00<007ooOol06goo00<007ooOol0fGoo0002Ool20004Ool3
+0003Ool20004Ool20005Ool00`00Oomoo`08Ool00`00Oomoo`0KOol00`00Oomoo`3IOol001]oo`80
+00Uoo`03001oogoo01Yoo`03001oogoo0=Yoo`006goo00<007ooOol02Goo00<007ooOol06Goo00<0
+07ooOol0fWoo000KOol00`00Oomoo`09Ool00`00Oomoo`0HOol00`00Oomoo`3KOol001]oo`03001o
+ogoo00Uoo`03001oogoo01Qoo`03001oogoo0=]oo`006goo0P002Woo00<007ooOol05goo00<007oo
+Ool0g7oo000KOol00`00Oomoo`09Ool00`00Oomoo`0GOol00`00Oomoo`3LOol001]oo`03001oogoo
+00Yoo`03001oogoo01Eoo`03001oogoo0=eoo`006goo00<007ooOol02Woo00<007ooOol05Goo00<0
+07ooOol0gGoo000KOol2000;Ool00`00Oomoo`0EOol00`00Oomoo`3MOol001]oo`03001oogoo00Yo
+o`03001oogoo01Aoo`03001oogoo0=ioo`006goo00<007ooOol02goo00<007ooOol04goo00<007oo
+Ool0gWoo000KOol00`00Oomoo`0;Ool00`00Oomoo`0BOol00`00Oomoo`3OOol001]oo`8000aoo`03
+001oogoo019oo`03001oogoo0=moo`006goo00<007ooOol037oo00<007ooOol047oo00<007ooOol0
+h7oo000KOol00`00Oomoo`0<Ool00`00Oomoo`0@Ool00`00Oomoo`3POol00003Ool0000000<000=o
+o`03001oogoo009oo`8000Aoo`8000Eoo`03001oogoo00aoo`03001oogoo00moo`03001oogoo0>5o
+o`000goo00<007ooOol00goo00D007ooOomoo`00009oo`04001oogoo0002Ool00`00Oomoo`02Ool0
+0`00Oomoo`0=Ool00`00Oomoo`0>Ool00`00Oomoo`3QOol000=oo`03001oogoo00=oo`03001oogoo
+00Aoo`04001oogoo0002Ool00`00Oomoo`02Ool2000>Ool00`00Oomoo`0=Ool00`00Oomoo`3ROol0
+00=oo`03001oogoo00Aoo`04001oogooOol20003Ool01000Oomoo`0017oo00<007ooOol03Goo00<0
+07ooOol037oo00<007ooOol0hgoo0003Ool01@00Oomoogoo00000Woo00D007ooOomoo`0000Aoo`04
+001oogoo0004Ool00`00Oomoo`0>Ool00`00Oomoo`0;Ool00`00Oomoo`3SOol0009oo`8000=oo`@0
+00=oo`<000=oo`8000Eoo`03001oogoo00ioo`03001oogoo00Yoo`03001oogoo0>Aoo`006goo0P00
+47oo00<007ooOol02Goo00<007ooOol0i7oo000KOol00`00Oomoo`0?Ool00`00Oomoo`08Ool00`00
+Oomoo`3UOol001]oo`03001oogoo011oo`03001oogoo00Ioo`03001oogoo0>Ioo`006goo00<007oo
+Ool04Goo00<007ooOol017oo00<007ooOol0igoo000KOol2000COol00`00Oomoo`03003ZOol001]o
+o`03001oogoo01=oo`800>eoo`006goo00<007ooOol0ogoo0goo000KOol00`00Oomoo`3oOol3Ool0
+01]oo`800?moo`Aoo`006goo00<007ooOol0ogoo0goo003oOolQOol00?moob5oo`00\
+\>"],
+  ImageRangeCache->{{{0, 287}, {176.938, 0}} -> {-10.8859, -182.478, \
+0.398872, 12.0017}}],
+
+Cell[BoxData[
+    FormBox[
+      TagBox[\(\[SkeletonIndicator]  Graphics  \[SkeletonIndicator]\),
+        False,
+        Editable->False], TraditionalForm]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(ListPlot[Table[{i, x[\([i, 2]\)]}, \ {i, \ 1, \ 100}], 
+      PlotJoined -> True\ ]\)], "Input"],
+
+Cell[GraphicsData["PostScript", "\<\
+%!
+%%Creator: Mathematica
+%%AspectRatio: .61803 
+MathPictureStart
+/Mabs {
+Mgmatrix idtransform
+Mtmatrix dtransform
+} bind def
+/Mabsadd { Mabs
+3 -1 roll add
+3 1 roll add
+exch } bind def
+%% Graphics
+%%IncludeResource: font Courier
+%%IncludeFont: Courier
+/Courier findfont 10  scalefont  setfont
+% Scaling calculations
+0.0238095 0.00952381 0.0147151 0.00038457 [
+[.21429 .00222 -6 -9 ]
+[.21429 .00222 6 0 ]
+[.40476 .00222 -6 -9 ]
+[.40476 .00222 6 0 ]
+[.59524 .00222 -6 -9 ]
+[.59524 .00222 6 0 ]
+[.78571 .00222 -6 -9 ]
+[.78571 .00222 6 0 ]
+[.97619 .00222 -9 -9 ]
+[.97619 .00222 9 0 ]
+[.01131 .11086 -18 -4.5 ]
+[.01131 .11086 0 4.5 ]
+[.01131 .207 -18 -4.5 ]
+[.01131 .207 0 4.5 ]
+[.01131 .30314 -18 -4.5 ]
+[.01131 .30314 0 4.5 ]
+[.01131 .39929 -24 -4.5 ]
+[.01131 .39929 0 4.5 ]
+[.01131 .49543 -24 -4.5 ]
+[.01131 .49543 0 4.5 ]
+[.01131 .59157 -24 -4.5 ]
+[.01131 .59157 0 4.5 ]
+[ 0 0 0 0 ]
+[ 1 .61803 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+0 g
+.25 Mabswid
+[ ] 0 setdash
+.21429 .01472 m
+.21429 .02097 L
+s
+[(20)] .21429 .00222 0 1 Mshowa
+.40476 .01472 m
+.40476 .02097 L
+s
+[(40)] .40476 .00222 0 1 Mshowa
+.59524 .01472 m
+.59524 .02097 L
+s
+[(60)] .59524 .00222 0 1 Mshowa
+.78571 .01472 m
+.78571 .02097 L
+s
+[(80)] .78571 .00222 0 1 Mshowa
+.97619 .01472 m
+.97619 .02097 L
+s
+[(100)] .97619 .00222 0 1 Mshowa
+.125 Mabswid
+.07143 .01472 m
+.07143 .01847 L
+s
+.11905 .01472 m
+.11905 .01847 L
+s
+.16667 .01472 m
+.16667 .01847 L
+s
+.2619 .01472 m
+.2619 .01847 L
+s
+.30952 .01472 m
+.30952 .01847 L
+s
+.35714 .01472 m
+.35714 .01847 L
+s
+.45238 .01472 m
+.45238 .01847 L
+s
+.5 .01472 m
+.5 .01847 L
+s
+.54762 .01472 m
+.54762 .01847 L
+s
+.64286 .01472 m
+.64286 .01847 L
+s
+.69048 .01472 m
+.69048 .01847 L
+s
+.7381 .01472 m
+.7381 .01847 L
+s
+.83333 .01472 m
+.83333 .01847 L
+s
+.88095 .01472 m
+.88095 .01847 L
+s
+.92857 .01472 m
+.92857 .01847 L
+s
+.25 Mabswid
+0 .01472 m
+1 .01472 L
+s
+.02381 .11086 m
+.03006 .11086 L
+s
+[(250)] .01131 .11086 1 0 Mshowa
+.02381 .207 m
+.03006 .207 L
+s
+[(500)] .01131 .207 1 0 Mshowa
+.02381 .30314 m
+.03006 .30314 L
+s
+[(750)] .01131 .30314 1 0 Mshowa
+.02381 .39929 m
+.03006 .39929 L
+s
+[(1000)] .01131 .39929 1 0 Mshowa
+.02381 .49543 m
+.03006 .49543 L
+s
+[(1250)] .01131 .49543 1 0 Mshowa
+.02381 .59157 m
+.03006 .59157 L
+s
+[(1500)] .01131 .59157 1 0 Mshowa
+.125 Mabswid
+.02381 .03394 m
+.02756 .03394 L
+s
+.02381 .05317 m
+.02756 .05317 L
+s
+.02381 .0724 m
+.02756 .0724 L
+s
+.02381 .09163 m
+.02756 .09163 L
+s
+.02381 .13009 m
+.02756 .13009 L
+s
+.02381 .14931 m
+.02756 .14931 L
+s
+.02381 .16854 m
+.02756 .16854 L
+s
+.02381 .18777 m
+.02756 .18777 L
+s
+.02381 .22623 m
+.02756 .22623 L
+s
+.02381 .24546 m
+.02756 .24546 L
+s
+.02381 .26469 m
+.02756 .26469 L
+s
+.02381 .28391 m
+.02756 .28391 L
+s
+.02381 .32237 m
+.02756 .32237 L
+s
+.02381 .3416 m
+.02756 .3416 L
+s
+.02381 .36083 m
+.02756 .36083 L
+s
+.02381 .38006 m
+.02756 .38006 L
+s
+.02381 .41851 m
+.02756 .41851 L
+s
+.02381 .43774 m
+.02756 .43774 L
+s
+.02381 .45697 m
+.02756 .45697 L
+s
+.02381 .4762 m
+.02756 .4762 L
+s
+.02381 .51466 m
+.02756 .51466 L
+s
+.02381 .53388 m
+.02756 .53388 L
+s
+.02381 .55311 m
+.02756 .55311 L
+s
+.02381 .57234 m
+.02756 .57234 L
+s
+.02381 .6108 m
+.02756 .6108 L
+s
+.25 Mabswid
+.02381 0 m
+.02381 .61803 L
+s
+0 0 m
+1 0 L
+1 .61803 L
+0 .61803 L
+closepath
+clip
+newpath
+.5 Mabswid
+.03333 .46928 m
+.04286 .52142 L
+.05238 .5586 L
+.0619 .58327 L
+.07143 .59757 L
+.08095 .60332 L
+.09048 .60209 L
+.1 .59523 L
+.10952 .58386 L
+.11905 .56896 L
+.12857 .55135 L
+.1381 .53172 L
+.14762 .51065 L
+.15714 .48862 L
+.16667 .46604 L
+.17619 .44323 L
+.18571 .42048 L
+.19524 .39799 L
+.20476 .37594 L
+.21429 .35447 L
+.22381 .33368 L
+.23333 .31365 L
+.24286 .29443 L
+.25238 .27607 L
+.2619 .25859 L
+.27143 .24199 L
+.28095 .22627 L
+.29048 .21142 L
+.3 .19742 L
+.30952 .18426 L
+.31905 .1719 L
+.32857 .16032 L
+.3381 .14948 L
+.34762 .13936 L
+.35714 .12991 L
+.36667 .12111 L
+.37619 .11291 L
+.38571 .10529 L
+.39524 .09821 L
+.40476 .09164 L
+.41429 .08555 L
+.42381 .07991 L
+.43333 .07469 L
+.44286 .06986 L
+.45238 .0654 L
+.4619 .06128 L
+.47143 .05747 L
+.48095 .05396 L
+.49048 .05073 L
+.5 .04775 L
+Mistroke
+.50952 .045 L
+.51905 .04248 L
+.52857 .04015 L
+.5381 .03802 L
+.54762 .03605 L
+.55714 .03425 L
+.56667 .03259 L
+.57619 .03107 L
+.58571 .02968 L
+.59524 .0284 L
+.60476 .02722 L
+.61429 .02615 L
+.62381 .02516 L
+.63333 .02426 L
+.64286 .02343 L
+.65238 .02268 L
+.6619 .02198 L
+.67143 .02135 L
+.68095 .02077 L
+.69048 .02024 L
+.7 .01976 L
+.70952 .01931 L
+.71905 .01891 L
+.72857 .01854 L
+.7381 .0182 L
+.74762 .01789 L
+.75714 .01761 L
+.76667 .01735 L
+.77619 .01712 L
+.78571 .01691 L
+.79524 .01671 L
+.80476 .01653 L
+.81429 .01637 L
+.82381 .01622 L
+.83333 .01609 L
+.84286 .01596 L
+.85238 .01585 L
+.8619 .01575 L
+.87143 .01566 L
+.88095 .01557 L
+.89048 .01549 L
+.9 .01542 L
+.90952 .01536 L
+.91905 .0153 L
+.92857 .01525 L
+.9381 .0152 L
+.94762 .01515 L
+.95714 .01511 L
+.96667 .01508 L
+.97619 .01505 L
+Mistroke
+Mfstroke
+% End of Graphics
+MathPictureEnd
+\
+\>"], "Graphics",
+  ImageSize->{288, 177.938},
+  ImageMargins->{{35, 0}, {0, 0}},
+  ImageRegion->{{0, 1}, {0, 1}},
+  ImageCache->GraphicsData["Bitmap", "\<\
+CF5dJ6E]HGAYHf4PAg9QL6QYHg<PAVmbKF5d0`40004P0000/A000`40O003h00Oogoo8Goo003oOolQ
+Ool00?moob5oo`00B7oo10000goo0P00:goo0`000Woo0P00:Goo0`0017oo0P00:Woo0P0017oo0P00
+9goo1@000Woo0P0017oo0P000goo0018Ool00`00Oomoo`03Ool01000Oomoo`00:goo00@007ooOol0
+009oo`03001oogoo02Ioo`04001oogoo0002Ool01000Oomoo`00:7oo00@007ooOol0009oo`04001o
+ogoo000XOol01@00Oomoogoo00000Woo00@007ooOol0009oo`40005oo`5oo`00BGoo00<007ooOol0
+0Woo00@007ooOol002Qoo`D00005Ool007ooOol0000XOol01000Oomoo`000Woo00@007ooOol002Qo
+o`04001oogoo0002Ool01000Oomoo`00:7oo00D007ooOomoo`00009oo`04001oogoo0002Ool10001
+Ool1Ool004Yoo`05001oogooOol00002Ool00`00Oomoo`0VOol01000Oomoo`000Woo00@007ooOol0
+02Qoo`<000=oo`04001oogoo000YOol20003Ool01000Oomoo`00:7oo00D007ooOomoo`00009oo`04
+001oogoo0002Ool10001Ool1Ool004Qoo`04001oogoo0002Ool01000Oomoo`00:Goo00<007oo0000
+0Woo00@007ooOol002Uoo`03001oogoo009oo`04001oogoo000XOol01000Oomoo`000Woo00@007oo
+Ool002Qoo`05001oogooOol00002Ool01000Oomoo`000Woo0@000Goo0Goo0019Ool20004Ool2000[
+Ool20003Ool2000ZOol30003Ool2000ZOol20004Ool2000XOol20004Ool20004Ool20003Ool00?mo
+ob5oo`00ogoo8Goo000KOol00`00Oomoo`3oOol3Ool001]oo`03001oogoo0?moo`=oo`006goo00<0
+07ooOol0ogoo0goo000KOol00`00Oomoo`3oOol3Ool001Eoool000T000=oo`006goo00<007ooOol0
+2Goo00<007ooOol02Woo00<007ooOol02Goo00<007ooOol02Woo00<007ooOol02Goo00<007ooOol0
+2Woo00<007ooOol02Woo00<007ooOol02Goo00<007ooOol02Woo00<007ooOol02Goo00<007ooOol0
+2Woo00<007ooOol02Goo00<007ooOol02Woo00<007ooOol01Woo5`001Goo00<007ooOol02Woo00<0
+07ooOol02Goo00<007ooOol02Woo00<007ooOol02Woo00<007ooOol01goo000KOol00`00Oomoo`2M
+Ool<001IOol001]oo`03001oogoo09=oo`X006Eoo`006goo00<007ooOol0Rgoo2000Kgoo000KOol2
+0027Ool5001gOol001]oo`03001oogoo085oo`D007aoo`006goo00<007ooOol0Ogoo0P00PGoo000K
+Ool00`00Oomoo`1jOol50023Ool001]oo`03001oogoo07Moo`<008Qoo`006goo0P00MWoo0P00Rgoo
+000KOol00`00Oomoo`1bOol3002=Ool001]oo`03001oogoo071oo`80091oo`006goo00<007ooOol0
+KGoo0`00TWoo000KOol00`00Oomoo`1[Ool2002EOol001]oo`8006]oo`03001oogoo09Eoo`006goo
+00<007ooOol0J7oo0P00V7oo000KOol00`00Oomoo`1VOol2002JOol001]oo`03001oogoo06Aoo`80
+09aoo`006goo00<007ooOol0HWoo0P00WWoo000KOol2001ROol00`00Oomoo`2NOol001]oo`03001o
+ogoo061oo`03001oogoo09moo`006goo00<007ooOol0Ggoo00<007ooOol0X7oo0007Ool40003Ool2
+0004Ool20005Ool00`00Oomoo`1MOol2002SOol000Moo`03001oogoo00=oo`04001oogoo0002Ool0
+1000Oomoo`0017oo00<007ooOol0G7oo00<007ooOol0Xgoo0008Ool00`00Oomoo`05Ool01000Oomo
+o`000Woo00<007ooOol00Woo0P00G7oo00<007ooOol0Y7oo0009Ool00`00Oomoo`02Ool20003Ool0
+1000Oomoo`0017oo00<007ooOol0FWoo00<007ooOol0YGoo0007Ool01000Oomoo`000goo00<007oo
+Ool00Woo00@007ooOol000Aoo`03001oogoo05Qoo`800:Qoo`0027oo0P0017oo0`000goo0P001Goo
+00<007ooOol0Egoo00<007ooOol0Z7oo000KOol00`00Oomoo`1FOol00`00Oomoo`2YOol001]oo`80
+05Ioo`03001oogoo0:Yoo`006goo00<007ooOol0E7oo00<007ooOol0Zgoo000KOol00`00Oomoo`1C
+Ool00`00Oomoo`2/Ool001]oo`03001oogoo059oo`03001oogoo0:eoo`006goo00<007ooOol0DGoo
+00<007ooOol0[Woo000KOol2001AOol00`00Oomoo`2_Ool001]oo`03001oogoo04moo`03001oogoo
+0;1oo`006goo00<007ooOol0CWoo00<007ooOol0/Goo000KOol00`00Oomoo`1=Ool00`00Oomoo`2b
+Ool001]oo`03001oogoo04aoo`03001oogoo0;=oo`006goo0P00CGoo00<007ooOol0/goo000KOol0
+0`00Oomoo`1;Ool00`00Oomoo`2dOol001]oo`03001oogoo04Yoo`03001oogoo0;Eoo`006goo00<0
+07ooOol0BGoo00<007ooOol0]Woo000KOol00`00Oomoo`18Ool00`00Oomoo`2gOol001]oo`8004Qo
+o`03001oogoo0;Qoo`006goo00<007ooOol0AWoo00<007ooOol0^Goo000KOol00`00Oomoo`16Ool0
+0`00Oomoo`2iOol000Qoo`8000Aoo`8000Aoo`8000Eoo`03001oogoo04Eoo`03001oogoo0;Yoo`00
+1goo00@007ooOol0009oo`04001oogoo0002Ool01000Oomoo`0017oo00<007ooOol0A7oo00<007oo
+Ool0^goo000:Ool01000Oomoo`000Woo00@007ooOol0009oo`03001oogoo009oo`8004Eoo`03001o
+ogoo0;]oo`0027oo0P000goo00@007ooOol0009oo`04001oogoo0004Ool00`00Oomoo`13Ool00`00
+Oomoo`2lOol000Qoo`03001oogoo009oo`04001oogoo0002Ool01000Oomoo`0017oo00<007ooOol0
+@goo00<007ooOol0_7oo0008Ool30003Ool20004Ool20005Ool00`00Oomoo`12Ool00`00Oomoo`2m
+Ool001]oo`03001oogoo045oo`03001oogoo0;ioo`006goo0P00@Goo00<007ooOol0_goo000KOol0
+0`00Oomoo`10Ool00`00Oomoo`2oOol001]oo`03001oogoo03moo`03001oogoo0<1oo`006goo00<0
+07ooOol0?goo00<007ooOol0`7oo000KOol00`00Oomoo`0nOol00`00Oomoo`31Ool001]oo`03001o
+ogoo03ioo`03001oogoo0<5oo`006goo0P00?Woo00<007ooOol0`Woo000KOol00`00Oomoo`0lOol0
+0`00Oomoo`33Ool001]oo`03001oogoo03aoo`03001oogoo0<=oo`006goo00<007ooOol0>goo00<0
+07ooOol0a7oo000KOol00`00Oomoo`0kOol00`00Oomoo`34Ool001]oo`8003]oo`03001oogoo0<Eo
+o`006goo00<007ooOol0>Woo00<007ooOol0aGoo000KOol00`00Oomoo`0iOol00`00Oomoo`36Ool0
+01]oo`03001oogoo03Uoo`03001oogoo0<Ioo`006goo00<007ooOol0>7oo00<007ooOol0agoo000K
+Ool2000hOol00`00Oomoo`38Ool001]oo`03001oogoo03Moo`03001oogoo0<Qoo`006goo00<007oo
+Ool0=Woo00<007ooOol0bGoo0009Ool00`00Oomoo`02Ool20004Ool20005Ool00`00Oomoo`0fOol0
+0`00Oomoo`39Ool000Uoo`05001oogooOol00002Ool01000Oomoo`000Woo00<007ooOol00Woo00<0
+07ooOol0=Goo00<007ooOol0bWoo0009Ool00`00Oomoo`04Ool01000Oomoo`000Woo00<007ooOol0
+0Woo0P00=Woo00<007ooOol0bWoo000:Ool01000Oomoogoo0P000goo00@007ooOol000Aoo`03001o
+ogoo03Aoo`03001oogoo0<]oo`001goo00@007ooOol000=oo`03001oogoo009oo`04001oogoo0004
+Ool00`00Oomoo`0dOol00`00Oomoo`3;Ool000Moo`@000=oo`<000=oo`8000Eoo`03001oogoo03=o
+o`03001oogoo0<aoo`006goo00<007ooOol0<goo00<007ooOol0c7oo000KOol2000cOol00`00Oomo
+o`3=Ool001]oo`03001oogoo039oo`03001oogoo0<eoo`006goo00<007ooOol0<Goo00<007ooOol0
+cWoo000KOol00`00Oomoo`0aOol00`00Oomoo`3>Ool001]oo`03001oogoo035oo`03001oogoo0<io
+o`006goo0P00<Goo00<007ooOol0cgoo000KOol00`00Oomoo`0`Ool00`00Oomoo`3?Ool001]oo`03
+001oogoo02moo`03001oogoo0=1oo`006goo00<007ooOol0;goo00<007ooOol0d7oo000KOol00`00
+Oomoo`0^Ool00`00Oomoo`3AOol001]oo`8002moo`03001oogoo0=5oo`006goo00<007ooOol0;Goo
+00<007ooOol0dWoo000KOol00`00Oomoo`0]Ool00`00Oomoo`3BOol001]oo`03001oogoo02aoo`03
+001oogoo0==oo`006goo00<007ooOol0;7oo00<007ooOol0dgoo000KOol2000]Ool00`00Oomoo`3C
+Ool001]oo`03001oogoo02]oo`03001oogoo0=Aoo`006goo00<007ooOol0:goo00<007ooOol0e7oo
+00000goo000000030002Ool20004Ool20004Ool20005Ool00`00Oomoo`0[Ool00`00Oomoo`3DOol0
+00=oo`05001oogooOol00002Ool01000Oomoo`000Woo00@007ooOol0009oo`03001oogoo009oo`03
+001oogoo02Yoo`03001oogoo0=Eoo`000goo00D007ooOomoo`00009oo`04001oogoo0002Ool01000
+Oomoo`000Woo00<007ooOol00Woo0P00:goo00<007ooOol0eGoo0003Ool01@00Oomoogoo00000Woo
+00@007ooOol0009oo`04001oogoo0002Ool00`00Oomoo`02Ool00`00Oomoo`0YOol00`00Oomoo`3F
+Ool000=oo`05001oogooOol00002Ool01000Oomoo`000Woo00@007ooOol0009oo`03001oogoo009o
+o`03001oogoo02Uoo`03001oogoo0=Ioo`000Woo0P0017oo0P0017oo0P0017oo0P001Goo00<007oo
+Ool0:7oo00<007ooOol0egoo000KOol00`00Oomoo`0XOol00`00Oomoo`3GOol001]oo`8002Qoo`03
+001oogoo0=Qoo`006goo00<007ooOol09goo00<007ooOol0f7oo000KOol00`00Oomoo`0WOol00`00
+Oomoo`3HOol001]oo`03001oogoo02Ioo`03001oogoo0=Uoo`006goo00<007ooOol09Woo00<007oo
+Ool0fGoo000KOol2000WOol00`00Oomoo`3IOol001]oo`03001oogoo02Eoo`03001oogoo0=Yoo`00
+6goo00<007ooOol09Goo00<007ooOol0fWoo000KOol00`00Oomoo`0TOol00`00Oomoo`3KOol001]o
+o`03001oogoo02Aoo`03001oogoo0=]oo`006goo0P0097oo00<007ooOol0g7oo000KOol00`00Oomo
+o`0SOol00`00Oomoo`3LOol001]oo`03001oogoo029oo`03001oogoo0=eoo`006goo00<007oo0000
+8Woo00<007ooOol0gGoo000KOol00`00Ool0000ROol00`00Oomoo`3MOol001]oo`<0025oo`03001o
+ogoo0=ioo`006goo00@007ooOol0021oo`03001oogoo0=ioo`006goo00@007ooOol0021oo`03001o
+ogoo0=ioo`0000=oo`0000000`0000=oo`0000000P000goo0P0017oo0P001Goo00@007ooOol001mo
+o`03001oogoo0=moo`000goo00D007ooOomoo`0000Eoo`04001oogoo0002Ool01000Oomoo`0017oo
+00@007ooOol001moo`03001oogoo0=moo`000goo00<007ooOol00Woo00<007ooOol01Goo00@007oo
+Ool0009oo`03001oogoo009oo`800003Ool007oo01eoo`03001oogoo0>1oo`000goo00<007ooOol0
+0goo00<007ooOol00Woo0P000goo00@007ooOol000Aoo`05001oogooOol0000MOol00`00Oomoo`3P
+Ool000=oo`05001oogooOol00002Ool01@00Oomoogoo000017oo00@007ooOol000Aoo`05001oogoo
+Ool0000LOol00`00Oomoo`3QOol0009oo`8000Aoo`8000Aoo`<000=oo`8000Eoo`05001oogooOol0
+000LOol00`00Oomoo`3QOol001]oo`05001oogooOol0000KOol00`00Oomoo`3ROol001]oo`8000=o
+o`03001oogoo01Qoo`03001oogoo0>9oo`006goo00<007ooOol00Woo00<007ooOol05goo00<007oo
+Ool0hgoo000KOol00`00Oomoo`02Ool00`00Oomoo`0GOol00`00Oomoo`3SOol001]oo`03001oogoo
+009oo`03001oogoo01Moo`03001oogoo0>=oo`006goo00<007ooOol00Woo00<007ooOol05Woo00<0
+07ooOol0i7oo000KOol20004Ool00`00Oomoo`0EOol00`00Oomoo`3TOol001]oo`03001oogoo00=o
+o`03001oogoo01Aoo`03001oogoo0>Eoo`006goo00<007ooOol00goo00<007ooOol057oo00<007oo
+Ool0iGoo000KOol00`00Oomoo`03Ool00`00Oomoo`0COol00`00Oomoo`3VOol001]oo`03001oogoo
+00=oo`03001oogoo01=oo`03001oogoo0>Ioo`006goo0P001Goo00<007ooOol04Goo00<007ooOol0
+igoo000KOol00`00Oomoo`04Ool00`00Oomoo`0AOol00`00Oomoo`3WOol001]oo`03001oogoo00Ao
+o`03001oogoo011oo`03001oogoo0>Qoo`006goo00<007ooOol017oo00<007ooOol047oo00<007oo
+Ool0j7oo000KOol00`00Oomoo`05Ool00`00Oomoo`0>Ool00`00Oomoo`3YOol001]oo`03001oogoo
+00Eoo`03001oogoo00ioo`03001oogoo0>Uoo`006goo0P001goo00<007ooOol037oo00<007ooOol0
+jWoo000KOol00`00Oomoo`06Ool00`00Oomoo`0;Ool00`00Oomoo`3[Ool001]oo`03001oogoo00Mo
+o`03001oogoo00Yoo`03001oogoo0>]oo`0000=oo`0000000`000Woo0P0017oo0P0017oo0P001Goo
+00<007ooOol01goo00<007ooOol02Goo00<007ooOol0k7oo0003Ool01@00Oomoogoo00000Woo00@0
+07ooOol0009oo`04001oogoo0002Ool00`00Oomoo`02Ool00`00Oomoo`08Ool00`00Oomoo`07Ool0
+0`00Oomoo`3]Ool000=oo`03001oogoo00Aoo`04001oogoo0002Ool01000Oomoo`000Woo00<007oo
+Ool00Woo0P002Goo00<007ooOol01goo00<007ooOol0kGoo0003Ool00`00Oomoo`02Ool20003Ool0
+1000Oomoo`000Woo00@007ooOol000Aoo`03001oogoo00Uoo`03001oogoo00Aoo`800?1oo`000goo
+00<007ooOol00Woo00<007ooOol00Woo00@007ooOol0009oo`04001oogoo0004Ool00`00Oomoo`0:
+Ool20002Ool2003bOol0009oo`8000Aoo`<000=oo`8000Aoo`8000Eoo`03001oogoo00aoo`800?Ao
+o`006goo00<007ooOol0ogoo0goo000KOol2003oOol4Ool001]oo`03001oogoo0?moo`=oo`006goo
+00<007ooOol0ogoo0goo003oOolQOol00?moob5oo`00\
+\>"],
+  ImageRangeCache->{{{0, 287}, {176.938, 0}} -> {-10.8859, -150.188, \
+0.398872, 9.87799}}],
+
+Cell[BoxData[
+    FormBox[
+      TagBox[\(\[SkeletonIndicator]  Graphics  \[SkeletonIndicator]\),
+        False,
+        Editable->False], TraditionalForm]], "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Part (b)", "Section"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(eigenK\  = \ Eigenvalues[A[k]]\)], "Input"],
+
+Cell[BoxData[
+    \(TraditionalForm\`{1\/2\ \((\(\(1.7999999999999998`\)\(\[InvisibleSpace]\
+\)\) - 1.4142135623730951`\ \@\(\(\(0.17999999999999972`\)\(\[InvisibleSpace]\
+\)\) - 1.`\ k\))\), 
+      1\/2\ \((1.4142135623730951`\ \@\(\(\(0.17999999999999972`\)\(\
+\[InvisibleSpace]\)\) - 1.`\ k\) + 1.7999999999999998`)\)}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Solve[Max[eigenK[\([1]\)], \ eigenK[\([2]\)]] \[Equal] 1, \ 
+      k]\)], "Input"],
+
+Cell[BoxData[
+    FormBox[
+      RowBox[{\(Solve::"ifun"\), \(\(:\)\(\ \)\), "\<\"Inverse functions are \
+being used by \\!\\(TraditionalForm\\`Solve\\), so some solutions may not be \
+found.\"\>"}], TraditionalForm]], "Message"],
+
+Cell[BoxData[
+    \(TraditionalForm\`{{k \[Rule] 0.1599999999999997`}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Eigenvalues[A[0.16]]\)], "Input"],
+
+Cell[BoxData[
+    \(TraditionalForm\`{1.`, 0.8`}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(x\  = \ 
+        Table[MatrixPower[A[0.16], i] . x0, \ {i, 1, 100}];\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(ListPlot[Table[{i, x[\([i, 1]\)]}, \ {i, \ 1, \ 100}], 
+      PlotJoined -> True\ ]\)], "Input"],
+
+Cell[GraphicsData["PostScript", "\<\
+%!
+%%Creator: Mathematica
+%%AspectRatio: .61803 
+MathPictureStart
+/Mabs {
+Mgmatrix idtransform
+Mtmatrix dtransform
+} bind def
+/Mabsadd { Mabs
+3 -1 roll add
+3 1 roll add
+exch } bind def
+%% Graphics
+%%IncludeResource: font Courier
+%%IncludeFont: Courier
+/Courier findfont 10  scalefont  setfont
+% Scaling calculations
+0.0238095 0.00952381 -13.0346 0.00568245 [
+[.21429 .02257 -6 -9 ]
+[.21429 .02257 6 0 ]
+[.40476 .02257 -6 -9 ]
+[.40476 .02257 6 0 ]
+[.59524 .02257 -6 -9 ]
+[.59524 .02257 6 0 ]
+[.78571 .02257 -6 -9 ]
+[.78571 .02257 6 0 ]
+[.97619 .02257 -9 -9 ]
+[.97619 .02257 9 0 ]
+[.01131 .14872 -24 -4.5 ]
+[.01131 .14872 0 4.5 ]
+[.01131 .26237 -24 -4.5 ]
+[.01131 .26237 0 4.5 ]
+[.01131 .37602 -24 -4.5 ]
+[.01131 .37602 0 4.5 ]
+[.01131 .48967 -24 -4.5 ]
+[.01131 .48967 0 4.5 ]
+[.01131 .60332 -24 -4.5 ]
+[.01131 .60332 0 4.5 ]
+[ 0 0 0 0 ]
+[ 1 .61803 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+0 g
+.25 Mabswid
+[ ] 0 setdash
+.21429 .03507 m
+.21429 .04132 L
+s
+[(20)] .21429 .02257 0 1 Mshowa
+.40476 .03507 m
+.40476 .04132 L
+s
+[(40)] .40476 .02257 0 1 Mshowa
+.59524 .03507 m
+.59524 .04132 L
+s
+[(60)] .59524 .02257 0 1 Mshowa
+.78571 .03507 m
+.78571 .04132 L
+s
+[(80)] .78571 .02257 0 1 Mshowa
+.97619 .03507 m
+.97619 .04132 L
+s
+[(100)] .97619 .02257 0 1 Mshowa
+.125 Mabswid
+.07143 .03507 m
+.07143 .03882 L
+s
+.11905 .03507 m
+.11905 .03882 L
+s
+.16667 .03507 m
+.16667 .03882 L
+s
+.2619 .03507 m
+.2619 .03882 L
+s
+.30952 .03507 m
+.30952 .03882 L
+s
+.35714 .03507 m
+.35714 .03882 L
+s
+.45238 .03507 m
+.45238 .03882 L
+s
+.5 .03507 m
+.5 .03882 L
+s
+.54762 .03507 m
+.54762 .03882 L
+s
+.64286 .03507 m
+.64286 .03882 L
+s
+.69048 .03507 m
+.69048 .03882 L
+s
+.7381 .03507 m
+.7381 .03882 L
+s
+.83333 .03507 m
+.83333 .03882 L
+s
+.88095 .03507 m
+.88095 .03882 L
+s
+.92857 .03507 m
+.92857 .03882 L
+s
+.25 Mabswid
+0 .03507 m
+1 .03507 L
+s
+.02381 .14872 m
+.03006 .14872 L
+s
+[(2320)] .01131 .14872 1 0 Mshowa
+.02381 .26237 m
+.03006 .26237 L
+s
+[(2340)] .01131 .26237 1 0 Mshowa
+.02381 .37602 m
+.03006 .37602 L
+s
+[(2360)] .01131 .37602 1 0 Mshowa
+.02381 .48967 m
+.03006 .48967 L
+s
+[(2380)] .01131 .48967 1 0 Mshowa
+.02381 .60332 m
+.03006 .60332 L
+s
+[(2400)] .01131 .60332 1 0 Mshowa
+.125 Mabswid
+.02381 .06349 m
+.02756 .06349 L
+s
+.02381 .0919 m
+.02756 .0919 L
+s
+.02381 .12031 m
+.02756 .12031 L
+s
+.02381 .17714 m
+.02756 .17714 L
+s
+.02381 .20555 m
+.02756 .20555 L
+s
+.02381 .23396 m
+.02756 .23396 L
+s
+.02381 .29078 m
+.02756 .29078 L
+s
+.02381 .3192 m
+.02756 .3192 L
+s
+.02381 .34761 m
+.02756 .34761 L
+s
+.02381 .40443 m
+.02756 .40443 L
+s
+.02381 .43285 m
+.02756 .43285 L
+s
+.02381 .46126 m
+.02756 .46126 L
+s
+.02381 .51808 m
+.02756 .51808 L
+s
+.02381 .54649 m
+.02756 .54649 L
+s
+.02381 .57491 m
+.02756 .57491 L
+s
+.02381 .00666 m
+.02756 .00666 L
+s
+.25 Mabswid
+.02381 0 m
+.02381 .61803 L
+s
+0 0 m
+1 0 L
+1 .61803 L
+0 .61803 L
+closepath
+clip
+newpath
+.5 Mabswid
+.15525 0 m
+.15714 .02851 L
+.16667 .14347 L
+.17619 .23544 L
+.18571 .30902 L
+.19524 .36788 L
+.20476 .41497 L
+.21429 .45264 L
+.22381 .48277 L
+.23333 .50688 L
+.24286 .52617 L
+.25238 .5416 L
+.2619 .55394 L
+.27143 .56382 L
+.28095 .57172 L
+.29048 .57804 L
+.3 .58309 L
+.30952 .58714 L
+.31905 .59038 L
+.32857 .59296 L
+.3381 .59504 L
+.34762 .59669 L
+.35714 .59802 L
+.36667 .59908 L
+.37619 .59993 L
+.38571 .6006 L
+.39524 .60115 L
+.40476 .60158 L
+.41429 .60193 L
+.42381 .60221 L
+.43333 .60243 L
+.44286 .60261 L
+.45238 .60275 L
+.4619 .60286 L
+.47143 .60295 L
+.48095 .60303 L
+.49048 .60309 L
+.5 .60313 L
+.50952 .60317 L
+.51905 .6032 L
+.52857 .60322 L
+.5381 .60324 L
+.54762 .60326 L
+.55714 .60327 L
+.56667 .60328 L
+.57619 .60329 L
+.58571 .60329 L
+.59524 .6033 L
+.60476 .6033 L
+.61429 .60331 L
+Mistroke
+.62381 .60331 L
+.63333 .60331 L
+.64286 .60331 L
+.65238 .60331 L
+.6619 .60331 L
+.67143 .60332 L
+.68095 .60332 L
+.69048 .60332 L
+.7 .60332 L
+.70952 .60332 L
+.71905 .60332 L
+.72857 .60332 L
+.7381 .60332 L
+.74762 .60332 L
+.75714 .60332 L
+.76667 .60332 L
+.77619 .60332 L
+.78571 .60332 L
+.79524 .60332 L
+.80476 .60332 L
+.81429 .60332 L
+.82381 .60332 L
+.83333 .60332 L
+.84286 .60332 L
+.85238 .60332 L
+.8619 .60332 L
+.87143 .60332 L
+.88095 .60332 L
+.89048 .60332 L
+.9 .60332 L
+.90952 .60332 L
+.91905 .60332 L
+.92857 .60332 L
+.9381 .60332 L
+.94762 .60332 L
+.95714 .60332 L
+.96667 .60332 L
+.97619 .60332 L
+Mfstroke
+% End of Graphics
+MathPictureEnd
+\
+\>"], "Graphics",
+  ImageSize->{288, 177.938},
+  ImageMargins->{{35, 0}, {0, 0}},
+  ImageRegion->{{0, 1}, {0, 1}},
+  ImageCache->GraphicsData["Bitmap", "\<\
+CF5dJ6E]HGAYHf4PAg9QL6QYHg<PAVmbKF5d0`40004P0000/A000`40O003h00Oogoo8Goo003oOolQ
+Ool00?moob5oo`00ogoo8Goo003oOolQOol00?moob5oo`00B7oo10000goo0P00:goo0`000Woo0P00
+:Goo0`0017oo0P00:Woo0P0017oo0P009goo1@000Woo0P0017oo0P000goo0018Ool00`00Oomoo`03
+Ool01000Oomoo`00:goo00@007ooOol0009oo`03001oogoo02Ioo`04001oogoo0002Ool01000Oomo
+o`00:7oo00@007ooOol0009oo`04001oogoo000XOol01@00Oomoogoo00000Woo00@007ooOol0009o
+o`40005oo`5oo`006goo00<007ooOol07goo00<007ooOol02Goo00<007ooOol00Woo00@007ooOol0
+02Qoo`D00005Ool007ooOol0000XOol01000Oomoo`000Woo00@007ooOol002Qoo`04001oogoo0002
+Ool01000Oomoo`00:7oo00D007ooOomoo`00009oo`04001oogoo0002Ool10001Ool1Ool001]oo`03
+001oogoo01moo`03001oogoo00Yoo`05001oogooOol00002Ool00`00Oomoo`0VOol01000Oomoo`00
+0Woo00@007ooOol002Qoo`<000=oo`04001oogoo000YOol20003Ool01000Oomoo`00:7oo00D007oo
+Oomoo`00009oo`04001oogoo0002Ool10001Ool1Ool001]oo`80021oo`03001oogoo00Qoo`04001o
+ogoo0002Ool01000Oomoo`00:Goo00<007oo00000Woo00@007ooOol002Uoo`03001oogoo009oo`04
+001oogoo000XOol01000Oomoo`000Woo00@007ooOol002Qoo`05001oogooOol00002Ool01000Oomo
+o`000Woo0@000Goo0Goo000KOol00`00Oomoo`0OOol00`00Oomoo`09Ool20004Ool2000[Ool20003
+Ool2000ZOol30003Ool2000ZOol20004Ool2000XOol20004Ool20004Ool20003Ool001]oo`03001o
+ogoo021oo`03001oogoo0=moo`006goo00<007ooOol087oo00<007ooOol0ggoo000KOol00`00Oomo
+o`0POol00`00Oomoo`3OOol001]oo`03001oogoo021oo`03001oogoo0=moo`006goo00<007ooOol0
+87oo00<007ooOol0ggoo000EOooo00090003Ool001]oo`03001oogoo00Uoo`03001oogoo00Yoo`03
+001oogoo00Moo`03001oo`0000aoo`03001oogoo00Uoo`03001oogoo00Yoo`03001oogoo00Yoo`03
+001oogoo00Uoo`03001oogoo00Yoo`03001oogoo00Uoo`03001oogoo00Yoo`03001oogoo00Uoo`03
+001oogoo00Yoo`03001oogoo00Uoo`03001oogoo00Yoo`03001oogoo00Uoo`03001oogoo00Yoo`03
+001oogoo00Uoo`03001oogoo00Yoo`03001oogoo00Yoo`03001oogoo00Moo`006goo00<007ooOol0
+87oo00<007ooOol037oo00<007ooOol0;goo00<007ooOol0;goo00<007ooOol0;goo00<007ooOol0
+<7oo00<007ooOol01goo000KOol00`00Oomoo`0POol00`00Oomoo`3OOol001]oo`03001oogoo021o
+o`03001oogoo0=moo`006goo00<007ooOol087oo00<007ooOol0ggoo000KOol00`00Oomoo`0QOol0
+0`00Oomoo`3NOol001]oo`03001oogoo025oo`03001oogoo0=ioo`006goo0P008Woo00<007ooOol0
+gWoo000KOol00`00Oomoo`0QOol00`00Oomoo`3NOol001]oo`03001oogoo025oo`03001oogoo0=io
+o`006goo00<007ooOol08Goo00<007ooOol0gWoo000KOol00`00Oomoo`0QOol00`00Oomoo`3NOol0
+01]oo`03001oogoo025oo`03001oogoo0=ioo`006goo00<007ooOol08Goo00<007ooOol0gWoo000K
+Ool2000ROol00`00Oomoo`3NOol001]oo`03001oogoo025oo`03001oogoo0=ioo`006goo00<007oo
+Ool08Goo00<007ooOol0gWoo000KOol00`00Oomoo`0QOol00`00Oomoo`3NOol001]oo`03001oogoo
+025oo`03001oogoo0=ioo`006goo00<007ooOol08Goo00<007ooOol0gWoo000KOol00`00Oomoo`0Q
+Ool00`00Oomoo`3NOol001]oo`03001oogoo029oo`03001oogoo0=eoo`006goo0P008goo00<007oo
+Ool0gGoo000KOol00`00Oomoo`0ROol00`00Oomoo`3MOol001]oo`03001oogoo029oo`03001oogoo
+0=eoo`006goo00<007ooOol08Woo00<007ooOol0gGoo000KOol00`00Oomoo`0ROol00`00Oomoo`3M
+Ool00003Ool00000008000=oo`8000=oo`@000=oo`8000Eoo`03001oogoo029oo`03001oogoo0=eo
+o`0000=oo`00Ool017oo00@007ooOol0009oo`03001oogoo00=oo`04001oogoo0004Ool00`00Oomo
+o`0ROol00`00Oomoo`3MOol0009oo`03001oogoo00Aoo`03001oogoo009oo`03001oogoo009oo`04
+001oogoo0004Ool2000SOol00`00Oomoo`3MOol000=oo`03001oogoo00Aoo`03001oogoo009oo`05
+001oogooOol00002Ool00`00Oomoo`02Ool00`00Oomoo`0ROol00`00Oomoo`3MOol00005Ool007oo
+Ool00002Ool01000Oomoo`000Woo00@007ooOol0009oo`04001oogoo0004Ool00`00Oomoo`0ROol0
+0`00Oomoo`3MOol0009oo`8000Aoo`8000Aoo`8000Aoo`8000Eoo`03001oogoo029oo`03001oogoo
+0=eoo`006goo00<007ooOol08goo00<007ooOol0g7oo000KOol00`00Oomoo`0SOol00`00Oomoo`3L
+Ool001]oo`03001oogoo02=oo`03001oogoo0=aoo`006goo00<007ooOol08goo00<007ooOol0g7oo
+000KOol2000TOol00`00Oomoo`3LOol001]oo`03001oogoo02=oo`03001oogoo0=aoo`006goo00<0
+07ooOol08goo00<007ooOol0g7oo000KOol00`00Oomoo`0SOol00`00Oomoo`3LOol001]oo`03001o
+ogoo02Aoo`03001oogoo0=]oo`006goo00<007ooOol097oo00<007ooOol0fgoo000KOol00`00Oomo
+o`0TOol00`00Oomoo`3KOol001]oo`8002Eoo`03001oogoo0=]oo`006goo00<007ooOol097oo00<0
+07ooOol0fgoo000KOol00`00Oomoo`0TOol00`00Oomoo`3KOol001]oo`03001oogoo02Aoo`03001o
+ogoo0=]oo`006goo00<007ooOol097oo00<007ooOol0fgoo000KOol00`00Oomoo`0UOol00`00Oomo
+o`3JOol001]oo`03001oogoo02Eoo`03001oogoo0=Yoo`006goo0P009Woo00<007ooOol0fWoo000K
+Ool00`00Oomoo`0UOol00`00Oomoo`3JOol001]oo`03001oogoo02Eoo`03001oogoo0=Yoo`006goo
+00<007ooOol09Goo00<007ooOol0fWoo000KOol00`00Oomoo`0UOol00`00Oomoo`3JOol001]oo`03
+001oogoo02Eoo`03001oogoo0=Yoo`0000=oo`0000000P000goo0P001Goo0`000Woo0P001Goo00<0
+07ooOol09Woo00<007ooOol0fGoo00000goo001oo`04Ool01000Oomoo`001Goo00@007ooOol0009o
+o`03001oogoo009oo`03001oogoo02Ioo`03001oogoo0=Uoo`000Woo00<007ooOol017oo00@007oo
+Oomoo`D00005Ool007ooOol00004Ool2000WOol00`00Oomoo`3IOol000=oo`03001oogoo00Aoo`04
+001oogoo0002Ool01000Oomoo`000Woo00<007ooOol00Woo00<007ooOol09Woo00<007ooOol0fGoo
+00001Goo001oogoo00000Woo00@007ooOol000=oo`03001oo`00009oo`04001oogoo0004Ool00`00
+Oomoo`0VOol00`00Oomoo`3IOol0009oo`8000Aoo`8000Eoo`8000=oo`8000Eoo`03001oogoo02Io
+o`03001oogoo0=Uoo`006goo00<007ooOol09Woo00<007ooOol0fGoo000KOol00`00Oomoo`0VOol0
+0`00Oomoo`3IOol001]oo`03001oogoo02Ioo`03001oogoo0=Uoo`006goo0P009goo00<007ooOol0
+fGoo000KOol00`00Oomoo`0WOol00`00Oomoo`3HOol001]oo`03001oogoo02Moo`03001oogoo0=Qo
+o`006goo00<007ooOol09goo00<007ooOol0f7oo000KOol00`00Oomoo`0WOol00`00Oomoo`3HOol0
+01]oo`03001oogoo02Moo`03001oogoo0=Qoo`006goo00<007ooOol09goo00<007ooOol0f7oo000K
+Ool00`00Oomoo`0WOol00`00Oomoo`3HOol001]oo`8002Uoo`03001oogoo0=Moo`006goo00<007oo
+Ool0:7oo00<007ooOol0egoo000KOol00`00Oomoo`0XOol00`00Oomoo`3GOol001]oo`03001oogoo
+02Qoo`03001oogoo0=Moo`006goo00<007ooOol0:7oo00<007ooOol0egoo000KOol00`00Oomoo`0X
+Ool00`00Oomoo`3GOol001]oo`03001oogoo02Uoo`03001oogoo0=Ioo`006goo0P00:Woo00<007oo
+Ool0eWoo000KOol00`00Oomoo`0YOol00`00Oomoo`3FOol001]oo`03001oogoo02Uoo`03001oogoo
+0=Ioo`006goo00<007ooOol0:Goo00<007ooOol0eWoo000KOol00`00Oomoo`0ZOol00`00Oomoo`3E
+Ool001]oo`03001oogoo02Yoo`03001oogoo0=Eoo`0000=oo`0000000P000goo0P000goo0`0017oo
+0P001Goo00<007ooOol0:Woo00<007ooOol0eGoo00000goo001oo`04Ool01000Oomoo`000Woo00@0
+07ooOol0009oo`04001oogoo0004Ool00`00Oomoo`0ZOol00`00Oomoo`3EOol0009oo`03001oogoo
+00Aoo`05001oogooOol00002Ool01000Oomoo`000Woo00<007ooOol00Woo0P00:goo00<007ooOol0
+eGoo0003Ool00`00Oomoo`04Ool00`00Oomoo`030003Ool01000Oomoo`0017oo00<007ooOol0:Woo
+00<007ooOol0eGoo00001Goo001oogoo00000Woo00@007ooOol000=oo`03001oogoo009oo`04001o
+ogoo0004Ool00`00Oomoo`0[Ool00`00Oomoo`3DOol0009oo`8000Aoo`8000Aoo`<000=oo`8000Eo
+o`03001oogoo02]oo`03001oogoo0=Aoo`006goo00<007ooOol0:goo00<007ooOol0e7oo000KOol0
+0`00Oomoo`0[Ool00`00Oomoo`3DOol001]oo`03001oogoo02]oo`03001oogoo0=Aoo`006goo0P00
+;7oo00<007ooOol0e7oo000KOol00`00Oomoo`0/Ool00`00Oomoo`3COol001]oo`03001oogoo02ao
+o`03001oogoo0==oo`006goo00<007ooOol0;7oo00<007ooOol0dgoo000KOol00`00Oomoo`0/Ool0
+0`00Oomoo`3COol001]oo`03001oogoo02eoo`03001oogoo0=9oo`006goo00<007ooOol0;Goo00<0
+07ooOol0dWoo000KOol00`00Oomoo`0]Ool00`00Oomoo`3BOol001]oo`8002ioo`03001oogoo0=9o
+o`006goo00<007ooOol0;Woo00<007ooOol0dGoo000KOol00`00Oomoo`0^Ool00`00Oomoo`3AOol0
+01]oo`03001oogoo02ioo`03001oogoo0=5oo`006goo00<007ooOol0;goo00<007ooOol0d7oo000K
+Ool00`00Oomoo`0_Ool00`00Oomoo`3@Ool001]oo`03001oogoo02moo`03001oogoo0=1oo`006goo
+0P00<7oo00<007ooOol0d7oo000KOol00`00Oomoo`0`Ool00`00Oomoo`3?Ool001]oo`03001oogoo
+031oo`03001oogoo0<moo`006goo00<007ooOol0<7oo00<007ooOol0cgoo000KOol00`00Oomoo`0`
+Ool00`00Oomoo`3?Ool001]oo`03001oogoo035oo`03001oogoo0<ioo`0000=oo`0000000P000goo
+0P0017oo0P0017oo0P001Goo00<007ooOol0<Goo00<007ooOol0cWoo00000goo001oo`04Ool01000
+Oomoo`000Woo00@007ooOol0009oo`04001oogoo0004Ool00`00Oomoo`0aOol00`00Oomoo`3>Ool0
+009oo`03001oogoo00Aoo`05001oogooOol00002Ool01000Oomoo`000Woo00<007ooOol00Woo0P00
+<goo00<007ooOol0cGoo0003Ool00`00Oomoo`04Ool01000Oomoogoo0P000goo00@007ooOol000Ao
+o`03001oogoo039oo`03001oogoo0<eoo`0000Eoo`00Oomoo`00009oo`04001oogoo0002Ool01000
+Oomoo`000Woo00@007ooOol000Aoo`03001oogoo03=oo`03001oogoo0<aoo`000Woo0P0017oo0P00
+17oo0P0017oo0P001Goo00<007ooOol0<goo00<007ooOol0c7oo000KOol00`00Oomoo`0dOol00`00
+Oomoo`3;Ool001]oo`03001oogoo03Aoo`03001oogoo0<]oo`006goo00<007ooOol0=Goo00<007oo
+Ool0bWoo000KOol2000fOol00`00Oomoo`3:Ool001]oo`03001oogoo03Ioo`03001oogoo0<Uoo`00
+6goo00<007ooOol0=Woo00<007ooOol0bGoo000KOol00`00Oomoo`0gOol00`00Oomoo`38Ool001]o
+o`03001oogoo03Moo`03001oogoo0<Qoo`006goo00<007ooOol0>7oo00<007ooOol0agoo000KOol0
+0`00Oomoo`0iOol00`00Oomoo`36Ool001]oo`03001oogoo03Uoo`03001oogoo0<Ioo`006goo0P00
+>goo00<007ooOol0aGoo000KOol00`00Oomoo`0jOol00`00Oomoo`35Ool001]oo`03001oogoo03]o
+o`03001oogoo0<Aoo`006goo00<007ooOol0?7oo0P00a7oo000KOol00`00Oomoo`0nOol00`00Oomo
+o`31Ool001]oo`03001oogoo03moo`03001oogoo0<1oo`006goo00<007ooOol0@7oo00<007ooOol0
+_goo000KOol20012Ool2002oOol001]oo`03001oogoo04=oo`03001oogoo0;aoo`006goo00<007oo
+Ool0A7oo0`00^goo000KOol00`00Oomoo`17Ool3002hOol001]oo`03001oogoo04Yoo`800;Ioo`00
+6goo00<007ooOol0C7oo0`00/goo00000goo000000020004Ool30002Ool20004Ool20005Ool00`00
+Oomoo`1?Ool7002/Ool00003Ool007oo00Moo`04001oogoo0002Ool01000Oomoo`000Woo00<007oo
+Ool00Woo00<007ooOol0EWoo5000V7oo0002Ool00`00Oomoo`02Ool500001Goo001oogoo00000Woo
+00@007ooOol000Aoo`8006]oohl000Uoo`000goo00D007ooOomoo`00009oo`04001oogoo0002Ool0
+1000Oomoo`000Woo00<007ooOol00Woo00<007ooOol0ogoo0goo00001Goo001oogoo00000goo00<0
+07oo00000Woo00@007ooOol0009oo`04001oogoo0004Ool00`00Oomoo`3oOol3Ool0009oo`8000Eo
+o`8000=oo`8000Aoo`8000Eoo`03001oogoo0?moo`=oo`006goo00<007ooOol0ogoo0goo003oOolQ
+Ool00?moob5oo`00ogoo8Goo003oOolQOol00?moob5oo`00\
+\>"],
+  ImageRangeCache->{{{0, 287}, {176.938, 0}} -> {-10.8859, 2288.26, 0.398872, \
+0.668511}}],
+
+Cell[BoxData[
+    FormBox[
+      TagBox[\(\[SkeletonIndicator]  Graphics  \[SkeletonIndicator]\),
+        False,
+        Editable->False], TraditionalForm]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(ListPlot[Table[{i, x[\([i, 2]\)]}, \ {i, \ 1, \ 100}], 
+      PlotJoined -> True\ ]\)], "Input"],
+
+Cell[GraphicsData["PostScript", "\<\
+%!
+%%Creator: Mathematica
+%%AspectRatio: .61803 
+MathPictureStart
+/Mabs {
+Mgmatrix idtransform
+Mtmatrix dtransform
+} bind def
+/Mabsadd { Mabs
+3 -1 roll add
+3 1 roll add
+exch } bind def
+%% Graphics
+%%IncludeResource: font Courier
+%%IncludeFont: Courier
+/Courier findfont 10  scalefont  setfont
+% Scaling calculations
+0.0238095 0.00952381 -26.6724 0.0142061 [
+[.21429 .02257 -6 -9 ]
+[.21429 .02257 6 0 ]
+[.40476 .02257 -6 -9 ]
+[.40476 .02257 6 0 ]
+[.59524 .02257 -6 -9 ]
+[.59524 .02257 6 0 ]
+[.78571 .02257 -6 -9 ]
+[.78571 .02257 6 0 ]
+[.97619 .02257 -9 -9 ]
+[.97619 .02257 9 0 ]
+[.01131 .17714 -24 -4.5 ]
+[.01131 .17714 0 4.5 ]
+[.01131 .3192 -24 -4.5 ]
+[.01131 .3192 0 4.5 ]
+[.01131 .46126 -24 -4.5 ]
+[.01131 .46126 0 4.5 ]
+[.01131 .60332 -24 -4.5 ]
+[.01131 .60332 0 4.5 ]
+[ 0 0 0 0 ]
+[ 1 .61803 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+0 g
+.25 Mabswid
+[ ] 0 setdash
+.21429 .03507 m
+.21429 .04132 L
+s
+[(20)] .21429 .02257 0 1 Mshowa
+.40476 .03507 m
+.40476 .04132 L
+s
+[(40)] .40476 .02257 0 1 Mshowa
+.59524 .03507 m
+.59524 .04132 L
+s
+[(60)] .59524 .02257 0 1 Mshowa
+.78571 .03507 m
+.78571 .04132 L
+s
+[(80)] .78571 .02257 0 1 Mshowa
+.97619 .03507 m
+.97619 .04132 L
+s
+[(100)] .97619 .02257 0 1 Mshowa
+.125 Mabswid
+.07143 .03507 m
+.07143 .03882 L
+s
+.11905 .03507 m
+.11905 .03882 L
+s
+.16667 .03507 m
+.16667 .03882 L
+s
+.2619 .03507 m
+.2619 .03882 L
+s
+.30952 .03507 m
+.30952 .03882 L
+s
+.35714 .03507 m
+.35714 .03882 L
+s
+.45238 .03507 m
+.45238 .03882 L
+s
+.5 .03507 m
+.5 .03882 L
+s
+.54762 .03507 m
+.54762 .03882 L
+s
+.64286 .03507 m
+.64286 .03882 L
+s
+.69048 .03507 m
+.69048 .03882 L
+s
+.7381 .03507 m
+.7381 .03882 L
+s
+.83333 .03507 m
+.83333 .03882 L
+s
+.88095 .03507 m
+.88095 .03882 L
+s
+.92857 .03507 m
+.92857 .03882 L
+s
+.25 Mabswid
+0 .03507 m
+1 .03507 L
+s
+.02381 .17714 m
+.03006 .17714 L
+s
+[(1890)] .01131 .17714 1 0 Mshowa
+.02381 .3192 m
+.03006 .3192 L
+s
+[(1900)] .01131 .3192 1 0 Mshowa
+.02381 .46126 m
+.03006 .46126 L
+s
+[(1910)] .01131 .46126 1 0 Mshowa
+.02381 .60332 m
+.03006 .60332 L
+s
+[(1920)] .01131 .60332 1 0 Mshowa
+.125 Mabswid
+.02381 .06349 m
+.02756 .06349 L
+s
+.02381 .0919 m
+.02756 .0919 L
+s
+.02381 .12031 m
+.02756 .12031 L
+s
+.02381 .14872 m
+.02756 .14872 L
+s
+.02381 .20555 m
+.02756 .20555 L
+s
+.02381 .23396 m
+.02756 .23396 L
+s
+.02381 .26237 m
+.02756 .26237 L
+s
+.02381 .29078 m
+.02756 .29078 L
+s
+.02381 .34761 m
+.02756 .34761 L
+s
+.02381 .37602 m
+.02756 .37602 L
+s
+.02381 .40443 m
+.02756 .40443 L
+s
+.02381 .43285 m
+.02756 .43285 L
+s
+.02381 .48967 m
+.02756 .48967 L
+s
+.02381 .51808 m
+.02756 .51808 L
+s
+.02381 .54649 m
+.02756 .54649 L
+s
+.02381 .57491 m
+.02756 .57491 L
+s
+.02381 .00666 m
+.02756 .00666 L
+s
+.25 Mabswid
+.02381 0 m
+.02381 .61803 L
+s
+0 0 m
+1 0 L
+1 .61803 L
+0 .61803 L
+closepath
+clip
+newpath
+.5 Mabswid
+.15525 0 m
+.15714 .02851 L
+.16667 .14347 L
+.17619 .23544 L
+.18571 .30902 L
+.19524 .36788 L
+.20476 .41497 L
+.21429 .45264 L
+.22381 .48277 L
+.23333 .50688 L
+.24286 .52617 L
+.25238 .5416 L
+.2619 .55394 L
+.27143 .56382 L
+.28095 .57172 L
+.29048 .57804 L
+.3 .58309 L
+.30952 .58714 L
+.31905 .59038 L
+.32857 .59296 L
+.3381 .59504 L
+.34762 .59669 L
+.35714 .59802 L
+.36667 .59908 L
+.37619 .59993 L
+.38571 .6006 L
+.39524 .60115 L
+.40476 .60158 L
+.41429 .60193 L
+.42381 .60221 L
+.43333 .60243 L
+.44286 .60261 L
+.45238 .60275 L
+.4619 .60286 L
+.47143 .60295 L
+.48095 .60303 L
+.49048 .60309 L
+.5 .60313 L
+.50952 .60317 L
+.51905 .6032 L
+.52857 .60322 L
+.5381 .60324 L
+.54762 .60326 L
+.55714 .60327 L
+.56667 .60328 L
+.57619 .60329 L
+.58571 .60329 L
+.59524 .6033 L
+.60476 .6033 L
+.61429 .60331 L
+Mistroke
+.62381 .60331 L
+.63333 .60331 L
+.64286 .60331 L
+.65238 .60331 L
+.6619 .60331 L
+.67143 .60332 L
+.68095 .60332 L
+.69048 .60332 L
+.7 .60332 L
+.70952 .60332 L
+.71905 .60332 L
+.72857 .60332 L
+.7381 .60332 L
+.74762 .60332 L
+.75714 .60332 L
+.76667 .60332 L
+.77619 .60332 L
+.78571 .60332 L
+.79524 .60332 L
+.80476 .60332 L
+.81429 .60332 L
+.82381 .60332 L
+.83333 .60332 L
+.84286 .60332 L
+.85238 .60332 L
+.8619 .60332 L
+.87143 .60332 L
+.88095 .60332 L
+.89048 .60332 L
+.9 .60332 L
+.90952 .60332 L
+.91905 .60332 L
+.92857 .60332 L
+.9381 .60332 L
+.94762 .60332 L
+.95714 .60332 L
+.96667 .60332 L
+.97619 .60332 L
+Mfstroke
+% End of Graphics
+MathPictureEnd
+\
+\>"], "Graphics",
+  ImageSize->{288, 177.938},
+  ImageMargins->{{35, 0}, {0, 0}},
+  ImageRegion->{{0, 1}, {0, 1}},
+  ImageCache->GraphicsData["Bitmap", "\<\
+CF5dJ6E]HGAYHf4PAg9QL6QYHg<PAVmbKF5d0`40004P0000/A000`40O003h00Oogoo8Goo003oOolQ
+Ool00?moob5oo`00ogoo8Goo003oOolQOol00?moob5oo`00B7oo10000goo0P00:goo0`000Woo0P00
+:Goo0`0017oo0P00:Woo0P0017oo0P009goo1@000Woo0P0017oo0P000goo0018Ool00`00Oomoo`03
+Ool01000Oomoo`00:goo00@007ooOol0009oo`03001oogoo02Ioo`04001oogoo0002Ool01000Oomo
+o`00:7oo00@007ooOol0009oo`04001oogoo000XOol01@00Oomoogoo00000Woo00@007ooOol0009o
+o`40005oo`5oo`006goo00<007ooOol07goo00<007ooOol02Goo00<007ooOol00Woo00@007ooOol0
+02Qoo`D00005Ool007ooOol0000XOol01000Oomoo`000Woo00@007ooOol002Qoo`04001oogoo0002
+Ool01000Oomoo`00:7oo00D007ooOomoo`00009oo`04001oogoo0002Ool10001Ool1Ool001]oo`03
+001oogoo01moo`03001oogoo00Yoo`05001oogooOol00002Ool00`00Oomoo`0VOol01000Oomoo`00
+0Woo00@007ooOol002Qoo`<000=oo`04001oogoo000YOol20003Ool01000Oomoo`00:7oo00D007oo
+Oomoo`00009oo`04001oogoo0002Ool10001Ool1Ool001]oo`80021oo`03001oogoo00Qoo`04001o
+ogoo0002Ool01000Oomoo`00:Goo00<007oo00000Woo00@007ooOol002Uoo`03001oogoo009oo`04
+001oogoo000XOol01000Oomoo`000Woo00@007ooOol002Qoo`05001oogooOol00002Ool01000Oomo
+o`000Woo0@000Goo0Goo000KOol00`00Oomoo`0OOol00`00Oomoo`09Ool20004Ool2000[Ool20003
+Ool2000ZOol30003Ool2000ZOol20004Ool2000XOol20004Ool20004Ool20003Ool001]oo`03001o
+ogoo021oo`03001oogoo0=moo`006goo00<007ooOol087oo00<007ooOol0ggoo000KOol00`00Oomo
+o`0POol00`00Oomoo`3OOol001]oo`03001oogoo021oo`03001oogoo0=moo`006goo00<007ooOol0
+87oo00<007ooOol0ggoo000EOooo00090003Ool001]oo`03001oogoo00Uoo`03001oogoo00Yoo`03
+001oogoo00Moo`03001oo`0000aoo`03001oogoo00Uoo`03001oogoo00Yoo`03001oogoo00Yoo`03
+001oogoo00Uoo`03001oogoo00Yoo`03001oogoo00Uoo`03001oogoo00Yoo`03001oogoo00Uoo`03
+001oogoo00Yoo`03001oogoo00Uoo`03001oogoo00Yoo`03001oogoo00Uoo`03001oogoo00Yoo`03
+001oogoo00Uoo`03001oogoo00Yoo`03001oogoo00Yoo`03001oogoo00Moo`006goo00<007ooOol0
+87oo00<007ooOol037oo00<007ooOol0;goo00<007ooOol0;goo00<007ooOol0;goo00<007ooOol0
+<7oo00<007ooOol01goo000KOol00`00Oomoo`0POol00`00Oomoo`3OOol001]oo`03001oogoo021o
+o`03001oogoo0=moo`006goo00<007ooOol087oo00<007ooOol0ggoo000KOol00`00Oomoo`0QOol0
+0`00Oomoo`3NOol001]oo`03001oogoo025oo`03001oogoo0=ioo`006goo0P008Woo00<007ooOol0
+gWoo000KOol00`00Oomoo`0QOol00`00Oomoo`3NOol001]oo`03001oogoo025oo`03001oogoo0=io
+o`006goo00<007ooOol08Goo00<007ooOol0gWoo000KOol00`00Oomoo`0QOol00`00Oomoo`3NOol0
+01]oo`03001oogoo025oo`03001oogoo0=ioo`006goo00<007ooOol08Goo00<007ooOol0gWoo000K
+Ool2000ROol00`00Oomoo`3NOol001]oo`03001oogoo025oo`03001oogoo0=ioo`006goo00<007oo
+Ool08Goo00<007ooOol0gWoo000KOol00`00Oomoo`0QOol00`00Oomoo`3NOol001]oo`03001oogoo
+025oo`03001oogoo0=ioo`006goo00<007ooOol08Goo00<007ooOol0gWoo000KOol00`00Oomoo`0Q
+Ool00`00Oomoo`3NOol001]oo`03001oogoo029oo`03001oogoo0=eoo`006goo0P008goo00<007oo
+Ool0gGoo000KOol00`00Oomoo`0ROol00`00Oomoo`3MOol001]oo`03001oogoo029oo`03001oogoo
+0=eoo`006goo00<007ooOol08Woo00<007ooOol0gGoo000KOol00`00Oomoo`0ROol00`00Oomoo`3M
+Ool001]oo`03001oogoo029oo`03001oogoo0=eoo`006goo00<007ooOol08Woo00<007ooOol0gGoo
+000KOol2000SOol00`00Oomoo`3MOol001]oo`03001oogoo029oo`03001oogoo0=eoo`006goo00<0
+07ooOol08Woo00<007ooOol0gGoo000KOol00`00Oomoo`0ROol00`00Oomoo`3MOol001]oo`03001o
+ogoo02=oo`03001oogoo0=aoo`006goo00<007ooOol08goo00<007ooOol0g7oo00000goo00000003
+0002Ool20003Ool30004Ool20005Ool00`00Oomoo`0SOol00`00Oomoo`3LOol000=oo`05001oogoo
+Ool00002Ool00`00Oomoo`02Ool01@00Oomoogoo00000Woo00<007ooOol00Woo00<007ooOol08goo
+00<007ooOol0g7oo0003Ool01@00Oomoogoo00000Woo00@007ooOomoo`<0009oo`04001oogoo0004
+Ool2000TOol00`00Oomoo`3LOol000=oo`03001oogoo009oo`8000=oo`04001oogoo0002Ool01000
+Oomoo`0017oo00<007ooOol08goo00<007ooOol0g7oo0003Ool01@00Oomoogoo00000Woo00@007oo
+Ool0009oo`04001oogoo0002Ool00`00Oomoo`02Ool00`00Oomoo`0SOol00`00Oomoo`3LOol0009o
+o`8000Aoo`8000Aoo`<000=oo`8000Eoo`03001oogoo02=oo`03001oogoo0=aoo`006goo00<007oo
+Ool097oo00<007ooOol0fgoo000KOol00`00Oomoo`0TOol00`00Oomoo`3KOol001]oo`03001oogoo
+02Aoo`03001oogoo0=]oo`006goo0P009Goo00<007ooOol0fgoo000KOol00`00Oomoo`0TOol00`00
+Oomoo`3KOol001]oo`03001oogoo02Aoo`03001oogoo0=]oo`006goo00<007ooOol097oo00<007oo
+Ool0fgoo000KOol00`00Oomoo`0TOol00`00Oomoo`3KOol001]oo`03001oogoo02Eoo`03001oogoo
+0=Yoo`006goo00<007ooOol09Goo00<007ooOol0fWoo000KOol2000VOol00`00Oomoo`3JOol001]o
+o`03001oogoo02Eoo`03001oogoo0=Yoo`006goo00<007ooOol09Goo00<007ooOol0fWoo000KOol0
+0`00Oomoo`0UOol00`00Oomoo`3JOol001]oo`03001oogoo02Eoo`03001oogoo0=Yoo`006goo00<0
+07ooOol09Goo00<007ooOol0fWoo000KOol00`00Oomoo`0VOol00`00Oomoo`3IOol001]oo`03001o
+ogoo02Ioo`03001oogoo0=Uoo`006goo0P009goo00<007ooOol0fGoo000KOol00`00Oomoo`0VOol0
+0`00Oomoo`3IOol001]oo`03001oogoo02Ioo`03001oogoo0=Uoo`006goo00<007ooOol09Woo00<0
+07ooOol0fGoo000KOol00`00Oomoo`0VOol00`00Oomoo`3IOol001]oo`03001oogoo02Ioo`03001o
+ogoo0=Uoo`006goo00<007ooOol09Woo00<007ooOol0fGoo000KOol2000WOol00`00Oomoo`3IOol0
+01]oo`03001oogoo02Moo`03001oogoo0=Qoo`006goo00<007ooOol09goo00<007ooOol0f7oo000K
+Ool00`00Oomoo`0WOol00`00Oomoo`3HOol001]oo`03001oogoo02Moo`03001oogoo0=Qoo`006goo
+00<007ooOol09goo00<007ooOol0f7oo00000goo00000003000017oo0000000017oo0P0017oo0P00
+1Goo00<007ooOol09goo00<007ooOol0f7oo0003Ool00`00Oomoo`03Ool01@00Oomoogoo00000Woo
+00@007ooOol0009oo`03001oogoo009oo`03001oogoo02Moo`03001oogoo0=Qoo`000goo00<007oo
+Ool00Woo0`000Woo00@007ooOol0009oo`04001oogoo0004Ool2000YOol00`00Oomoo`3GOol000=o
+o`05001oogooOol00002Ool01000Oomoo`000Woo00@007ooOol0009oo`03001oogoo009oo`03001o
+ogoo02Qoo`03001oogoo0=Moo`000goo00D007ooOomoo`00009oo`04001oogoo0002Ool01000Oomo
+o`000Woo00<007ooOol00Woo00<007ooOol0:7oo00<007ooOol0egoo0002Ool20004Ool30003Ool2
+0004Ool20005Ool00`00Oomoo`0XOol00`00Oomoo`3GOol001]oo`03001oogoo02Qoo`03001oogoo
+0=Moo`006goo00<007ooOol0:7oo00<007ooOol0egoo000KOol00`00Oomoo`0YOol00`00Oomoo`3F
+Ool001]oo`8002Yoo`03001oogoo0=Ioo`006goo00<007ooOol0:Goo00<007ooOol0eWoo000KOol0
+0`00Oomoo`0YOol00`00Oomoo`3FOol001]oo`03001oogoo02Uoo`03001oogoo0=Ioo`006goo00<0
+07ooOol0:Woo00<007ooOol0eGoo000KOol00`00Oomoo`0ZOol00`00Oomoo`3EOol001]oo`03001o
+ogoo02Yoo`03001oogoo0=Eoo`006goo00<007ooOol0:Woo00<007ooOol0eGoo000KOol2000[Ool0
+0`00Oomoo`3EOol001]oo`03001oogoo02Yoo`03001oogoo0=Eoo`006goo00<007ooOol0:goo00<0
+07ooOol0e7oo000KOol00`00Oomoo`0[Ool00`00Oomoo`3DOol001]oo`03001oogoo02]oo`03001o
+ogoo0=Aoo`006goo00<007ooOol0:goo00<007ooOol0e7oo000KOol00`00Oomoo`0[Ool00`00Oomo
+o`3DOol001]oo`8002aoo`03001oogoo0=Aoo`006goo00<007ooOol0;7oo00<007ooOol0dgoo000K
+Ool00`00Oomoo`0/Ool00`00Oomoo`3COol001]oo`03001oogoo02aoo`03001oogoo0==oo`006goo
+00<007ooOol0;7oo00<007ooOol0dgoo000KOol00`00Oomoo`0]Ool00`00Oomoo`3BOol001]oo`03
+001oogoo02eoo`03001oogoo0=9oo`006goo00<007ooOol0;Goo00<007ooOol0dWoo000KOol2000^
+Ool00`00Oomoo`3BOol001]oo`03001oogoo02ioo`03001oogoo0=5oo`006goo00<007ooOol0;Woo
+00<007ooOol0dGoo000KOol00`00Oomoo`0^Ool00`00Oomoo`3AOol001]oo`03001oogoo02moo`03
+001oogoo0=1oo`0000=oo`0000000`0000Aoo`00000000=oo`D0009oo`8000Eoo`03001oogoo02mo
+o`03001oogoo0=1oo`000goo00<007ooOol00goo00<007ooOol00goo00D007ooOomoo`00009oo`03
+001oogoo009oo`03001oogoo02moo`03001oogoo0=1oo`000goo00<007ooOol00Woo0`0017oo00D0
+07ooOomoo`00009oo`03001oogoo009oo`80031oo`03001oogoo0=1oo`000goo00D007ooOomoo`00
+009oo`03001oogoo009oo`05001oogooOol00002Ool00`00Oomoo`02Ool00`00Oomoo`0`Ool00`00
+Oomoo`3?Ool000=oo`05001oogooOol00002Ool00`00Oomoo`02Ool01@00Oomoogoo00000Woo00<0
+07ooOol00Woo00<007ooOol0<7oo00<007ooOol0cgoo0002Ool20004Ool30003Ool20004Ool20005
+Ool00`00Oomoo`0`Ool00`00Oomoo`3?Ool001]oo`03001oogoo031oo`03001oogoo0<moo`006goo
+00<007ooOol0<Goo00<007ooOol0cWoo000KOol00`00Oomoo`0aOol00`00Oomoo`3>Ool001]oo`03
+001oogoo035oo`03001oogoo0<ioo`006goo0P00<goo00<007ooOol0cGoo000KOol00`00Oomoo`0b
+Ool00`00Oomoo`3=Ool001]oo`03001oogoo03=oo`03001oogoo0<aoo`006goo00<007ooOol0<goo
+00<007ooOol0c7oo000KOol00`00Oomoo`0dOol00`00Oomoo`3;Ool001]oo`03001oogoo03Aoo`03
+001oogoo0<]oo`006goo00<007ooOol0=Goo00<007ooOol0bWoo000KOol2000fOol00`00Oomoo`3:
+Ool001]oo`03001oogoo03Ioo`03001oogoo0<Uoo`006goo00<007ooOol0=Woo00<007ooOol0bGoo
+000KOol00`00Oomoo`0gOol00`00Oomoo`38Ool001]oo`03001oogoo03Moo`03001oogoo0<Qoo`00
+6goo00<007ooOol0>7oo00<007ooOol0agoo000KOol00`00Oomoo`0iOol00`00Oomoo`36Ool001]o
+o`03001oogoo03Uoo`03001oogoo0<Ioo`006goo0P00>goo00<007ooOol0aGoo000KOol00`00Oomo
+o`0jOol00`00Oomoo`35Ool001]oo`03001oogoo03]oo`03001oogoo0<Aoo`006goo00<007ooOol0
+?7oo0P00a7oo000KOol00`00Oomoo`0nOol00`00Oomoo`31Ool001]oo`03001oogoo03moo`03001o
+ogoo0<1oo`006goo00<007ooOol0@7oo00<007ooOol0_goo000KOol20012Ool2002oOol001]oo`03
+001oogoo04=oo`03001oogoo0;aoo`006goo00<007ooOol0A7oo0`00^goo000KOol00`00Oomoo`17
+Ool3002hOol001]oo`03001oogoo04Yoo`800;Ioo`006goo00<007ooOol0C7oo0`00/goo00000goo
+00000003000017oo000000000goo10000goo0P001Goo00<007ooOol0Cgoo1`00[7oo0003Ool00`00
+Oomoo`03Ool01@00Oomoogoo00001Goo00@007ooOol000Aoo`03001oogoo05Iooa@009Qoo`000goo
+00<007ooOol00Woo0`000goo00<007ooOol00Woo00@007ooOol000Aoo`8006]oohl000Uoo`000goo
+00D007ooOomoo`00009oo`03001oogoo009oo`05001oogooOol00002Ool00`00Oomoo`02Ool00`00
+Oomoo`3oOol3Ool000=oo`05001oogooOol00002Ool01000Oomoo`000Woo00@007ooOol0009oo`03
+001oogoo009oo`03001oogoo0?moo`=oo`000Woo0P0017oo0`000goo0P0017oo0P001Goo00<007oo
+Ool0ogoo0goo000KOol00`00Oomoo`3oOol3Ool00?moob5oo`00ogoo8Goo003oOolQOol00?moob5o
+o`00ogoo8Goo0000\
+\>"],
+  ImageRangeCache->{{{0, 287}, {176.938, 0}} -> {-10.8859, 1875.3, 0.398872, \
+0.267405}}],
+
+Cell[BoxData[
+    FormBox[
+      TagBox[\(\[SkeletonIndicator]  Graphics  \[SkeletonIndicator]\),
+        False,
+        Editable->False], TraditionalForm]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(We\ can\ observe\ that\ the\ maximum\ eigenvalue\ of\ the\ system\ \((\
+\[Lambda]\_max)\)\ determines\ the\ growth\ rates\ of\ the\ popultion . \ 
+          If\ \[Lambda]\_max\  > 1, \ 
+    the\ population\ willtend\ to\ explode . \ If\ \[Lambda]\_max\  < 1, \ 
+    the\ population\ will\ tend\ to\ \ decay . \ If\ \[Lambda]\_max\  = 1, \ 
+    the\ population\ will\ tend\ toward\ a\ constant\ \(\(value\)\(.\)\)\)], \
+"Text"],
+
+Cell["Question 2", "Subtitle"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Part (a)", "Section"],
+
+Cell[BoxData[
+    \(Remove["\<Global`*\>"]\)], "Input"],
+
+Cell[BoxData[
+    \(g[t_, \ 
+        x_]\  := \ \((1 - 2\ x\ t\  + \ t^2)\)^\((\(-1\)/2)\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(series1\  = \ 
+      FullSimplify[
+        CoefficientList[Series[g[t, x], {t, \ 0, \ 5}], \ t]]\)], "Input"],
+
+Cell[BoxData[
+    \(TraditionalForm\`{1, x, 1\/2\ \((3\ x\^2 - 1)\), 
+      1\/2\ x\ \((5\ x\^2 - 3)\), 1\/8\ \((35\ x\^4 - 30\ x\^2 + 3)\), 
+      1\/8\ x\ \((63\ x\^4 - 70\ x\^2 + 15)\)}\)], "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Part (b)", "Section"],
+
+Cell[BoxData[
+    \(P[n_] := 
+      Sum[\((\(-1\))\)^
+            k*\(\((2  n - 
+                  2  k)\)!\)/\((\((2^
+                    n)\)\ \(k!\)\ \(\((n - k)\)!\)\ \(\((n - 2  k)\)!\))\) 
+          x^\((n - 2  k)\), {k, 0, Floor[n/2]}]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(series2\  = \ 
+      FullSimplify[
+        CoefficientList[Sum[P[n]\ t^n, \ {n, \ 0, \ 5}], \ t]]\)], "Input"],
+
+Cell[BoxData[
+    \(TraditionalForm\`{1, x, 1\/2\ \((3\ x\^2 - 1)\), 
+      1\/2\ x\ \((5\ x\^2 - 3)\), 1\/8\ \((35\ x\^4 - 30\ x\^2 + 3)\), 
+      1\/8\ x\ \((63\ x\^4 - 70\ x\^2 + 15)\)}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(series1 === series2\)], "Input"],
+
+Cell[BoxData[
+    \(TraditionalForm\`True\)], "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Part (c) - First Part", "Section"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(And\  @@ \ 
+      FullSimplify[
+        Table[\ \[PartialD]\_x\ P[n + 1] - \[PartialD]\_x\ 
+                P[n - 1] == \((2  n + 1)\)\ P[n], \ {n, 1, 4}]]\)], "Input"],
+
+Cell[BoxData[
+    \(TraditionalForm\`True\)], "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Part (c) - Second Part", "Section"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(And\  @@ \ 
+      FullSimplify[
+        Table[\((1 - x^2)\) \[PartialD]\_\(x, x\)\ P[n] - 
+              2  x\ \[PartialD]\_x\ P[n]\  + \ n \((n + 1)\) P[n] == 0, \ {n, 
+            1, 4}]]\)], "Input"],
+
+Cell[BoxData[
+    \(TraditionalForm\`True\)], "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Part (d)", "Section"],
+
+Cell[BoxData[
+    \(P2[n_]\  := \ \((1/\((2  Pi)\))\)\ Integrate[\((x + 
+                Sqrt[x^2 - 1]\ \ Cos[\[CurlyPhi]])\)^n, {\[CurlyPhi], \ 0, \ 
+            2*Pi}]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(And\  @@ \ FullSimplify[Table[P[n] == P2[n], \ {n, 0, 5}]]\)], "Input"],
+
+Cell[BoxData[
+    \(TraditionalForm\`True\)], "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Part (e)", "Section"],
+
+Cell[BoxData[
+    \(P3[n_]\  := \ 
+      1/\((2^n\ \(n!\))\)\ D[\((x^2 - 1)\)^n, \ {x, n}]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(And\  @@ \ FullSimplify[Table[P[n] == P3[n], \ {n, 0, 5}]]\)], "Input"],
+
+Cell[BoxData[
+    \(TraditionalForm\`True\)], "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Part (f)", "Section"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(And\  @@ \ \(And\  @@@ \ 
+        FullSimplify[
+          Table[Integrate[P[n]\ P[m], \ {x, \ \(-1\), \ 1}]\  == 
+              2/\((2  n + 1)\)\ \ DiscreteDelta[n - m], \ {n, \ 0, \ 
+              5}, \ {m, \ 0, \ 5}]]\)\)], "Input"],
+
+Cell[BoxData[
+    \(TraditionalForm\`True\)], "Output"]
+}, Open  ]],
+
+Cell[TextData[StyleBox["",
+  FontSize->10]], "Copyright"]
+}, Open  ]]
+},
+FrontEndVersion->"4.1 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 695}},
+ScreenStyleEnvironment->"Working",
+WindowSize->{820, 647},
+WindowMargins->{{-1, Automatic}, {Automatic, 0}},
+ShowSelection->True,
+StyleDefinitions -> "Classroom.nb"
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1705, 50, 132, 2, 118, "Title"],
+Cell[1840, 54, 109, 4, 68, "Title"],
+Cell[1952, 60, 30, 0, 41, "Subtitle"],
+
+Cell[CellGroupData[{
+Cell[2007, 64, 36, 0, 62, "Section"],
+Cell[2046, 66, 55, 1, 50, "Input"],
+Cell[2104, 69, 79, 1, 50, "Input"],
+Cell[2186, 72, 60, 1, 50, "Input"],
+
+Cell[CellGroupData[{
+Cell[2271, 77, 52, 1, 50, "Input"],
+Cell[2326, 80, 78, 1, 49, "Output"]
+}, Open  ]],
+Cell[2419, 84, 104, 2, 50, "Input"],
+
+Cell[CellGroupData[{
+Cell[2548, 90, 116, 2, 50, "Input"],
+Cell[2667, 94, 14595, 454, 186, 5184, 333, "GraphicsData", "PostScript", \
+"Graphics"],
+Cell[17265, 550, 167, 4, 49, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[17469, 559, 116, 2, 50, "Input"],
+Cell[17588, 563, 14595, 454, 186, 5184, 333, "GraphicsData", "PostScript", \
+"Graphics"],
+Cell[32186, 1019, 167, 4, 49, "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[32402, 1029, 37, 0, 62, "Section"],
+
+Cell[CellGroupData[{
+Cell[32464, 1033, 53, 1, 50, "Input"],
+Cell[32520, 1036, 93, 1, 49, "Output"]
+}, Open  ]],
+Cell[32628, 1040, 90, 1, 50, "Input"],
+
+Cell[CellGroupData[{
+Cell[32743, 1045, 116, 2, 50, "Input"],
+Cell[32862, 1049, 16240, 503, 186, 5241, 363, "GraphicsData", "PostScript", \
+"Graphics"],
+Cell[49105, 1554, 167, 4, 49, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[49309, 1563, 116, 2, 50, "Input"],
+Cell[49428, 1567, 14593, 463, 186, 4914, 339, "GraphicsData", "PostScript", \
+"Graphics"],
+Cell[64024, 2032, 167, 4, 49, "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[64240, 2042, 27, 0, 62, "Section"],
+
+Cell[CellGroupData[{
+Cell[64292, 2046, 63, 1, 50, "Input"],
+Cell[64358, 2049, 335, 5, 65, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[64730, 2059, 102, 2, 50, "Input"],
+Cell[64835, 2063, 229, 4, 25, "Message"],
+Cell[65067, 2069, 84, 1, 49, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[65188, 2075, 53, 1, 50, "Input"],
+Cell[65244, 2078, 62, 1, 49, "Output"]
+}, Open  ]],
+Cell[65321, 2082, 105, 2, 50, "Input"],
+
+Cell[CellGroupData[{
+Cell[65451, 2088, 116, 2, 50, "Input"],
+Cell[65570, 2092, 13832, 415, 186, 4311, 293, "GraphicsData", "PostScript", \
+"Graphics"],
+Cell[79405, 2509, 167, 4, 49, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[79609, 2518, 116, 2, 50, "Input"],
+Cell[79728, 2522, 13469, 409, 186, 4224, 290, "GraphicsData", "PostScript", \
+"Graphics"],
+Cell[93200, 2933, 167, 4, 49, "Output"]
+}, Open  ]],
+Cell[93382, 2940, 446, 7, 65, "Text"],
+Cell[93831, 2949, 30, 0, 41, "Subtitle"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[93898, 2954, 27, 0, 62, "Section"],
+Cell[93928, 2956, 55, 1, 50, "Input"],
+Cell[93986, 2959, 103, 2, 50, "Input"],
+
+Cell[CellGroupData[{
+Cell[94114, 2965, 129, 3, 50, "Input"],
+Cell[94246, 2970, 202, 3, 65, "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[94497, 2979, 27, 0, 62, "Section"],
+Cell[94527, 2981, 255, 6, 50, "Input"],
+
+Cell[CellGroupData[{
+Cell[94807, 2991, 130, 3, 50, "Input"],
+Cell[94940, 2996, 202, 3, 65, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[95179, 3004, 52, 1, 50, "Input"],
+Cell[95234, 3007, 55, 1, 49, "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[95338, 3014, 40, 0, 62, "Section"],
+
+Cell[CellGroupData[{
+Cell[95403, 3018, 188, 4, 50, "Input"],
+Cell[95594, 3024, 55, 1, 49, "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[95698, 3031, 41, 0, 62, "Section"],
+
+Cell[CellGroupData[{
+Cell[95764, 3035, 222, 5, 50, "Input"],
+Cell[95989, 3042, 55, 1, 49, "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[96093, 3049, 27, 0, 62, "Section"],
+Cell[96123, 3051, 182, 3, 50, "Input"],
+
+Cell[CellGroupData[{
+Cell[96330, 3058, 91, 1, 50, "Input"],
+Cell[96424, 3061, 55, 1, 49, "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[96528, 3068, 27, 0, 62, "Section"],
+Cell[96558, 3070, 103, 2, 50, "Input"],
+
+Cell[CellGroupData[{
+Cell[96686, 3076, 91, 1, 50, "Input"],
+Cell[96780, 3079, 55, 1, 49, "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[96884, 3086, 27, 0, 62, "Section"],
+
+Cell[CellGroupData[{
+Cell[96936, 3090, 254, 5, 90, "Input"],
+Cell[97193, 3097, 55, 1, 49, "Output"]
+}, Open  ]],
+Cell[97263, 3101, 57, 1, 57, "Copyright"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

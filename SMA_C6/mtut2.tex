@@ -1,0 +1,59 @@
+\magnification=\magstep1
+\input notesmac.tex
+\nopagenumbers
+
+\centerline{\titlefont Tech and Tools, Tutorial 2}
+\bigskip
+\bigskip
+\line{Dr.~WANG Jian-Sheng \hfill 27 Sep 1999}
+\bigskip
+\bigskip
+{\sl I'll divided into $n$ groups, for $n=1, 2, 3, \cdots$.}
+\bigskip
+
+%----------------------------------------------------------------------- 
+
+\problem  After specifying the following assignments and rules,
+\ttbg
+f[2] = 3
+f[u] := 2u^2
+f[v_] := 1/v
+u = 2
+\tted
+what is {\tt f[u]}.
+
+
+\bigskip
+\problem  Explain what the following function {\tt func[]} can 
+accomplish. Give an example to illustrate the use of {\tt func[]}.
+\ttbg
+func[l_] := ff[l, {}];
+ff[ {}, r_] := r;
+ff[ {h_, t___}, {r___} ] := ff[ {t}, {r, h} ] /; h>0;
+ff[ {h_, t___}, {r___} ] := ff[{t}, {r}] /; (h<=0||Head[h]==Symbol)
+\tted
+
+\bigskip
+\problem What does this program do?
+\ttbg
+runEncode[lst_List] :=
+  Map[ {#,1}&, lst] //. 
+     {u___, {v_,r_}, {v_, s_}, w___} -> {u, {v, r+s}, w}
+\tted
+
+
+\bigskip
+\problem How does one read a data file representing a 4 by 4 matrix
+\ttbg
+  0.3 -3.0 0.3  1.023
+  0.1  0.2 1.1  0.003
+  5.0  2.3 2.3  0.1
+  0.3  0.1 4.4  0.005
+\tted
+into Mathematica as a (Mathematica) matrix (list of list) for further
+manipulation (such as solving a linear equation)?
+
+\item{} Conversely, how does one write a set of data suitable for C or Fortran
+to read? 
+
+\bye

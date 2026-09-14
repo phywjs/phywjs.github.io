@@ -1,0 +1,140 @@
+<html>
+<head><title>Answers to Lab1 3</title></head>
+<body>
+<h1>Sample Answers to Lab 3</h1>
+
+<h3>Q1</h3>
+
+Of course, I can write my own 4th order Runge-Kutta ODE solver. 
+However, in this case, the canned routine such as that from
+Numerical Recipes, or building functions such as ode45( ) in MATLAB
+or DSolve[ ] in Mathametica is a better choice, since they handle
+the accuracy of the numerical solution with more sophisticated techniques.
+
+With MATLAB, the programming is fairly straightforward.  I have
+two M-files written, the main program which control the setting
+of parameters, calling ode45, and plotting, shown below:
+<pre>
+% main program to control the calculation
+% parameters
+global s0 ep T G e b a c d
+s0 = 2.0;
+ep = 1.0;
+T = 1.0;
+G = 40;
+e = 0.2;
+b = 1.5;
+a = 0.1;
+c = 0.1;
+d = 1.0;
+
+% range of t values
+tspan = [0 10];    
+% initial condition
+y0 = [20 30 10];
+[t y] = ode45('eqns', tspan, y0);
+
+plot(t,y(:,1), t,y(:,2), t,y(:,3))
+xlabel('t');
+ylabel('population');
+</pre>
+And the function 'eqns' defined the differential equation (the
+derivatives of r, g, and f, as follows:
+<pre>
+function dot = eqns(t,y);
+% EQNS - Compute the field vector dot=[dg/dt;dr/dt;df/dt] at y=[g;r;f;]
+% where s(t) = s0 + ep * cos(6.28*t/T) 
+% dg/dt = (s(t) - g/G) g - e*r 
+% dr/dt = (b - r/g)r - a*r*f 
+% df/dt = c*r*f - d*f. 
+% The parameters are passed from global variables
+%
+global s0 ep T G e b a c d
+g = y(1);
+r = y(2);
+f = y(3);
+s = s0 + ep* cos(6.28*t/T);
+dg = (s-g/G)*g - e*r;
+dr = (b-r/g)*r - a*r*f;
+df = c*r*f - d*f;
+dot = [dg; dr; df];
+</pre>
+
+Since equations have a large set of parameters, it is difficult 
+to know what is a 'reasonable choice' of the values.  This is done
+largely by trial and error.  But we do have few guidlines. 
+For example, all the parameters should be nonnegative.  For s(t),
+we ensure it is also nonnegative.  The hierarchy of the food chain
+is such that we should have more grass, medium rabbits, and less
+wolves.
+
+<h3>(0)</h3>
+To check that our programs are correct, we consider the solution in
+special cases (without modifying much of it, except changing the
+values of the parameters or initial conditions). 
+  
+<p>i. If we set r = 0, it will stay zero for the rest of the time. Thus
+the three equations decouple, for grass we get
+<p>dg/dt = (s(t) - g/G)g
+<P>and for wolf
+<p>df/dt = -df
+<p>The solution of the second equation is f(t) = f0 * exp(-t*d). If we set
+ep = 0, the solution of the first equation is also easily obtained,
+which is 
+<p>g(t) = G*s0*(s0*t+C)/(s0*t+C+G), C = g0/(s0-g0/G)
+<p>The point to solve these equations analytically is to compare
+with the numerical answers.  We compute the difference between the 
+exact result with the numerical results.  This will tell us about
+the correctness and accuracy of numerical solutions. We expect that
+the numerical answers should be at least accurate to about 4 decimal
+places.
+
+<p>ii. For rabbit equation, we set g at its fixed point s0-g/G=0, e = 0, ep =0, 
+a = 0.  Then the rabbit equation becomes standard logistic equation,
+we can use the same trick as above. Detail will be omitted here.
+
+<p>iii.  When there is coupling between the equations, it is difficult
+to find exact solutions analytically.  We have to reply on a careful
+check of the code, and to see if the answers are sensible.  But nothing more
+rigorous can be said. 
+
+<h3>(2)</h3>
+<P>As we can see from the solutions, the long-time behavior is 
+controlled by the fixed points.  If there are stable fixed point around,
+the solution will approach to the stable fixed point.   I have
+discovered that oscillations with a phase lag is quite typical.
+There can also be periodic solutions [quatified by a theorem
+due to Poincare' and Bendixson, which we did not discuss in class].
+
+<h3>(3)</h3>
+First of all, in order to have a time-independent solution for the fixed
+point, we must have s(t) = s0 independent of time.  So we set ep = 0.
+The fixed point (equilibrium) is a set of (g,r,f) such that
+<p>dg/dt = (s0 - g/G)g -er = 0
+<p>dr/dt = (b-r/g)r - arf = 0
+<p>df/dt = crf - df = 0 
+<p>The solutions are not difficult to find.  They are
+<p>i. (0, 0, 0)  -- This point is a bit tricker as the equation is
+singular at that point.  Numerical experiment indicates that this
+can be a stable fixed point.
+<p>ii. (s0*G, 0, 0)  -- this is an unstable fixed point.
+<p>iii. The non zero solution for all quantities is at
+<p>r = d/c, g = G(s0 + sqrt(s0*s0-4*d*e/(G*c))/2, f = (b-r/g)/a
+<p>Actually we have two solutions for g, one of which appears
+to give negative value for f?  When the sqrt(...) becomes
+imaginary, then it is unphysical and not a fixed point.
+<p>The stability of this fixed point depends on the value of the
+parameters.  For certain parameter range, it is a stable fixed
+point.  A linear stability analysis can be done by expanding
+the equation around the fixed point.  But here, we just do few 
+numerical experiment (starting with an initial condition 
+that is close to the fixed point, we see if the solution
+flow into or away from the fixed point).
+
+<h2>Mark Scheme</h2>
+<P>Due to the qualitative nature of some of the questions asked in
+the lab, we decide to give grades A, B, C, D only, rather than
+a more detailed marks.
+</body>
+</html>
+

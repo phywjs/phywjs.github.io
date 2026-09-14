@@ -1,0 +1,279 @@
+<html>
+<head>
+<title>CZ1101, Week 15</title>
+</head> 
+<body>
+<h2>Week 15 (Last Week), 20/23 October, 1997</h2>
+
+<HR>
+
+<h3>Operating System</h3>
+
+<p>On top of the computer hardware is operating system, utility programs,
+and application programs, which are the software component of a computer. 
+The operating system manages the user/computer hardware interface, so
+that it is easier and friendlier to end users. The operating 
+system supports the program creation, execution,
+manages the memory system, I/O devices and user processes. 
+
+<P>UNIX operating system is a multi-user, multi-tasking operating
+system with an elegant hierarchical file system.  The UNIX kernel
+does the real job of management.  The user interacts with the kernel
+through a program called shell. Shell is just one of the many
+programs.  There are several slightly different shells (sh: Bourne shell,
+csh: C shell, ksh: Korn shell, tcsh: Enhanced C shell).  
+
+<P>A process in UNIX is a currently running program plus addition
+bookkeeping information. A process is created when you login. 
+You can create process by running a program.  Process A can create
+Processes B and C; Processes B and C is called children of A, A is 
+parent of B and C.  You can display the current running processes
+with the Unix command:
+<pre>
+   ps -aux         (or ps -ef on other systems)
+</pre>
+or kill a process with the kill [pid] command. 
+
+<P>Unix is a time sharing operating system.  A typical workstation
+will have 30 to 40 processes running.  But only one
+process is actually executing the instructions.  
+The other processes are waiting for the CPU resources.  
+The operating system controls
+which process should be executed and for how long.
+The operating system switches the running processes quickly.  It gives
+user the impression that all processes are running simultaneously.
+
+<P> Unix has a large collection of commands (well over 300). It takes
+years of experience to be good at them.  Here I list some of the
+interesting ones.
+<pre>
+FILE SYSTEMS
+   cd       change directory
+   cp       copy file
+   rm       delete file  mkdir/rmdir  make/remove directory
+   pwd      print working directory 
+   ls       list file
+   df       file system usage
+   du       disk usage
+   quota or diskquota
+   chmod    change mode of the file protection
+   ln       create a link
+   cat      display a file
+   diff     print out the difference of two files
+  
+EDITING, WORD PROCESSING
+   vi                               tex/latex   (document formating)
+   emacs                            troff
+   pico
+
+OTHER UTILITIES
+   man      display manual page
+   grep     pattern search
+   awk      pattern scanning and processing 
+   perl     more advanced pattern scanning and processing
+   dbx      symbolic debugger
+   make     program maintenance
+   spell    spelling checker
+   pine     E-mail
+   mail
+</pre>
+
+<hr>
+<h2><A NAME="review">Review</A></h2>
+
+
+<h3>Instructions</h3>
+
+<h4>Arithmetic instructions</h4>
+<pre>
+                                        floating-point
+     R-form  Immediate Unsigned   U/I   single   double      C 
+
+      add      addi      addu    addiu   add.s   add.d      "+"
+      sub                subu            sub.s   sub.d      "-"
+      mult/mul           multu           mul.s   mul.d      "*"
+      div                divu            div.s   div.d      "/"
+</pre>
+Remarks: (1) Most arithmetic instructions take 3 operands, except mult 
+and div, which take 2.  (2) Floating point instructions take only
+3 floating-point registers. (3) First register is usually the result.
+Result for mult and div is in hi and lo. (4) Immediate values take
+the third operand.  (5) What is the difference between signed and
+unsigned version of the instructions?  Note that the same "+" in C can be
+translated into any one of the 6 different addition instructions. 
+
+<h4>Logical instructions</h4>
+<pre>
+           Immediate         C
+
+     and      andi          "&"
+     or       ori           "|"
+     xor      xori          "^"
+     sll                   "<<"     shift left
+     srl                   ">>"     shift right
+     sra                   ">>"     shift right arithmetic
+</pre>
+Remarks: (1) Again, these instructions take 3 operands, first is result, 
+the last may take immediate value.  (2) Logical operations are BITWISE,
+e.g., 
+<pre>
+        0101100...0110
+  and   1011001...1001
+------------------------
+result  0001000...0000
+</pre>
+
+<h4>Conditional branch and jump</h4>
+<pre>
+                            C
+   beq $2, $3, L        "if($2==$3) goto L;"
+   ...
+L:
+   bne $2, $3, L        "if($2!=$3) goto L;"
+
+   j L                  "goto L;"
+
+   jal f                "f(a,b,c ...);"
+
+   slt    slti   sltu   sltiu    "$2<$3?"
+</pre>
+<P>Remark: (1) Conditional branch and jump instructions are used to 
+control the execution of code, corresponding to C states like
+for(..), while(..), do {}, if(..) else.     
+(2) jal is used for function call.
+
+<h4>Data transfer instructions</h4>
+<pre>
+Move from memory to registers:
+     lw $2, address        l.s $f0, address,     l.d $f0, address
+
+Move from registers to memory:
+     sw $2, address        s.s $f0, address      l.d $f0, address
+
+Move between registers:
+     mflo $1
+     mfhi $1
+     mtc1 $1, $f0  (move from CPU to FPU)
+     mfc1 $1, $f0  (move from FPU to CPU)
+</pre>
+<P>Remarks: (1) Address is either of the form 100($4), for
+example, or a label (pseudo-instruction).  (2)  Only load/store instructions
+access memory. (3) A word occupies 4 bytes.  (4) "Move" does not
+actually mean moving the data, "copy" is more appropriate.
+
+<h4>Pseudo-instructions</h4>
+<pre>
+   move     (copy contents)
+   li       (load immediate)
+   li.s li.d (load immediate floating point)
+   la       (load address)
+</pre>
+<P>Remarks: (1) Pseudo-instructions (also called assembly instructions but not
+machine instructions) are translated into one or several machine instructions
+by the assembler. (2) Pseudo-instructions do not have machine encoding.
+
+<h3>Assembly Programming</h3>
+<h4>Program structure</h4>
+A MIPS assembly program looks like this:
+<pre>
+            .data
+   str:     .ascii  "string\0"
+   A:       .word   1
+             ...
+            .text
+   myprog:
+             ...
+                           # code goes here
+             j $31 
+</pre>
+<h4>Argument passing, register usage convention, and stack</h4>
+<P>We should know these concepts. In particular, $2 is for integer
+type return value, $4 to $7 are for 1st to 4th integer type arguments.
+
+<h3>Data Repesentations</h3>
+<P>All types of data on computer are ultimately represented by bit patterns.
+Given a bit pattern of 32 bits (1 word) 
+<pre>
+   b_31   b_30  B_29 ...... b_3 b_2 b_1 b_0
+</pre>
+it can represent:
+<UL>
+  <LI>Unsigned integer:  The value is b_31 2^{31} + b_{30} 2^{30} + 
+    ... b_1 2^1 + b_0 2^0. 
+  <LI>Signed integer:  The value is -b_31 2^{31} + b_{30} 2^{30} + 
+    ... b_1 2^1 + b_0 2^0. 
+  <LI>Floating-point single precision: (-1)^{b_31} 2^{e-127} (1 + f),
+       e is bit 30 to 23, 8-bit unsigned; f = b_22 2^{-1} + b_21 2^{-2} + ...
+       b_1 2^{-22} + b_0 2^{-23}, 23-bit fractional part (IEEE standard).
+  <LI>Instructions: bit fields are divided into groups of 6, 5, 5, 5, 5, 6,
+      denoting operations and registers numbers (or 16-bit immediate value).
+  <LI>4 ASCII characters: each character takes 8 bits, the meaning is 
+       given by the ASCII table. 
+</UL>
+<P>Remarks: (1) We should know how to negate a (two's complement) number,
+         and sign extending a number. (2) Binary <-> decimal conversion,
+          including floating point binary numbers.  (3) Divide/multiply by 2 
+         methods for binary/decimal conversions.
+
+
+<h3>Computer Arithmetic</h3>
+<P>Following points are expected to know:
+<UL>
+  <LI>Binary addition, subtraction, multiplication, and division.
+  <LI>Issue of overflows.
+  <LI>Multiplication/division algorithms.
+  <LI>Floating-point arithmetic.
+</UL>
+We do an addition and a Booth algorithm multiplication as examples.
+<pre>
+           unsigned signed
+      1101   -> 13  -3                  1101    ->  -3
+   +  0111   ->  7   7              x   0111    ->   7
+   -------                     -------------
+   (1)0100   -> 20   4              00000000
+    ^                             - 11111101
+    |                           ------------
+ overflow bit                       00000011
+                                  + 11101 
+                                ------------
+                                    11101011    -> -21 
+</pre>
+<P>Remarks: (1) Whether there is an overflow or not depends on the 
+interpretation (signed or unsigned number). (2) Booth algorithm is
+for signed number. The result has twice the original bits.
+
+
+<h3>Computer Organization</h3>
+How does computer execute instructions (datapath and control, pipelining)?
+How can we have a fast as well as large memory? How the various components of
+a computer are connected?  Coverage on these questions will be light,
+but not excluded from exam.
+
+<h3>Final Examination (Monday afternoon 2:00-4:00 PM, 10 Nov, 97, at IMM)</h3>
+
+<UL>
+ <LI>Close book.
+ <LI>Examination lasts for 2 hours.
+ <LI>5-6 questions, all compulsory, unequal weightage.  Marks of each 
+      question are specified.
+ <LI>Question style is similar to tutorial and lab exercises.
+ <LI>Need for memorization is minimal. Tables, algorithms, formula
+     shall be provided if necessary.
+</UL>
+
+<h3>How to Review</h3>
+<P>(1) Read and understand the lecture notes. Read the relevant
+chapters of the textbook. (2) Do or re-do the tutorial/lab problems without
+referring to the answers.  Then check against the answers.  
+(3) If you have time or energy, do extra problems in the past exams, 
+problems in textbook or other reference books. 
+
+<P>Dr. Wang Jian-Sheng (office S16 02-35, tel x6880) is available for 
+consultation in the reviewing period.
+
+
+<HR>
+[ <A HREF="week14.html">previous week</A> ]
+<HR>
+</body>
+</html>

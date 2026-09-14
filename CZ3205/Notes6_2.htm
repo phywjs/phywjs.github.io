@@ -1,0 +1,134 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Chapter 2</title>
+<meta name="Microsoft Theme" content="loosegst 011, default">
+</head>
+
+<body background="lootextb.jpg" bgcolor="#FFFFCC" text="#000000" link="#CC6633" vlink="#663399" alink="#999900"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><!--mstheme--></font>
+
+<h1><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#666633">Principle
+Components Analysis<!--mstheme--></font></h1>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><!--mstheme--></font><h3><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#666633">&nbsp;<!--mstheme--></font></h3>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><!--mstheme--></font><h3><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#666633">(1)
+Hebbian leaning rule and Oja's learning rule<!--mstheme--></font></h3>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><p><font size="4">Let
+us have a close look of the Hebb learning rule:</font></p>
+<p><font size="4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; w<sub>i</sub> &lt;- w<sub>i</sub> +
+<font face="Symbol">e</font> y(x) x<sub>i</sub></font></p>
+<p><font size="4">we shall consider only linear network where y(x) = <font face="Symbol">S</font><sub>i</sub>
+w<sub>i</sub> x<sub>i</sub> = x w<sup>T</sup>, x and w are row vectors.&nbsp; In
+matrix notation, we can compactly write</font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; w &lt;- w + <font face="Symbol">e</font>
+(w x<sup>T</sup>) x&nbsp;&nbsp;&nbsp; (for one neutron, N inputs, one scalar
+output) </font></p>
+<p><font size="4">However, this updating rule for w is not stable.&nbsp; For
+example, if it happens x&gt;0 and y&gt;0, then repeated application of the above
+formula will make w go to infinity.&nbsp; A way to get around this is to limit
+the norm of the vector w, by requiring that the length of the vector is fixed at
+|w| = 1, where&nbsp; |w|<sup>2</sup> = <font face="Symbol">S</font><sub>i</sub>w<sub>i</sub><sup>2</sup>.&nbsp;
+Then the updating consists of two steps, (1)&nbsp; w &lt;- w + <font face="Symbol">e</font>
+(w x<sup>T</sup>) x, (2) w &lt;- w/|w|.&nbsp;&nbsp;&nbsp; Assuming the learning
+rate is small (say 10<sup>-3</sup>), we can combined the two steps into
+one.&nbsp; The following modified Hebbian rule is known as Oja's rule</font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; w &lt;- w + <font face="Symbol">e</font>
+y ( x - y w),&nbsp;&nbsp;&nbsp; where&nbsp; y = x w<sup>T</sup>.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(3)</font></p>
+<p><font size="4">the additional term proportional to - y<sup>2</sup> w causes
+the w to decay, thus it will not diverge to infinity.&nbsp; In fact, it will
+converge to |w| = 1.</font></p>
+<p><font size="4">[Work out the steps from equations (1) &amp; (2) to (3),
+correct to leading order in <font face="Symbol">e</font>.]</font></p>
+<!--mstheme--></font><h3><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#666633"><font size="4">(2)
+Asymptotic limit of the Oja's learning rule</font><!--mstheme--></font></h3>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><p><font size="4">What
+would be the results if we apply (3) repeatedly?&nbsp; Of course, that will
+depends on the training sample x.&nbsp;&nbsp; To quantify the set of possibly
+training sample, we assume x is drawn from a fixed probability distribution P(x).&nbsp;&nbsp;
+We assume&nbsp; that x is identically, and independently distributed (iid).&nbsp;
+</font></p>
+<p><font size="4">In the limit of many training samples with small <font face="Symbol">e</font>,
+we expect that w fluctuates about a mean &lt;w&gt; which we'll still write as
+w.&nbsp; the correction term that is proportional to <font face="Symbol">e</font>
+is zero on average, so we require that</font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; &lt; y (x - y w) &gt; =
+&lt; x<sup>T</sup>x&nbsp; &gt; w&nbsp; - (w<sup>T</sup> &lt;x<sup>T</sup>x&gt;
+w) w&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (4)</font></p>
+<p><font size="4">where x is row vector and x<sup>T </sup>is column vector, w is
+assumed to be a constant with respect to the average denoted by &lt; ...
+&gt;.&nbsp;&nbsp; Let us define&nbsp; C = &lt; x<sup>T</sup>x&gt;.&nbsp; It is
+known as correlation matrix.&nbsp; In component form, C<sub>ij</sub> = &lt;x<sub>i</sub>
+x<sub>j</sub>&gt;.&nbsp;&nbsp; We can write Eq.(4) as </font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; C w - (w<sup>T</sup> C w) w = 0.</font></p>
+<p><font size="4">If Cw = <font face="Symbol">l</font> w, then C w = <font face="Symbol">l</font>
+|w|<sup>2</sup> w = <font face="Symbol">l</font> w, then we have shown |w| =
+1.&nbsp;&nbsp; The equation</font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; C w = <font face="Symbol">l</font>
+w</font></p>
+<p><font size="4">is called an eigenvalue problem, and <font face="Symbol">l</font>
+is called eigenvalue and w is eigenvector.&nbsp;&nbsp; In the limit of large
+training samples drawn from the distribution P(x), the weight approaches one of the
+eigenvector of the correlation matrix.&nbsp;&nbsp; It can be shown that w in
+fact approaches the eigenvector with largest eigenvalue.&nbsp; Other directions
+(eigenvectors) are unstable against small perturbation.</font></p>
+<!--mstheme--></font><h3><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#666633"><font size="4">(3)
+Generalized Hebbian algorithms and principal components</font><!--mstheme--></font></h3>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><p><font size="4">Equation
+(3) pick out the largest eigenvector corresponding the largest eigenvalue.&nbsp;
+A simple generalization can be used to pick out the first M eigenvectors with M
+linear neurons.&nbsp;&nbsp; This is known as Sanger's learning rule:</font></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="4">w<sup>k</sup>&nbsp;
+&lt;-&nbsp; w<sup>k</sup> + <font face="Symbol">e</font> y<sup>k</sup> ( x - <font face="Symbol">S</font><sub>j=1</sub><sup>k</sup>
+y<sup>k</sup>&nbsp; w<sup>k</sup>)</font></p>
+<p><font size="4">Note that for k = 1, it is the same as Eq.(3).&nbsp; For k =
+2, we have </font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; w<sup>2</sup>&nbsp;
+&lt;-&nbsp; w<sup>2</sup> + <font face="Symbol">e</font> y<sup>2</sup> ( x
+-&nbsp; y<sup>1</sup>&nbsp; w<sup>1 </sup> -<sup> </sup>y<sup>2</sup>&nbsp; w<sup>2</sup>)</font></p>
+<p><font size="4">When convergence is reached, all w vectors are orthogonal to
+each other and normalized to 1.&nbsp; w<sup>k </sup>is then an eigenvector of C
+with eigenvalue <font face="Symbol">l</font><sup>k</sup>.&nbsp; The eigenvalues
+are in decreasing order with index k.</font></p>
+<p><font size="4">The set of values y<sup>k</sup> = w<sup>k</sup>  x<sup>T</sup> are called
+principal components of x.&nbsp;&nbsp; The set of directions w are the principal
+directions in the sample space x for the variance y.&nbsp;&nbsp; The variance y
+forms a high dimensional &quot;ellipsoid&quot;: (assume &lt;y&gt;=0)</font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; &lt;y<sup>2</sup>&gt; =
+w C w<sup>T</sup></font></p>
+<p><font size="4">the direction w<sup>1</sup> corresponds to the direction of
+largest variation with variance <font face="Symbol">l</font><sup>1</sup>.&nbsp;
+w<sup>2</sup> gives the second largest variance in a direction that is
+perpendicular to&nbsp; w<sup>2</sup>, w<sup>3</sup> is third largest variation
+direction that is perpendicular to w<sup>1</sup> and w<sup>2</sup>, and so on.&nbsp;
+Here is in this plot a schematic illustration of the concept.&nbsp;</font></p>
+<p><img border="0" src="pca.jpg" width="197" height="144"></p>
+<p>&nbsp;</p>
+<!--mstheme--></font><h3><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#666633">(4)
+An image compression example<!--mstheme--></font></h3>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica">
+<p><font size="4">What is good use of the above learning algorithm?&nbsp; Such
+network can be used as a pre-processing layer in a multi-layer network for data
+reduction.&nbsp; This will make the whole network faster (in
+learning).&nbsp;&nbsp; In such applications,&nbsp; the number N of input signals
+will be much larger than output signals M.&nbsp; the mapping y = W x can be
+viewed as a form of data compression. </font></p>
+<p><font size="4">One particular interesting application is image data
+compression.&nbsp; Since the set of w's form a new orthogonal axis, we can
+expand any arbitrary input data x along these axis, </font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; x = b<sub>1</sub> w<sup>1</sup>
++ b<sub>2</sub> w<sup>2</sup> + b<sub>3</sub> w<sup>3</sup> + ...</font></p>
+<p><font size="4">multiplying (scale product with) w<sup>k</sup> to both side of
+the equation, we find</font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; b<sub>k</sub> = w<sup>k</sup>
+x<sup>T</sup> = y<sup>k</sup></font></p>
+<p><font size="4">In order to go back to x from b's without loss of information,
+we need N components of b.&nbsp; However, if we keep only the first M
+components, then they represent a compressed information.&nbsp; We test this idea
+with the example of Mathematica code.</font></p>
+<p>&nbsp;</p>
+<!--mstheme--></font></body>
+
+</html>

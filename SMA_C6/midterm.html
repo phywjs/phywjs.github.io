@@ -1,0 +1,84 @@
+<html>
+<head>
+<title>Ansers to Midterm Exam</title>
+</head>
+<body>
+
+<h2>Answers to Midterm Exam (on 19 July 2002)</h2>
+
+<pre>
+1.  (a)  0  0  0
+         0  0  0
+    (b)  1  4  9
+    (c)  1  2  3  
+         2  4  6
+         3  6  9
+    (d)  2  1
+         4  3
+    (e)  0.2
+    (f)  1  4
+    (g)  2
+    (h)  -1
+    (i)  1
+    (j)  0.0
+
+2.  (a) dim=size(A); B = A(1:2:dim(1), 1:2:dim(2))
+    (b) A'*B
+    (c) det([A;B;C])       or    dot(cross(A,B),C)
+    (d) roots([1 1 1])
+    (e) x = 0:0.01:pi; plot(x, sin(x))
+
+3.
+function [mean, var, max, index] = stat(A);
+% STAT takes a matrix and returns its mean, variance, maximum and index.
+% We run over the elements and compute required quantities.
+mean = 0.0;
+square = 0.0;
+max = -inf;
+index = [-1, -1];
+[m, n] = size(A);
+for i = 1:m
+    for j = 1:n
+        v = A(i,j);
+        mean = mean + v;
+        square = square + v*v;
+        if (A(i,j) > max) 
+            max = v;
+            index = [i j];
+        end
+    end
+end;
+mean = mean/(n*m);
+var = square/(n*m) - mean*mean;
+
+
+4.  (a) {a^2, b^2, c^2}
+    (b) {Sin[1], Sin[2], 0}
+    (c) Sqrt[2]
+    (d) 4
+    (e) 3
+    (f) 2
+    (g) c
+    (h) {1,2,{a}}
+    (i) z^2
+    (j) b
+
+5.  (a) Plot[BesselJ[1,x],{x,1,5}]
+    (b) N[Sqrt[3],100]
+    (c) Simplify[Sin[x]^2+Cos[x]^2]
+    (d) A.B
+    (e) m = Table[0,{100},{50}]
+
+6.
+SymbolCount[expr_, x_Symbol] := Module[{},
+   Count[expr, x, Infinity]
+]
+
+or 
+
+SymbolCount[expr_,x_Symbol] := Length[Position[Level[expr,{-1}],x]]
+</pre>
+
+
+</body>
+</html>

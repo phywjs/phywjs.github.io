@@ -1,0 +1,45 @@
+Dear all,
+
+Lab #4 is ready...you can pick it up from the lab.
+
+A few remarks on Q#2: Accuracy of calculating e^x with the Taylor Series
+------------------------------------------------------------------------
+There are a few reasons why you have inaccurate answers compared with
+results obtained from the calculator.
+
+1) Results are at most accurate to only 5 dec. places since the stopping
+   condition is |y|<0.00001.
+
+2) A further limitation is that the single-precision floating point 
+   representation is only accurate to at most 7 significant figures.
+   (This is because there are only 23 bits for the mantissa)
+
+3) Another factor comes from using the Taylor series to calculate 
+   results. For positive x, the results are as expected given the
+   limitations (1) & (2) above.
+
+   For large and negative x, however, the accuracy drops drastically.
+   To see why, we have to examine the individual terms of the series.
+   The short answer is that negative x produces terms of alternating
+   signs, and large x produces individual terms that are very large.
+   But the final result is supposed to be very small or very close
+   to zero. By adding very large terms (large in comparison with
+   the final result) of opposite sign, there is loss of significance
+   because of the limitations of the single-prec float. pt.
+   representation. I won't go into detail here though...
+
+   If you are interested in more detail, please refer to any 
+   Numerical Analysis/Methods book on the topic of errors with the
+   floating point representation. There are some available in the 
+   lab.
+
+4) Some of you have also observed that by changing the order of
+   evaluating y, the accuracy changes. This is related to (3) above.
+
+   Doing y = y * (x/n) produces a more accurate result than
+   y=(y*x)/n. Calculating (x/n) first makes this part of the product
+   small in magnitude, so the individual term, y, does not grow as
+   large as calculating (y*x) first, since x is large.
+
+rgds,
+--shing

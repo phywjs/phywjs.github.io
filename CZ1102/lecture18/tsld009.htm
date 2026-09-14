@@ -1,0 +1,100 @@
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Context-Type" CONTEXT="text/html;charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft Internet Assistant for PowerPoint 97">
+ <TITLE>Unformatted I/O</TITLE> 
+</HEAD>
+
+<BODY     >
+
+ <H1>Unformatted I/O</H1> 
+ <P><UL>
+<H2>#include &#060stdio.h&#062
+</H2>
+<BR></UL><UL>
+<H2>main()
+</H2>
+</UL><UL>
+<H2>{
+</H2>
+</UL><UL>
+<H2>   float v[5], r[5];
+</H2>
+</UL><UL>
+<H2>   FILE *fp;
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>   v[0] = 13.15;
+</H2>
+</UL><UL>
+<H2>   v[1] = 1.0;
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>   fp = fopen("test.dat", "wb");
+</H2>
+</UL><UL>
+<H2>   fwrite(v, sizeof(float), 2, fp);
+</H2>
+</UL><UL>
+<H2>   fclose(fp);
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>   fp = fopen("test.dat", "rb");
+</H2>
+</UL><UL>
+<H2>   fread(r, sizeof(float), 2, fp);
+</H2>
+</UL><UL>
+<H2>   fclose(fp);
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>   printf("%f %f\n", r[0], r[1]);
+</H2>
+</UL><UL>
+<H2>}
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>The print out is:
+</H2>
+</UL><UL>
+<H2>13.150000 1.000000
+</H2>
+</UL><UL>
+<H2>In the file text.dat we have
+</H2>
+</UL><UL>
+<H2>ffRA…    which is the characters for hexadecimal number 66 66 52 41, which in turn is the IEEE representation of 13.15.
+</H2>
+</UL></P>
+<P>This is program <a href="pg465.c">pg465.c</a></P> 
+<P>
+<TABLE>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld008.htm">Previous slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld010.htm">Next slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="tsld001.htm">Back to first slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="sld009.htm">View graphic version</A> </TD>
+</TABLE>
+<BR>
+</P>
+
+
+
+</Body>
+</HTML>

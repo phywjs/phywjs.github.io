@@ -1,0 +1,83 @@
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Context-Type" CONTEXT="text/html;charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft Internet Assistant for PowerPoint 97">
+ <TITLE>Pointers/Swap Addresses</TITLE> 
+</HEAD>
+
+<BODY     >
+
+ <H1>Pointers/Swap Addresses</H1> 
+ <P><UL>
+<H2>#include &#060stdio.h&#062
+</H2>
+<BR></UL><UL>
+<H2>#include &#060stdlib.h&#062
+</H2>
+</UL><UL>
+<H2>main()
+</H2>
+</UL><UL>
+<H2>{
+</H2>
+</UL><UL>
+<H2>   char c = 'O', d= 'H';
+</H2>
+</UL><UL>
+<H2>   char *p1, *p2, *temp;
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>   p1 = &c;
+</H2>
+</UL><UL>
+<H2>   p2 = &d;
+</H2>
+</UL><UL>
+<H2>   printf("%c%c", *p1, *p2);
+</H2>
+</UL><UL>
+<H2>   temp = p1;
+</H2>
+</UL><UL>
+<H2>   p1 = p2;
+</H2>
+</UL><UL>
+<H2>   p2 = temp;
+</H2>
+</UL><UL>
+<H2>   printf("%c%c", *p1, *p2);
+</H2>
+</UL><UL>
+<H2>}
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>The program prints:
+</H2>
+</UL><UL>
+<H2>OHHO</H2>
+</UL></P>
+<P><UL>
+Swap the values of p1 and p2.<BR></UL></P>
+<P>This is program <a href="pg312.c">pg312.c</a></P> 
+<P>
+<TABLE>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld006.htm">Previous slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld008.htm">Next slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="tsld001.htm">Back to first slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="sld007.htm">View graphic version</A> </TD>
+</TABLE>
+<BR>
+</P>
+
+
+
+</Body>
+</HTML>

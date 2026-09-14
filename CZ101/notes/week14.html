@@ -1,0 +1,289 @@
+<html>
+<head>
+<title>CZ1101, Lecture Notes, Week 14</title>
+</head>
+<body>
+
+<HR>
+<p>Links to other weeks notes
+[ <A HREF="cz101notes.html">2</A> ][ <A HREF="week3.html">3</A> ][
+ <A HREF="week4.html">4</A> ][ <A HREF="week5.html">5</A> ][ <A 
+HREF="week6.html">6</A> ][ <A HREF="week7.html">7</A> ]
+[ <A HREF="week8.html">8</A> ][ <A HREF="week10.html">10</A> ][
+ <A HREF="week11.html">11</A> ][ <A HREF="week12.html">12</A> ][
+ <A HREF="week13.html">13</A> ]( <A HREF="week14.html">14</A> )[
+ <A HREF="week15.html">15</A> ]
+<HR>
+
+<h2>Week 14, 13/16  October, 1997</h2>
+
+
+<h1><A NAME="chapter7">Chapter 7</A>, Large and Fast: Exploiting Memory Hierarchy</h1>
+
+<h3>Memory hierarchy</h3>
+<P>The programmer wish to have large and fast memory.  However, the
+two requirements are conflicting.  Fast memories are expensive and small;
+and slow memories are cheaper and large.   To give user the illusion
+of both fast and large, the memory system of modern computers is 
+organized in a hierarchical way.  The very top of the hierarchy
+is CPU registers, between the CPU and main memory, a fast cache
+memory is added.  The hard disk is used by the technique of 
+virtual memory to expand the capacity of main memory. 
+
+<P>This hierarchy organization works because of the "principle
+of locality" in the behavior of program execution:
+
+<UL>
+  <LI> Temporal locality (locality in time): If an item is referenced,
+it will tend to be referenced again soon.
+  <LI> Spatial locality (locality in space):  If an item is referenced,
+items whose addresses are close by will tend to be referenced soon.
+</UL>
+
+<P><strong>The Big Picture</strong>: Programs exhibit temporal and
+spatial locality.  Memory hierarchies take advantage of temporal
+locality by keeping more recently accessed data items closer to the
+processor.  Memory hierarchies take advantage of spatial locality
+by moving blocks consisting of multiple contiguous words in 
+memory to upper levels of the hierarchy. 
+<P>If the hit rate is high enough, the memory hierarchy has an
+access time close to that of the highest (and fastest) level and
+a size equal to that of the lowest (and largest) level.
+
+<P>A hit is that the data are found in the upper level.  A miss
+is that the data are not present in the upper level.  They must
+be brought to the upper level from lower level.
+
+<P>The memory devices involved are static RAM (random access memory),
+dynamic RAM, and magnetic disk.  With static RAM, each 1-bit cell
+is made of 6 transistors.  Dynamic RAM uses capacitor to store
+information, with is smaller and simpler, but slow.  This table
+shows typical access time (time it takes to get the
+request information) and cost. 
+<pre>
+   Memory Technology        Typical Access Time        US$ per MB
+
+   SRAM (static RAM)                10 ns                 $100
+   DRAM (dynamic RAM)              100 ns                 $30
+   Magnetic Disk            10,000,000 ns                 $1
+</pre>
+The unit for time is in nanosecond (ns).  1 ns = 10^{-9} second.  Note
+that magnetic disk access time is 5 orders of magnitude slower.
+
+
+<h3>Caches</h3>
+
+<P>Cache [kaesh]: A safe place for hiding or storing things. 
+
+<P>Cache is a small memory (typical size 1 - 100 kB) immediately connected 
+to the processor.  Cache is made of the expansive SRAM.  It can work
+at the speed comparable to the processor.  Typical clock speed of
+a processor is 100 MHz, or equivalently 10 ns per cycle.   The main
+memory functions about 10 times slower, but large (10 - 100 MB). 
+
+<P>Note on units for sizes:
+<pre>
+   1 byte = 8 bits
+   1 kB (kilobyte) = 2^10 bytes = 1024 bytes
+   1 MB (megabyte) = 2^20 bytes = 1024 kB (1,048,576 bytes)  
+   1 GB (gigabyte) = 2^30 bytes = 1024 MB (1,073,741,824 bytes)
+   1 TB (terabyte) = 2^40 bytes = 1024 GB 
+</pre>
+
+<P>Since the cache is small and can only store a subset of data
+in main memory, we need to decide where to put the data in cache
+and how to find it.  A simple method is called direct mapped cache.
+In this scheme, the address in cache is equal to the address in
+memory modulo the size of the cache.   The basic unit for transfer
+data between cache and memory is a block.  A block is typically
+1 to 10 words.  The cache not only stores the data but also stores
+where the block comes from memory, known as tags. This information
+is necessary since many memory locations are mapped to the same
+cache location. 
+
+<P>When the memory contents in cache are updated, they become
+inconsistent with the main memory.  Two strategies are available.
+
+<P>Write through: Both cache and memory are written during a store.
+
+<P>Write back: Only the cache is updated. Memory is updated when the
+cache contents are replaced. 
+
+<P>The size of the cache is chosen to be a power of 2, so that the
+modulo computation is not really necessary.
+Given an address from CPU, and to locate a block on the cache,
+the lower numbers of bits of the memory word is used as an index
+to the cache; the upper part of the bits of the memory word is
+compared against the tag.  If they agree, we have a cache hit,
+otherwise we have a cache miss.  If cache misses, new data
+must be brought from the main memory.
+
+<h3>Virtual Memory</h3>
+Virtual memory is a method of using the hard disk as if they are
+part of main memory, so that the program size can be larger than
+the actual physical memory.  Virtual memory also supports multiple
+processes well.  Each process has its own virtual address space
+by itself.  But difference processes are mapped to different 
+physical memory. 
+
+<P>The unit block of data for transferring between disk and memory
+is called a page (typical 4 kB).  Since the access time for disk
+is very slow (0.01 second), but transferring rate is reasonably large
+(2 MB/s), it make sense to bring a large amount of data each time.
+Virtual address system uses a page table to translate the
+virtual address into physical address.  All addresses that your program
+(or processor) generates are virtual addresses.  The page table is
+managed by the operating system.  The page table
+specifies where the data are actually located.  They may be  in
+memory or on disk.  If the virtual page is not found in memory
+(similar to a cache miss), it is called a page fault. The operating
+system must bring in a page for the disk.  
+
+<P>Page table is stored in memory, and indexed by the virtual
+page number (part of the address, say, bit 12 to 31).  With virtual
+memory, accessing the memory would take twice as long, once for
+accessing the page table in memory, and once for the actual data. 
+To speed up the translation process, parts of the page table are
+stored in a fast memory called translation-lookaside buffer (TLB).
+Some computers have the TLB on the processor chip.  TLB is actually
+a cache for the page table.  
+
+<P>TLB uses fully associative mapping. It consists of a list of
+virtual page - physical page pairs.  Each virtual page can be
+mapped to any one of the physical pages of memory.  This mapping
+is handled by the operating system using complicated algorithms. 
+
+<P>Virtual memory uses write back method because frequent access
+to disk is very slow.  If a page in memory need to be replaced
+(some other process or virtual page needs memory space), the contents
+of the page are written back to disk if the page has been
+changed since it was brought into the memory.
+
+<P>With virtual memory and cache, data fetch is a complex process.
+The CPU issues a virtual address.  The address is broken into two parts:
+the page offset and virtual page number.  TLB is used to translate
+the virtual page into physical page.  Physical page and the 
+page offset form the physical address.  The physical address is
+presented to the cache. If it is found in cache, data is sent to 
+CPU.  If is not in cache, the physical main memory must be 
+accessed to bring the data in.   If TLB miss occurs, two situations can
+happen, the data is in memory or a page fault occurs.   In the 
+former, we simply need to bring the page table entry to TLB.  In
+the later case, the operating system must bring in the data from
+disk, which takes hundreds of thousand CPU cycles.
+
+<h1><A NAME="chapter8">Chapter 8</A>, Interfacing Processors and Peripherals</h1>
+
+<h3>Input/Output Devices</h3>
+
+<P>Various components of computers are connected via memory-I/O bus. 
+The bus connects main memory, processor, and I/O controllers. 
+I/O devices notify the processor by interrupts when there is a
+need for data transfer or when the I/O devices have finished a 
+transfer.   Interrupts are similar to exceptions - the processor
+temporarily stops the execution of current program and go to other 
+part of system code to do services.
+
+<P>I/O (input/output) devices come in various types.  Below is a list
+of devices with their typical data transfer rates (amount of data per
+second).
+<pre>
+   Device              Behavior           Data Rate
+  
+   Keyboard            input              10 bytes/s
+   Mouse               input              20 bytes/s
+   Scanner             input              0.2 MB/s
+   Laser printer       output             0.1 MB/s
+   Graphics display    output             30 MB/s
+   Floppy disk         storage            50 kB/s 
+   CD ROM              storage            0.5 MB/s
+   Magnetic disk       storage            2 MB/s
+   Magnetic tape       storage            2 MB/s
+</pre>
+
+<h3>Magnetic disk</h3>
+<P>Hard disk (magnetic disk) is one of the important I/O devices.  Disk
+densities have continued to increase for more than 30 years.
+The capacity is getting larger and price is getting cheaper.  A hard
+disk consists of several metal platters coated with magnetic material,
+rotating at high speed (5000 revolution per second).  Each surface
+has a read/write head mounted on arm.  The heads can only move in
+one radial direction.   Both sides of a platter are used.  Each surface
+is divided into concentrical circles of tracks, typically 1000 
+tracks per platter.  Each track is divided into about 100 sectors, 
+separated by gaps.    To access data in a specific location, the
+arm has to be positioned over the proper track, this takes about
+10-20 ms (1 ms = 1 millisecond = 0.001 s).  The head waits until the
+desired sector is under it; this takes about 6 ms.  Once the
+sector is found, the data can be read at a rate of 4 MB/s.  
+The disk controller also needs some time for book keeping (overhead).
+
+<h3>Networks</h3>
+
+<P>A computer without network facility is very inconvenient. Thus
+network is a very important part of computer peripherals.  Local 
+area network (LAN) connects computers within few kilometers. 
+Ethernet is commonly used which can transfer data at the rate
+of 10 Mbit per second. Ethernet is an implementation of a one-wire
+bus.  ATM (asynchronous Transfer Mode) is the new technology for
+high bandwidth network (100 Mbit to Gbit).  Wide area network (WAN) or long haul
+network is for long distance transfer.  ARPANET is the first such
+network.  It is the forerunner of the internet.  For WAN, phone lines
+(28 kbits/s), copper and coaxial cable (100Mbits/s), or optical
+fiber (1 Gigabits/s) are used.
+
+<h3>Buses</h3>
+<P>An important feature of bus is that only one pair of devices
+can communicate at any given time.  The bus line is shared by all the
+devices connected to it. 
+Bus organization has two advantages, (1) versatile, (2) low cost.
+The disadvantage: communication bottleneck.
+Similar to the hard disk, two characteristic specifications are 
+associated with bus: bus latency (response time for I/O operation)
+and bus bandwidth (transfer rate).  
+
+<P>A bus consists of some data lines and some control lines.  Control
+lines signal requests and acknowledgements, indicate the type of 
+information on the data line.  Data lines carry information 
+between source and destination (data, commands, addresses).
+
+<P>A bus transaction is done in few steps.  For a memory-disk
+transaction (output or read memory and send to disk), (a) processor
+sends a read request via control line. Data line contains the address.
+The processor also notifies the disk to accept data. (b) Memory
+accesses the data. (c) The memory transfers the data using the
+data line, signaling the availability of data via control line.
+The disk stores the data as it appears on the bus.
+
+<P>For a reverse process (transfer from disk to memory), it takes
+two steps. (a) Control lines indicate a write request for memory, 
+while data lines contain the address. (b) Memory notifies that
+it is ready to accept data.  Data is transferred by data line. 
+
+<P>There are three types of buses depending on their usage.
+Backplane bus connects processor, memory and I/O devices by one 
+single bus. Processor-memory bus is high capacity bus to 
+connect the processor and memory.  I/O bus connects low speed 
+I/O devices.  The I/O bus is connected to processor-memory
+bus by a bus adapter. 
+
+<P>High speed buses are typically synchronous (meaning they
+function on clock cycle basis), low speed buses are asynchronous.
+Asynchronous buses can accommodate different speed of the devices.
+In simple systems, the activities of the bus are controlled by 
+the processor.  In high performance computers, the control can be
+among the devices themselves.  A method to decide who should use the bus
+next is called bus arbitration.  The industry standard buses
+(eg. PCI, SCSI) are useful since the devices for different vendor
+can work together.
+
+<h2>Suggested Reading</h2>
+<P>Textbook, "Computer Organization and Design", Chapter 7 and 8.
+
+<HR>
+[ <A HREF="week13.html">previous week</A> ][ 
+<A HREF="week15.html">next week</A> ]
+<HR>
+</body>
+</html>
+ 

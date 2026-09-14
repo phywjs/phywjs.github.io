@@ -1,0 +1,1144 @@
+(************** Content-type: application/mathematica **************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     35198,       1059]*)
+(*NotebookOutlinePosition[     35918,       1084]*)
+(*  CellTagsIndexPosition[     35874,       1080]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  StyleBox["Symbolic Computing\n\n",
+    FontWeight->"Bold"],
+  StyleBox["LT20, 4:00-6:00pm\nWed, 2 April 2003",
+    FontSize->24,
+    FontWeight->"Bold"]
+}], "Title"],
+
+Cell["", "Subtitle"],
+
+Cell[TextData[{
+  "From Mod ",
+  Cell[BoxData[
+      \(TraditionalForm\`p\)]],
+  " solutions to result in Z\nfor linear equations"
+}], "Subtitle"],
+
+Cell[TextData[{
+  Cell[BoxData[{
+      \(TraditionalForm\`\ \ \ \ 22  x\  + 44  y\  + 74  z\  = \ 
+        1, \ \ \ \ \ \ \ \ \ \ \((1)\)\), "\[IndentingNewLine]", 
+      \(TraditionalForm\`\ \ \ \ 15  x\  + 14  y\  - 
+          10  z\  = \ \(-2\), \ \ \ \ \ \ \((2)\)\), "\[IndentingNewLine]", 
+      \(TraditionalForm\`\(-25\) x\  - 28  y\  + 20  z\  = \ 
+        34. \ \ \ \ \ \ \ \ \ \((3)\)\)}]],
+  "\n\nSuppose that the above equations have been solved mod ",
+  Cell[BoxData[
+      \(TraditionalForm\`p\)]],
+  " for several values of ",
+  Cell[BoxData[
+      \(TraditionalForm\`p\)]],
+  ", how do we reconstruct the original solution in Z (or Q)?\nSince there is \
+a ring morphism from Z to Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_p\)]],
+  " (but not from Q), we need to work in Z.   Any equations that work in Z \
+can be translated directly in Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_p\)]],
+  ".\n\nFormally, we can write the solution of the equation using Cramer's \
+rule:\n",
+  Cell[BoxData[
+      \(TraditionalForm\`x\  = \ d\_x\/d, \ \ y\  = \ 
+        d\_y\/d, \ \ \ and\ \ z = \ d\_z\/d\)]],
+  "\nwhere\n",
+  Cell[BoxData[
+      \(TraditionalForm\`d\)]],
+  " = determinant of the coefficient matrix = \n",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{"=", 
+          RowBox[{"det", "(", GridBox[{
+                {\(\(\ \ \)\(22\)\), \(\(\ \ \)\(44\)\), \(\(\ \ \ \
+\)\(74\)\)},
+                {\(\(\ \ \)\(15\)\), \(\(\ \ \)\(14\)\), \(-10\)},
+                {\(-25\), \(-28\), \(\(\ \ \)\(20\)\)}
+                }], ")"}]}], TraditionalForm]]],
+  ".\n",
+  Cell[BoxData[
+      \(TraditionalForm\`d\_x\)]],
+  "  is obtained by replacing the first column of the matrix in ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\)]],
+  " by the left-hand side column (the ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  " column vector in  ",
+  Cell[BoxData[
+      \(TraditionalForm\`A\ x = b\)]],
+  "). \n",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{\(d\_x\), " ", "=", " ", 
+          RowBox[{"det", "(", GridBox[{
+                {"1", "44", "74"},
+                {\(-2\), "14", \(-10\)},
+                {"34", \(-28\), "20"}
+                }], ")"}]}], TraditionalForm]]],
+  "\n Similarly, for ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\_y\)]],
+  " (obtained by replacing second column by the ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  " vector) and ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\_z\)]],
+  " (by replace third column).  \n",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{\(d\_y\), " ", "=", " ", 
+          RowBox[{"det", "(", GridBox[{
+                {\(\(\ \ \ \)\(22\)\), \(\(\ \ \ \)\(1\)\), \(\(\ \ \ \
+\)\(74\)\)},
+                {\(\(\ \ \ \)\(15\)\), \(-2\), \(-10\)},
+                {\(-25\), \(\(\ \)\(34\)\), \(\(\ \ \ \)\(20\)\)}
+                }], ")"}]}], TraditionalForm]]],
+  ",    ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{\(d\_z\), " ", "=", " ", 
+          RowBox[{"det", "(", GridBox[{
+                {\(\(\ \ \ \)\(22\)\), \(\(\ \ \ \)\(44\)\), \(\(\ \ \ \
+\)\(1\)\)},
+                {\(\(\ \ \ \)\(15\)\), \(\(\ \ \ \)\(14\)\), \(-2\)},
+                {\(-25\), \(-28\), \(\(\ \)\(34\)\)}
+                }], ")"}]}], TraditionalForm]]],
+  ".\n\nNote that the Cramer's rule is valid both in Q and in the field Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(\_p\)\(.\)\)\)]],
+  "  Thus  ",
+  Cell[BoxData[
+      \(TraditionalForm\`x*d\  = \ d\_x\)]],
+  " is true in Z, it is equally valid in Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_p\)]],
+  ".  Also, ",
+  Cell[BoxData[
+      \(TraditionalForm\`d, \ d\_x, \ 
+      d\_y, \ \(\(d\_z\)\(\ \)\(\[Element]\)\(\ \)\)\)]],
+  "Z.  But ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(x\)\(\[Element]\)\)\)]],
+  " Q.  We solve the equations in Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_p\)]],
+  " to determine ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\)]],
+  " is ",
+  Cell[BoxData[
+      \(TraditionalForm\`Z\_p\)]],
+  ".  In addition, we also find the determinant ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\)]],
+  " mod ",
+  Cell[BoxData[
+      \(TraditionalForm\`p\)]],
+  ".   From ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\)]],
+  "  and ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\)]],
+  " we can also find ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\_x\)]],
+  " mod ",
+  Cell[BoxData[
+      \(TraditionalForm\`p\)]],
+  ".    Applying the Chinese remainder theorem to ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\)]],
+  " and ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\_x\)]],
+  "  mod ",
+  Cell[BoxData[
+      \(TraditionalForm\`p\)]],
+  ", we find their values Z.   This gives us the solution ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\)]],
+  " as a rational number in Q."
+}], "Text"],
+
+Cell[TextData[{
+  "For example, working over Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_7\)]],
+  " the system becomes:\n",
+  Cell[BoxData[
+      \(TraditionalForm\`x\  + \ 2  y\  - \ 3  z\  = \ 
+        1, \[IndentingNewLine]x\ \ \ \ \ \ \ \ \ \ \ \ \ \ \  - \ 
+          3  z\  = \ \(-2\), \[IndentingNewLine]3  
+            x\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  - 
+          z\  = \ \(\(-1. \)\(\ \)\)\)]],
+  "\n\nWorking in symmetric representation of Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_p\)]],
+  " (that is, use values -3,-2,-1,0,1,2,3), Gaussian elimination (or any \
+other subtitution methods) gives\n",
+  Cell[BoxData[
+      \(TraditionalForm\`x\  = \ \(-1\), \ y\  = \ \(-2\), \ 
+      z\  = \ \(-2\), \ d\  = \ \(-2\)\ \ \ \(\((mod\ 7)\)\(.\)\)\)]],
+  "\nThus ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\_x\  = \ \(x\ *d\  = \ 2\), \ 
+      d\_y = \ \(y*d\  = \ \(-3\)\), \ d\_z = \(z*d = \(-3\)\)\)]],
+  "  (all mod 7)."
+}], "Text"],
+
+Cell["\<\
+How fast can we compute the determinant (i.e., best algorithm for computing \
+det)?\
+\>", "Exercise"],
+
+Cell[TextData[{
+  "Why ",
+  Cell[BoxData[
+      \(TraditionalForm\`d\_x = \ x*d\)]],
+  " (equivalently, ",
+  Cell[BoxData[
+      \(TraditionalForm\`x = d\_x/d\)]],
+  ") is valid in Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_p\)]],
+  "?"
+}], "Exercise"],
+
+Cell[TextData[{
+  "Why don't we apply Chinese Remainder theorem to ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\ mod\ p\)]],
+  "?"
+}], "Exercise"],
+
+Cell[TextData[{
+  "Similarly, working in Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_11\)]],
+  ", Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_13\)]],
+  ", Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_17\)]],
+  " and Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_19\)]],
+  " gives\n",
+  Cell[BoxData[{
+      \(TraditionalForm\`d\_x\  = \ \(-5\)\ , \ 
+      d\_y = \ 0, \ \ \ \ \ d\_z = \(-4\)\ , \ 
+      d = 1\ \ \ \ \ \ \ \ \ \ \((all\ mod\ 11)\)\), "\[IndentingNewLine]", 
+      \(TraditionalForm\`d\_x\  = \ \(-2\)\ , \ 
+      d\_y = \ 4, \ \ \ \ \ d\_z = 6\ , \ \ \ \ \ d = 
+        4\ \ \ \ \ \ \ \ \ \ \((all\ mod\ 13)\)\), "\[IndentingNewLine]", 
+      \(TraditionalForm\`d\_x\  = \ 5, \ \ \ \ \ d\_y\  = \ \(-6\), \ 
+      d\_z = \(-3\), \ \ \ d\  = \ \(-2\)\ \ \ \ \((all\ mod\ 17)\)\), 
+    "\[IndentingNewLine]", 
+      \(TraditionalForm\`d\_x\  = \ 9, \ \ \ \ \ d\_y\  = \ 
+        6, \ \ \ \ \ d\_z\  = \ 
+        7, \ \ \ \ d\  = \ \(-8\)\ \ \ \ \((all\ mod\ 19)\)\)}]],
+  "\n\nUsing the Garner's algorithm for Chinese remainder problem, we can \
+find that \n",
+  Cell[BoxData[
+      \(TraditionalForm\`d\_x = \ \(-\ 44280\), \ \ d\_y = \ 40590, \ 
+      d\_z = \ \(-11070\), \ d\  = \ \(-7380. \)\)]],
+  "\n\nThus  ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\  = \ \(d\_x/
+            d\  = \ \(\(-44280\)/\((\(-7380\))\)\  = \ 
+            6\)\), \[IndentingNewLine]y\  = \ \(d\_y/
+            d\  = \ \(40590/\((\(-7380\))\)\  = \ \(-11\)/
+              2\)\), \[IndentingNewLine]z\  = \ \(d\_z/
+            d\ \  = \ \(\(-\ 11070\)/\((\(-7380\))\)\  = \ 3/2. \)\)\)]],
+  "\n"
+}], "Text"],
+
+Cell["\<\
+What is the point of using a long-winded way to compute a simple problem?\
+\>", "Exercise"],
+
+Cell["Factorization in integral domains", "Subtitle"],
+
+Cell["\<\
+Factorization is one of the oldest problem in mathematics: we can write 12 = \
+2*6=3*4=3*2*2,  but we cannot write 13 as product of any two integers (expect \
+the trivial case of 13 = 1*13).\
+\>", "Text"],
+
+Cell[TextData[{
+  "Definition:   \n\nLet D an integral domain.   An element ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(p\)\(\[Element]\)\(\ \)\)\)]],
+  "D - {0} is called a prime (or irreducible) if\n(a)   ",
+  Cell[BoxData[
+      \(TraditionalForm\`p\)]],
+  " is not a unit, and \n(b)   whenever ",
+  Cell[BoxData[
+      \(TraditionalForm\`p = a\ b\)]],
+  " either ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " or ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  " is a unit.\n\nIf ",
+  Cell[BoxData[
+      \(TraditionalForm\`GCD(a, b)\)]],
+  " = 1, for ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(b\)\(\ \)\(\[Element]\)\)\)]],
+  " D, ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " and ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  " are called relatively prime."
+}], "Theorem"],
+
+Cell[TextData[{
+  "A unit in an integral D is an element that has multiplicative inverse.  In \
+Z, ",
+  Cell[BoxData[
+      \(TraditionalForm\`-\)]],
+  "1 and 1 are units.   In Z (or any other integral domains), 0 is not a \
+prime, 1 is not a prime,  but, 2, 3, 5, 7, 11, 13, etc are primes.  \n\
+Consider the set of all polynomials with integer coefficient Z[x].\nAgain, \
+only 1 and ",
+  Cell[BoxData[
+      \(TraditionalForm\`-\)]],
+  "1 are units.  ",
+  Cell[BoxData[
+      \(TraditionalForm\`1 + x\)]],
+  " is a prime, but ",
+  Cell[BoxData[
+      \(TraditionalForm\`1 - x\^2 = \((1 + x)\) \((1 - x)\)\)]],
+  " is not.   When talking about polynomials, we usually use the term \
+\"irreducible\" polynomials (in a given algebraic domains).\n\nIf the \
+polynomials are in R",
+  Cell[BoxData[
+      \(TraditionalForm\`\([x]\)\)]],
+  ", i.e., the polynomials with real coefficients, then  again, ",
+  Cell[BoxData[
+      \(TraditionalForm\`1 + x\)]],
+  " is a prime, and ",
+  Cell[BoxData[
+      \(TraditionalForm\`1 + x\^2\)]],
+  " is a prime (since ",
+  Cell[BoxData[
+      \(TraditionalForm\`\((x + i)\) \((x - i)\)\)]],
+  " is no longer in R",
+  Cell[BoxData[
+      \(TraditionalForm\`\([x]\)\)]],
+  "), but ",
+  Cell[BoxData[
+      \(TraditionalForm\`1 - x\^2\)]],
+  " is not.  In fact, in R[x], all the primes are polynomials of degree 2 or \
+less."
+}], "Text"],
+
+Cell["\<\
+What are the forms of prime (or irreducible) polynomials in C[x], i.e., \
+polynomials with complex coefficients?  What are units in C[x]?\
+\>", "Exercise"],
+
+Cell["Square-Free Factorization algorithm", "Subtitle"],
+
+Cell[TextData[{
+  "An element is square free if it does not contain repeated factor, prime or \
+composite.  For example,   ",
+  Cell[BoxData[
+      \(TraditionalForm\`10 = 2*5\)]],
+  " is square-free, but  20 = ",
+  Cell[BoxData[
+      \(TraditionalForm\`2\^2*5\)]],
+  " is not.  Similar  ",
+  Cell[BoxData[
+      \(TraditionalForm\`42 = \ 6*7\)]],
+  " is square free, ",
+  Cell[BoxData[
+      \(TraditionalForm\`252\  = \ 6*6*7\)]],
+  " is not."
+}], "Text"],
+
+Cell[TextData[{
+  "The square-free concept is more useful for polynomials.  ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(
+          x)\  = \ \((x\^2 + 
+              1)\) \(\((x\^2 - 1)\)\^4\) \((x\^3 + 3  x)\)\^5\)]],
+  "  is a square-free factorization of a polynomial over Z.   The factor ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\^2 + 1\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\^2 - 1\)]],
+  ", and ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\^3 + 3  x\)]],
+  " is square-free."
+}], "Text"],
+
+Cell[TextData[{
+  "Definition:\n\n",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " \[Element] D is square-free if it has no repeated factors, that is, if \
+there exists no ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  " (not a unit) such that ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\^2\  | \ a\)]],
+  ".\n\nThe square-free factorization of ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " is\n\na = ",
+  Cell[BoxData[
+      \(TraditionalForm\`\[Product]\+\(i = 1\)\%k a\_i\^i\)]],
+  "     (",
+  Cell[BoxData[
+      \(TraditionalForm\`a\_i\ rised\ to\ power\ i\)]],
+  ")\nwhere each ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\_i\)]],
+  " is square-free (not necessarily prime) and \n",
+  Cell[BoxData[
+      \(TraditionalForm\`GCD(a\_i, \ b\_j)\  = \ 
+        1\ \ \ for\ \ i \[NotEqual] \ j\)]]
+}], "Theorem"],
+
+Cell[TextData[{
+  "Consider polynomials in Q[x].   Let ",
+  Cell[BoxData[
+      \(TraditionalForm\`c(x)\  = \ GCD(a(x), a' \((x)\))\)]],
+  ", where ",
+  Cell[BoxData[
+      \(TraditionalForm\`a' \((x)\)\)]],
+  " is the derivative of polynomial ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\)]],
+  ".  It can be proved that ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\)]],
+  " has repeated factors if and only if ",
+  Cell[BoxData[
+      \(TraditionalForm\`c(x)\)]],
+  " is not a unit.  This leads to the following square-free factorization \
+algorithm:"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(\( (*\(\(*\)\(\ \)\(Algorithm\)\(\ \)\(8.1\)\(\ \)\(Square\)\) - 
+        Free - Factorization, \((not\ a\ runable\ program)\)\ **) \)\(\
+\[IndentingNewLine]\)\(\[IndentingNewLine]\)\(squareFree[a \((x)\) _]\  := \ 
+      Module[{ ... }, \[IndentingNewLine]i\  = \ 
+          1; \[IndentingNewLine]output\  = 
+          1; \[IndentingNewLine]b \((x)\)\  = \ D[a \((x)\), x]; 
+        c \((x)\)\  = \ 
+          GCD[a \((x)\), b \((x)\)]\ ; \[IndentingNewLine]w \((x)\)\  = \ 
+          a \((x)\)/c \((x)\); \[IndentingNewLine]While[\ 
+          c \((x)\)\  \[NotEqual] \ unit, \[IndentingNewLine]y \((x)\)\  = 
+            GCD[w \((x)\), \ c \((x)\)]; \[IndentingNewLine]z \((x)\)\  = \ 
+            w \((x)\)/y \((x)\); \[IndentingNewLine]output\  = \ 
+            output\ *
+              z \((x)\)^
+                i; \[IndentingNewLine]\(++i\); \[IndentingNewLine]w \((x)\) = \
+\ y \((x)\); \[IndentingNewLine]c \((x)\)\  = \ 
+            c \((x)\)/
+                y \((x)\)\[IndentingNewLine]]; \[IndentingNewLine]output\  = \
+\ output\ *\ w \((x)\)^i\[IndentingNewLine]]\)\)\)], "Input"],
+
+Cell[TextData[{
+  "We discuss the basis for the working of the algorithm above.   First the \
+square-free factors are ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(a\_i\)(x)\)]],
+  ".   The given polynomial (in Q) ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\)]],
+  " is to be factored in the form:\n",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{\(a(x)\), " ", "=", " ", 
+          
+          RowBox[{\(\[Product]\+\(i = 1\)\%k\(\( a\_i\)(x)\)\^\(\(i\)\(\ \)\)\
+\), "=", 
+            RowBox[{
+              RowBox[{
+                RowBox[{
+                  RowBox[{
+                    SubscriptBox["a", 
+                      RowBox[{"1", Cell[""]}]], "(", "x", ")"}], 
+                  " ", \(\(\(a\_2\)(x)\)\^2\), \(\(\(a\_3\)(x)\)\^3\)}], 
+                "..."}], " ", \(\(\(a\_k\)(x)\)\^k\)}]}]}], 
+        TraditionalForm]]],
+  ".   \nThis formula says the square-free factor ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(a\_1\)(x)\)]],
+  " appeared once in ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\)]],
+  ", the factor ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(a\_2\)(x)\)]],
+  " appears twice, and so on.   Some of the factor can be 1.\nThe derivative \
+of ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\)]],
+  " is\n",
+  Cell[BoxData[{
+      \(TraditionalForm\`b(
+          x)\  = \ \(a' \((x)\)\  = \ \(\(\(\(\(a\_1' \((x)\)\ \(\(\(a\_2\)(
+                                    x)\)\^2\) \(\(a\_3\)(x)\)\^3 ... \)\ \
+\(\(a\_k\)(x)\)\^k + \ \[IndentingNewLine]\ \(\(a\_1\)(x)\) 
+                          2\ \(\(a\_2\)(
+                            x)\)\ a\_2' \((x)\)\ \(\(a\_3\)(x)\)\^3 ... \)\ \
+\(\(a\_k\)(x)\)\^k\  + \ \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ \ \
+\(\(a\_1\)(
+                      x)\)\ \(\(a\_2\)(x)\)\^2\ 3\ \(\(a\_3\)(x)\)\^2\ a\_3' \
+\((x)\)\  ... \)\ \(\(a\_k\)(x)\)\^k\)\(+\)\)\)\), "\[IndentingNewLine]", 
+      \(TraditionalForm\`\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\
+\(...\)\(.\)\(\ \)\(+\ k\)\)\ \(\(\(a\_k\)(x)\)\^\(k - 1\)\) 
+        a\_k' \(\((x)\)\(.\)\)\)}]]
+}], "Text"],
+
+Cell[TextData[{
+  "And hence the greatest common division is\n",
+  Cell[BoxData[
+      \(TraditionalForm\`c(
+          x)\  = \ \(GCD(a(x), 
+            b(x))\  = \ \(\(\(\(a\_2\)(
+                    x)\)\ \(\(a\_3\)(x)\)\^2 ... \)\ \(\(a\_k\)(x)\)\^\(k - 1\
+\)\  = \ \[Product]\+\(i = 2\)\%k\(\(\(\( a\_i\)(x)\)\^\(i - 
+                      1\)\)\(.\)\)\)\)\)]],
+  "\nThis is because ",
+  Cell[BoxData[
+      \(TraditionalForm\`GCD(\(a\_i\)(x), \ a\_i' \((x)\))\  = \ 1\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`GCD(\(a\_i\)(x), \ \(a\_j\)(x))\  = \ 1\)]],
+  " for ",
+  Cell[BoxData[
+      \(TraditionalForm\`i \[NotEqual] j\)]],
+  ".   Because of the derivative, the common power is reduced by 1.\n",
+  Cell[BoxData[
+      \(TraditionalForm\`w(
+          x)\  = \ \(\(a(x)\)/\(c(
+              x)\)\  = \ \(\(\(\(a\_1\)(x)\)\ \(\(a\_2\)(
+                    x)\)\  ... \)\ \(\(a\_k\)(
+                x)\)\  = \ \[Product]\+\(i = 1\)\%k\( a\_i\)(x)\)\)\)]],
+  ".\nConsider ",
+  Cell[BoxData[
+      \(TraditionalForm\`y(
+          x)\  = \ \(GCD(w(x), 
+            c(x))\  = \ \(\(\(\(a\_2\)(x)\)\ \(\(a\_3\)(
+                    x)\)\  ... \)\ \(\(a\_k\)(
+                x)\)\  = \ \[Product]\+\(i = 2\)\%k\( a\_i\)(x)\)\)\)]],
+  ", we obtain the first square-free factor from\n",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          RowBox[{
+            SubscriptBox["a", 
+              RowBox[{"1", Cell[""]}]], "(", "x", ")"}], " ", "=", 
+          " ", \(\(w(x)\)/\(\(y(x)\)\(.\)\)\)}], TraditionalForm]]]
+}], "Text"],
+
+Cell[TextData[{
+  "Finding the second square-free factor of ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(a\_2\)(x)\)]],
+  " is the same as determining the first square-free factor for ",
+  Cell[BoxData[
+      \(TraditionalForm\`c(x)\)]],
+  ".   Note that the derivative ",
+  Cell[BoxData[
+      \(TraditionalForm\`c' \((x)\)\)]],
+  " need not be computed by the new ",
+  Cell[BoxData[
+      \(TraditionalForm\`c(x)\)]],
+  ", but it is obtained by\n",
+  Cell[BoxData[
+      \(TraditionalForm\`GCD(c(x), \ 
+          c' \((x)\))\  = \ \(\[Product]\+\(i = 3\)\%k\(\( a\_i\)(x)\)\^\(i - \
+2\) = \ \(c(x)\)/\(\(y(x)\)\(.\)\)\)\)]]
+}], "Text"],
+
+Cell[TextData[{
+  "Example:\nLet ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\)]],
+  " be a polynomial in Q[",
+  Cell[BoxData[
+      \(TraditionalForm\`x\)]],
+  "] defined by\n",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\  = \ x\^8 - 2  x\^6 + 2  x\^2 - 1. \)]],
+  "  Compute the square-free factorization."
+}], "Exercise"],
+
+Cell[TextData[{
+  Cell[BoxData[
+      \(TraditionalForm\`b(x)\  = \ \(a' \((x)\)\  = \ 
+          8  x\^7 - 12  x\^5 + 4  x\), \[IndentingNewLine]c(
+          x)\  = \ \(GCD(a(x), b(x))\  = \ x\^4 - 2  x\^2 + 1\)\)]],
+  "\nwith the standard GCD computation."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(a[x_]\  := \ 
+        x^8\  - \ 2  x^6\  + \ 2  x^2\  - 1;\)\), "\[IndentingNewLine]", 
+    \(b[x_]\  := \ D[a[x], x]\)}], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(c[x]\  = \ PolynomialGCD[a[x], b[x]]\)], "Input"],
+
+Cell[BoxData[
+    \(1 - 2\ x\^2 + x\^4\)], "Output"]
+}, Open  ]],
+
+Cell[TextData[{
+  "Thus ",
+  Cell[BoxData[
+      \(TraditionalForm\`w(x)\  = \ \(\(a(x)\)/\(c(x)\)\  = \ 
+          x\^4 - 1. \)\)]],
+  "  Since ",
+  Cell[BoxData[
+      \(TraditionalForm\`c(x)\)]],
+  " is a divisor of ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\)]],
+  ", the division also results a new polynomial.   Since ",
+  Cell[BoxData[
+      \(TraditionalForm\`c(x)\  \[NotEqual] \ 1\)]],
+  ", we go into the loop.  "
+}], "Text"],
+
+Cell[TextData[{
+  Cell[BoxData[
+      \(TraditionalForm\`y(
+          x)\  = \ \(GCD(w(x), 
+            c(x))\  = \ \(GCD(x\^4 - 1, \ x\^4 - 2  x\^2 + 1)\  = \ 
+            x\^2 - 1. \)\)\)]],
+  "\n",
+  Cell[BoxData[
+      \(TraditionalForm\`z(
+          x)\  = \ \(\(w(x)\)/\(y(
+              x)\)\  = \ \(\((x\^4 - 1)\)/\((x\^2 - 1)\)\  = \ 
+            x\^2 + 1. \)\)\)]],
+  "\n\nThus the first square-free factor is ",
+  Cell[BoxData[
+      \(TraditionalForm\`z(x) = \ x\^2 + 1. \)]],
+  "\ni is incremented to 2, ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{\(w(x)\  = \ \(y(x)\  = \ x\^2 - 1\)\), ",", " ", 
+          RowBox[{\(c(x)\), " ", "=", " ", 
+            RowBox[{\(\(c(x)\)/\(y(x)\)\), " ", "=", " ", 
+              
+              RowBox[{\(\((x\^4 - 2  x\^2 + 1)\)/\((x\^2 - 1)\)\), " ", "=", 
+                " ", 
+                RowBox[{\(x\^2\), "-", 
+                  RowBox[{"1.", Cell[""]}]}]}]}]}]}], TraditionalForm]]]
+}], "Text"],
+
+Cell[TextData[{
+  "Entering the while loop the second time, we get\n",
+  Cell[BoxData[
+      \(TraditionalForm\`y(
+          x)\  = \ \(GCD(w(x), c(x))\  = \ \(GCD(x\^2 - 1, \ x\^2 - 1)\  = \ 
+            x\^2 - 1. \)\)\)]],
+  "\n",
+  Cell[BoxData[
+      \(TraditionalForm\`z(
+          x)\  = \ \(\(w(x)\)/\(y(
+              x)\)\  = \ \(\((x\^2 - 1)\)/\((x\^2 - 1)\)\  = \ 1\)\)\)]],
+  ",\ni is incremented to 3,\n",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{\(w(x)\  = \ \(y(x)\  = \ x\^2 - 1\)\), ",", " ", 
+          RowBox[{\(c(x)\), " ", "=", " ", 
+            RowBox[{\(\(c(x)\)/\(y(x)\)\), " ", "=", " ", 
+              RowBox[{"1.", Cell[""], Cell[""]}]}]}]}], TraditionalForm]]],
+  "\nSince ",
+  Cell[BoxData[
+      \(TraditionalForm\`z(x) = 1\)]],
+  " there is no factor to the power 2.\nSince ",
+  Cell[BoxData[
+      \(TraditionalForm\`c(x)\  = \ 1\)]],
+  ", we exit the loop, the last factor is ",
+  Cell[BoxData[
+      \(TraditionalForm\`w(x) = x\^2 - 1\)]],
+  ".\n\nThe square-free factor of ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\)]],
+  " is\n",
+  Cell[BoxData[
+      \(TraditionalForm\`\((x\^2 + 1)\) \(\(\((x\^2 - 1)\)\^3\)\(.\)\)\)]]
+}], "Text"],
+
+Cell[TextData[{
+  "Square-Free Factorization in Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_p\)]]
+}], "Subtitle"],
+
+Cell[TextData[{
+  "The algorithm 8.1 works for polynomials in a ring with characteristic 0.  \
+The characteristic of a ring is the smallest number of ones that add up to 0, \
+ 1+1+1+...1 = 0.  Algorithm 8.1 does not work for Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\_p\) \(\([x]\)\(.\)\)\)]]
+}], "Text"],
+
+Cell[TextData[{
+  "The problem with Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\_p\) \([x]\)\)]],
+  " is that we can have a nonzero polynomial with its derivative identically \
+zero.\n",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\  = \ x\^13 + 1\ \ \ mod\ 13\)]],
+  ",    => ",
+  Cell[BoxData[
+      \(TraditionalForm\`a' \((x)\)\  = \ \(b(x)\  = \ \(13*x\^12 = 
+            0\)\)\)]],
+  ",\nsince Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_13\)]],
+  " has characteristic 13.   However, ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\)]],
+  " has a square-free factorization:\n",
+  Cell[BoxData[{
+      \(TraditionalForm\`\((x + 1)\)\^13 = \ \(\(\(\(x\^13 + \ 
+                      13\ x\^12 + \  ... \)\ \(\(13!\)\/\(\(k!\) \(\((13 - 
+                              k)\)!\)\)\) x\^k\)\(\ \)\(+\)\)\ \  ... \)\ 13  
+            x + 1\ Mod\ 13\), "\[IndentingNewLine]", 
+      \(TraditionalForm\`\(\(=\)\(\ \)\(x\^13 + 
+            1\  = \ \(\(a(x)\)\(.\)\)\)\)\)}]],
+  "\nWe have used the binomial expansion formula.   The square-free \
+factorization over Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_p\)]],
+  " (and more generally over Galois field) is based on the following \
+theorem:"
+}], "Text"],
+
+Cell[TextData[{
+  "Theorem 8.3\nLet ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(
+          x)\  = \ \(a\_0 + \(a\_1\) x +  ... \) + \(a\_n\) x\^n\)]],
+  " be a polynomial of degree ",
+  Cell[BoxData[
+      \(TraditionalForm\`n\)]],
+  " in ",
+  Cell[BoxData[
+      \(TraditionalForm\`Z\_p\ [x]\)]],
+  " satisfying ",
+  Cell[BoxData[
+      \(TraditionalForm\`a' \((x)\)\  = \ 0. \)]],
+  " Then  ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\  = \ \(b(x)\)\^p\)]],
+  " for some polynomial ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(b(x)\)\(.\)\)\)]]
+}], "Theorem"],
+
+Cell["Here is a outline of the algorithm over a finite field.", "Text"],
+
+Cell[BoxData[
+    \(squareFreeField[a \((x)\) _, \ q_]\  := \ 
+      Module[{ ... }, \[IndentingNewLine]i\  = \ 1; \ output = 1; \ 
+        b \((x)\)\  = \ 
+          a' \((x)\); \[IndentingNewLine]If[\(b \((x)\)\  \[NotEqual] \ 
+                0, \[IndentingNewLine] ... \)\  (*\ 
+                same\ step\ as\ before\ *) \[IndentingNewLine] (*\ 
+                and\ if\ c' \((x)\)\  = \ 0, \ 
+                do\ *) \ \[IndentingNewLine]c \((x)\)\  = \ 
+            c \((x)\)\^\(1/p\)\ ; \[IndentingNewLine]output\  = \ 
+            output\ *\ 
+              SquareFreeField[c \((x)\)]^
+                p;\[IndentingNewLine], \[IndentingNewLine] (*\ 
+            else\ part\ *) \[IndentingNewLine]a \((x)\)\  = \ 
+            a \((x)\)\^\(1/p\); \[IndentingNewLine]output\  = \ 
+            SquareFreeField[a \((x)\)]^
+              p\[IndentingNewLine]]; \[IndentingNewLine]output\
+\[IndentingNewLine]]\)], "Input"],
+
+Cell[TextData[{
+  "Read the book \"Algorithm for Computer Algebra\" for how to compute ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(a(x)\)\^\(1/p\)\)]],
+  "  when ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          RowBox[{
+            FormBox[\(a'\),
+              "TraditionalForm"], \((x)\)}], "=", "0"}], TraditionalForm]]],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Berlekamp's factorization algorithm for square-free polynomial over Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_p\)]]
+}], "Subtitle"],
+
+Cell["\<\
+For the last algorithm of this course, we introduce the Berlekamp algorithm \
+for polynomial factorization.  This is a highly nontrivial algorithm with \
+good deal of abstract mathematics involved.   Thus, we'll not study the \
+theorems associated with the algorithms but only given the algorithmic steps \
+leading to a factorization.  The Berlekamp algorithm works only in finite \
+field.\
+\>", "Text"],
+
+Cell[TextData[{
+  "(1) Given a square-free polynomial ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\)]],
+  " of degree ",
+  Cell[BoxData[
+      \(TraditionalForm\`n\)]],
+  " over Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_p\)]],
+  " for some prime number ",
+  Cell[BoxData[
+      \(TraditionalForm\`p\)]],
+  ",  first we compute a matrix Q of ",
+  Cell[BoxData[
+      \(TraditionalForm\`n\ \[Cross]\ n\)]],
+  ". \nThe ",
+  Cell[BoxData[
+      \(TraditionalForm\`i\)]],
+  "-th row of the Q is formed by the coefficients of the polynomial ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{\(x\^\(i\ p\)\), "mod", " ", \(a(x)\), Cell[""]}], 
+        TraditionalForm]]],
+  "in ascending order, ",
+  Cell[BoxData[
+      \(TraditionalForm\`i\  = 0, \ 1, \ 2, \  ... , \ n - 1\)]],
+  ".\n\n(2) Determine a (left) null-space basis of the matrix  Q",
+  Cell[BoxData[
+      \(TraditionalForm\`-\)]],
+  "I, that is, solving the equation ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(v\)\(*\)\)\)]],
+  "(Q-I) = 0 for row vector ",
+  Cell[BoxData[
+      \(TraditionalForm\`v\)]],
+  ".  The solution of the equation forms a linear vector space.  I is the \
+identity matrix of ",
+  Cell[BoxData[
+      \(TraditionalForm\`n\[Cross]n\)]],
+  ".  Let the basis be ",
+  Cell[BoxData[
+      \(TraditionalForm\`v\^\([j]\)\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`j = 1, 2,  ... , \ \(\(k\)\(.\)\)\)]],
+  "   Each of the vector ",
+  Cell[BoxData[
+      \(TraditionalForm\`v\^\([j]\)\)]],
+  " is associated with a polynomial, ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(v\^\([j]\)\)(x)\)]],
+  ", using the value of the vector components as coefficients for the \
+polynomial (ascending order).  The number of basis of the null space (that is \
+the dimension of the space) is precisely the number of irreducible (prime) \
+factors.\n\n(3) A theorem say ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(
+          x)\  = \ \[Product]\+\(s = 0\)\%\(p - 1\)GCD(v(x) - s, a(x))\)]],
+  ".  Thus we compute GCD (in Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\_p\)]],
+  ") for each given ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(v\^\([j]\)\)(x) - s\)]],
+  " with ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\)]],
+  ", runing over ",
+  Cell[BoxData[
+      \(TraditionalForm\`s\)]],
+  ".  The GCDs are candidates for the prime factors.   Do this for each ",
+  Cell[BoxData[
+      \(TraditionalForm\`j\)]],
+  ", until we find ",
+  Cell[BoxData[
+      \(TraditionalForm\`k\)]],
+  " independent factors.  The factors ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\)]],
+  " is these GCD's that is not a unit.  (If we cannot find ",
+  Cell[BoxData[
+      \(TraditionalForm\`k\)]],
+  " independent factors with ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\)]],
+  " by ",
+  Cell[BoxData[
+      \(TraditionalForm\`GCD(v(x) - s, a(x))\)]],
+  ", we also consider the factors obtained so far in place of ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\)]],
+  ").  In a program-like form, here is the algorithm:"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(\( (*\ Algorithm\ 8.4 . \ Berlekamp' s\ factorization\ algorithm, \ 
+      not\ a\ runable\ program\ *) \)\(\[IndentingNewLine]\)\(\
+\[IndentingNewLine]\)\(berlekamp[a \((x)\) _, p_]\  := \ 
+      Module[{ ... }, \[IndentingNewLine]Q\  = \ 
+          formMatrixQ[a \((x)\), p]; \[IndentingNewLine]{v\^\([1]\), 
+            v\^\([2]\),  ... , v\^\([k]\)}\  = \ 
+          nullSpaceBasis[
+            Q - I]; \[IndentingNewLine]factors\  = \ {a \((x)\)}; \
+\[IndentingNewLine]r\  = \ 2; \[IndentingNewLine]While[
+          Length[factors]\  < \ k, \[IndentingNewLine]Foreach[\ 
+            u \((x)\)\  \[Element] \ factors, \[IndentingNewLine]For[s = 0, 
+              s < p, \ \(++s\), \[IndentingNewLine]g \((x)\)\  = \ 
+                GCD[\(v\^\([r]\)\) \((x)\) - s, 
+                  u \((x)\)]; \[IndentingNewLine]If[
+                g \((x)\) \[NotEqual] \ unit\  || \ 
+                  g \((x)\)\  \[NotEqual] \ 
+                    u \((x)\), \[IndentingNewLine] (*\ 
+                  u \((x)\)\ is\ factored\ into\ {g \((x)\), \ 
+                      u \((x)\)/
+                          g \((x)\)}\[IndentingNewLine]*) \[IndentingNewLine]\
+\(factors = ReplaceuByItsFactor[u \((x)\), g \((x)\), 
+                      factors];\)\[IndentingNewLine]]; \[IndentingNewLine]If[
+                Length[factors] \[Equal] k, \[IndentingNewLine]Return[
+                  factors]];\[IndentingNewLine]]; \[IndentingNewLine]\(++r\);\
+\[IndentingNewLine]]\[IndentingNewLine]]; \[IndentingNewLine]factors\
+\[IndentingNewLine]]\)\)\)], "Input"],
+
+Cell[TextData[{
+  "Example\nApply the Berlekamp algorithm to \n",
+  Cell[BoxData[
+      \(TraditionalForm\`x\^2 + 2\)]],
+  "   \[Element]   Z",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(\_3\)\([x]\)\)\)]]
+}], "Exercise"],
+
+Cell[TextData[{
+  "1. Compute 1 mod ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\^2 + 2\)]],
+  " = 1, ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(\(x\^3\) mod\ x\^2 + 2 = x\)\(,\)\)\)]],
+  " we have a two by two Q matrix:\n\tQ ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{"=", " ", 
+          RowBox[{"(", GridBox[{
+                {"1", "0"},
+                {"0", "1"}
+                }], ")"}]}], TraditionalForm]]],
+  ".\n2. We solve  v*(Q-1) = 0, i.e., \n\t",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          RowBox[{\((v\_0, \ v\_1)\), " ", 
+            RowBox[{"(", GridBox[{
+                  {"0", "0"},
+                  {"0", "0"}
+                  }], ")"}]}], " ", "=", " ", "0."}], TraditionalForm]]],
+  "\nClearly, any ",
+  Cell[BoxData[
+      \(TraditionalForm\`v\_i\)]],
+  " satisfies the above equation.  The null space is two-dimensional.  We can \
+choose our basis as\n",
+  Cell[BoxData[
+      \(TraditionalForm\`v\^\([1]\)\  = \ \((1, \ 0)\), \ 
+      i . e . \ \ \(\(v\^\([1]\)\)(x)\)\  = \ 
+        1, \[IndentingNewLine]v\^\([2]\)\  = \ \((0, 1)\), \ 
+      i . e . \ \ \(\(v\^\([2]\)\)(x)\)\  = \ \(\(x\)\(.\)\)\)]],
+  "\n3. Compute ",
+  Cell[BoxData[
+      \(TraditionalForm\`CGD(\(v\^\([1]\)\)(x) - s, \ a(x))\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`s\)]],
+  "=0,1,2.  They all give trivial factor (either 1 or original ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\)]],
+  ").    We then compute GCDs of ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\)]],
+  " with ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(v\^\([2]\)\)(x) - \(\(s\)\(:\)\)\)]],
+  "\n\t",
+  Cell[BoxData[
+      \(TraditionalForm\`CGD(x, x\^2 + 2)\  = \ 
+        1, \[IndentingNewLine]CGD(x - 1, x\^2 + 2)\  = \ 
+        x + 2, \[IndentingNewLine]CGD(x - 2, x\^2 + 2)\  = \ x + 1. \)]],
+  "\nThus, we have the factorization ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(
+          x)\  = \ \(x\^2 + 
+            2\  = \ \((x + 2)\) \((x + 
+                1)\)\ \ \ \ \ \ \ \ \ \ \((mod\ 3)\)\)\)]],
+  ".\n\n"
+}], "Text"],
+
+Cell["\<\
+Readings:
+pages 337 to 341, 343 to 358 of \"Algorithms for Computer Algebra\".\
+\>", "Subtitle"]
+},
+FrontEndVersion->"4.1 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 695}},
+CellGrouping->Manual,
+WindowSize->{1016, 668},
+WindowMargins->{{0, Automatic}, {Automatic, 1}},
+Magnification->3,
+StyleDefinitions -> "Classroom.nb"
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1705, 50, 183, 6, 576, "Title"],
+Cell[1891, 58, 20, 0, 119, "Subtitle"],
+Cell[1914, 60, 146, 5, 190, "Subtitle"],
+Cell[2063, 67, 4770, 146, 2077, "Text"],
+Cell[6836, 215, 955, 24, 682, "Text"],
+Cell[7794, 241, 111, 3, 198, "Exercise"],
+Cell[7908, 246, 256, 11, 198, "Exercise"],
+Cell[8167, 259, 147, 5, 198, "Exercise"],
+Cell[8317, 266, 1616, 41, 877, "Text"],
+Cell[9936, 309, 101, 2, 198, "Exercise"],
+Cell[10040, 313, 53, 0, 119, "Subtitle"],
+Cell[10096, 315, 214, 4, 183, "Text"],
+Cell[10313, 321, 873, 32, 519, "Theorem"],
+Cell[11189, 355, 1368, 39, 792, "Text"],
+Cell[12560, 396, 165, 3, 264, "Exercise"],
+Cell[12728, 401, 55, 0, 119, "Subtitle"],
+Cell[12786, 403, 458, 15, 234, "Text"],
+Cell[13247, 420, 516, 16, 234, "Text"],
+Cell[13766, 438, 837, 27, 661, "Theorem"],
+Cell[14606, 467, 573, 18, 285, "Text"],
+Cell[15182, 487, 1115, 19, 1163, "Input"],
+Cell[16300, 508, 2055, 52, 688, "Text"],
+Cell[18358, 562, 1543, 40, 696, "Text"],
+Cell[19904, 604, 638, 18, 288, "Text"],
+Cell[20545, 624, 331, 11, 330, "Exercise"],
+Cell[20879, 637, 270, 6, 185, "Text"],
+Cell[21152, 645, 154, 3, 194, "Input"],
+
+Cell[CellGroupData[{
+Cell[21331, 652, 69, 1, 143, "Input"],
+Cell[21403, 655, 52, 1, 143, "Output"]
+}, Open  ]],
+Cell[21470, 659, 442, 15, 183, "Text"],
+Cell[21915, 676, 960, 26, 470, "Text"],
+Cell[22878, 704, 1181, 33, 677, "Text"],
+Cell[24062, 739, 116, 4, 119, "Subtitle"],
+Cell[24181, 745, 310, 6, 234, "Text"],
+Cell[24494, 753, 1215, 32, 643, "Text"],
+Cell[25712, 787, 571, 20, 331, "Theorem"],
+Cell[26286, 809, 71, 0, 81, "Text"],
+Cell[26360, 811, 922, 17, 1014, "Input"],
+Cell[27285, 830, 356, 12, 132, "Text"],
+Cell[27644, 844, 155, 4, 190, "Subtitle"],
+Cell[27802, 850, 413, 7, 387, "Text"],
+Cell[28218, 859, 3015, 93, 1265, "Text"],
+Cell[31236, 954, 1565, 26, 1728, "Input"],
+Cell[32804, 982, 223, 7, 264, "Exercise"],
+Cell[33030, 991, 2055, 61, 1142, "Text"],
+Cell[35088, 1054, 106, 3, 261, "Subtitle"]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

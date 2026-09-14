@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>CZ3102, Scientific Modeling, Lab 5</title>
+</head>
+<body>
+
+<H1>Lab 5, due Monday, 29 March 04</H1>
+
+<p><strong>General Considerations</strong>: Your program code
+should be placed at $HOME/CZ3102/lab5, as usual. This is the last lab.
+
+<h3>Q1</h3>
+
+[This is problem 5 on page 296, modified.]
+Consider telephone calls on a network with infinitely many lines.
+That is, every incoming call can be answered.  Suppose that the
+arrival of calls is Poisson distributed with mean rate L, and
+the terminations of calls are Poisson points with means rate M, 
+and they are independent processes.  
+<P>(a) If P<sub>n</sub>(t) is the probability
+that exactly n lines are in use at time t, derive the following
+dynamics
+<P> dP<sub>n</sub>(t)/dt = - (L+n M)P<sub>n</sub>(t) + L P<sub>n-1</sub>(t) + (n+1) M P<sub>n+1</sub>(t),
+<P> the index takes values n = 0, 1, 2, 3, ..., where we define P<sub>n</sub>(t) = 0 if n < 0. 
+<P>(b) Show that the mean number of calls, m, satisfies
+<P> dm(t)/dt = L - M m(t)
+<P>(c) Solve the set of equations P<sub>n</sub>(t) numerically.  We use L=2, and M=1, 
+and assuming no phone calls at time t = 0.  Since n runs from
+0 to infinity, we have to cut-off at some finite n, say n = 6. 
+Make a plot of P<sub>n</sub>(t) vs t.  Check that sum of P<sub>n</sub>(t)
+over n for any t is 1 approximately, but why?
+<P>(d) [Difficult] Compute the same P<sub>n</sub>(t) by simulation, i.e., generate the 
+random process using random number (Poisson processes) and samples the 
+number of calls.  You have to simulate many times (say 10000) to get 
+good statistics.
+
+</body>
+</html>

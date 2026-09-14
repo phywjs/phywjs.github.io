@@ -1,0 +1,73 @@
+\magnification=\magstep1
+\input notesmac.tex
+\advance\vsize by 1cm
+\nopagenumbers
+
+\centerline{\titlefont CZ3106 Symbolic Computing, Lab 4}
+\bigskip
+\line{Dr.~Wang Jian-Sheng \hfill For the week 3-8 March 03, due one week after the lab}
+\bigskip
+%----------------------------------------------------------------------- 
+%\problem The three-dimensional laplacian operator in cartesian coordinates
+%$(x,y,z)$ is given as 
+%$$ \nabla^2  = {\partial^2 \over \partial x^2 } + 
+%   {\partial^2 \over \partial y^2 } + 
+%   {\partial^2 \over \partial z^2 }.  $$
+%Using Mathematica, find the same operator in spherical polar coordinates
+%$(r, \theta, \phi)$, related to cartesian coordinates by
+%$$\eqalign{ x & = r \sin\theta \cos\phi, \cr
+%            y & = r \sin\theta \sin\phi, \cr
+%            z & = r \cos\theta. \cr}
+%$$
+%This involves viewing $f$ (in $\nabla^2 f$) as a function of
+%$r$, $\theta$, and $\phi$, using the chain rule to compute partial
+%derivatives.  [N.B. we want to find $\hat \nabla^2$ such
+%that $\nabla^2 f(x,y,z) = \hat \nabla^2 \hat f(r,\theta,
+%\phi)$ where $\hat f(r,\theta, \phi) = f\Bigl(x(r,\theta,\phi), 
+%y(r,\theta,\phi),z(r,\theta,\phi)\Bigr)$.]
+%
+%\bigskip
+%\problem Write a one-liner function sort (by the use of rule-based
+%programming) which sorts a list of numbers in ascending order.
+%For example {\tt sort[\char`{8,4,2,3,2,4,2\char`}]} produces 
+%{\tt \char`{2,2,2,3,4,4,8\char`}}.
+
+\bigskip
+\problem Develop a set of rules for Laplace transformation.  
+The Laplace transform on a function is defined by
+$$ F(s) = \int_0^\infty e^{-st} f(t)\,dt.$$
+The Laplace transform has the following properties:
+\item{} (a) $\int_0^\infty e^{-st}[ f(t) + g(t)]\,dt = F(s) + G(s)$ (linearity).
+\item{} (b) $\int_0^\infty e^{-st} c f(t)\,dt = c F(s)$ (linearity).
+\item{} (c) $\int_0^\infty e^{-st} c\,dt = c/s$, where $c$ is a constant. 
+\item{} (d) $\int_0^\infty e^{-st} t^n dt = n!/s^{n+1}$, where $n>0$ is an integer .
+\item{} (e) $\int_0^\infty e^{-st} g(t) t^n dt = (-1)^n {d^n G(s)/ds^n}$, where $n>0$ is an integer .
+\item{} (f) $\int_0^\infty e^{-st} g(t) e^{b+ct} dt = e^b G(s-c)$, where $b$ 
+and $c$ are constants
+
+\item{} Test your implementation by evaluating the Laplace transform of
+$t^2 e^{c t + b}$, where $b$ and $c$ are constants.  Also compare your
+implementation with built-in function {\tt LaplaceTransform[ ...]}.
+
+\problem A mathematical concept of the group is defined in class. 
+Assuming a multiplication table is given, write a mathematica function
+to check that it is indeed a group.  This includes (a) identify the
+identity element $e$, (b) for each element $a$, there is another
+element $a^{-1}$ such that $a \cdot a^{-1} = a^{-1}\cdot a = e$, (c) and 
+multiplication is associative, that is $a\cdot (b \cdot c) = 
+(a\cdot b)\cdot c$ for all 
+$a$, $b$, $c$.   Your program returns True or False for the input
+multiplication table.  A simple exhaustive search to check the 
+axioms should be suffice.
+
+\item{} Test your program against the following two inputs (a) $(Z_5, *)$
+defined as $(i \cdot j) = i*j \bmod 5$.  (b) the table below 
+$$ \matrix{ \cdot &  a & b & c \cr
+               a  &  b & c & a \cr
+               b  &  c & b & a \cr
+               c  &  b & a & c \cr }
+$$
+
+\bye
+
+

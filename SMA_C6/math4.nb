@@ -1,0 +1,973 @@
+(************** Content-type: application/mathematica **************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     31001,        845]*)
+(*NotebookOutlinePosition[     31699,        869]*)
+(*  CellTagsIndexPosition[     31655,        865]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  StyleBox["PROGRAMMING IN MATHEMATICA",
+    FontWeight->"Bold"],
+  "\n\nTuesday, 8 July 2003"
+}], "Title"],
+
+Cell["Procedural Programming Style", "Subtitle"],
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " supports a variety of so-called programming styles.  You can program in \
+the spirit of C or Fortran; you may also do object oriented programming like \
+C++; or you can do functional programming like LISP; and the rule-based \
+programming style is powerful and can be concise.  Here we demonstrate few \
+ways of write a factorial function:"
+}], "Text"],
+
+Cell[BoxData[
+    \(fac[m_Integer] := 
+      Module[\ {i, \ n}, \ \n\t
+        If[\ m\  < \ 0, \ \[IndentingNewLine]\t\tReturn[Infinity]]; \n\t
+        n\  = \ 1; \n\t
+        For[i\  = \ 1, \ i\  <= \ m, \ \(++i\), \ \[IndentingNewLine]\t
+          n\  = \ n*i]; \[IndentingNewLine]\ \ \ \ \ n]\)], "Input"],
+
+Cell["\<\
+Few fine points: (1) use m only as a constant, (2) declare all variables \
+except the argument as local, (3) return value is the last expression.  We \
+use the function as usual:\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(fac[2]\)], "Input"],
+
+Cell[BoxData[
+    \(2\)], "Output"]
+}, Open  ]],
+
+Cell["A much quicker way is to used the build-in function n!", "Text"],
+
+Cell[BoxData[
+    \(fac[n_Integer]\  := \ \(n!\)\)], "Input"],
+
+Cell["Or use a recursive definition", "Text"],
+
+Cell[BoxData[
+    \(fac[0]\  = \ 1; \ fac[n_Integer]\  := n\ *\ fac[n - 1]\)], "Input"],
+
+Cell["Or use functional programming style:", "Text"],
+
+Cell[BoxData[
+    \(fac[n_Integer]\  := \ Times\  @@ \ Range[n]\)], "Input"],
+
+Cell["Procedural Programming Constructs", "Subtitle"],
+
+Cell[TextData[{
+  "Apart from syntactic differences, many of these constructs are similar to \
+C.  The ",
+  StyleBox["For",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  " loop:"
+}], "Text"],
+
+Cell[BoxData[
+    \(For[initial, \ condition, \ 
+      inc, \[IndentingNewLine]\ \ \ \ body]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(For[i\  = \ 0, \ 
+      i\  < \ 4, \ \(++i\), \[IndentingNewLine]\ \ \ Print["\<i=\>", \ 
+        i]\[IndentingNewLine]]\)], "Input"],
+
+Cell[BoxData[
+    InterpretationBox[\("i="\[InvisibleSpace]0\),
+      SequenceForm[ "i=", 0],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[\("i="\[InvisibleSpace]1\),
+      SequenceForm[ "i=", 1],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[\("i="\[InvisibleSpace]2\),
+      SequenceForm[ "i=", 2],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[\("i="\[InvisibleSpace]3\),
+      SequenceForm[ "i=", 3],
+      Editable->False]], "Print"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(i\  = \ 3; \ While[\ i\  > 0, \ \(--i\); \ Print[i]]\)], "Input"],
+
+Cell[BoxData[
+    \(2\)], "Print"],
+
+Cell[BoxData[
+    \(1\)], "Print"],
+
+Cell[BoxData[
+    \(0\)], "Print"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(?Which\)\)], "Input"],
+
+Cell[BoxData[
+    \("Which[test1, value1, test2, value2, ... ] evaluates each of the testi \
+in turn, returning the value of the valuei corresponding to the first one \
+that yields True."\)], "Print"]
+}, Open  ]],
+
+Cell["Which is like a sequence of if-else.", "Text"],
+
+Cell[BoxData[
+    \(f[x_]\  := \ 
+      Which[x < \(-1\), \ \(-1\), \[IndentingNewLine]\t\tx <= 0, \ \(-1\)/
+          2, \[IndentingNewLine]\t\tx > 0\  && \ x\  < 1, \ 
+        1/2, \[IndentingNewLine]\t\tx\  >= \ 1, \ 1]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Plot[f[x], \ {x, \(-3\), 3}]\)], "Input"],
+
+Cell[GraphicsData["PostScript", "\<\
+%!
+%%Creator: Mathematica
+%%AspectRatio: .61803 
+MathPictureStart
+/Mabs {
+Mgmatrix idtransform
+Mtmatrix dtransform
+} bind def
+/Mabsadd { Mabs
+3 -1 roll add
+3 1 roll add
+exch } bind def
+%% Graphics
+%%IncludeResource: font Courier
+%%IncludeFont: Courier
+/Courier findfont 10  scalefont  setfont
+% Scaling calculations
+0.5 0.15873 0.309017 0.294302 [
+[.02381 .29652 -6 -9 ]
+[.02381 .29652 6 0 ]
+[.18254 .29652 -6 -9 ]
+[.18254 .29652 6 0 ]
+[.34127 .29652 -6 -9 ]
+[.34127 .29652 6 0 ]
+[.65873 .29652 -3 -9 ]
+[.65873 .29652 3 0 ]
+[.81746 .29652 -3 -9 ]
+[.81746 .29652 3 0 ]
+[.97619 .29652 -3 -9 ]
+[.97619 .29652 3 0 ]
+[.4875 .01472 -12 -4.5 ]
+[.4875 .01472 0 4.5 ]
+[.4875 .16187 -24 -4.5 ]
+[.4875 .16187 0 4.5 ]
+[.4875 .45617 -18 -4.5 ]
+[.4875 .45617 0 4.5 ]
+[.4875 .60332 -6 -4.5 ]
+[.4875 .60332 0 4.5 ]
+[ 0 0 0 0 ]
+[ 1 .61803 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+0 g
+.25 Mabswid
+[ ] 0 setdash
+.02381 .30902 m
+.02381 .31527 L
+s
+[(-3)] .02381 .29652 0 1 Mshowa
+.18254 .30902 m
+.18254 .31527 L
+s
+[(-2)] .18254 .29652 0 1 Mshowa
+.34127 .30902 m
+.34127 .31527 L
+s
+[(-1)] .34127 .29652 0 1 Mshowa
+.65873 .30902 m
+.65873 .31527 L
+s
+[(1)] .65873 .29652 0 1 Mshowa
+.81746 .30902 m
+.81746 .31527 L
+s
+[(2)] .81746 .29652 0 1 Mshowa
+.97619 .30902 m
+.97619 .31527 L
+s
+[(3)] .97619 .29652 0 1 Mshowa
+.125 Mabswid
+.05556 .30902 m
+.05556 .31277 L
+s
+.0873 .30902 m
+.0873 .31277 L
+s
+.11905 .30902 m
+.11905 .31277 L
+s
+.15079 .30902 m
+.15079 .31277 L
+s
+.21429 .30902 m
+.21429 .31277 L
+s
+.24603 .30902 m
+.24603 .31277 L
+s
+.27778 .30902 m
+.27778 .31277 L
+s
+.30952 .30902 m
+.30952 .31277 L
+s
+.37302 .30902 m
+.37302 .31277 L
+s
+.40476 .30902 m
+.40476 .31277 L
+s
+.43651 .30902 m
+.43651 .31277 L
+s
+.46825 .30902 m
+.46825 .31277 L
+s
+.53175 .30902 m
+.53175 .31277 L
+s
+.56349 .30902 m
+.56349 .31277 L
+s
+.59524 .30902 m
+.59524 .31277 L
+s
+.62698 .30902 m
+.62698 .31277 L
+s
+.69048 .30902 m
+.69048 .31277 L
+s
+.72222 .30902 m
+.72222 .31277 L
+s
+.75397 .30902 m
+.75397 .31277 L
+s
+.78571 .30902 m
+.78571 .31277 L
+s
+.84921 .30902 m
+.84921 .31277 L
+s
+.88095 .30902 m
+.88095 .31277 L
+s
+.9127 .30902 m
+.9127 .31277 L
+s
+.94444 .30902 m
+.94444 .31277 L
+s
+.25 Mabswid
+0 .30902 m
+1 .30902 L
+s
+.5 .01472 m
+.50625 .01472 L
+s
+[(-1)] .4875 .01472 1 0 Mshowa
+.5 .16187 m
+.50625 .16187 L
+s
+[(-0.5)] .4875 .16187 1 0 Mshowa
+.5 .45617 m
+.50625 .45617 L
+s
+[(0.5)] .4875 .45617 1 0 Mshowa
+.5 .60332 m
+.50625 .60332 L
+s
+[(1)] .4875 .60332 1 0 Mshowa
+.125 Mabswid
+.5 .04415 m
+.50375 .04415 L
+s
+.5 .07358 m
+.50375 .07358 L
+s
+.5 .10301 m
+.50375 .10301 L
+s
+.5 .13244 m
+.50375 .13244 L
+s
+.5 .1913 m
+.50375 .1913 L
+s
+.5 .22073 m
+.50375 .22073 L
+s
+.5 .25016 m
+.50375 .25016 L
+s
+.5 .27959 m
+.50375 .27959 L
+s
+.5 .33845 m
+.50375 .33845 L
+s
+.5 .36788 m
+.50375 .36788 L
+s
+.5 .39731 m
+.50375 .39731 L
+s
+.5 .42674 m
+.50375 .42674 L
+s
+.5 .4856 m
+.50375 .4856 L
+s
+.5 .51503 m
+.50375 .51503 L
+s
+.5 .54446 m
+.50375 .54446 L
+s
+.5 .57389 m
+.50375 .57389 L
+s
+.25 Mabswid
+.5 0 m
+.5 .61803 L
+s
+0 0 m
+1 0 L
+1 .61803 L
+0 .61803 L
+closepath
+clip
+newpath
+.5 Mabswid
+.02381 .01472 m
+.06244 .01472 L
+.10458 .01472 L
+.14415 .01472 L
+.18221 .01472 L
+.22272 .01472 L
+.26171 .01472 L
+.28158 .01472 L
+.30316 .01472 L
+.31323 .01472 L
+.32392 .01472 L
+.33304 .01472 L
+.33554 .01472 L
+.33823 .01472 L
+.33953 .01472 L
+.34076 .01472 L
+.34187 .16187 L
+.34309 .16187 L
+.38373 .16187 L
+.42286 .16187 L
+.44283 .16187 L
+.46444 .16187 L
+.47459 .16187 L
+.48531 .16187 L
+.49446 .16187 L
+.49697 .16187 L
+.49835 .16187 L
+.49966 .16187 L
+.50087 .45617 L
+.5022 .45617 L
+.50451 .45617 L
+.54529 .45617 L
+.58456 .45617 L
+.62231 .45617 L
+.64165 .45617 L
+.64696 .45617 L
+.65254 .45617 L
+.65484 .45617 L
+.6573 .45617 L
+.65803 .45617 L
+.65871 .45617 L
+.66 .60332 L
+.6612 .60332 L
+.66251 .60332 L
+.70343 .60332 L
+.74283 .60332 L
+.78072 .60332 L
+.82106 .60332 L
+.85988 .60332 L
+.90116 .60332 L
+Mistroke
+.94092 .60332 L
+.97619 .60332 L
+Mfstroke
+% End of Graphics
+MathPictureEnd
+\
+\>"], "Graphics",
+  ImageSize->{288, 177.938},
+  ImageMargins->{{0, 0}, {0, 0}},
+  ImageRegion->{{0, 1}, {0, 1}},
+  ImageCache->GraphicsData["Bitmap", "\<\
+CF5dJ6E]HGAYHf4PAg9QL6QYHg<PAVmbKF5d0`4000900001Ha000`40O003h00Oogoo87oo00<007oo
+Ool0ogoo7goo003oOolPOol00`00Oomoo`3oOolOOol00?moob1oo`03001oogoo0?mooamoo`00ogoo
+87oo00<007ooOol0ogoo7goo003oOol@Ool70009Ool00`00Oomoo`3oOolOOol00?mooa=oo`03001o
+ogoo00Yoo`03001oogoo0?mooamoo`00ogoo4goo00<007ooOol02Woo00<007ooOol0ogoo7goo003o
+OolCOol00`00Oomoo`0:Ool00`00Oomoo`3oOolOOol00?mooa=oo`03001oogoo00Yoo`03001oogoo
+0?mooamoo`003Woo]`00?Goo200027oo00<007ooOol02Woo1@00ogoo7Goo0034Ool00`00Oomoo`1;
+Ool00`00Oomoo`0:Ool00`00Oomoo`3oOolOOol00<Aoo`03001oogoo04]oo`03001oogoo00Yoo`03
+001oogoo0?mooamoo`00a7oo00<007ooOol0Bgoo00<007ooOol02Woo00<007ooOol0ogoo7goo0034
+Ool00`00Oomoo`1;Ool00`00Oomoo`0:Ool00`00Oomoo`3oOolOOol00<Aoo`03001oogoo04]oo`03
+001oogoo00Yoo`03001oogoo0?mooamoo`00a7oo00<007ooOol0Agoo0`0000=oo`00Ool02goo00<0
+07ooOol0ogoo7goo0034Ool00`00Oomoo`1:Ool2000<Ool00`00Oomoo`3oOolOOol00<Aoo`03001o
+ogoo05Qoo`03001oogoo0?mooamoo`00a7oo00<007ooOol0F7oo00<007ooOol0ogoo7goo0034Ool0
+0`00Oomoo`1HOol00`00Oomoo`3oOolOOol00<Aoo`03001oogoo05Qoo`03001oogoo0?mooamoo`00
+a7oo00<007ooOol0F7oo00<007ooOol0ogoo7goo0034Ool00`00Oomoo`1HOol00`00Oomoo`3oOolO
+Ool00<Aoo`03001oogoo05Qoo`03001oogoo0?mooamoo`00a7oo00<007ooOol0F7oo00<007ooOol0
+ogoo7goo0034Ool00`00Oomoo`1HOol3003oOolOOol00<Aoo`03001oogoo05Qoo`03001oogoo0?mo
+oamoo`00a7oo00<007ooOol0F7oo00<007ooOol0ogoo7goo0034Ool00`00Oomoo`1HOol00`00Oomo
+o`3oOolOOol00<Aoo`03001oogoo05Qoo`03001oogoo0?mooamoo`00a7oo00<007ooOol0F7oo00<0
+07ooOol0ogoo7goo0034Ool00`00Oomoo`1HOol00`00Oomoo`3oOolOOol00<Aoo`03001oogoo05Qo
+o`03001oogoo0?mooamoo`00a7oo00<007ooOol0F7oo00<007ooOol0ogoo7goo0034Ool00`00Oomo
+o`1HOol00`00Oomoo`3oOolOOol00<Aoo`03001oogoo05Qoo`03001oogoo0?mooamoo`00a7oo00<0
+07ooOol0F7oo00<007ooOol0ogoo7goo0034Ool00`00Oomoo`1HOol00`00Oomoo`3oOolOOol00<Ao
+o`03001oogoo05Qoo`03001oogoo0?mooamoo`00a7oo00<007ooOol0F7oo00<007ooOol0ogoo7goo
+0034Ool00`00Oomoo`1HOol00`00Oomoo`3oOolOOol00<Aoo`03001oogoo05Qoo`03001oogoo0?mo
+oamoo`00a7oo00<007ooOol0F7oo0`00ogoo7goo0034Ool00`00Oomoo`1HOol00`00Oomoo`3oOolO
+Ool00<Aoo`03001oogoo05Qoo`03001oogoo0?mooamoo`00a7oo00<007ooOol0F7oo00<007ooOol0
+ogoo7goo0034Ool00`00Oomoo`1HOol00`00Oomoo`3oOolOOol00<Aoo`03001oogoo05Qoo`03001o
+ogoo0?mooamoo`00a7oo00<007ooOol0F7oo00<007ooOol0ogoo7goo0034Ool00`00Oomoo`1HOol0
+0`00Oomoo`3oOolOOol00<Aoo`03001oogoo05Qoo`03001oogoo0?mooamoo`00a7oo00<007ooOol0
+F7oo00<007ooOol0ogoo7goo0034Ool00`00Oomoo`1HOol00`00Oomoo`3oOolOOol00<Aoo`03001o
+ogoo05Qoo`03001oogoo0?mooamoo`00a7oo00<007ooOol0F7oo00<007ooOol0ogoo7goo0034Ool0
+0`00Oomoo`1HOol00`00Oomoo`3oOolOOol00<Aoo`03001oogoo05Qoo`03001oogoo0?mooamoo`00
+a7oo00<007ooOol0F7oo00<007ooOol0ogoo7goo0034Ool00`00Oomoo`1HOol00`00Oomoo`3oOolO
+Ool00<Aoo`03001oogoo05Qoo`<00?mooamoo`00a7oo00<007ooOol0F7oo00<007ooOol0ogoo7goo
+0034Ool00`00Oomoo`1HOol00`00Oomoo`3oOolOOol00<Aoo`03001oogoo05Qoo`03001oogoo0?mo
+oamoo`00a7oo00<007ooOol0F7oo00<007ooOol0ogoo7goo0034Ool00`00Oomoo`1HOol00`00Oomo
+o`3oOolOOol00<Aoo`03001oogoo05Qoo`03001oogoo0?mooamoo`00a7oo00<007ooOol0F7oo00<0
+07ooOol0ogoo7goo0034Ool00`00Oomoo`1HOol00`00Oomoo`3oOolOOol00<Aoo`03001oogoo05Qo
+o`03001oogoo0?mooamoo`00a7oo00<007ooOol0F7oo00<007ooOol0ogoo7goo0034Ool00`00Oomo
+o`1HOol00`00Oomoo`3oOolOOol00<Aoo`03001oogoo05Qoo`03001oogoo0?mooamoo`00a7oo00<0
+07ooOol0F7oo00<007ooOol0ogoo7goo0034Ool00`00Oomoo`1HOol00`00Oomoo`3oOolOOol00<Ao
+o`03001oogoo05Qoo`03001oogoo0?mooamoo`00a7oo00<007ooOol0F7oo00<007ooOol0ogoo7goo
+0034Ool00`00Oomoo`1HOol3003oOolOOol00<Aoo`03001oogoo05Qoo`03001oogoo0?mooamoo`00
+a7oo00<007ooOol0F7oo00<007ooOol0ogoo7goo0034Ool00`00Oomoo`1HOol00`00Oomoo`3oOolO
+Ool00<Aoo`03001oogoo05Qoo`03001oogoo0?mooamoo`00a7oo00<007ooOol0F7oo00<007ooOol0
+ogoo7goo0034Ool00`00Oomoo`1HOol00`00Oomoo`3oOolOOol00<Aoo`03001oogoo05Qoo`03001o
+ogoo0?mooamoo`00a7oo00<007ooOol0F7oo00<007ooOol0ogoo7goo0034Ool00`00Oomoo`1HOol0
+0`00Oomoo`3oOolOOol00<Aoo`03001oogoo05Qoo`03001oogoo0?mooamoo`00a7oo00<007ooOol0
+F7oo00<007ooOol0ogoo7goo0034Ool00`00Oomoo`0aOol40008Ool30009Ool4000;Ool00`00Oomo
+o`3oOolOOol00<Aoo`03001oogoo031oo`03001oogoo009oo`03001oogoo00Eoo`<000Qoo`03001o
+ogoo009oo`03001oogoo00Qoo`03001oogoo0?mooamoo`00a7oo00<007ooOol0;goo00<007ooOol0
+0goo00<007ooOol01Goo0`001goo00<007ooOol017oo00<007ooOol01goo00<007ooOol0ogoo7goo
+0034Ool00`00Oomoo`0_Ool00`00Oomoo`04Ool00`00Oomoo`0EOol00`00Oomoo`07Ool00`00Oomo
+o`3oOolOOol00<Aoo`03001oogoo02moo`03001oogoo00Aoo`03001oogoo01Eoo`03001oogoo00Mo
+o`03001oogoo0?mooamoo`00a7ooH000ogoo7Goo003fOol00`00Oomoo`04Ool00`00Oomoo`0?Ool2
+0003Ool00`00Oomoo`08Ool00`00Oomoo`3oOolOOol00?Ioo`03001oogoo00Aoo`03001oogoo00mo
+o`03001oo`00008000]oo`03001oogoo0?mooamoo`00mWoo00<007ooOol017oo00<007ooOol03goo
+00<007ooOol03Goo00<007ooOol0ogoo7goo003fOol00`00Oomoo`04Ool00`00Oomoo`0?Ool00`00
+Oomoo`0=Ool00`00Oomoo`3oOolOOol00?Moo`03001oogoo009oo`03001oogoo011oo`03001oogoo
+00eoo`03001oogoo0?mooamoo`00mgoo00<007ooOol00Woo00<007ooOol047oo00<007ooOol03Goo
+00<007ooOol0ogoo7goo003hOol4000COol6000:Ool00`00Oomoo`3oOolOOol00?moob1oo`03001o
+ogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol00`00Oomoo`3oOolOOol00?mo
+ob1oo`03001oogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol00`00Oomoo`3o
+OolOOol00?moob1oo`03001oogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol0
+0`00Oomoo`3oOolOOol00?moob1oo`<00?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolP
+Ool00`00Oomoo`3oOolOOol00?moob1oo`03001oogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo
+7goo003oOolPOol00`00Oomoo`3oOolOOol00?moob1oo`03001oogoo0?mooamoo`00ogoo87oo00<0
+07ooOol0ogoo7goo003oOolPOol00`00Oomoo`3oOolOOol00?moob1oo`03001oogoo0?mooamoo`00
+ogoo87oo00<007ooOol0ogoo7goo003oOolPOol00`00Oomoo`3oOolOOol00?moob1oo`03001oogoo
+0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol00`00Oomoo`3oOolOOol00?moob1o
+o`03001oogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol3003oOolOOol00?mo
+ob1oo`03001oogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol00`00Oomoo`3o
+OolOOol00?moob1oo`03001oogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol0
+0`00Oomoo`3oOolOOol00?moob1oo`03001oogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo
+003oOolPOol00`00Oomoo`3oOolOOol00?moob1oo`03001oogoo0?mooamoo`00ogoo87oo00<007oo
+Ool0ogoo7goo003oOolPOol00`00Oomoo`3oOolOOol00?moob1oo`03001oogoo0?mooamoo`00ogoo
+87oo00<007ooOol0ogoo7goo003oOolPOol00`00Oomoo`3oOolOOol00?moob1oo`<00?mooamoo`00
+ogoo87oo00<007ooOol0ogoo7goo003oOolPOol00`00Oomoo`3oOolOOol00?moob1oo`03001oogoo
+0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol00`00Oomoo`3oOolOOol00?moob1o
+o`03001oogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol00`00Oomoo`3oOolO
+Ool00?moob1oo`03001oogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo000AOol5001EOol8
+001DOol7001AOol00`00Oomoo`1EOol7001COol8001DOol5000>Ool0011oo`03001oogoo00=oo`03
+001oogoo059oo`03001oogoo00Aoo`03001oogoo05Eoo`03001oogoo059oo`03001oogoo05Qoo`03
+001oogoo05Aoo`03001oogoo00Aoo`03001oogoo055oo`03001oogoo00=oo`03001oogoo00]oo`00
+5goo00<007ooOol0DWoo00<007ooOol0Fgoo00<007ooOol0DWoo00<007ooOol0F7oo00<007ooOol0
+EGoo00<007ooOol0GWoo00<007ooOol02Woo000GOol00`00Oomoo`1COol00`00Oomoo`1JOol00`00
+Oomoo`1BOol00`00Oomoo`1HOol00`00Oomoo`1FOol00`00Oomoo`1MOol00`00Oomoo`0:Ool001Mo
+o`03001oogoo05Aoo`03001oogoo05Uoo`03001oogoo059oo`03001oogoo05Qoo`03001oogoo05Mo
+o`03001oogoo05aoo`03001oogoo00Yoo`0017oo20002goo00<007ooOol0AGoo200027oo00<007oo
+Ool0B7oo200027oo00<007ooOol0DWoo00<007ooOol0F7oo00<007ooOol0F7oo00<007ooOol0Fgoo
+00<007ooOol02Woo000FOol00`00Oomoo`1GOol00`00Oomoo`1GOol00`00Oomoo`1BOol3001HOol0
+0`00Oomoo`1IOol00`00Oomoo`1IOol00`00Oomoo`0;Ool001=oo`<005]oo`03001oogoo05Ioo`03
+001oogoo059oo`03001oogoo05Qoo`03001oogoo05Yoo`03001oogoo05Eoo`<000ioo`005Woo00<0
+07ooOol0FGoo00<007ooOol0EGoo00<007ooOol0DWoo00<007ooOol0F7oo00<007ooOol0Fgoo00<0
+07ooOol0Egoo00<007ooOol02goo000GOol00`00Oomoo`1HOol00`00Oomoo`1EOol00`00Oomoo`1B
+Ool00`00Oomoo`1HOol00`00Oomoo`1KOol00`00Oomoo`1HOol00`00Oomoo`0:Ool001Moo`03001o
+ogoo055oo`03001oogoo00Aoo`03001oogoo05Eoo`03001oogoo059oo`03001oogoo05Qoo`03001o
+ogoo05Aoo`03001oogoo00Aoo`03001oogoo05Qoo`03001oogoo00Yoo`0047oo0P0017oo00<007oo
+Ool0Dgoo00<007ooOol00Woo00<007ooOol0DWoo0`0000=oo`00Ool0Dgoo00<007ooOol0E7oo0`00
+00=oo`00Ool0EWoo00<007ooOol00Woo00<007ooOol0DWoo0P0017oo00<007ooOol02goo000BOol4
+001GOol4001HOol2001DOol00`00Oomoo`1GOol2001HOol4001GOol4000>Ool00?moob1oo`03001o
+ogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol00`00Oomoo`3oOolOOol00?mo
+ob1oo`03001oogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol00`00Oomoo`3o
+OolOOol00?moob1oo`03001oogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol0
+0`00Oomoo`3oOolOOol00?moob1oo`03001oogoo0?mooamoo`0000=oo`000000o`00o`00?@000Woo
+000>Ool00`00Oomoo`0@Ool00`00Oomoo`0?Ool00`00Oomoo`0?Ool00`00Oomoo`0?Ool00`00Oomo
+o`0?Ool00`00Oomoo`0?Ool00`00Oomoo`0@Ool00`00Oomoo`0?Ool00`00Oomoo`0?Ool00`00Oomo
+o`0?Ool00`00Oomoo`0?Ool00`00Oomoo`0?Ool00`00Oomoo`0@Ool00`00Oomoo`0?Ool00`00Oomo
+o`0?Ool00`00Oomoo`0?Ool00`00Oomoo`0?Ool00`00Oomoo`0@Ool00`00Oomoo`0?Ool00`00Oomo
+o`0?Ool00`00Oomoo`0?Ool00`00Oomoo`0?Ool00`00Oomoo`0?Ool00`00Oomoo`0@Ool00`00Oomo
+o`0?Ool00`00Oomoo`0?Ool00`00Oomoo`0?Ool00`00Oomoo`0?Ool00`00Oomoo`0?Ool00`00Oomo
+o`0@Ool00`00Oomoo`0=Ool000ioo`03001oogoo011oo`03001oogoo00moo`03001oogoo00moo`03
+001oogoo00moo`03001oogoo00moo`03001oogoo00moo`03001oogoo011oo`03001oogoo00moo`03
+001oogoo00moo`03001oogoo00moo`03001oogoo00moo`03001oogoo00moo`03001oogoo011oo`03
+001oogoo00moo`03001oogoo00moo`03001oogoo00moo`03001oogoo00moo`03001oogoo011oo`03
+001oogoo00moo`03001oogoo00moo`03001oogoo00moo`03001oogoo00moo`03001oogoo00moo`03
+001oogoo011oo`03001oogoo00moo`03001oogoo00moo`03001oogoo00moo`03001oogoo00moo`03
+001oogoo00moo`03001oogoo011oo`03001oogoo00eoo`003Woo00<007ooOol0F7oo00<007ooOol0
+F7oo00<007ooOol0F7oo00<007ooOol0F7oo00<007ooOol0F7oo00<007ooOol0F7oo00<007ooOol0
+3Goo000>Ool00`00Oomoo`1HOol00`00Oomoo`1HOol00`00Oomoo`1HOol00`00Oomoo`1HOol00`00
+Oomoo`1HOol00`00Oomoo`1HOol00`00Oomoo`0=Ool00?moob1oo`03001oogoo0?mooamoo`00ogoo
+87oo00<007ooOol0ogoo7goo003oOolPOol00`00Oomoo`3oOolOOol00?moob1oo`03001oogoo0?mo
+oamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol00`00Oomoo`3oOolOOol00?moob1oo`03
+001oogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol00`00Oomoo`3oOolOOol0
+0?moob1oo`03001oogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol00`00Oomo
+o`3oOolOOol00?moob1oo`<00?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol00`00
+Oomoo`3oOolOOol00?moob1oo`03001oogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003o
+OolPOol00`00Oomoo`3oOolOOol00?moob1oo`03001oogoo0?mooamoo`00ogoo87oo00<007ooOol0
+ogoo7goo003oOolPOol00`00Oomoo`3oOolOOol00?moob1oo`03001oogoo0?mooamoo`00ogoo87oo
+00<007ooOol0ogoo7goo003oOolPOol00`00Oomoo`3oOolOOol00?moob1oo`03001oogoo0?mooamo
+o`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol00`00Oomoo`3oOolOOol00?moob1oo`03001o
+ogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol3003oOolOOol00?moob1oo`03
+001oogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol00`00Oomoo`3oOolOOol0
+0?moob1oo`03001oogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol00`00Oomo
+o`3oOolOOol00?moob1oo`03001oogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolP
+Ool00`00Oomoo`3oOolOOol00?moob1oo`03001oogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo
+7goo003oOolPOol00`00Oomoo`3oOolOOol00?moob1oo`03001oogoo0?mooamoo`00ogoo87oo00<0
+07ooOol0ogoo7goo003oOolPOol00`00Oomoo`3oOolOOol00?moob1oo`03001oogoo0?mooamoo`00
+ogoo87oo0`00ogoo7goo003oOolPOol00`00Oomoo`3oOolOOol00?moob1oo`03001oogoo0?mooamo
+o`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol00`00Oomoo`3oOolOOol00?moob1oo`03001o
+ogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol00`00Oomoo`3oOolOOol00?mo
+ob1oo`03001oogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol00`00Oomoo`3o
+OolOOol00?moob1oo`03001oogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003oOolPOol0
+0`00Oomoo`3oOolOOol00?moob1oo`03001oogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo
+003oOolPOol3003oOolOOol00?moob1oo`03001oogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo
+7goo003oOolPOol00`00Oomoo`3oOolOOol00?moob1oo`03001oogoo0?mooamoo`00ogoo87oo00<0
+07ooOol0ogoo7goo003oOolPOol00`00Oomoo`3oOolOOol00?moob1oo`03001oogoo0?mooamoo`00
+ogoo87oo00<007ooOol0ogoo7goo003oOolPOol00`00Oomoo`3oOolOOol00?moob1oo`03001oogoo
+0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo003hOol40008Ool30009Ool4000;Ool00`00Oomo
+o`3oOolOOol00?Moo`03001oogoo009oo`03001oogoo00Eoo`<000Qoo`03001oogoo009oo`03001o
+ogoo00Qoo`03001oogoo0?mooamoo`00mWoo00<007ooOol00goo00<007ooOol01Goo0`001goo00<0
+07ooOol017oo00<007ooOol01goo00<007ooOol0ogoo7goo003fOol00`00Oomoo`04Ool00`00Oomo
+o`0EOol00`00Oomoo`07Ool00`00Oomoo`3oOolOOol00?Ioo`03001oogoo00Aoo`03001oogoo01Eo
+o`03001oogoo00Moo`03001oogoo0?mooamoo`00mWoo00<007ooOol017oo00<007ooOol05Goo00<0
+07ooOol01gooG000aGoo003fOol00`00Oomoo`04Ool00`00Oomoo`0?Ool20003Ool00`00Oomoo`08
+Ool00`00Oomoo`1HOol00`00Oomoo`33Ool00?Ioo`03001oogoo00Aoo`03001oogoo00moo`03001o
+o`00008000]oo`03001oogoo05Qoo`03001oogoo0<=oo`00mWoo00<007ooOol017oo00<007ooOol0
+3goo00<007ooOol03Goo00<007ooOol0F7oo00<007ooOol0`goo003fOol00`00Oomoo`04Ool00`00
+Oomoo`0?Ool00`00Oomoo`0=Ool00`00Oomoo`1HOol00`00Oomoo`33Ool00?Moo`03001oogoo009o
+o`03001oogoo011oo`03001oogoo00eoo`03001oogoo05Qoo`03001oogoo0<=oo`00mgoo00<007oo
+Ool00Woo00<007ooOol047oo00<007ooOol03Goo00<007ooOol0F7oo00<007ooOol0`goo003hOol4
+000COol6000:Ool00`00Oomoo`1HOol00`00Oomoo`33Ool00?moob1oo`03001oogoo05Qoo`03001o
+ogoo0<=oo`00ogoo87oo00<007ooOol0F7oo00<007ooOol0`goo003oOolPOol00`00Oomoo`1HOol0
+0`00Oomoo`33Ool00?moob1oo`03001oogoo05Qoo`03001oogoo0<=oo`00ogoo87oo00<007ooOol0
+F7oo00<007ooOol0`goo003oOolPOol00`00Oomoo`1HOol00`00Oomoo`33Ool00?moob1oo`03001o
+ogoo05Qoo`03001oogoo0<=oo`00ogoo87oo00<007ooOol0F7oo00<007ooOol0`goo003oOolPOol0
+0`00Oomoo`1HOol00`00Oomoo`33Ool00?moob1oo`<005Qoo`03001oogoo0<=oo`00ogoo87oo00<0
+07ooOol0F7oo00<007ooOol0`goo003oOolPOol00`00Oomoo`1HOol00`00Oomoo`33Ool00?moob1o
+o`03001oogoo05Qoo`03001oogoo0<=oo`00ogoo87oo00<007ooOol0F7oo00<007ooOol0`goo003o
+OolPOol00`00Oomoo`1HOol00`00Oomoo`33Ool00?moob1oo`03001oogoo05Qoo`03001oogoo0<=o
+o`00ogoo87oo00<007ooOol0F7oo00<007ooOol0`goo003oOolPOol00`00Oomoo`1HOol00`00Oomo
+o`33Ool00?moob1oo`03001oogoo05Qoo`03001oogoo0<=oo`00ogoo87oo00<007ooOol0F7oo00<0
+07ooOol0`goo003oOolPOol00`00Oomoo`1HOol00`00Oomoo`33Ool00?moob1oo`03001oogoo05Qo
+o`03001oogoo0<=oo`00ogoo87oo00<007ooOol0F7oo00<007ooOol0`goo003oOolPOol00`00Oomo
+o`1HOol00`00Oomoo`33Ool00?moob1oo`03001oogoo05Qoo`03001oogoo0<=oo`00ogoo87oo00<0
+07ooOol0F7oo00<007ooOol0`goo003oOolPOol3001HOol00`00Oomoo`33Ool00?moob1oo`03001o
+ogoo05Qoo`03001oogoo0<=oo`00ogoo87oo00<007ooOol0F7oo00<007ooOol0`goo003oOolPOol0
+0`00Oomoo`1HOol00`00Oomoo`33Ool00?moob1oo`03001oogoo05Qoo`03001oogoo0<=oo`00ogoo
+87oo00<007ooOol0F7oo00<007ooOol0`goo003oOolPOol00`00Oomoo`1HOol00`00Oomoo`33Ool0
+0?moob1oo`03001oogoo05Qoo`03001oogoo0<=oo`00ogoo87oo00<007ooOol0FGoo00<007ooOol0
+`Woo003oOolPOol00`00Oomoo`1IOol00`00Oomoo`32Ool00?moob1oo`03001oogoo05Uoo`03001o
+ogoo0<9oo`00ogoo87oo00<007ooOol0FGoo00<007ooOol0`Woo003oOolPOol00`00Oomoo`1IOol0
+0`00Oomoo`32Ool00?moob1oo`03001oogoo05Uoo`03001oogoo0<9oo`00ogoo87oo00<007ooOol0
+FGoo00<007ooOol0`Woo003oOolPOol00`00Oomoo`1IOol00`00Oomoo`32Ool00?moob1oo`03001o
+ogoo05Uoo`03001oogoo0<9oo`00ogoo87oo0`00FGoo00<007ooOol0`Woo003oOolPOol00`00Oomo
+o`1IOol00`00Oomoo`32Ool00?moob1oo`03001oogoo05Uoo`03001oogoo0<9oo`00ogoo87oo00<0
+07ooOol0FGoo00<007ooOol0`Woo003oOolPOol00`00Oomoo`1IOol00`00Oomoo`32Ool00?moob1o
+o`03001oogoo05Uoo`03001oogoo0<9oo`00ogoo87oo00<007ooOol0FGoo00<007ooOol0`Woo003o
+OolPOol00`00Oomoo`1IOol00`00Oomoo`32Ool00?moob1oo`03001oogoo05Uoo`03001oogoo0<9o
+o`00ogoo87oo00<007ooOol0FGoo00<007ooOol0`Woo003oOolPOol00`00Oomoo`1IOol00`00Oomo
+o`32Ool00?moob1oo`03001oogoo05Uoo`03001oogoo0<9oo`00ogoo87oo00<007ooOol0FGoo00<0
+07ooOol0`Woo003oOolPOol00`00Oomoo`1IOol00`00Oomoo`32Ool00?moob1oo`03001oogoo05Uo
+o`03001oogoo0<9oo`00ogoo87oo00<007ooOol0FGoo00<007ooOol0`Woo003oOolPOol00`00Oomo
+o`1IOol00`00Oomoo`32Ool00?moob1oo`<005Uoo`03001oogoo0<9oo`00ogoo87oo00<007ooOol0
+FGoo00<007ooOol0`Woo003oOolPOol00`00Oomoo`1IOol00`00Oomoo`32Ool00?moob1oo`03001o
+ogoo05Uoo`03001oogoo0<9oo`00ogoo87oo00<007ooOol0FGoo00<007ooOol0`Woo003oOolPOol0
+0`00Oomoo`1IOol00`00Oomoo`32Ool00?moob1oo`03001oogoo05Uoo`03001oogoo0<9oo`00ogoo
+87oo00<007ooOol0FGoo00<007ooOol0`Woo003oOolPOol00`00Oomoo`1IOol00`00Oomoo`32Ool0
+0?moob1oo`03001oogoo05Uoo`03001oogoo0<9oo`00ogoo87oo00<007ooOol0FGoo00<007ooOol0
+`Woo003oOol@Ool70009Ool00`00Oomoo`1IOol00`00Oomoo`32Ool00?mooa=oo`03001oogoo00Yo
+o`03001oogoo05Uoo`03001oogoo0<9oo`00ogoo4goo00<007ooOol02Woo00<007ooOol0FGoo00<0
+07ooOol0`Woo003oOolCOol00`00Oomoo`0:Ool00`00Oomoo`1IOol00`00Oomoo`32Ool00?mooa=o
+o`03001oogoo00Yoo`03001oogoo05Uoo`03001oogoo0<9oo`00ogoo4goo00<007ooOol02Woo1@00
+Egoo]P003goo003oOolCOol00`00Oomoo`0:Ool00`00Oomoo`3oOolOOol00?mooa=oo`03001oogoo
+00Yoo`03001oogoo0?mooamoo`00ogoo4goo00<007ooOol02Woo00<007ooOol0ogoo7goo003oOolC
+Ool00`00Oomoo`0:Ool00`00Oomoo`3oOolOOol00?mooa=oo`03001oogoo00Yoo`03001oogoo0?mo
+oamoo`00ogoo3goo0`0000=oo`00Ool02goo00<007ooOol0ogoo7goo003oOolBOol2000<Ool00`00
+Oomoo`3oOolOOol00?moob1oo`03001oogoo0?mooamoo`00ogoo87oo00<007ooOol0ogoo7goo0000
+\
+\>"],
+  ImageRangeCache->{{{0, 575}, {354.875, 0}} -> {-3.16472, -1.05343, \
+0.0220154, 0.0118739}}],
+
+Cell[BoxData[
+    TagBox[\(\[SkeletonIndicator]  Graphics  \[SkeletonIndicator]\),
+      False,
+      Editable->False]], "Output"]
+}, Open  ]],
+
+Cell["The If condition is in one of the three forms:", "Text"],
+
+Cell[BoxData[
+    \(If[test, \ then]\)], "Input"],
+
+Cell[BoxData[
+    \(If[test, \ then, \ else]\)], "Input"],
+
+Cell[BoxData[
+    \(If[test, \ then, \ else, \ unknown]\)], "Input"],
+
+Cell["\<\
+Where test is an expression which evaluates to the symbol True or False; if \
+test evaluates to True, the ``then'' expression is evaluated, otherwise, the \
+``else'' expression is evaluated.  If test is an expression other than True \
+or False, unknown part will be evaluated. \
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(If[True, \ a, \ b, \ c]\)], "Input"],
+
+Cell[BoxData[
+    \(a\)], "Output"]
+}, Open  ]],
+
+Cell["Logical expressions can be formed similarly to C:", "Text"],
+
+Cell[BoxData[{
+    \(\(\(<\)\(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \)\(less\ than\)\)\), "\
+\[IndentingNewLine]", 
+    \(\(\(<=\)\(\ \)\(\(( \[LessEqual] )\)\ \ \ \ \ \ less\ equal\)\)\), "\
+\[IndentingNewLine]", 
+    \(\(\(>\)\(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \)\(greater\ than\)\)\), \
+"\[IndentingNewLine]", 
+    \(\(\(>=\)\(\ \ \)\(\(( \[GreaterEqual] )\)\ \ \ \ \ greater\ \
+equal\)\)\), "\[IndentingNewLine]", 
+    \(\(\(\[Equal]\)\(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \)\(equal\)\)\), "\
+\[IndentingNewLine]", 
+    \(\(\(!=\)\(\ \)\(\(( \[NotEqual] \ )\)\ \ \ \ \ not\ equal\)\)\), "\
+\[IndentingNewLine]", 
+    \(\ \(\(&&\)\(\ \)\(\(( \[And] )\)\ \ \ \ \ AND\)\)\), "\
+\[IndentingNewLine]", 
+    \(\ \(\(||\)\(\ \)\(\(( \[Or] )\)\ \ \ \ \ OR\)\)\), \
+"\[IndentingNewLine]", 
+    \(\(\(===\)\(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \)\(identical\)\)\), "\
+\[IndentingNewLine]", 
+    \(\(\(=!=\)\(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \)\(not\ identical\)\)\)}], \
+"Input"],
+
+Cell["\<\
+With in notebook interface, we can also use equivalent math symbols: e.g.:\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(x = 4; 
+    If[x\  \[NotEqual] \ 0\  \[And] \ x\  > \ 2, \ Print[x]]\)], "Input"],
+
+Cell[BoxData[
+    \(4\)], "Print"]
+}, Open  ]],
+
+Cell["\<\
+The last two (===,=!=) is a stronger form of equal or not equal:\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \({a \[Equal] b, \ a === b}\)], "Input"],
+
+Cell[BoxData[
+    \({a == b, False}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\((1 + x)\)^2\  == \ 1\  + \ 2  x\  + \ x^2\)], "Input"],
+
+Cell[BoxData[
+    \(True\)], "Output"]
+}, Open  ]],
+
+Cell["Typing of special symbols", "Subtitle"],
+
+Cell[TextData[{
+  "Special symbol like \[Pi] or \[Alpha] can be typed in \n\t(1) using \
+palettes,\n\t(2) key strokes with ESC code ESC.  e.g. \[Pi] is ESC p ESC, or \
+",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"T", 
+          AdjustmentBox["E",
+            BoxMargins->{{-0.075, -0.085}, {0, 0}},
+            BoxBaselineShift->0.5], "X"}]]]],
+  " style input ESC \\pi ESC.\nSuperscripts/subscripts can be typed in with \
+Ctrl-^, Ctrl-_; Control-space get you back to normal type.  e.g.  ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\_2. \)]]
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\((1\  + \ \[Alpha]\ )\)\^2\  // \ Expand\)], "Input"],
+
+Cell[BoxData[
+    \(1 + 2\ \[Alpha] + \[Alpha]\^2\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(N[\[Pi]]\)], "Input"],
+
+Cell[BoxData[
+    \(3.141592653589793`\)], "Output"]
+}, Open  ]],
+
+Cell["Programming example: Gaussian elimination", "Subtitle"],
+
+Cell["\<\
+1. What user interface to use?
+2. How much to check the validity of input data?
+3. Error handling, what to do if solution does not exist? \
+\>", "Text"],
+
+Cell[BoxData[
+    \(gauss[a_List, \ b_List]\  := \ 
+      Module[\ {m = a, n, i, j, c0, c1, \ new}, \[IndentingNewLine]m\  = \ 
+          Transpose[m]\ ~Join~{\ b}; \[IndentingNewLine]m\  = \ 
+          Transpose[m]; \ \[IndentingNewLine]n\  = \ 
+          Length[b]; \[IndentingNewLine]For[i\  = \ 1, \ 
+          i\  < \ n, \ \(++i\), \[IndentingNewLine]\ 
+          c0\  = \ m[\([i, i]\)]; \[IndentingNewLine]For[j\  = \ i + 1, \ 
+            j\  \[LessEqual] \ n, \ \(++j\), \[IndentingNewLine]\ 
+            c1\  = \ m[\([j, i]\)]; \[IndentingNewLine]new\  = \ \ c0\ *\ 
+                  m[\([j]\)]\  - \ 
+                c1\ *\ m[\([i]\)]; \[IndentingNewLine]m[\([j]\)]\  = \ 
+              Simplify\  /@ \ new;\[IndentingNewLine]]; \[IndentingNewLine]\ 
+          Print[MatrixForm[m]]\[IndentingNewLine]]; \[IndentingNewLine]\ 
+        backsub[m]\[IndentingNewLine]]\)], "Input"],
+
+Cell["backsub[] will be left for the next lab problem. ", "Text"]
+},
+FrontEndVersion->"4.1 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 695}},
+WindowSize->{1016, 668},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+Magnification->3,
+StyleDefinitions -> "Classroom.nb"
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1705, 50, 123, 4, 646, "Title"],
+Cell[1831, 56, 48, 0, 119, "Subtitle"],
+Cell[1882, 58, 424, 8, 337, "Text"],
+Cell[2309, 68, 308, 6, 449, "Input"],
+Cell[2620, 76, 202, 4, 183, "Text"],
+
+Cell[CellGroupData[{
+Cell[2847, 84, 39, 1, 143, "Input"],
+Cell[2889, 87, 35, 1, 141, "Output"]
+}, Open  ]],
+Cell[2939, 91, 70, 0, 81, "Text"],
+Cell[3012, 93, 61, 1, 143, "Input"],
+Cell[3076, 96, 45, 0, 81, "Text"],
+Cell[3124, 98, 87, 1, 194, "Input"],
+Cell[3214, 101, 52, 0, 81, "Text"],
+Cell[3269, 103, 76, 1, 143, "Input"],
+Cell[3348, 106, 53, 0, 119, "Subtitle"],
+Cell[3404, 108, 198, 7, 134, "Text"],
+Cell[3605, 117, 105, 2, 194, "Input"],
+
+Cell[CellGroupData[{
+Cell[3735, 123, 153, 3, 245, "Input"],
+Cell[3891, 128, 127, 3, 69, "Print"],
+Cell[4021, 133, 127, 3, 69, "Print"],
+Cell[4151, 138, 127, 3, 69, "Print"],
+Cell[4281, 143, 127, 3, 69, "Print"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4445, 151, 85, 1, 143, "Input"],
+Cell[4533, 154, 34, 1, 69, "Print"],
+Cell[4570, 157, 34, 1, 69, "Print"],
+Cell[4607, 160, 34, 1, 69, "Print"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4678, 166, 43, 1, 143, "Input"],
+Cell[4724, 169, 200, 3, 314, "Print"]
+}, Open  ]],
+Cell[4939, 175, 52, 0, 81, "Text"],
+Cell[4994, 177, 235, 4, 296, "Input"],
+
+Cell[CellGroupData[{
+Cell[5254, 185, 61, 1, 143, "Input"],
+Cell[5318, 188, 21037, 500, 558, 3948, 284, "GraphicsData", "PostScript", \
+"Graphics"],
+Cell[26358, 690, 130, 3, 141, "Output"]
+}, Open  ]],
+Cell[26503, 696, 62, 0, 81, "Text"],
+Cell[26568, 698, 49, 1, 143, "Input"],
+Cell[26620, 701, 57, 1, 143, "Input"],
+Cell[26680, 704, 68, 1, 143, "Input"],
+Cell[26751, 707, 301, 5, 285, "Text"],
+
+Cell[CellGroupData[{
+Cell[27077, 716, 56, 1, 143, "Input"],
+Cell[27136, 719, 35, 1, 141, "Output"]
+}, Open  ]],
+Cell[27186, 723, 65, 0, 81, "Text"],
+Cell[27254, 725, 965, 20, 602, "Input"],
+Cell[28222, 747, 98, 2, 132, "Text"],
+
+Cell[CellGroupData[{
+Cell[28345, 753, 101, 2, 143, "Input"],
+Cell[28449, 757, 34, 1, 69, "Print"]
+}, Open  ]],
+Cell[28498, 761, 88, 2, 81, "Text"],
+
+Cell[CellGroupData[{
+Cell[28611, 767, 58, 1, 143, "Input"],
+Cell[28672, 770, 49, 1, 141, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[28758, 776, 76, 1, 143, "Input"],
+Cell[28837, 779, 38, 1, 141, "Output"]
+}, Open  ]],
+Cell[28890, 783, 45, 0, 119, "Subtitle"],
+Cell[28938, 785, 562, 14, 372, "Text"],
+
+Cell[CellGroupData[{
+Cell[29525, 803, 74, 1, 145, "Input"],
+Cell[29602, 806, 63, 1, 143, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[29702, 812, 41, 1, 143, "Input"],
+Cell[29746, 815, 52, 1, 141, "Output"]
+}, Open  ]],
+Cell[29813, 819, 61, 0, 190, "Subtitle"],
+Cell[29877, 821, 162, 4, 207, "Text"],
+Cell[30042, 827, 887, 14, 1010, "Input"],
+Cell[30932, 843, 65, 0, 81, "Text"]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

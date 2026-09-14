@@ -1,0 +1,636 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 4.2'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      7721,        405]*)
+(*NotebookOutlinePosition[      9132,        449]*)
+(*  CellTagsIndexPosition[      8963,        441]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell["Midterm Test Answers", "Title"],
+
+Cell["1.", "Subtitle"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Sqrt[2]\)], "Input"],
+
+Cell[BoxData[
+    \(\@2\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Sqrt[4]\)], "Input"],
+
+Cell[BoxData[
+    \(2\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Plus[a, b]\)], "Input"],
+
+Cell[BoxData[
+    \(a + b\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Sin\  /@ \ {0, \ Pi}\)], "Input"],
+
+Cell[BoxData[
+    \({0, 0}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Times\  @@ \ \((i + j)\)\)], "Input"],
+
+Cell[BoxData[
+    \(i\ j\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\((a + b*x)\)[\([2, 2]\)]\)], "Input"],
+
+Cell[BoxData[
+    \(x\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(x + y\  //. \ y \[Rule] \ x\)], "Input"],
+
+Cell[BoxData[
+    \(2\ x\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Map[{#[\([1]\)] + I*#[\([2]\)]} &, {{1, 2}, {2, 3}}]\)], "Input"],
+
+Cell[BoxData[
+    \({{1 + 2\ \[ImaginaryI]}, {2 + 3\ \[ImaginaryI]}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \({x, y}\  = \ {1, 2}^2\)], "Input"],
+
+Cell[BoxData[
+    \({1, 4}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(?x\)\)], "Input"],
+
+Cell["Global`x", "Print",
+  CellTags->"Info3256110750-1607764"],
+
+Cell[BoxData[
+    InterpretationBox[GridBox[{
+          {GridBox[{
+                {\(x = 1\)}
+                },
+              GridBaseline->{Baseline, {1, 1}},
+              ColumnWidths->0.999,
+              ColumnAlignments->{Left}]}
+          },
+        GridBaseline->{Baseline, {1, 1}},
+        ColumnAlignments->{Left}],
+      Definition[ "x"],
+      Editable->False]], "Print",
+  CellTags->"Info3256110750-1607764"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(?y\)\)], "Input"],
+
+Cell["Global`y", "Print",
+  CellTags->"Info3256110755-1471714"],
+
+Cell[BoxData[
+    InterpretationBox[GridBox[{
+          {GridBox[{
+                {\(y = 4\)}
+                },
+              GridBaseline->{Baseline, {1, 1}},
+              ColumnWidths->0.999,
+              ColumnAlignments->{Left}]}
+          },
+        GridBaseline->{Baseline, {1, 1}},
+        ColumnAlignments->{Left}],
+      Definition[ "y"],
+      Editable->False]], "Print",
+  CellTags->"Info3256110755-1471714"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(Clear[x, y]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \({a, b} . {c, d}\)], "Input"],
+
+Cell[BoxData[
+    \(a\ c + b\ d\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(a === b\)], "Input"],
+
+Cell[BoxData[
+    \(False\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(MatchQ[x, x_]\)], "Input"],
+
+Cell[BoxData[
+    \(True\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(MatchQ[x^2, y_]\)], "Input"],
+
+Cell[BoxData[
+    \(True\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Head[h[a]]\)], "Input"],
+
+Cell[BoxData[
+    \(h\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Sum[1, {i, 1, 1, 1}]\)], "Input"],
+
+Cell[BoxData[
+    \(1\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Set[x, 5]\)], "Input"],
+
+Cell[BoxData[
+    \(5\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(?x\)\)], "Input"],
+
+Cell["Global`x", "Print",
+  CellTags->"Info3256110222-2529273"],
+
+Cell[BoxData[
+    InterpretationBox[GridBox[{
+          {GridBox[{
+                {\(x = 5\)}
+                },
+              GridBaseline->{Baseline, {1, 1}},
+              ColumnWidths->0.999,
+              ColumnAlignments->{Left}]}
+          },
+        GridBaseline->{Baseline, {1, 1}},
+        ColumnAlignments->{Left}],
+      Definition[ "x"],
+      Editable->False]], "Print",
+  CellTags->"Info3256110222-2529273"]
+}, Open  ]],
+
+Cell["2.", "Subtitle"],
+
+Cell["(a)", "Text"],
+
+Cell[BoxData[
+    \(f[{x_, y___}]\  := \ x\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(f[{a, b, c}]\)], "Input"],
+
+Cell[BoxData[
+    \(a\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(f[{a}]\)], "Input"],
+
+Cell[BoxData[
+    \(a\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(f[{}]\)], "Input"],
+
+Cell[BoxData[
+    \(f[{}]\)], "Output"]
+}, Open  ]],
+
+Cell["f returns first element of a list.", "Text"],
+
+Cell["(b)", "Text"],
+
+Cell[BoxData[
+    \(g[x_List]\  := Fold[\((10*#1 + #2)\) &, 0, \ x]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(g[{1, 2, 3}]\)], "Input"],
+
+Cell[BoxData[
+    \(123\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(g[{1, 0, 2, 3, 1}]\)], "Input"],
+
+Cell[BoxData[
+    \(10231\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(g[{3}]\)], "Input"],
+
+Cell[BoxData[
+    \(3\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(g[{1, 2}]\)], "Input"],
+
+Cell[BoxData[
+    \(12\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(g[{a, b, c}]\  // \ Simplify\)], "Input"],
+
+Cell[BoxData[
+    \(100\ a + 10\ b + c\)], "Output"]
+}, Open  ]],
+
+Cell["3.", "Subtitle"],
+
+Cell["A two-line code would suffice.", "Text"],
+
+Cell[BoxData[{
+    \(\(treedepth[{}]\  := \ 0;\)\), "\[IndentingNewLine]", 
+    \(treedepth[t_List]\  := \ 
+      1\  + \ Max[treedepth[t[\([2]\)]], treedepth[t[\([3]\)]]]\)}], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(treedepth[{}]\)], "Input"],
+
+Cell[BoxData[
+    \(0\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(treedepth[{e, {}, {}}]\)], "Input"],
+
+Cell[BoxData[
+    \(1\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(treedepth[{e, {c, {}, {}}, {}}]\)], "Input"],
+
+Cell[BoxData[
+    \(2\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(treedepth[{e, {c, {}, {d, {}, {}}}, {}}]\)], "Input"],
+
+Cell[BoxData[
+    \(3\)], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"4.2 for X",
+ScreenRectangle->{{0, 1280}, {0, 1024}},
+WindowSize->{656, 987},
+WindowMargins->{{206, Automatic}, {Automatic, -8}},
+Magnification->1.5,
+StyleDefinitions -> "Classroom.nb"
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{
+  "Info3256110750-1607764"->{
+    Cell[3117, 141, 63, 1, 32, "Print",
+      CellTags->"Info3256110750-1607764"],
+    Cell[3183, 144, 423, 13, 33, "Print",
+      CellTags->"Info3256110750-1607764"]},
+  "Info3256110755-1471714"->{
+    Cell[3685, 165, 63, 1, 32, "Print",
+      CellTags->"Info3256110755-1471714"],
+    Cell[3751, 168, 423, 13, 33, "Print",
+      CellTags->"Info3256110755-1471714"]},
+  "Info3256110222-2529273"->{
+    Cell[5165, 255, 63, 1, 32, "Print",
+      CellTags->"Info3256110222-2529273"],
+    Cell[5231, 258, 423, 13, 33, "Print",
+      CellTags->"Info3256110222-2529273"]}
+  }
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{
+  {"Info3256110750-1607764", 8371, 422},
+  {"Info3256110755-1471714", 8570, 427},
+  {"Info3256110222-2529273", 8769, 432}
+  }
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1754, 51, 37, 0, 96, "Title"],
+Cell[1794, 53, 22, 0, 59, "Subtitle"],
+
+Cell[CellGroupData[{
+Cell[1841, 57, 40, 1, 69, "Input"],
+Cell[1884, 60, 37, 1, 73, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[1958, 66, 40, 1, 69, "Input"],
+Cell[2001, 69, 35, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2073, 75, 43, 1, 69, "Input"],
+Cell[2119, 78, 39, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2195, 84, 53, 1, 69, "Input"],
+Cell[2251, 87, 40, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2328, 93, 57, 1, 69, "Input"],
+Cell[2388, 96, 38, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2463, 102, 58, 1, 69, "Input"],
+Cell[2524, 105, 35, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2596, 111, 60, 1, 69, "Input"],
+Cell[2659, 114, 38, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2734, 120, 85, 1, 69, "Input"],
+Cell[2822, 123, 82, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2941, 129, 54, 1, 69, "Input"],
+Cell[2998, 132, 40, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3075, 138, 39, 1, 69, "Input"],
+Cell[3117, 141, 63, 1, 32, "Print",
+  CellTags->"Info3256110750-1607764"],
+Cell[3183, 144, 423, 13, 33, "Print",
+  CellTags->"Info3256110750-1607764"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3643, 162, 39, 1, 69, "Input"],
+Cell[3685, 165, 63, 1, 32, "Print",
+  CellTags->"Info3256110755-1471714"],
+Cell[3751, 168, 423, 13, 33, "Print",
+  CellTags->"Info3256110755-1471714"]
+}, Open  ]],
+Cell[4189, 184, 44, 1, 69, "Input"],
+
+Cell[CellGroupData[{
+Cell[4258, 189, 48, 1, 69, "Input"],
+Cell[4309, 192, 45, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4391, 198, 40, 1, 69, "Input"],
+Cell[4434, 201, 39, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4510, 207, 46, 1, 69, "Input"],
+Cell[4559, 210, 38, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4634, 216, 48, 1, 69, "Input"],
+Cell[4685, 219, 38, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4760, 225, 43, 1, 69, "Input"],
+Cell[4806, 228, 35, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4878, 234, 53, 1, 69, "Input"],
+Cell[4934, 237, 35, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5006, 243, 42, 1, 69, "Input"],
+Cell[5051, 246, 35, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5123, 252, 39, 1, 69, "Input"],
+Cell[5165, 255, 63, 1, 32, "Print",
+  CellTags->"Info3256110222-2529273"],
+Cell[5231, 258, 423, 13, 33, "Print",
+  CellTags->"Info3256110222-2529273"]
+}, Open  ]],
+Cell[5669, 274, 22, 0, 59, "Subtitle"],
+Cell[5694, 276, 19, 0, 40, "Text"],
+Cell[5716, 278, 55, 1, 69, "Input"],
+
+Cell[CellGroupData[{
+Cell[5796, 283, 45, 1, 69, "Input"],
+Cell[5844, 286, 35, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5916, 292, 39, 1, 69, "Input"],
+Cell[5958, 295, 35, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6030, 301, 38, 1, 69, "Input"],
+Cell[6071, 304, 39, 1, 69, "Output"]
+}, Open  ]],
+Cell[6125, 308, 50, 0, 40, "Text"],
+Cell[6178, 310, 19, 0, 40, "Text"],
+Cell[6200, 312, 80, 1, 69, "Input"],
+
+Cell[CellGroupData[{
+Cell[6305, 317, 45, 1, 69, "Input"],
+Cell[6353, 320, 37, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6427, 326, 51, 1, 69, "Input"],
+Cell[6481, 329, 39, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6557, 335, 39, 1, 69, "Input"],
+Cell[6599, 338, 35, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6671, 344, 42, 1, 69, "Input"],
+Cell[6716, 347, 36, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6789, 353, 61, 1, 69, "Input"],
+Cell[6853, 356, 52, 1, 69, "Output"]
+}, Open  ]],
+Cell[6920, 360, 22, 0, 59, "Subtitle"],
+Cell[6945, 362, 46, 0, 40, "Text"],
+Cell[6994, 364, 185, 3, 115, "Input"],
+
+Cell[CellGroupData[{
+Cell[7204, 371, 46, 1, 69, "Input"],
+Cell[7253, 374, 35, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7325, 380, 55, 1, 69, "Input"],
+Cell[7383, 383, 35, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7455, 389, 64, 1, 69, "Input"],
+Cell[7522, 392, 35, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7594, 398, 73, 1, 69, "Input"],
+Cell[7670, 401, 35, 1, 69, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

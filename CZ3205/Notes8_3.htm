@@ -1,0 +1,74 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Chapter 2</title>
+<meta name="Microsoft Theme" content="loosegst 011, default">
+</head>
+
+<body background="lootextb.jpg" bgcolor="#FFFFCC" text="#000000" link="#CC6633" vlink="#663399" alink="#999900"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><!--mstheme--></font>
+
+<h1><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#666633">Boltzmann
+Machine<!--mstheme--></font></h1>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><!--mstheme--></font><h2><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#330099">Introduction<!--mstheme--></font></h2>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><p><font size="4">Unlike
+the Hopfield model, Boltzmann machine has a learning process.&nbsp;&nbsp; Just
+like the neural models discussed in Chapters 1 to 6, Boltzmann machine operates
+in two phases, a training phase to learn the external world, and a
+generalization phase to give results.&nbsp; Unlike the neural networks of
+earlier Chapters, Boltzmann machine is a stochastic machine, very much like the
+Hopfield model at a temperature T.&nbsp;&nbsp; The
+name is derived from the Boltzmman distribution of the neural states of
+equilibrium statistical machine.&nbsp;&nbsp; The Boltzmann machine can be used
+to model the distribution of inputs.&nbsp; The distributions are obtained
+through a learning process.</font></p>
+
+<!--mstheme--></font><h2><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#330099">The
+Boltzmann Machine<!--mstheme--></font></h2>
+
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><p><font size="4">Consider
+a neural network system of Hopfield-type with the Ising spin value S<sub>i</sub>
+= +1 or -1 at each node (neuron).&nbsp; Let the synaptic strength be w<sub>ij</sub>
+and is symmetric so that a total energy can be meaningfully defined,</font></p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="4">E(S) = - (1/2) </font><font face="Symbol" size="5">S</font><font size="4"><sub>ij</sub>
+w<sub>ij</sub> S<sub>i</sub> S<sub>j</sub>.</font></p>
+
+<p><font size="4">In a free running phase (the second phase), the system runs one
+of the version of finite temperature dynamics, such as a heat-bath algorithm to
+realize a Boltzmann distribution.</font></p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="4">P(S)&nbsp;
+proportional to exp</font><font size="5">(</font><font size="4"> - E(S)/kT</font><font size="5">)</font><font size="4">.</font></p>
+
+<p><font size="4">The neurons are divided into two groups, the external
+(visible) neurons S<sup>v</sup> and internal (hidden neurons) S<sup>i</sup>.&nbsp;&nbsp;
+In the learning process, the external neurons take the values of inputs.&nbsp;
+So they act as external fields to the system and do not change.&nbsp;&nbsp;
+The internal neurons run the usual heat-bath algorithm as usual.&nbsp;&nbsp; The
+purpose of the second phase, of course, is to learn to adjust the weight, by the
+following rule:</font></p>
+
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; w<sub>ij</sub>
+&lt;-&nbsp; w<sub>ij</sub> + (<font face="Symbol">h</font>/T) </font><font size="5">(</font><font size="4">
+&lt;S<sub>i</sub> S<sub>j</sub>&gt;<sub>clamped</sub> - &lt;S<sub>i</sub> S<sub>j</sub>&gt;<sub>free</sub></font><font size="5">),</font></p>
+
+<p><font size="4">Where the calculation of equilibrium average values
+&lt;...&gt; is a time-consuming process.&nbsp; The clamped averages are the
+average obtained in the second phase where the external or the visible spin
+values are fixed by the input.&nbsp; The second average is the same quantity at
+the free run samples, obtained during the first phase.&nbsp;&nbsp; See the
+textbook (Haykin) for the reason and derivation of this updating rule.</font></p>
+
+<p><font size="4">We note that the input samples are supposed to be drawn from
+some unknown distribution.&nbsp; For each sample, the above updating has to been
+down.&nbsp;&nbsp; Each updating requires long simulation to compute the
+averages.&nbsp; Thus Boltzmann machine learning is very slow and extremely CPU
+time intensive.&nbsp;&nbsp; New models are developed to have the feature of
+Boltzmann machine, but much less expensive in computation. </font></p>
+
+<!--mstheme--></font></body>
+
+</html>

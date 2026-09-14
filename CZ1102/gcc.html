@@ -1,0 +1,56 @@
+<html><head><title>DJGPP</title>
+ 
+<h1 align=center>DJGPP ZIP FILES</h1>
+
+<p>Here is the GNU C Compiler for the MS-DOS.   Download all the (zip) files below:
+
+<pre>
+<a href="ftp://ftp.nus.edu.sg/pub/simtelnet/gnu/djgpp/v2/copying.dj">v2/copying.dj</a>        DJGPP Copyright info            2 kb
+<a href="ftp://ftp.nus.edu.sg/pub/simtelnet/gnu/djgpp/v2/djdev201.zip">v2/djdev201.zip</a>      DJGPP Basic Development Kit   1.5 mb
+<a href="ftp://ftp.nus.edu.sg/pub/simtelnet/gnu/djgpp/v2/faq210b.zip">v2/faq210b.zip</a>       Frequently Asked Questions    390 kb
+<a href="ftp://ftp.nus.edu.sg/pub/simtelnet/gnu/djgpp/v2/readme.1st">v2/readme.1st</a>        Installation instructions      14 kb
+
+<a href="ftp://ftp.nus.edu.sg/pub/simtelnet/gnu/djgpp/v2apps/rhide14b.zip">v2apps/rhide14b.zip</a>  RHIDE - integrated development environment 1.6 mb
+
+<a href="ftp://ftp.nus.edu.sg/pub/simtelnet/gnu/djgpp/v2gnu/bnu281b.zip">v2gnu/bnu281b.zip</a>    Basic assembler, linker       1.8 mb
+<a href="ftp://ftp.nus.edu.sg/pub/simtelnet/gnu/djgpp/v2gnu/gcc281b.zip">v2gnu/gcc281b.zip</a>    Basic GCC compiler            1.3 mb
+<a href="ftp://ftp.nus.edu.sg/pub/simtelnet/gnu/djgpp/v2gnu/mak3761b.zip">v2gnu/mak3761b.zip</a>   Make (processes makefiles)    230 kb
+</pre>
+<p>Total bytes to download: 7,112,242</p>
+
+
+<h2>Installation Instructions</h2>
+
+Work under MS-DOS prompt.
+Assume you have downloaded <a href="ftp://ftp.nus.edu.sg/pub/pc/msdos/UNZIP.EXE">unzip.exe</a> (which should be in your search
+pass, in, e.g., C:\windows), and saved all the zip files in c:\tmp.
+<p>Follow this example, substituting paths as appropriate
+(type the bold parts):</p>
+<pre>C:\xx> <b>cd C:\</b>
+C:\> <b>mkdir djgpp</b>
+C:\> <b>cd djgpp</b>
+C:\DJGPP> <b>unzip  c:\tmp\djdev201.zip</b>
+C:\DJGPP> <b>unzip  c:\tmp\faq210b.zip</b>
+C:\DJGPP> <b>unzip  c:\tmp\rhide14b.zip</b>
+C:\DJGPP> <b>unzip  c:\tmp\bnu281b.zip</b>
+C:\DJGPP> <b>unzip  c:\tmp\gcc281b.zip</b>
+C:\DJGPP> <b>unzip  c:\tmp\mak3761b.zip</b>
+C:\DJGPP> <b>echo set PATH=%PATH%;C:\DJGPP\BIN>> c:\autoexec.bat</b>
+C:\DJGPP> <b>echo set DJGPP=C:\DJGPP\DJGPP.ENV>> c:\autoexec.bat</b>
+<i>Ctrl-Alt-Del</i> to reboot
+</pre>
+
+<p>It may be necessary to edit the autoexec.bat file (e.g., multiple
+lines of path definition).
+The default executable file name for gcc on DOS is a.exe (not a.out as
+on Unix).
+
+<p><em>Note:</em> Sample compile command: <tt>gcc hello.c -o hello.exe</tt></p>
+
+<p>You start the integrated development environment by typing <b>rhide</b>, 
+which is very similar to Turbo C/Borland C++. There is a build-in editor,
+a debugger, menu choices for compilation and run in this environment.       
+
+<p>For complete DJGPP package, see the site 
+<a href="http://www.delorie.com/djgpp/"><tt>http://www.delorie.com/djgpp/</tt></a>
+</body></html>

@@ -1,0 +1,121 @@
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Context-Type" CONTEXT="text/html;charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft Internet Assistant for PowerPoint 97">
+ <TITLE>The Parsing function</TITLE> 
+</HEAD>
+
+<BODY     >
+
+ <H1>The Parsing function</H1> 
+ <P><UL>
+<H2>void update_lhs(void)
+</H2>
+<BR></UL><UL>
+<H2>{
+</H2>
+</UL><UL>
+<H2>   char *next = buffer, *last;
+</H2>
+</UL><UL>
+<H2>   char op[10], numStr[20];
+</H2>
+</UL><UL>
+<H2>   int num;
+</H2>
+</UL><UL>
+<H2>   int temp = lhs;
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>   last = next + strlen(buffer);
+</H2>
+</UL><UL>
+<H2>   while (next &#060 last) {
+</H2>
+</UL><UL>
+<H2>      if ( sscanf(next, "%s %s", op, numStr) &#060 2 ||
+</H2>
+</UL><UL>
+<H2>           strlen(op) != 1 ||
+</H2>
+</UL><UL>
+<H2>           bad_op(op[0]) )
+</H2>
+</UL><UL>
+<H2>         return;
+</H2>
+</UL><UL>
+<H2>      if (Stop == op[0] ) {
+</H2>
+</UL><UL>
+<H2>         printf(" *** End of Calculation ***\n\n");
+</H2>
+</UL><UL>
+<H2>         exit(EXIT_SUCCESS);
+</H2>
+</UL><UL>
+<H2>      }
+</H2>
+</UL><UL>
+<H2>      num = atoi(numStr);
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>      switch(op[0]) {
+</H2>
+</UL><UL>
+<H2>         case '+': temp += num; break;
+</H2>
+</UL><UL>
+<H2>         case '-': temp -= num; break;
+</H2>
+</UL><UL>
+<H2>         case '*': temp *= num; break;
+</H2>
+</UL><UL>
+<H2>         case '/': temp /= num; break;
+</H2>
+</UL><UL>
+<H2>         case '%': temp %= num; break;
+</H2>
+</UL><UL>
+<H2>      }
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>      next += strlen(op) + strlen(numStr) + 2;
+</H2>
+</UL><UL>
+<H2>   }
+</H2>
+</UL><UL>
+<H2>   lhs = temp;
+</H2>
+</UL><UL>
+<H2>}
+</H2>
+</UL></P>
+<P></P> 
+<P>
+<TABLE>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld012.htm">Previous slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld014.htm">Next slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="tsld001.htm">Back to first slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="sld013.htm">View graphic version</A> </TD>
+</TABLE>
+<BR>
+</P>
+
+
+
+</Body>
+</HTML>

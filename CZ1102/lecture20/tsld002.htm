@@ -1,0 +1,91 @@
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Context-Type" CONTEXT="text/html;charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft Internet Assistant for PowerPoint 97">
+ <TITLE>Union Example</TITLE> 
+</HEAD>
+
+<BODY     >
+
+ <H1>Union Example</H1> 
+ <P><UL>
+<H2>#include &#060stdio.h&#062
+</H2>
+<BR></UL><UL>
+<H2>main()
+</H2>
+</UL><UL>
+<H2>{
+</H2>
+</UL><UL>
+<H2>   union char_float {
+</H2>
+</UL><UL>
+<H2>      float x;
+</H2>
+</UL><UL>
+<H2>      char c[4];
+</H2>
+</UL><UL>
+<H2>   };
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>   union char_float buff;
+</H2>
+</UL><UL>
+<H2>   int i;
+</H2>
+</UL><UL>
+<H2>   float y = -824.718023;
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>   buff.x = y;
+</H2>
+</UL><UL>
+<H2>   for(i = 0; i &#060 4; i++)
+</H2>
+</UL><UL>
+<H2>      printf("%x ", buff.c[i]);
+</H2>
+</UL><UL>
+<H2>}
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>prints:
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>fffffff4 2d 4e ffffffc4
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL></P>
+<P>This is program <a href="pg536.c">pg536.c</a></P> 
+<P>
+<TABLE>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld001.htm">Previous slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld003.htm">Next slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="tsld001.htm">Back to first slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="sld002.htm">View graphic version</A> </TD>
+</TABLE>
+<BR>
+</P>
+
+
+
+</Body>
+</HTML>

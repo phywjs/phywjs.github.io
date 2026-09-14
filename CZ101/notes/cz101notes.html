@@ -1,0 +1,310 @@
+<html>
+<head>
+<title>CZ1101 Notes</title>
+</head>
+<body>
+<h1>CZ1101, Lecture Notes</h1>
+
+<p><em>The notes only indicate what has been taught in classes, 
+and are not a substitution for reading the textbook.  Paper copy
+of the notes is also available in the 1st Year Lab.</em>
+
+<h1>Course Outline</h1>
+<UL>
+ <LI>Introduction, <A HREF="#chapter1">chapter 1</A>, 1 hr
+ <LI>Machine Instructions, <A HREF="#chapter3">chapter 3</A>, 7 hrs
+ <LI>Arithmetic, <A HREF="week6.html#chapter4">chapter 4</A>, 8 hrs
+ <LI>Assembly Programming, <A HREF="week12.html#appendix">Appendix A</A>, 2 hrs
+ <LI>Processor, <A HREF="week13.html">chapter 5</A>, 2 hr
+ <LI>Pipelining, <A HREF="week13.html#chapter6">chapter 6</A>, 1 hr
+ <LI>Memory, <A HREF="week14.html#chapter7">chapter 7</A>, 2 hr
+ <LI>I/O, <A HREF="week14.html#chapter8">chapter 8</A>, 2 hr
+ <LI><A HREF="week15.html#review">Review</A>, 1 hr 
+</UL>
+
+
+<p>Lecture notes according to academic week 
+( <A HREF="#week2">2</A> )[ <A HREF="week3.html">3</A>][ 
+ <A HREF="week4.html">4</A>][ <A HREF="week5.html">5</A>][ 
+ <A HREF="week6.html">6</A>][ <A HREF="week7.html">7</A>][
+ <A HREF="week8.html">8</A>][ <A HREF="week10.html">10</A>][
+ <A HREF="week11.html">11</A>][ <A HREF="week12.html">12</A>][
+ <A HREF="week13.html">13</A>][ <A HREF="week14.html">14</A>][
+ <A HREF="week15.html">15</A>]
+<HR>
+
+<H2><A NAME="week2">Week 2, 21/24 July 1997</A></H2>
+
+<H1><A NAME="chapter1">Chapter 1</A>, Computer Abstractions and Technology</H1>
+
+<h3>Below your program</h3>
+<p>Computer knows only zeros and ones.  In order to make computer
+to do its work, one must be able to speak it's language or otherwise use a
+translator.  In fact, the translation is the usual way.  We write
+in high-level programming language, like C, for example
+<pre>
+   swap(int v[ ], int k)      /* this program swaps the values */
+   {  int temp;               /* of v[k] and v[k+1] */
+      temp = v[k];            /* v[] is an array of integers */
+      v[k] = v[k+1];
+      v[k+1] = temp;
+   }
+</pre>
+<p>This gets translated by the C compiler into assembly language
+<pre>
+   swap:
+         mul  $2, $5, 4
+         add  $2, $4, $2
+         lw   $15, 0($2)
+         lw   $16, 4($2)
+         sw   $16, 0($2)
+         sw   $15, 4($2)
+         j    $31
+</pre>
+<p>The above program can be read by human (after we studied chapter 3),
+but still is not suitable for machine to execute.  The assembly program
+can be translated quite easily into numbers, by the assembler, as
+<pre>
+   00000000101000010000000000011000
+   00000000100011100001100000100001
+   10001100011000100000000000000000
+   10001100111100100000000000000100
+   10101100111100100000000000000000
+   10101100011000100000000000000100
+   00000011111000000000000000001000
+</pre>
+<p>The machine (or sometimes we say the hardware) interprets the
+string of zeros and ones and performs useful computations.
+
+<h3>General organization of computer</h3>
+<p>Our text book divides a computer into five components: 
+control unit, data path, memory, input, and output.  The first two are 
+collectively known as CPU, the last two I/O.  Memory can be in various
+forms, registers, cache memory, main memory, external mass 
+storage like hard disk and floppy diskette.  But most of the time, 
+when we say memory, we mean usually the main memory. 
+Mouse and keyboard are input devices; and monitor is a output device.
+These are the hardware.  Software refers to the
+computer programs, something like the above.  The programs are stored
+in various media, on floppy diskettes, hard disk, magnetic tape, or
+in computer memory.  Depending on the type of function the programs
+perform, they are classified as system software or applications.
+
+<h3>History of computers</h3>
+<p> The first electronic computer <a href="eniac.gif">ENIAC</a> was built in 1940s.  It was huge,
+occupied about an area of 10 rooms.  The computer used 18000 vacuum
+tubes. And it was about 20000 times slower than a typical modern computer.
+
+<p>IBM System/360 computers were popular in later 60s. These computers
+are very expensive by today's standards, cost from US$225,000 up.
+Then came the minicomputer by Digital Equipment Corporation, the
+PDP-8, which was under US$10,000.  The first supercomputer, CDC 6600,
+appeared in 1963.  Cray 1, the first commercial vector supercomputer,
+in 1976, was the most expensive (4 million US dollars), but it is
+also the fastest and best price/performance for scientific applications.
+
+<p>In the past decay, we have seen enormous growth in personal computer
+industry pioneered by the Apple II. IBM PC was lunched in 1981, one of the
+best selling machine ever.  Also, workstations replaced expensive
+mainframe computers, and as powerful as Cray 1, on scientists' desks. 
+
+<p>If you have time, visit this web site <a href="http://www.tcm.org">http://www.tcm.org</a> for the history of computer and others related to computer.
+
+<h3>Suggested Reading</h3>
+<p>The textbook, "Computer Organization & Design", page 3-40.  Although
+it is long, you can read it just like reading a story.
+
+<HR>
+<H1><A NAME="chapter3">Chapter 3</A>, Instructions: Language of the Machine</H1>
+
+<h3>Operation of the computer hardware</h3>
+<p> Computer functions by following so called machine instruction,
+for example, in C we say,
+<pre>
+   a = b + c;
+</pre>
+for adding b and c with result assigned to a.  The machine instruction
+on our retired DecStation and third year lab SGI workstations 
+(<A HREF="http://www.mips.com">MIPS</A>) is
+<pre>
+   add a, b, c
+</pre>
+where the first item <code>a</code> is the sum.  Items are separated by commas;
+but there is no comma after the key word <code>add</code>.
+What about adding several numbers like
+<pre>
+   a = b + c + d + e;
+</pre>
+MIPS machine codes are:
+<pre>
+   add a, b, c
+   add a, a, d
+   add a, a, e
+</pre>
+We note that the format of machine instruction is quiet rigid.  For most of
+the MIPS instructions, it takes exactly three items after the key word
+add; the first is the result, followed by two operands of the operation.
+You can do subtraction, multiplication, or division in a similar fashion:
+<pre>
+   sub a, b, c     # a = b - c
+   mul a, b, c     # a = b * c
+   div a, b, c     # a = b/c
+</pre>
+The hash symbol <code>#</code> introduces a comment.  Any text 
+after the hash to the end of a line and the hash symbol itself is 
+ignored by the machine.  
+(More precisely, it is ignored by the SPIM simulator or an assembler).
+The comment is meant to be read by human to assist the understanding
+of the computer code.
+
+<p><strong>Example:</strong> This segment of a C program contains
+the five variables <code>a, b, c, d</code>, and <code>e</code>:
+<pre>
+   a = b + c;
+   d = a - e:
+</pre>
+The translation from C to MIPS instructions is performed by the compiler.
+Show the MIPS code produced by the C compiler.
+
+<p><strong>Answer:</strong> The C compiler could produce
+<pre>
+   add a, b, c
+   sub d, a, e
+</pre>
+These instructions are symbolic representations of what the processor
+understands; they are called assembly language instructions.
+
+<p>Another more complex example
+<pre>
+   f = (g + h) - (i + j);
+</pre>
+Answer
+<pre>
+   add t0, g, h    #  t0 = g + h 
+   add t1, i, j    #  t1 = i + j
+   sub f, t0, t1   #  f = t0 - t1
+</pre>
+
+<p><strong>Question</strong>:
+How does one compute 
+<pre>
+   y = a*x*x + b*x - c;
+</pre>
+From time to time, I'll have problems like this in the class.  
+You should do it now.
+
+<h3>Operands of the computer hardware</h3>
+<p> The add instruction takes its operands in special places of
+memory residing on CPU for the computation.   These special places
+are called registers.  In MIPS, they are named $0, $1, $2, ..., $31.
+All modern computers have registers.  There are 32 of them in MIPS. 
+You can think of registers as memory, labelled by a number from 0 
+to 31.  Registers are like hotel rooms.  You can put people in.
+But in this case, you put numbers in registers.  The instructions
+like add use the values in the last two registers you specified (called
+source registers) and put the
+result back into a register (called destination register).
+Take the above C code again, assuming g, h, i, and j, are in $17, $18,
+$19, $20, respectively, and f is in $16, then the actual code should be
+<pre>
+   add $8, $17, $18
+   add $9, $19, $20 
+   sub $16, $8, $9
+</pre>
+Similarly, all the symbols that we have used in the above example
+has to be replaced by dollar something, e.g., $5.   Some of the
+registers have special use.  The important ones are $0 for value
+0 (that is $0 has permanently the value 0, so that you cannot
+put your result in this register).  $31 contains return address
+and $29 is called stack pointer.  We'll discuss them in detail later.
+For now, just follow my advise to use $2 to $25 only. 
+Use another may cause unpredictable error.
+
+<p>We know how to do addition, subtraction, multiplication, and 
+division once the registers contain values.  Now the question is
+how to bring a specific value into the registers.   There are two
+ways to do this: (1) by load immediate instruction <code>li</code>.  (2) by
+load word from memory instruction <code>lw</code>.  We discuss the first case 
+which is easier to understand.  Here is a <a href="../assembly-examples/add.s">program</a> to compute 3=1+2.
+<pre>
+   main:               # start of the program
+
+   li   $8, 1          # set $8 to 1
+   li   $9, 2          # set $9 to 2
+   add  $10, $8, $9    # $10 = $8 + $9
+
+   j $31               # return to system
+</pre>
+The above lines form in fact a complete MIPS assembly program which can be
+executed by a MIPS computer or the MIPS simulator called SPIM.   
+The only differences
+from the earlier examples  are the beginning and ending.  We 
+start a program with the word <code>main:</code>.  Don't forget
+the semi-colon.  The "main" is similar to what you do in a C
+program, where you say 
+<pre>
+   main()
+   { 
+      ...
+   }
+</pre>
+The <code>main:</code> is called a label in MIPS assembly program.
+It marks a particular location among the instructions.
+The program is terminated with <code>j $31</code>.  You
+can read it as jump dollar thirty-one.  The purpose of this is to
+given control back to the operating system (or calling program).  
+The end of a program in C is marked by a closing curly brace.
+
+<h3><a href="../spim/spim.html">SPIM</a> - the MIPS simulator</h3>
+I'll spend the rest of this lecture to discuss some aspect of 
+the xspim program.  Suppose that you already have a file called
+add.s in your working directory which contains the above program.
+All your assembly programs should have  names ending with ".s". 
+To run this program, first evoke the xspim MIPS simulator, under 
+UNIX system prompt, type                
+<pre>
+xspim
+</pre>
+in a line by itself, followed by return,  a window will be displayed.
+On top, you'll see lines with R0 (r0) = 00000000, R1 (at) = 00000000.
+These R0 to R31 are the registers (in the MIPS assembly program,
+we refer them as $0 to $31).  The numbers after the equal sign = are
+the values in the registers.  However, the values are not in our decimal
+notation, rather it is in hexadecimal notation, i.e. in notation base 16.
+For the moment, you just need to know that
+decimal 0 to 9 is also hexadecimal 0 to 9, but 10, 11, 12, 13, 14, 15,
+is a, b, c, d, e, f in hexadecimal.
+The next few rows contain FP0, FP2, etc, they are floating point registers.
+
+You'll use the buttons most often.  Each time you use mouse to click
+a button, you get a small window for further action.  For example,
+click quit, you get a small window with quit?, quit, abort command.
+click quit again terminate the xspim.  To read in an assembly program
+press load, type in the file name, and return.  If your program
+contains error, it will be displayed at the bottom message area.  
+The loaded program is executed with run button.  But you cannot
+see the action of execution, because it runs too fast.  The best
+way is to step through the program.  When step is clicked, and click
+step again inside the small window, only one instruction will be
+executed.  So each time you click the step in the small window, 
+it execute one instruction. 
+The Text Segments part of the xspim window and the message window
+at the bottom will show you which instruction is to be executed.
+The Data Segments show part of the main memory.
+There are already instructions displayed at the text segments 
+even if you have not loaded in your own code.
+They are the system code.  The first few steps are not executing
+your code but the system code.  Only when it reached jal main
+(for jump and link to main), it starts executing your code.  When
+it reaches j $31.  The execution jumps back to system code again.
+
+
+<h3>Suggested Reading</h3>
+<p>The textbook, "Computer Organization & Design", section 3.1-3.3, 
+page 94-98.  Appendix A.9, A-36 to A-41.
+
+<HR>
+<p>[ <A HREF="week3.html">next week</A> ]
+<HR>
+</body>
+</html>

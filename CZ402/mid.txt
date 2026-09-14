@@ -1,0 +1,42 @@
+\magnification=\magstep1
+\input notesmac.tex
+\nopagenumbers
+
+\centerline{\titlefont Symbolic Computing, Midterm Exam}
+\bigskip
+\line{Dr.~WANG Jian-Sheng \hfill Monday, 24 March 1997}
+%\bigskip
+\vfill
+%----------------------------------------------------------------------- 
+\problem  (a) What is the {\tt FullForm} of the Mathematica expression
+(before evaluation)
+
+\ll{\h (1-x)\char`\^2 // Expand}
+\item{} (b) In Lisp, what is the response when
+
+\ll{\h (list (cons  'a '(b)) '(car (a b)))} 
+\item{} is entered.
+
+\vfill
+\problem knots are one-dimensional closed loop embedded in three dimensions
+such as the drawings below.  Only the connectivity matters.  
+It is always possible to draw the knots in two dimensions with crosses
+such that one line is under the other.  Propose
+an `abstract' data structure in Mathematica to represent knots. 
+
+\vskip 4.5cm
+
+\vfill
+\problem Define a Lisp function {\tt infix} that converts a Restricted 
+Algebraic Expression (RAE) from prefix notation to infix notation.  
+RAE is either the form {\tt ($op$ $x$ $y$)} or {\tt ($f$ $x$)}, where
+$x$ and $y$ are again RAE or symbols, and $op$ is an operator, and 
+$f$ is the name of a function.  The infix form is obtained by simply changing
+every occurrence of {\tt ($op$ $x$ $y$)} to {\tt ($x$ $op$ $y$)},
+for examples, 
+
+\ll{\h (infix '(+ 2 x)) $\quad\Rightarrow\quad$ (2 + x)}
+\ll{\h (infix '(+ 2 (* x y))) $\quad\Rightarrow\quad$ (2 + (x * y))}
+\ll{\h (infix '(\char`\^\ (sin x) -1)) $\quad\Rightarrow\quad$ ((sin x) \char`\^\ -1)}
+\bye
+

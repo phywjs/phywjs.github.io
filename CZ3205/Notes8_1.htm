@@ -1,0 +1,138 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Chapter 2</title>
+<meta name="Microsoft Theme" content="loosegst 011, default">
+</head>
+
+<body background="lootextb.jpg" bgcolor="#FFFFCC" text="#000000" link="#CC6633" vlink="#663399" alink="#999900"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><!--mstheme--></font>
+
+<h1><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#666633">Simulated
+Annealing<!--mstheme--></font></h1>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><!--mstheme--></font>
+
+<h2><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#330099">Introduction<!--mstheme--></font></h2>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><p><font size="4">A
+class of difficult problems in optimization can be formulated as neural network
+problems.&nbsp; Approximate solution techniques for such problems are closely
+related to statistical physics.&nbsp; Such techniques, simulated annealing being
+the most important one, are used in the field of neural network very
+successfully.&nbsp; The topics covered in this Chapter are closed related to, or
+may we say borrowed from, statistical mechanics.&nbsp; It is instructive that we
+give a very brief introduction of statistical mechanics.</font></p>
+<!--mstheme--></font><h2><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#330099">Statistical
+Mechanics in a Nutshell<!--mstheme--></font></h2>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><p><font size="4">Statistical
+mechanics deals with systems that can take a discrete or continuous set of
+state, X, known as state space.&nbsp; In the context of neural network of
+Hopfield model, X is a particular neural state or spin state for all the neurons
+involved.&nbsp; A state appears at random with a probability distribution.&nbsp;
+One of the most convenient probability distribution for computation is known as
+Boltzmann or Gibbs (canonical) distribution.&nbsp; It is given by the formula</font></p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="4">P(X) = exp</font><font size="5">(</font><font size="4">-E(X)/(kT)</font><font size="5">)</font><font size="4">/Z</font></p>
+
+<p><font size="4">where the normalization factor</font></p>
+
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; Z = </font><font face="Symbol" size="5">S</font><font size="4"><sub>X</sub>
+exp</font><font size="5">(</font><font size="4">-E(X)/(kT)</font><font size="5">)</font></p>
+
+<p><font size="4">is called partition function.&nbsp; The symbol k denotes the
+Boltzmman constant, a physical constant relating energy to temperature.&nbsp; T
+is temperature in the absolute scale.&nbsp;&nbsp; E(X) is the energy of the
+state X.&nbsp; In statistical mechanics, we are interested in statistical
+averages, which can be measured experimentally and compared with theory.&nbsp;
+For example, we can compute the average energy,</font></p>
+
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; U = &lt;E&gt; = <font face="Symbol">S</font><sub>X</sub>
+E(X) P(X)</font></p>
+
+<p><font size="4">The derivative of energy with respect to temperature is the
+heat capacity, it can be shown with some algebra that</font></p>
+
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; C = dU/dT = ( &lt;E<sup>2</sup>&gt;
+- &lt;E&gt;<sup>2</sup> )/kT<sup>2</sup>.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(1)</font></p>
+
+<p><font size="4">Another important quantity is the entropy of the system</font></p>
+
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; S = (U - F)/T = - k &lt;ln
+P(X)&gt;, </font></p>
+
+<p><font size="4">where</font> <font size="4">F = -kT ln Z is known as free
+energy. </font></p>
+
+<!--mstheme--></font>
+<h2><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#330099">Simulated
+Annealing<!--mstheme--></font></h2>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica">
+<p><font size="4">Anneal is a process used in metallurgy to treat the materials
+for better structure and mechanical properties.&nbsp;&nbsp; The metal or other
+materials are heated up to high temperature, and then the temperature is reduced
+slowly to room temperature.&nbsp;&nbsp; The opposite of annealing is quench,
+where temperature is reduced suddenly to very low.&nbsp; </font></p>
+<p><font size="4">Simulated annealing, of course, refers to the annealing
+process done one a computer by simulation.&nbsp;&nbsp; The parameter T in the
+model is reduced slowly in order to get the information at T = 0, which is
+difficult to do directly.&nbsp; </font></p>
+<p><font size="4">To motivate the method better, let us consider the <b>Weighted
+Match Problem</b>.&nbsp; Consider a set of N point with a known ``distance'' d<sub>ij</sub>
+between each pair.&nbsp;&nbsp; The problem is to link the points together in
+pairs, with each point linked to exactly one other point, so as to minimize the
+total length of the links.</font></p>
+<p><font size="4">We formulate the problem in terms of a stochastic
+McCulloch-Pitts network using 0 and 1 as the values each neuron can take.&nbsp;
+We assign a unit (neuron) n<sub>ij</sub>, i &lt; j, to each pair of the sites in
+the problem, making N(N-1)/2 units in all.&nbsp; Each candidate solution of the
+problem corresponding to a state of the network with n<sub>ij</sub> = 1 if there
+is a link connecting point i and point j and n<sub>ij</sub> = 0 if there is
+not.&nbsp; Our problem is to find a way of specifying the values of the
+connection strengths w<sub>ij,kl</sub> between the units.</font></p>
+<p><font size="4">The quantity that we wish to minimize is</font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; L = </font><font face="Symbol" size="5">S</font><font size="4"><sub>i&lt;j</sub>
+d<sub>ij</sub> n<sub>ij</sub></font></p>
+<p><font size="4">subject to the constraint that</font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; </font><font face="Symbol" size="5">S</font><font size="4"><sub>j</sub>
+n<sub>ij</sub> = 1 for all i.</font></p>
+<p><font size="4">This constraint says that each point should be connected to
+exactly one other point; define n<sub>ij</sub> = n<sub>ji</sub> when j &lt; i
+and take n<sub>ii</sub> = 0.&nbsp; It is difficult to enforce the constraint
+rigidly from the beginning.&nbsp; Our strategy is instead to add a penalty term
+to the energy which is minimized when the constraint is satisfied.&nbsp; Thus we
+write down a total effective energy or cost function as:</font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; E[n] = </font><font face="Symbol" size="5">S</font><font size="4"><sub>i&lt;j</sub>
+d<sub>ij</sub> n<sub>ij</sub> + (<font face="Symbol">g</font>/2) </font><font size="5">(</font><font face="Symbol" size="5">S</font><font size="4"><sub>j</sub>
+n<sub>ij</sub> - 1</font><font size="5">)</font><font size="4"><sup>2</sup>. </font></p>
+<p><font size="4">We can now simulate this model with a Metropolis algorithm or
+heat-bath (also known as Gibbs sampling) algorithm.&nbsp;&nbsp; There are two
+parameters which we have to adjust carefully.&nbsp; The first is <font face="Symbol">g</font>.&nbsp;
+The penalty parameter <font face="Symbol">g</font> should go to infinity so that
+the constraints are strictly enforced for the final results.&nbsp; We also take
+temperature T to 0, starting from a higher temperature.&nbsp; </font></p>
+<p><font size="4">We'll discuss the possible algorithms in the next second, but
+let us have more words about simulated annealing.&nbsp; This refers to the
+process of making T approaching to 0, starting from some larger
+value.&nbsp;&nbsp; It can be proving that if we make T approaching 0
+sufficiently slowly, we can reach the global minimum of the problem, which is
+the desired result.&nbsp;&nbsp; However, the slowness required for the correct
+answer is too impractical.&nbsp;&nbsp; Typically, we get only approximations to
+the exact solution.&nbsp; There is also no good way of checking if we have
+reached a global minimum.&nbsp; As an example, we can consider decreasing T by
+some power law:</font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; T = T<sub>0</sub> /t<sup>a</sup>,</font></p>
+<p><font size="4">where T<sub>0</sub> is starting temperature at step t = 1, a
+is some constant (e.g. 1).&nbsp; Other possibility is to decrease T by a
+constant factor, T &lt;- 0.95 T; this amounts to an exponential decreasing in
+temperature.&nbsp;&nbsp; The way how T is decreased is known as annealing
+schedule.</font></p>
+<p><font size="4"><b>Question:</b>&nbsp; (A) in the above problem, why don't we
+use zero temperature simulation T = 0 directly?&nbsp; (B) derive equation that
+(1) relates heat capacity to energy fluctuation. </font></p>
+<p><font size="4"><b>Reading: </b>Chap 11 of&nbsp; S Haykin.</font></p>
+<p>&nbsp;</p>
+<!--mstheme--></font></body>
+
+</html>

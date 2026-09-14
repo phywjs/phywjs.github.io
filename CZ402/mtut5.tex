@@ -1,0 +1,60 @@
+\magnification=\magstep1
+\input notesmac.tex
+\nopagenumbers
+
+
+\centerline{\titlefont CZ3106\ \  Symbolic Computing, Tutorial 5}
+\bigskip
+\bigskip
+\line{A/P~Wang Jian-Sheng \hfill week 24-29 March 03}
+\bigskip
+\bigskip
+
+\problem Consider a set E generated from $1$, $x$, $e^x$, and $\log x$ by
+addition, subtraction and multiplication. For examples, $1 + 3 x$,
+$e^{2x} - x$, or $x \log x$ belong to E. 
+What is the algebraic domain (ring? integral domain? or field?) of E? 
+
+\problem The set G of {\sl Gaussian integers} is the subset of
+the complex number C defined by
+$$ {\rm G} = \{ a + b \sqrt{-1}: a, b \in {\rm Z}\}$$
+\item{} (where we usually use the notation $\sqrt{-1} = i$, and Z
+is the set of all integers).  
+\itemitem{(a)} Verify that G,
+with the standard operations of addition and multiplication of complex
+numbers, is an integral domain.  Further, verify that G is a Euclidean
+domain with the valuation
+$$ v(a+b\sqrt{-1}) = a^2 + b^2.$$
+Describe (propose) a way to compute $q$ and $r$ given $a$ and $b$ such
+that
+$$a = bq + r, \quad v(r) < v(b), \quad a, b, q, r \in {\rm G}$$.
+\itemitem{(b)} What are the units in G?  (Units are elements that
+have inverses). 
+Give some examples of primes in G. Given some examples of associates.
+(If $a|b$ and $b|a$, $a$ and $b$ are called associates).
+
+\problem 
+\itemitem{(a)} Apply Algorithm 2.1 (Euclidean algorithm) 
+by hand to compute, in the Euclidean domain Q[$x$] (i.e., polynomial
+with rational numbers as coefficients),
+$$ {\rm GCD}(4x^4+13x^3+15x^2+7x+1,\; 2x^3+x^2-4x-3).$$
+\itemitem{(b)} Repeat with extended Euclidean algorithm. Find $s(x)$ and
+$t(x)$ such that ${\rm GCD}(a(x),b(x)) = a(x)s(x) + b(x)t(x)$.
+\itemitem{(c)} Repeat the calculation in part (a) but in Z$_5[x]$.
+
+
+%\problem Calculate the square-free factorization (Algorithm~8.1) by hand of
+%$$ 1 - 2x + 2 x^3 - x^4 \quad \in {\rm Z}[x].$$
+
+%\problem Calculate the square-free factorization (Algorithm~8.3) by hand of
+%$$ b(x) = x^{10} + x^6 + x^5 + x^3 + x^2 + 1 \quad \in {\rm Z}_2[x].$$
+
+%\problem (Optional) Factor the polynomials $a(x)$ and $b(x)$ in Z$_2[x]$ using Berlekamp's
+%algorithm (by hand).  Note that Berlekamp's algorithm works only for 
+%square-free polynomials.
+%$$\eqalign{ a(x) & =  x^{15} - 1, \cr
+%b(x) & =  x^{10} + x^6 + x^5 + x^3 + x^2 + 1. \cr
+%}$$
+
+\bye
+

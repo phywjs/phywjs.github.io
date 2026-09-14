@@ -1,0 +1,70 @@
+<html>
+<head>
+<title>Answers to Final Exam</title>
+</head>
+<body>
+
+<h2>Answers to Final Exam (on 25 August 2003)</h2>
+
+<pre>
+1.  (a)  a can not be modified
+    (b)  b points to a fixed address
+    (c)  c points to const int, *c cannot be modified 
+    (d)  d has the properties of (b) and (c) 
+    (e)  the function f() does not modify *e
+    (f)  g() does not modify member data
+    (g)  h() returns a const reference, thus cannot be a lvalue
+
+2.
+    (a) static variable i is initialized once to 0 for the first call;
+        value of i is retained between several calls to f().
+    (b) static member data j is shared by all instances of the class;
+        it exists even before the creation of any object.  We can access
+        by Test::j or obj.j. 
+    (c) static member function is used to access static member data;
+        Can be used before any object is created, by Try::fun().  
+
+3.
+    (a) 1 or 3  (e.g. int j = int();)
+    (b) 3
+    (c) 3
+    (d) 1
+    (e) 3
+    (f) 3   (cannot return a local variable)
+
+4.  (a)  ofstream myfile("data.dat", ios::out);
+         for(int i = 0; i < 10; ++i) {
+            myfile << i << endl;
+         }
+    (b)  n = strlen(a);
+         b = new char[n+1];
+         strcpy(b, a);
+    (c)  int countf(void) {
+            static int cnt = 0;
+            return ++cnt;
+         } 
+    (d)  template <class T>
+         T myabs(T x) {
+            return (x < 0)? -x : x;
+         }
+    (e)  double myabs(complex x)
+         {
+            return sqrt(x.re*x.re + x.im*x.im);
+         }
+         // assume complex is defined as a structure
+
+5. 
+    (a) public:
+    (b) a[5][2];
+    (c) for(i = 0; i < 10; ++i) { }
+    (d) x = (a < b)? 0 : 1; 
+    (e) int *const p = &i;
+    (f) ~B();
+    (g) T f(T y) { ... }
+
+6. 
+</pre>
+See program <a href="matrix.cpp">matrix.cpp</a>.
+
+</body>
+</html>

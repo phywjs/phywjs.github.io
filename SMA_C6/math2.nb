@@ -1,0 +1,645 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.1'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     12724,        497]*)
+(*NotebookOutlinePosition[     13443,        522]*)
+(*  CellTagsIndexPosition[     13399,        518]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell["\<\
+MATHEMATICA LISTS:
+Structured data objects\
+\>", "Title"],
+
+Cell["\<\
+
+List groups a collection of 
+expressions of any type.\
+\>", "Subtitle"],
+
+Cell[BoxData[
+    \(lexp\  = \ {a, b, c}\)], "Input"],
+
+Cell["\<\
+We have just defined a symbol lexp to be the list with elements a, \
+b, c, which are themselves symbols. We can then do operations on them.\
+\>", \
+"Text"],
+
+Cell[BoxData[
+    \(lexp^2\)], "Input"],
+
+Cell[BoxData[
+    \(Sin[{a, b, c}]\)], "Input"],
+
+Cell[BoxData[
+    \(f[{a, b, c}]\)], "Input"],
+
+Cell["\<\
+Most inbuilt functions having the above property are called \
+listable. By default, your own function will not be listable unless you \
+change the attributes of your function.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Attributes[Sin]\)], "Input"],
+
+Cell[BoxData[
+    \(SetAttributes[f, Listable]\)], "Input"],
+
+Cell[BoxData[
+    \(f[{a, b, c}]\)], "Input"],
+
+Cell["List can be used as vectors:", "Text"],
+
+Cell[BoxData[
+    \({a, b, c}\  + \ {1, 2, 3}\)], "Input"],
+
+Cell[BoxData[
+    \(Head[lexp]\)], "Input"],
+
+Cell[BoxData[
+    \(First[lexp]\)], "Input"],
+
+Cell[BoxData[
+    \(Last[lexp]\)], "Input"],
+
+Cell[TextData[{
+  "To refer to the ",
+  StyleBox["i",
+    FontSlant->"Italic"],
+  "-th element in a list, use the double square  bracket:"
+}], "Text"],
+
+Cell[BoxData[
+    \(lexp[\([2]\)]\)], "Input"],
+
+Cell[TextData[{
+  "In ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  ", the elements in a list are referred from 1, 2, ...."
+}], "Text"],
+
+Cell[BoxData[
+    \(Length[lexp]\)], "Input"],
+
+Cell[BoxData[
+    \(lexp[\([0]\)]\)], "Input"],
+
+Cell[BoxData[
+    \(lexp[\([\(-1\)]\)]\)], "Input"],
+
+Cell[BoxData[
+    \(rexp\  = \ {1, 2, 3}\)], "Input"],
+
+Cell[BoxData[
+    \(Join[lexp, \ rexp]\)], "Input"],
+
+Cell[BoxData[
+    \(Append[lexp, \ 1]\)], "Input"],
+
+Cell[BoxData[
+    \(AppendTo[lexp, 1]\)], "Input"],
+
+Cell[BoxData[
+    \(Prepend[lexp, \ 1]\)], "Input"],
+
+Cell["\<\
+Lists are used to represent 
+matrices as list of lists.\
+\>", "Subtitle"],
+
+Cell[BoxData[
+    \(m = {{1, 2}, {0.5, 3}}\)], "Input"],
+
+Cell[BoxData[
+    \(MatrixForm[m]\)], "Input"],
+
+Cell[BoxData[
+    \(Eigenvalues[m]\)], "Input"],
+
+Cell[BoxData[
+    \(Det[m]\)], "Input"],
+
+Cell[BoxData[
+    \(Transpose[m]\)], "Input"],
+
+Cell[BoxData[
+    \(\(\(Inverse[m]\)\(\ \)\)\)], "Input"],
+
+Cell[BoxData[
+    \(m\  . \ m\)], "Input"],
+
+Cell["This is how a matrix multiplies a vector:", "Text"],
+
+Cell[BoxData[
+    \(\(\(m\  . \ {a, \ b}\)\(\ \)\)\)], "Input"],
+
+Cell["To access the elements an array, use [[i,j]]:", "Text"],
+
+Cell[BoxData[
+    \(m[\([1, 2]\)]\)], "Input"],
+
+Cell[BoxData[
+    \(m[\([1]\)]\)], "Input"],
+
+Cell["List can be used to represent a tree.", "Subtitle"],
+
+Cell[BoxData[
+    \(c\  = \ {\ {a, \ b}, \ {{Sin[x], \ 1}, \ 2}}\)], "Input"],
+
+Cell[BoxData[
+    \(TreeForm[c]\)], "Input"],
+
+Cell["List (or list of lists) v.s. associative array.", "Subtitle",
+  TextAlignment->Left],
+
+Cell["\<\
+To use a list, the elements, size etc has to be defined first.  For \
+example, the following use of two-dimensional array is not correct:\
+\>", \
+"Text"],
+
+Cell[BoxData[
+    \(h[\([1, 2]\)]\  = \ 3\)], "Input"],
+
+Cell["\<\
+Since h as a list of list does not exist yet.  We should say:\
+\>", \
+"Text"],
+
+Cell[BoxData[
+    \(\((h\  = \ Table[0, {5}, {5}])\)\  // \ MatrixForm\)], "Input"],
+
+Cell[BoxData[
+    \(\(\(\ \)\(h[\([1, 2]\)]\  = \ 3; \ MatrixForm[h]\)\)\)], "Input"],
+
+Cell["Associative Array", "Subtitle"],
+
+Cell["\<\
+For an associative array, you need not specify the size of array \
+before hand. We use single square brackets for associative array.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(a[0]\  = \ 2; \ a[\(-2\)]\  = \ \(-4\); \ a[1000]\  = \ w; \ 
+    a[7, 7]\  = \ 7\)], "Input"],
+
+Cell["", "Subtitle"],
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " Expressions"
+}], "Subtitle"],
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " expressions are internally always of the form"
+}], "Text"],
+
+Cell[BoxData[
+    \(expr[expr1, \ expr2, \  ... ]\)], "Input"],
+
+Cell["\<\
+where expr is called the Head, and expr1 is the first element of \
+the expression, expr2 is the 2nd element. We obtain the expr by applying the \
+Head[ ...] function, we obtain expr1 by First[...]. \
+\>", "Text"],
+
+Cell[BoxData[
+    \(Head[a + b]\)], "Input"],
+
+Cell[BoxData[
+    \(First[a + b]\)], "Input"],
+
+Cell[BoxData[
+    \(FullForm[a + b]\)], "Input"],
+
+Cell[BoxData[
+    \(Plus[a, b]\)], "Input"],
+
+Cell[BoxData[
+    \(FullForm[a*b\  + \ c \((1 + x)\)^3]\)], "Input"],
+
+Cell[BoxData[
+    \(TreeForm[a*b\  + \ c \((1 + x)\)^3]\)], "Input"],
+
+Cell[TextData[{
+  "You can think of practically any ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " expression as a tree. "
+}], "Text"],
+
+Cell["Assignment and Evaluation", "Subtitle"],
+
+Cell[BoxData[
+    \(a = 1\)], "Input"],
+
+Cell[BoxData[
+    \(a + b\)], "Input"],
+
+Cell[BoxData[
+    \(b\  = \ \((1 + x)\)^2\)], "Input"],
+
+Cell[BoxData[
+    \(a + b\)], "Input"],
+
+Cell[BoxData[
+    \(Clear[a, b]\)], "Input"],
+
+Cell[BoxData[
+    \(a + b\)], "Input"],
+
+Cell[BoxData[
+    \(Remove[a, b]\)], "Input"],
+
+Cell["\<\
+This show you what variables (symbols) have been defined so far.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(?Global`*\)\)], "Input"],
+
+Cell[TextData[StyleBox["PROGRAMMING IN MATHEMATICA",
+  FontWeight->"Bold"]], "Title"],
+
+Cell["Programming Styles", "Subtitle"],
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " supports a variety of programming styles. You can program in the spirit \
+of C or Fortran; you may also do object oriented programming like C++; or you \
+can do functional programming like LISP; and the rule-based programming style \
+is powerful and can be concise. Here we demonstrate few ways to write a \
+factorial function:"
+}], "Text"],
+
+Cell[BoxData[
+    \(fac[m_Integer] := 
+      Module[\ {i, \ n}, \ \n\t
+        If[\ m\  < \ 0, \ \[IndentingNewLine]\t\tReturn[Infinity]]; \n\t
+        n\  = \ 1; \n\t
+        For[i\  = \ 1, \ i\  <= \ m, \ \(++i\), \ \[IndentingNewLine]\t
+          n\  = \ n*i]; \[IndentingNewLine]\ \ \ \ \ n]\)], "Input"],
+
+Cell["\<\
+Some points: (1) use m only as a constant, (2) declare all \
+variables except the argument as local, (3) return value is the last \
+expression. Other issues relate to:
+1. How do we want to display the output?
+2. To what detail, do we need to check the validity of input?
+We use the function as usual:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(fac[6]\)], "Input"],
+
+Cell[BoxData[
+    \(fac[\(-10\)]\)], "Input"],
+
+Cell["Cheat code is to use built-in function:", "Text"],
+
+Cell[BoxData[
+    \(fac\  = \ Factorial\)], "Input"],
+
+Cell[BoxData[
+    \(fac[n_Integer]\  := \ \(n!\)\)], "Input"],
+
+Cell["Or use rule-based programming:", "Text"],
+
+Cell[BoxData[{
+    \(\(fac[n_Integer]\  := \ 
+        Infinity\  /; \ n\  < \ 0;\)\), "\[IndentingNewLine]", 
+    \(fac[0]\  = \ 1; fac[n_Integer]\  := n\ *\ fac[n - 1]\)}], "Input"],
+
+Cell["Or use functional programming style:", "Text"],
+
+Cell[BoxData[
+    \(fac[n_Integer]\  := \ Times @@ \ Range[n]\)], "Input"],
+
+Cell["Procedural Programming Constructs", "Subtitle"],
+
+Cell[TextData[{
+  "Apart from syntactic differences, many of these constructs are similar to \
+C.  The ",
+  StyleBox["For",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  " loop:"
+}], "Text"],
+
+Cell[BoxData[
+    \(For[initial, \ condition, \ 
+      inc, \[IndentingNewLine]\ \ \ \ body]\)], "Input"],
+
+Cell[BoxData[
+    \(fac[n_]\  := \ 
+      Module[{t = 1, 
+          i}, \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ For[i = 1, 
+          i <= n, \(i++\), t *= i]; \ \[IndentingNewLine]t]\)], "Input"],
+
+Cell[BoxData[
+    \(i\  = \ 3; \ While[\ i\  > 0, \ \(i--\); \ Print[i]]\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Which",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  " is like a sequence of if-else:"
+}], "Text"],
+
+Cell[BoxData[
+    \(f[x_]\  := \ 
+      Which[x < \(-1\), \ \(-1\), \[IndentingNewLine]\t\tx <= 0, \ \(-1\)/
+          2, \[IndentingNewLine]\t\tx > 0\  && \ x\  < 1, \ 
+        1/2, \[IndentingNewLine]\t\tx\  >= \ 1, \ 1]\)], "Input"],
+
+Cell[BoxData[
+    \(Plot[f[x], \ {x, \(-3\), 3}]\)], "Input"],
+
+Cell[TextData[{
+  "The ",
+  StyleBox["If",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  " condition is in one of the three forms:"
+}], "Text"],
+
+Cell[BoxData[
+    \(If[test, \ then]\)], "Input"],
+
+Cell[BoxData[
+    \(If[test, \ then, \ else]\)], "Input"],
+
+Cell[BoxData[
+    \(If[test, \ then, \ else, \ unknown]\)], "Input"],
+
+Cell["\<\
+Here test is an expression which evaluates to the symbol True or \
+False; if test evaluates to True, the ``then'' expression is evaluated, \
+otherwise, the ``else'' expression is evaluated.  If test is an expression \
+other than True or False, unknown part will be evaluated. \
+\>", "Text"],
+
+Cell[BoxData[
+    \(If[True, \ a, \ b, \ c]\)], "Input"],
+
+Cell["Logical expressions can be formed similarly to C:", "Text"],
+
+Cell[BoxData[{
+    \(\(\(<\)\(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \)\(less\ than\)\)\), "\
+\[IndentingNewLine]", 
+    \(\(\(<=\)\(\ \)\(\(( \[LessEqual] )\)\ \ \ \ \ \ less\ equal\)\)\), "\
+\[IndentingNewLine]", 
+    \(\(\(>\)\(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \)\(greater\ than\)\)\), \
+"\[IndentingNewLine]", 
+    \(\(\(>=\)\(\ \ \)\(\(( \[GreaterEqual] )\)\ \ \ \ \ greater\ \
+equal\)\)\), "\[IndentingNewLine]", 
+    \(\(\(\[Equal]\)\(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \)\(equal\)\)\), "\
+\[IndentingNewLine]", 
+    \(\(\(!=\)\(\ \)\(\(( \[NotEqual] \ )\)\ \ \ \ \ not\ equal\)\)\), "\
+\[IndentingNewLine]", 
+    \(\ \(\(&&\)\(\ \)\(\(( \[And] )\)\ \ \ \ \ AND\)\)\), "\
+\[IndentingNewLine]", 
+    \(\ \(\(||\)\(\ \)\(\(( \[Or] )\)\ \ \ \ \ OR\)\)\), \
+"\[IndentingNewLine]", 
+    \(\(\(===\)\(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \)\(identical\)\)\), "\
+\[IndentingNewLine]", 
+    \(\(\(=!=\)\(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \)\(not\ identical\)\)\)}], \
+"Input"],
+
+Cell[BoxData[
+    \(x = 4; 
+    If[x\  \[NotEqual] \ 5\  \[And] \ x\  > \ 2, \ Print[x]]\)], "Input"],
+
+Cell["\<\
+The last two (===,=!=) is a stronger form of equal or not \
+equal:\
+\>", "Text"],
+
+Cell[BoxData[
+    \({a \[Equal] b, \ a === b}\)], "Input"],
+
+Cell[BoxData[
+    \(\((1 + x)\)^2\  === \ 1\  + \ 2  x\  + \ x^2\)], "Input"],
+
+Cell["Typing of special symbols", "Subtitle"],
+
+Cell[TextData[{
+  "Special symbol like \[Pi] or \[Alpha] can be typed in \n\t(1) using \
+palettes,\n\t(2) key strokes with ESC code ESC.  \n\te.g. \[Pi] is ESC p ESC, \
+or ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"T", 
+          AdjustmentBox["E",
+            BoxMargins->{{-0.075, -0.085}, {0, 0}},
+            BoxBaselineShift->0.5], "X"}]]]],
+  " style input ESC \\pi ESC.\nSuperscripts/subscripts can be typed in with \
+Ctrl-^, Ctrl-_; Control-space get you back to normal type.  e.g.  ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\_2. \)]]
+}], "Text"],
+
+Cell[BoxData[
+    \(\((1\  + \ \[Alpha]\ )\)\^2 // \ Expand\)], "Input"],
+
+Cell[BoxData[
+    \(N[\[Pi]]\)], "Input"]
+},
+FrontEndVersion->"5.1 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+WindowSize->{1016, 651},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+ShowSelection->True,
+Magnification->3,
+StyleDefinitions -> "Classroom.nb"
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1754, 51, 67, 3, 498, "Title"],
+Cell[1824, 56, 82, 4, 261, "Subtitle"],
+Cell[1909, 62, 53, 1, 143, "Input"],
+Cell[1965, 65, 165, 4, 183, "Text"],
+Cell[2133, 71, 39, 1, 143, "Input"],
+Cell[2175, 74, 47, 1, 143, "Input"],
+Cell[2225, 77, 45, 1, 143, "Input"],
+Cell[2273, 80, 199, 4, 183, "Text"],
+Cell[2475, 86, 48, 1, 143, "Input"],
+Cell[2526, 89, 59, 1, 143, "Input"],
+Cell[2588, 92, 45, 1, 143, "Input"],
+Cell[2636, 95, 44, 0, 81, "Text"],
+Cell[2683, 97, 58, 1, 143, "Input"],
+Cell[2744, 100, 43, 1, 143, "Input"],
+Cell[2790, 103, 44, 1, 143, "Input"],
+Cell[2837, 106, 43, 1, 143, "Input"],
+Cell[2883, 109, 150, 5, 133, "Text"],
+Cell[3036, 116, 46, 1, 143, "Input"],
+Cell[3085, 119, 146, 5, 82, "Text"],
+Cell[3234, 126, 45, 1, 143, "Input"],
+Cell[3282, 129, 46, 1, 143, "Input"],
+Cell[3331, 132, 51, 1, 143, "Input"],
+Cell[3385, 135, 53, 1, 143, "Input"],
+Cell[3441, 138, 51, 1, 143, "Input"],
+Cell[3495, 141, 50, 1, 143, "Input"],
+Cell[3548, 144, 50, 1, 143, "Input"],
+Cell[3601, 147, 51, 1, 143, "Input"],
+Cell[3655, 150, 83, 3, 190, "Subtitle"],
+Cell[3741, 155, 55, 1, 143, "Input"],
+Cell[3799, 158, 46, 1, 143, "Input"],
+Cell[3848, 161, 47, 1, 143, "Input"],
+Cell[3898, 164, 39, 1, 143, "Input"],
+Cell[3940, 167, 45, 1, 143, "Input"],
+Cell[3988, 170, 57, 1, 143, "Input"],
+Cell[4048, 173, 42, 1, 143, "Input"],
+Cell[4093, 176, 57, 0, 81, "Text"],
+Cell[4153, 178, 63, 1, 143, "Input"],
+Cell[4219, 181, 61, 0, 81, "Text"],
+Cell[4283, 183, 46, 1, 143, "Input"],
+Cell[4332, 186, 43, 1, 143, "Input"],
+Cell[4378, 189, 57, 0, 119, "Subtitle"],
+Cell[4438, 191, 77, 1, 143, "Input"],
+Cell[4518, 194, 44, 1, 143, "Input"],
+Cell[4565, 197, 90, 1, 190, "Subtitle"],
+Cell[4658, 200, 163, 4, 183, "Text"],
+Cell[4824, 206, 54, 1, 143, "Input"],
+Cell[4881, 209, 87, 3, 81, "Text"],
+Cell[4971, 214, 83, 1, 194, "Input"],
+Cell[5057, 217, 85, 1, 143, "Input"],
+Cell[5145, 220, 37, 0, 119, "Subtitle"],
+Cell[5185, 222, 156, 3, 132, "Text"],
+Cell[5344, 227, 114, 2, 245, "Input"],
+Cell[5461, 231, 20, 0, 119, "Subtitle"],
+Cell[5484, 233, 100, 4, 120, "Subtitle"],
+Cell[5587, 239, 130, 4, 82, "Text"],
+Cell[5720, 245, 62, 1, 143, "Input"],
+Cell[5785, 248, 222, 4, 183, "Text"],
+Cell[6010, 254, 44, 1, 143, "Input"],
+Cell[6057, 257, 45, 1, 143, "Input"],
+Cell[6105, 260, 48, 1, 143, "Input"],
+Cell[6156, 263, 43, 1, 143, "Input"],
+Cell[6202, 266, 68, 1, 143, "Input"],
+Cell[6273, 269, 68, 1, 143, "Input"],
+Cell[6344, 272, 146, 5, 133, "Text"],
+Cell[6493, 279, 45, 0, 119, "Subtitle"],
+Cell[6541, 281, 38, 1, 143, "Input"],
+Cell[6582, 284, 38, 1, 143, "Input"],
+Cell[6623, 287, 54, 1, 143, "Input"],
+Cell[6680, 290, 38, 1, 143, "Input"],
+Cell[6721, 293, 44, 1, 143, "Input"],
+Cell[6768, 296, 38, 1, 143, "Input"],
+Cell[6809, 299, 45, 1, 143, "Input"],
+Cell[6857, 302, 88, 2, 132, "Text"],
+Cell[6948, 306, 46, 1, 143, "Input"],
+Cell[6997, 309, 85, 1, 346, "Title"],
+Cell[7085, 312, 38, 0, 119, "Subtitle"],
+Cell[7126, 314, 412, 8, 337, "Text"],
+Cell[7541, 324, 308, 6, 449, "Input"],
+Cell[7852, 332, 324, 7, 372, "Text"],
+Cell[8179, 341, 39, 1, 143, "Input"],
+Cell[8221, 344, 45, 1, 143, "Input"],
+Cell[8269, 347, 55, 0, 81, "Text"],
+Cell[8327, 349, 52, 1, 143, "Input"],
+Cell[8382, 352, 61, 1, 143, "Input"],
+Cell[8446, 355, 46, 0, 81, "Text"],
+Cell[8495, 357, 182, 3, 296, "Input"],
+Cell[8680, 362, 52, 0, 81, "Text"],
+Cell[8735, 364, 74, 1, 194, "Input"],
+Cell[8812, 367, 53, 0, 119, "Subtitle"],
+Cell[8868, 369, 198, 7, 134, "Text"],
+Cell[9069, 378, 105, 2, 194, "Input"],
+Cell[9177, 382, 206, 4, 296, "Input"],
+Cell[9386, 388, 85, 1, 194, "Input"],
+Cell[9474, 391, 135, 5, 83, "Text"],
+Cell[9612, 398, 235, 4, 296, "Input"],
+Cell[9850, 404, 61, 1, 143, "Input"],
+Cell[9914, 407, 151, 6, 83, "Text"],
+Cell[10068, 415, 49, 1, 143, "Input"],
+Cell[10120, 418, 57, 1, 143, "Input"],
+Cell[10180, 421, 68, 1, 143, "Input"],
+Cell[10251, 424, 300, 5, 285, "Text"],
+Cell[10554, 431, 56, 1, 143, "Input"],
+Cell[10613, 434, 65, 0, 81, "Text"],
+Cell[10681, 436, 965, 20, 602, "Input"],
+Cell[11649, 458, 101, 2, 143, "Input"],
+Cell[11753, 462, 90, 3, 81, "Text"],
+Cell[11846, 467, 58, 1, 143, "Input"],
+Cell[11907, 470, 77, 1, 143, "Input"],
+Cell[11987, 473, 45, 0, 119, "Subtitle"],
+Cell[12035, 475, 566, 14, 384, "Text"],
+Cell[12604, 491, 72, 1, 145, "Input"],
+Cell[12679, 494, 41, 1, 143, "Input"]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

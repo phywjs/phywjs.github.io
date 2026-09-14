@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>CZ1101, Tutorial 6, Answers</title>
+</head>
+<body>
+
+<h1>CZ1101, Tutorial 6, Answers</h1>
+
+<OL>
+
+<LI> The question is that given a simple computer 
+(we built in Chapter 5) which has 
+only nine instructions lw, sw, add, sub, and, 
+or, slt, beq, and j, can we do many of the
+other operations (in software) not found in the instruction set?
+<P>(a) We can do (bne $4, $5, L) by 
+<pre>
+   beq $4, $5, Tmp
+   j L               # if $4 != $5, jump to L
+Tmp:                 # if $4 == $5, jump here, nothing happens
+</pre>
+<P>(b) We can do a shift left 1 bit  (sll $2, $3, 1) by,
+<pre>
+   add $2, $3, $3    # shift left 1 bit is the same as multiplying by 2
+</pre>
+Shift right 1 bit (srl $2, $3, 1)?  It's doable.  But I have not seen
+a simple way.  But we must assume that we can initialize the memory
+in arbitrary way.  Then we can mask out the i-th bit, if it is a one
+we set the (i-1)-th bit as one, using logical AND and OR instructions.
+
+<P>(c) Can we program it to do multiplication and division with this computer?
+The answer is yes.
+<P>(d) Floating-point arithmetic? Yes.
+
+
+<LI> The binary numbers represent the following instruction sequence:
+<pre>
+ (1) 0x2002ffff  addi $2, $0, -1              
+ (2) 0x3043000f  andi $3, $2, 15             
+ (3) 0x14400003  bne $2, $0, 3
+ (4) 0x00031842  srl $3, $3, 1                
+ (5) 0x0810000f  j 0x0010000f
+ (6) 0xafa30000  sw $3, 0($29)              
+ (7) 0x00621022  sub $2, $3, $2            
+ (8) 0x3c043f80  lui $4, 16256            
+ (9) 0xafa40004  sw $4, 4($29)           
+(10) 0xc7a00004  lwc1 $f0, 4($29)       
+(11) 0x3c044080  lui $4, 16512         
+(12) 0xafa40008  sw $4, 8($29)        
+(13) 0xc7a20008  lwc1 $f2, 8($29)    
+(14) 0x46020103  div.s $f4, $f0, $f2
+</pre>
+<P>(b) The values changed in each of the instructions are
+(1) $2 = -1, (2) $3 = 15, (3) jump forward by a distance of 3
+(skipping srl and j, spim and MIPS differ on this), 
+(6) save 15 on 0($29), (7) $2 = 16, (8) $4 = 0x3f800000, 
+(9) save 0x3f800000 in 4($29), (10) $f0 = 0x3f80000 = 1.0, 
+(11) $4 = 0x40800000, (12) save 0x40800000 in 8($29), 
+(13) $f2 = 0x40800000 = 4.0, (14) $f4 = 1/4 = 0.25 = 0x3e800000.
+
+</OL>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>MIPS machine encoding</title>
+</head>
+<body>
+<h3>MIPS machine encoding</h3>
+<HR>
+<pre>
+Name Format op   rs    rt    rd   shamt funct    | symbolic form
+
+add    R    0     2     3     1     0     32     | add $1, $2, $3
+sub    R    0     2     3     1     0     34     | sub $1, $2, $3
+slt    R    0     2     3     1     0     42     | slt $1, $2, $3
+jr     R    0    31     0     0     0      8     | jr  $31
+addi   I    8     2     1       100              | addi $1, $2, 100
+lw     I   35     2     1       100              | lw   $1, 100($2)
+sw     I   43     2     1       100              | sw   $1, 100($2)
+lui    I   15     0     1       100              | lui  $1, 100
+beq    I    4     1     2       100              | beq  $1, $2, 100
+bne    I    5     1     2       100              | bne  $1, $2, 100
+slti   I   10     2     1       100              | slti $1, $2, 100
+j      J    2            10000                   | j   10000
+jal    J    3            10000                   | jal 10000
+
+and    R    0     2     3     1     0     36     | and $1, $2, $3
+or     R    0     2     3     1     0     37     | or  $1, $2, $3
+andi   I   12     2     1       100              | andi $1, $2, 100
+ori    I   13     2     1       100              | ori $1, $2, 100
+sll    R    0     0     2     1     4      0     | sll $1, $2, 4 
+srl    R    0     0     2     1     4      2     | srl $1, $2, 4
+
+add.s  R   17    16     6     4     2      0     | add.s $f2, $f4, $f6
+sub.s  R   17    16     6     4     2      1     | sub.s $f2, $f4, $f6
+mul.s  R   17    16     6     4     2      2     | mul.s $f2, $f4, $f6
+div.s  R   17    16     6     4     2      3     | div.s $f2, $f4, $f6
+lwc1   I   49     2     1       100              | lwc1 $f1, 100($2)
+swc1   I   57     2     1       100              | swc1 $f1, 100($2)
+bc1t   I   17     8     1       100              | bc1t 100
+bc1f   I   17     8     0       100              | bc1f 100
+c.lt.s R   17    16     4     2     0     60     | c.lt.s $f2, $f4 
+
+            6     5     5     5     5      6     | bit width
+</pre>
+<HR>
+</body>
+</html>

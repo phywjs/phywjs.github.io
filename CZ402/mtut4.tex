@@ -1,0 +1,53 @@
+\magnification=\magstep1
+\input notesmac.tex
+\nopagenumbers
+
+
+\centerline{\titlefont CZ3106\ \  Symbolic Computing, Tutorial 4}
+\bigskip
+\bigskip
+\line{A/P~Wang Jian-Sheng \hfill week 10-15 March 03}
+\bigskip
+\bigskip
+
+%----------------------------------------------------------------------- 
+\problem  Give some examples of group, ring, and field.  
+Decide the algebraic structures of the followings: 
+(a) a set of all integers with addition,  (b) a set of all integers with
+addition and multiplication, (c) set of all rational numbers with
+addition and multiplication, (d) the set of all real numbers 
+with addition and multiplication, (e) the set of integers from
+0 to $p-1$ with addition and multiplication modulo $p$,  for any
+integer $p$, and for $p$ being a prime. (f)  a set of all
+two by two  unitary matrices with multiplication. 
+
+
+\problem  Quaternions are the elements of an associative algebra of rank
+4 with the basis elements
+$$\bf 1,\ i,\ j,\ k$$
+where ${\bf 1}$ is the identity elements, i.e., 
+$\bf 1 i = i$, $\bf 1 j = j$, $\bf 1 k = k$.
+The compositions (multiplications) of two basis elements are
+$$ {\bf i}^2 = {\bf j}^2 = {\bf k}^2 = - {\bf 1}$$ 
+and 
+$$\bf i j = k,\ jk = i,\ ki = j,\ ji = -k,\ kj = -i,\ ik = - j.$$
+A quaternion is represented as (where $a$, $b$, $c$, and $d$ are real numbers)
+$$ a {\bf 1} + b\,{\bf i} + c\,{\bf j} + d\,{\bf k}.$$
+Two quaternions can be added, where the corresponding coefficients are 
+simply added.  Two quaternions can be multiplied, with the usual distribution
+law of multiplication over addition and the rules for the multiplications
+of the basis above.  
+\item{} Do quaternions form a group, a ring, an integral domain, or
+field?  The answer depends on the operation (addition or multiplication)
+and can be multiple possibilities.
+
+\problem consider a set of all polynomials of real coefficients
+modulo $(1+x^2)$.  That is all $r(x)$ such that
+$$ P(x) = Q(x)*(1+x^2) + r(x),\quad  {\rm deg}(r(x)) < 2$$
+With addition and multiplication modulo $(1+x^2)$ defined on the
+polynomials, show that it forms a field.  Show that it is a linear
+vector space of dimension 2.  Show that the field is isomorphic to
+a set of complex numbers.  [This question is slightly ahead of
+the lecture].
+
+\bye

@@ -1,0 +1,108 @@
+<html>
+<head>
+<title>CZ1101, Laboratory 2</title>
+</head>
+<body>
+
+<h1>CZ1101, Lab 2, Week 7, 25-30 August.  Due Tuesday, 2 September, 1997</h1>
+
+<blockquote>
+<p>Submitting your answers by the due date.
+</blockquote>
+
+<OL>
+<LI> Same as Lab 1, Prob. 2,
+write a MIPS assembly program to verify the formula for
+the sum of fourth power of natural numbers, i.e.,
+<pre>
+1^4 + 2^4 + 3^4 + 4^4 + ... + n^4 - 
+((1 + n)n(1 + 2n)(-1 + 3n + 3n^2))/30 = 0,
+</pre>
+but for general value n.
+You may use any registers from $8 to $25, but code should be
+short and clearfully commented.  
+Your program should work for any 
+integer 0 <= n < N_max.  Test for few values, e.g., n=0, 2, 5, 10, 100,
+1000, -1, -7.
+You program will not work properly if n is sufficiently large.
+Why?  Find the upper limit N_max if you can.  What happens if 
+n is negative?  Submit your
+assembly program and report your findings and explanations with script.
+
+ 
+<LI> About Characters and Strings: While many programs
+work primarily with numbers, others work with characters. Most computers
+today use 8-bit bytes represent characters, with the American Standard
+Code for Information Interchange (<a href="ascii.html">ASCII</a>) being the representation
+that nearly everyone follows. 
+Because of the popularity of strings in some programs, MIPS
+provides special instructions to move bytes.  Load byte (lb)
+loads a byte from memory, placing it in the rightmost 8 bits of a register;
+the other 24 bits are set to 0.  Store byte (sb) takes a byte
+from the rightmost 8 bits of a register and writes it to memory. Thus
+the sequence
+<pre>
+lb $3, 0($4)      # Read byte from source
+sb $3, 0($5)      # Write byte to destination
+</pre>
+copies a byte.
+Characters are normally combined into strings, which have a 
+variable number of characters. C uses the convention that a string
+is terminated by a byte with the value 0.
+
+<P> (3.31) [20] Write a program in MIPS assembly 
+language that copy and count a string.  The program takes a pointer
+to a null-terminated source string in register $4 and a pointer to
+the destination string in register $5.  It
+copies the byte contents starting from memory location given in $4
+to the destination starting from the address given in $5, 
+until a null character (a byte of value zero) is reached. 
+It stores a count of the
+total number of non-null characters in the string in register $2.
+Hint: Look at the program copy in Exercise 3.8 for ideas. 
+You test your program with the following <a href="bcopytemp.s">template</a> to set
+up the string.
+<pre>
+# Template for the bcopy.s (string copy) program
+ 
+      .data
+str:    .asciiz "a string--end\n"  # the source string
+str2:   .asciiz "test, more space?\n"     # destination string
+
+      .text
+main:
+
+   la $4, str                      # load in source string address
+   la $5, str2                     # load destination address
+
+# Your code here
+      ...
+
+      ...
+# Your code end
+   move $4, $2
+   li $2, 1
+   syscall                         # print out count
+   li $2, 4
+   la $4, str                      # print source string
+   syscall
+   li $2, 4
+   la $4, str2                     # print destination string
+   syscall
+
+   j $31 
+</pre>
+If your code is correct, you should see a number (the length of
+the string) followed by two identical source strings when the program 
+is run.
+
+<P> Here  are some translations of C terminology and
+our machine language:
+The words `pointer to a string' means: the starting
+address of the array of characters.  String is nothing but an array
+of bytes representing characters.  `Pointer to the third character' means:
+the address of the third character.
+ 
+</OL>
+</body>
+</html>

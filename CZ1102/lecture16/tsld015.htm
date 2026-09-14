@@ -1,0 +1,79 @@
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Context-Type" CONTEXT="text/html;charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft Internet Assistant for PowerPoint 97">
+ <TITLE>Array of Pointers</TITLE> 
+</HEAD>
+
+<BODY     >
+
+ <H1>Array of Pointers</H1> 
+ <P><UL>
+<H2>#include &#060stdio.h&#062
+</H2>
+<BR></UL><UL>
+<H2>void print_names(char *p[], int n);
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>main()
+</H2>
+</UL><UL>
+<H2>{
+</H2>
+</UL><UL>
+<H2>   char *phys[4] = {"Newton", 
+</H2>
+</UL><UL>
+<H2>         "Einstein", "Fermi",
+</H2>
+</UL><UL>
+<H2>         "Heisenberg"};
+</H2>
+</UL><UL>
+<H2>   print_names(phys, 4);
+</H2>
+</UL><UL>
+<H2>}
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>void print_names(char *p[], int n)
+</H2>
+</UL><UL>
+<H2>{
+</H2>
+</UL><UL>
+<H2>   int i;
+</H2>
+</UL><UL>
+<H2>   for(i = 0; i &#060 n; i++)
+</H2>
+</UL><UL>
+<H2>      printf("%s\n", *p++);
+</H2>
+</UL><UL>
+<H2>}
+</H2>
+</UL></P>
+<P>This is program <a href="pg356.c">pg356.c</a></P> 
+<P>
+<TABLE>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld014.htm">Previous slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld016.htm">Next slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="tsld001.htm">Back to first slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="sld015.htm">View graphic version</A> </TD>
+</TABLE>
+<BR>
+</P>
+
+
+
+</Body>
+</HTML>

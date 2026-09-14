@@ -1,0 +1,175 @@
+
+ERROR LOGS found in the book
+``Computer Organization and Design -- The Hardware/Software Interface''
+John L. Hennessy & David A. Patterson
+copyright 1994, first print.
+
+Notations:
+P. for page number.
+| show printed in the book.
+S: suggested correction.
+
+P.66, next to last line
+| e vencorrect
+S:
+  even correct
+
+P.80, SPECINT and SPECFP is commonly spelled as
+S:
+  PSECint and SPECfp.
+
+P.95, second set of MIPS intructions
+|  add a, b, c    # ...   a. add a,
+|  a, d           # ...   a. add a,
+|  a, e           # ...   is now in a.
+S:
+  add a, b, c    # ...   a.
+  add a, a, d    # ...   a.
+  add a, a, e    # ...   is now in a.
+
+P.112, 10th line from below
+| "else" part. Weh i j, the
+S:
+  "else" part. Weh i!=j, the
+
+P.114, mult instruction, mul is better
+| mult $9, 
+S:
+  mul $9, ...
+
+P.116,  Loop: unnecessary, also mult, and $19 should be $10
+| Loop: mult $9, $19, $21 # Temporary reg $9 
+S:
+        mul $9, $10, $21 # Temporary reg $9 
+
+P.118, Figure 3.11, MIPS machine language
+| jr  R  0  31  0  0  0  8  jr $1
+S:
+  jr  R  0  31  0  0  0  8  jr $31
+
+P.132, Figure 3.16, MIPS machine language
+| jr  R  0  31  0  0  0  8  jr $1
+S:
+  jr  R  0  31  0  0  0  8  jr $31
+
+P.141,  4 times j
+| add $16, $4, $15  # reg 16 = v + j
+S:
+  add $16, $4, $15  # reg 16 = v + j*4
+
+P.144,  4 times j
+| Inner loop add $16, $4, $15  # reg 16 = v + j
+S:
+Inner loop   add $16, $4, $15  # reg 16 = v + j*4
+
+P.177, Figure 4.3, ">" missing
+|        A + B     0          0        <0
+|        A + B    <0         <0         0
+|        A - B     0         <0        <0
+|        A - B    <0          0         0
+S:
+         A + B    >0         >0        <0
+         A + B    <0         <0        >0
+         A - B    >0         <0        <0
+         A - B    <0         >0        >0
+
+P.183, Figure 4.6, logical, in the and immediate and or immediate
+|     and immediate  and $1, $2, 100 ...
+|     or immediate   or  $1, $2, 100
+S:
+      and immediate  andi $1, $2, 100 ...
+      or immediate   ori  $1, $2, 100
+
+P.209, Figure 4.30, iteration 2, step 2
+|     2: shift right Product 1111 1011 0
+S:
+      2: shift right Product 0000 1011 0
+
+P.216, Figure 4.33, quotient in iteration 1, step 2b 
+| iteration step    Quotient ...
+|    1       2b:..   0011
+S:
+     1       2b:..   0000
+
+P.220, Figure 4.37, Remainder is shifted twice in the loop (in step
+|      1 and 3).  
+S:
+       Shifts to the left of remainder register in step 3a and 3b
+       should be removed.
+
+P.224, Figure 4.40, / sign missing
+|  divide            div $2, $3    Lo = $2 $3, Hi = $2 mod $3
+|  divide unsigned   divu $2, $3   Lo = $2 $3, Hi = $2 mod $3
+S:
+   divide            div $2, $3    Lo = $2/$3, Hi = $2 mod $3
+   divide unsigned   divu $2, $3   Lo = $2/$3, Hi = $2 mod $3
+
+P.226, in the bit pattern for float, biit -> bit
+|   s       exponent           significand
+|  1 biit   8 bits              23 bits
+S:
+    s       exponent           significand
+   1 bit    8 bits              23 bits
+
+P.243, second paragraph after The Big Picture, infinity symbol missing
+|  (toward +) ... (toward -)..
+S:
+   (toward +infinity) ... (toward -infinity)..
+
+P.241, Figure 4.44, Conditional branch, c.gt.s, c.ge.s etc are not part
+of MIPS instructions
+| FP compare single (eq, ne, lt, le, gt, ge)
+| FP compare double (eq, ne, lt, le, gt, ge)
+S:
+  FP compare single (eq, ne, lt, le)
+  FP compare double (eq, ne, lt, le)
+
+
+P.244, third line in the text, the infinity symbol missing
+| ... + or -; ...
+S:
+ ... +infinity or -infinity; ...
+
+P.244, the table in the middle, the last row for NaN
+|   255   0   2047    0    Nan (Not A Number)
+S:
+    255  none zero 2047 none zero  NaN (Not A Number)
+
+P.A-21, since the offset in 0x8000($16) is signed extended to
+0xFFFF8000, lw $2, 0x8000($16) actually is loading at address 0x0FFF8000,
+not what was intended 0x10008000.
+|  lui $16, 0x1000       # 0x1000 means ...
+|  lw  $2, 0x8000($16)   # 0x10000000 + 0x8000 = 0x10008000
+S:
+  lui  $26, 0x1001  
+  lw   $2, 0x8000($16)   # 0x10010000 + 0xFFFF8000 = 0x10008000 
+
+P.A-48, Table
+| Format 
+|..
+| symbol imm 
+| symbol imm (register)
+S:
+| symbol +/- imm 
+  symbol +/- imm (register)
+  
+P.A-62, jr bit fields and name Rsrc
+|  Jr Rs     0   Rs       0     8   Jump register
+|            6   5        16    5     
+|  Unconditionally jump to .... register Rsrc.
+S:
+   Jr Rs     0   Rs       0     8   Jump register
+             6   5        15    6     
+   Unconditionally jump to .... register Rs.
+
+P.E-22, E-23, Figure E.10 and E11 are identical.
+|
+S:
+
+P. last, back cover, MIPS assembly language table
+|  and immediate  and $1, $2, $3     $1 = $2 & $3
+|  or immediate   or  $1, $2, $3     $1 = $2 | $3
+S:
+   and immediate  andi $1, $2, $3     $1 = $2 & $3
+   or immediate   ori  $1, $2, $3     $1 = $2 | $3
+

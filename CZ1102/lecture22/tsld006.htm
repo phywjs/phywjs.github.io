@@ -1,0 +1,76 @@
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Context-Type" CONTEXT="text/html;charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft Internet Assistant for PowerPoint 97">
+ <TITLE>Quizzes</TITLE> 
+</HEAD>
+
+<BODY     >
+
+ <H1>Quizzes</H1> 
+ <P><UL>
+<LI><H2>Write a function (with a name of your choice) which take a string and returns an int.  If the string looks the same when read forward and backward, return 1, else return 0.
+</H2>
+</UL><UL>
+<LI><H2>
+</H2>
+</UL><UL>
+<H2>#include &#060string.h&#062
+</H2>
+</UL><UL>
+<H2>int palindrome(char *s)
+</H2>
+</UL><UL>
+<H2>{
+</H2>
+</UL><UL>
+<H2>  char *e;
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>  e = s + strlen(s) -1;
+</H2>
+</UL><UL>
+<H2>  while( s &#060 e ) {
+</H2>
+</UL><UL>
+<H2>     if (*s != *e)
+</H2>
+</UL><UL>
+<H2>        return 0;
+</H2>
+</UL><UL>
+<H2>     ++s;
+</H2>
+</UL><UL>
+<H2>     --e;
+</H2>
+</UL><UL>
+<H2>  }
+</H2>
+</UL><UL>
+<H2>  return 1;
+</H2>
+</UL><UL>
+<H2>}
+</H2>
+</UL></P>
+<P></P> 
+<P>
+<TABLE>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld005.htm">Previous slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld007.htm">Next slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="tsld001.htm">Back to first slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="sld006.htm">View graphic version</A> </TD>
+</TABLE>
+<BR>
+</P>
+
+
+
+</Body>
+</HTML>

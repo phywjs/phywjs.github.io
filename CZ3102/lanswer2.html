@@ -1,0 +1,97 @@
+<html>
+<head><title>Answers to Lab1 2</title></head>
+<body>
+<h1>Sample Answers to Lab 2</h1>
+
+<h3>Q1</h3>
+
+<h2>(a)</h2>
+
+<p>Given the data for stars, we are asked to make a plot of the stars.
+First, we need to understand the meaning of the data in the file stars.dat.
+It is noted that the locations of the stars are specified in angles.
+The coordinate system is fixed relative to the stars, not fixed
+to Earth, thus the position of the stars do not change.   Imaging
+the stars are on a sphere of radius 1, with Earth (the point of observation)
+at the center (0,0,0).  The stars are specified by two angles, the
+Right Ascension (RA) and declination (Dec).  RA and Dec are  slightly
+different from usual mathematical convention of spherical polar system.
+The RA specifies the azimuth angle phi, but using 24 hours for 360 degree
+(or 2pi radian).   For declination, the north pole is +90 degree,
+and south pole is -90 degree, and at the equator it is 0 degree. 
+For convenience, we convert RA (hour/minute/sec) and Dec (degree/minute/sec)
+to radian for the spherical polar coordinates (theta, and phi) as
+<p>theta = (PI/180.0)*(90.0 - sign*(DECdeg + DECmin/60.0 + DECsec/3600.0))
+<p>phi = 2.0*PI*(RAhr + RAmin/60.0 + RAsec/3600.0)/24.0
+
+<p>We can convert from spherical polar coordinates (r, theta, phi)
+to Cartesian coordinates (x,y,z), the relation is 
+<p>x = r*sin(theta)*cos(phi)
+<p>y = r*sin(theta)*sin(phi)
+<p>z = r*cos(theta)
+<p>The inverse from Cartesian to spherical polar system is then
+<p>r = sqrt(x^2 + y^2 + z^2)
+<p>phi = arctan(y,x)
+<p>theta = arccos(z/r)
+
+<p>We note that the stars are located on a sphere.  We view the stars
+from inside.  Here I offer several possibilities to "draw" the stars.
+<p>(a) a 3D plot (x,y,z), in such a plot, we are viewing from outside,
+rather than inside. 
+<p>(b) a 2D plot of RA vs Dec (or theta vs phi), this is quick and
+easy, but the locations are distorted, particularly near the poles.
+[Imaging we flattern out a curved sphere onto a flat surface].
+<p>(c) a 2D plot, projected somehow from 3D to 2D according to the
+principle of image in a camera.  In fact, this is not that complicated.
+The light rays converge from stars to a single focus point. A film
+is before or after the focus point.   The location of the image
+of the stars are the intersections between the light ray and the
+plane of film.  In the simplest case, we can set the focus point
+at (-infinity, 0, 0) and the film at the plane z=0.  Thus, the
+star at (x,y,z) is projected on to (x,y,0).   But this means we are
+only looking at in the direction of north pole or south pole.  To be
+more general, we specify a view angle (in terms of RA and Dec)
+so that the center of the camera is pointing to that particular
+location in the sky.  We still assume the film plane passes
+through the origin (0,0,0).  The focus point is located a distance d
+from the origin.   In order to do this, we need to rotate the
+coordinate system so that new axis z' is in the specified direction.
+See the code for details.
+
+<p>There is the question of how to draw the plot.  I decided to
+generate directly a PostScript file.  Using PostScript allows me
+to have a fine control on the size of the dot based on the visual
+magnitude Vmag.  Thus dimmer stars are plotted with smaller dots.
+Note that smaller number (negative or 1) means brighter stars,
+bigger number (say 5) means fainter stars.  I also drew the
+RA/Dec grid, this help orient the viewer.  A C program is
+linked <a href="map.c">here (map.c)</a>.
+
+<P>Clearly, the above implementation is still rather primitive.  For example,
+one should label the brightest stars by their names, or one can draw the
+constellation lines,  or one should be able to zoom-in or zoom-out. 
+To get a feel of a very good star map, you are welcome to have
+a look of the site 
+<a href="http://www.skymap.com/">http://www.skymap.com/</a>.  
+The free evaluation version run on Windows is an excellent software for 
+star gazers. 
+
+
+<h2>(b)</h2>
+<P>To do a fit of the planet orbit with model I (geocentric uniform
+circular motion), we follow the hint that I have written after the
+question.   As you have seen, Sun and Moon fit the model better than
+Venus or Mars.   The reason is quite obvious.  
+
+<P>The real challenge is to use Kepler model.  I promise to do it later.
+
+<h2>Marking Scheme</h2>
+<p>Total marks for this lab will be 200.
+
+<p>Part (1) will be 60 marks. If visual magnitude is not taking
+into account, 12 marks will be deducted.
+<P>Part (2) will be 100 marks if you do model I, and 140 marks if you
+do model IV.
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Chapter 2</title>
+<meta name="Microsoft Theme" content="loosegst 011, default">
+</head>
+
+<body background="lootextb.jpg" bgcolor="#FFFFCC" text="#000000" link="#CC6633" vlink="#663399" alink="#999900"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><!--mstheme--></font>
+
+<h1><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#666633">Kohonen's
+Self-Organizing Maps<!--mstheme--></font></h1>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><!--mstheme--></font><h3><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#666633">&nbsp;<!--mstheme--></font></h3>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><!--mstheme--></font><h3><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#666633">(1)
+Neural-biological motivation<!--mstheme--></font></h3>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><p><font size="4">It
+is found that the brain for higher animals are organized into domains for
+specific functions.&nbsp; The visual cortex processes the information from
+eyes.&nbsp; The hearing is handled by the auditory cortex, and somatosensory
+cortex maps the surface of body.&nbsp; These regions are organized in such a way
+so that similar outside stimulus causes excitation in a similar region.&nbsp;
+The figure below shows schematically the somatosensory cortex as a map of the
+body surfaces of the monkey.&nbsp;&nbsp; Note that the very sensitive body area
+corresponds to a larger area in the brain.</font></p>
+<p><img border="0" src="map.jpg" width="421" height="350"></p>
+<p>&nbsp;</p>
+<!--mstheme--></font><h3><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#666633"><font size="4">(2)
+Kohonen's neural network model</font><!--mstheme--></font></h3>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><p><font size="4">The
+Kohonen model attempts to emulate the above biological fact.&nbsp; It is based
+on the winner-take-all principle.&nbsp; When the neurons received outside
+signals, each of which computes the &quot;local field&quot;
+</font></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="4">y<sub>i</sub></font>
+= <font size="4">w<sub>i</sub> x<sup>T</sup> = <font face="Symbol">S</font><sub>i</sub>
+w<sub>ij</sub> x<sub>j</sub></font></p>
+<p><font size="4">In a winner-take-all network, only one neuron with the largest
+y<sub>i</sub>  fires.&nbsp; This is in contrast with the linear model in which the
+output is just y<sub>i</sub> itself, or the nonlinear model, which is fed into a
+nonlinear function <font face="Symbol">q</font>(y<sub>i</sub>).&nbsp;&nbsp; We
+note that maximizing w<sub>i</sub>x<sup>T</sup>  (with respect to w) is equivalent to minimizing</font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; | w<sub>i</sub> - x | </font></p>
+<p><font size="4">under the condition that |w| = 1, where |x| is the two-norm
+of vector x.&nbsp; Please proof the above claim.&nbsp; (Hint: consider dot
+product).</font></p>
+<p><font size="4">There are several additional ingredients in the Kohonen
+model.&nbsp; The input signal x (a vector of dimension N) is fed into all the
+neurons which is set on a line (1 dimension) or lattice (two
+dimensions).&nbsp;&nbsp; This feature models the fact the brain is mostly a
+two-dimensional sheet.&nbsp; And the brain part responsible for hearing is one
+dimensional.&nbsp; Let i* be the neuron such that |w<sub>i*</sub>-x|
+is a minimum with respect to i for the input signal x.&nbsp;&nbsp; The learning of the Kohonen
+model is accomplished by</font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; w<sub>j</sub>&nbsp;
+&lt;-&nbsp; w<sub>j</sub> + <font face="Symbol">e</font> h(j,i*) (x - w<sub>j</sub>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(1)</font></p>
+<p><font size="4">where <font face="Symbol">e</font> is the learning rate,
+vector w<sub>j</sub> is the synaptic strength of neuron j, x is input vector,
+h(j,i*) is a function that is peaked around the site i* and decays to zero for
+neurons far away from i*.&nbsp;&nbsp; A commonly used function is the Gaussian
+function</font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; h(j,i*) = exp[-d<sub>ji*</sub><sup>2</sup>/(2<font face="Symbol">s</font>)]</font></p>
+<p><font size="4">where d<sub>ji*</sub> is the Euclidean distance between site i*
+and j.&nbsp; The first term x h(j,i*) of Eq.(1) is essentially the Hebbian
+learning rule, the second term adds a damping.&nbsp;&nbsp; The effect of the
+learning is to move the vector w closer to x.&nbsp; This learning rule is
+closely related to something called learning vector quantization used for data
+compression. </font></p>
+<p><font size="4">One last ingredient algorithmically is that both the learning
+rate <font face="Symbol">e</font> and the domain of influence <font face="Symbol">s</font>
+must decrease with the learning steps, in order for w to converge.&nbsp;&nbsp;
+For example, we may take</font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; <font face="Symbol">e</font>
+= <font face="Symbol">e</font><sub>0</sub>/n<font face="Symbol"><sup>a</sup></font>,&nbsp;&nbsp;
+<font face="Symbol">s</font> = <font face="Symbol">s<sub>0</sub></font>/n<font face="Symbol"><sup>b</sup></font></font></p>
+<p><font size="4">where n is the learning step and 0 &lt; <font face="Symbol">a</font>
+&lt; 1, 0 &lt; <font face="Symbol">b</font> &lt; 1.</font></p>
+<p><font size="4">What do we expect the above network model to do?&nbsp; It is
+quite surprising that starting with random w, the network organizing itself in
+such a way such that similar inputs get neurons at similar region to fire, as is
+the case biologically.&nbsp; We can use such neural network to do classification
+or even solve optimization problems such as traveling-salesman problem.&nbsp;&nbsp;
+Assuming that x is drawn from a static probability distribution, then the network denotes
+more neurons to the values of x that appears
+more frequently.&nbsp; It was hoped initially that the numbers of neurons
+involved in handling x in a neighborhood of x is proportional to P(x).&nbsp;
+But this is not true.&nbsp; In one dimension, it can be shown that it is
+proportional to P(x)<sup>2/3</sup> instead.</font></p>
+<p><font size="4">In the <a href="Kohonen.nb"> Mathematica Program</a>, we show some examples of the
+operations of the Kohonen model.</font></p>
+<!--mstheme--></font></body>
+
+</html>

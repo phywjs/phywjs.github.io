@@ -1,0 +1,184 @@
+\font\ninebf=cmbx9
+\font\cmcsc=cmcsc10
+\font\bigsc=cmcsc10 scaled\magstep1
+\font\cmbsy=cmbsy10
+\font\cmmib=cmmib10
+\abovedisplayskip=6pt plus 3pt minus 1pt
+\belowdisplayskip=6pt plus 3pt minus 1pt
+\abovedisplayshortskip=0pt plus 3pt
+\belowdisplayshortskip=4pt plus 3pt
+\hoffset -4 true mm
+
+\def\NI{\noindent}
+
+\def\dotp{\mskip -2mu \cdot \mskip -2 mu}
+\def\crossp{\mskip -2mu \times \mskip -2 mu}
+\def\del{\hbox{\cmbsy\char'162}}
+\def\thetabf{\hbox{\cmmib\char'022}}
+\def\bfomega{\hbox{\cmmib\char'041}}
+\def\skp{\mskip 1mu}
+\def\skpp{\mskip 2mu}
+\def\uv#1{\skp\hat{\bf #1}}
+
+\hsize=7 in
+\vsize=9.7 in
+\hoffset=-10mm
+\voffset=-7mm
+\def\pw{\leavevmode\hbox{\tt\char'136}}
+\def\lbr{\leavevmode\hbox{\tt\char'173}}
+\def\rbr{\leavevmode\hbox{\tt\char'175}}
+\def\fc#1#2{\hskip 3 mm {\tt #1} \hfill ($#2$)\hskip 3 mm}
+\def\fct#1#2{\hskip 3 mm {\tt #1} \hfill (#2)\hskip 3 mm}
+\def\expr{$\mit expr$}
+%\def\sect#1{\smallskip{\bf #1}\par\nobreak}
+\def\sect#1{\vskip 4pt {\bf #1}\par\nobreak}
+\centerline{\bigsc Maple Quick Reference}
+\medskip
+
+\nopagenumbers
+
+\parindent=0pt
+\sect{Run Maple}
+\settabs 2 \columns
+\+\fct{maple}{evoke maple} &
+\fct{quit}{exit maple} & \cr
+
+\sect{Arithmetic}
+\line{\hskip 3 mm {\tt +}, {\tt -}, {\tt *}, {\tt /}, 
+\pw\ (power),
+\quad e.g. {\tt a*x\pw 2 + 2*x -  3/5;} \quad ($a x^2 + 2x - 3/5$) \hfill}
+
+\sect{Mathematical Functions}
+\settabs 4 \columns
+\+ \fc{sqrt($x$)}{\sqrt{x}} & 
+\fc{exp($x$)}{e^x} &
+\fc{ln($x$)}{\ln x}& 
+\fc{log[$b$]($\,x$)}{{\log}_b x} &\cr
+\+ \fc{sin($x$)}{\sin x} & 
+\fc{cos($x$)}{\cos x} & 
+\fc{tan($x$)}{\tan x} & 
+\fc{arcsin($x$)}{\sin^{-1} x} &\cr
+\+ \fc{arccos($x$)}{\cos^{-1} x} &
+\fc{arctan($x$)}{\tan^{-1} x} & 
+\fc{sinh($x$)}{\sinh x} & 
+\fc{cosh($x$)}{\cosh x} &\cr
+\+ \fc{tanh($x$)}{\tanh x} &
+\fc{arcsinh($x$)}{\sinh^{-1} x}&
+\fc{$n$!}{{\rm factorial}} & 
+\fc{abs($x$)}{|x|} &\cr
+\+ \fc{$a$ mod $m$}{ a\ {\rm mod}\ m} &
+\fc{max($x$,$\,y$,$\,\ldots$)}{\rm max} &
+\fc{min($x$,$\,y$,$\,\ldots$)}{\rm min} & 
+\fc{binomial($n$,$\,m$)}{C^n_m} &\cr
+\+ \fc{Re($z$)}{\hbox{real part}} &
+\fc{Im($z$)}{\hbox{imaginery part}} &
+\fc{conjugate($z$)}{\bar{z}} &
+\fc{argument($z$)}{\rm argument} & \cr
+
+\sect{Mathematical Constants}
+\+ \fc{Pi}{\pi\approx 3.14159} &
+\fc{E}{ e \approx 2.71828} &
+\fc{I}{i = \sqrt{-1}} &
+\fc{infinity}{\infty} &\cr
+
+\sect{Data Objects}
+\settabs 5 \columns
+\+\fct{123}{integer} &
+\fct{3/7}{fraction} &
+\fct{1.0}{float} &
+\fct{2+8*I}{complex} &
+\fct{`$text$`}{string} &\cr
+\settabs 2 \columns
+\+\fct{\lbr $a$,$\,b$,$\,\ldots$ \rbr}{set with elements $a,\,b,\,\ldots$} &
+\fct{[$a$,$\,b$,$\,\ldots$]}{list with elements 
+$a,\,b,\,\ldots$} & \cr
+\+\fct{array(1..3, [1,2,3])}{array} &
+\fct{$a$[$symbol$]}{indexed array} & \cr
+
+\sect{Arbitrary-Precision Calculation}
+\settabs 2 \columns
+\+\fct{evalf(\expr);}{numerical value of \expr} &
+\fct{evalf(\expr,$\,n$);}{value of \expr, $n$-digit precision} &\cr
+\+\fct{Digits := $n$;}{change default precision to $n$} &
+\fct{}{} & \cr
+
+\sect{Defining Variables and Functions}
+\settabs 2 \columns
+\+\fct{$x$ := $\mit value$;}{assign a value to symbol $x$} &
+\fct{x := 'x';}{remove value assigned to $x$} &\cr
+\+\fct{$f$ := x -> \expr;}{define a function $f(x)$} &
+\fct{<\expr\ | $x$>}{function} &\cr
+
+\sect{Algebraic Calculations}
+\settabs 2 \columns
+\+\fct{expand(\expr);}{multiply out products} &
+\fct{factor(\expr,F);}{factor over field} & \cr
+\+\fct{normal(\expr);}{simplify to normal form} &
+\fct{simplify(\expr);}{apply simplification rules} &\cr
+\+\fct{solve($lhs$=$rhs$,$\,x$);}{solve algebraic equation for $x$} &
+\fct{dsolve($eqn$,$y$($x$));}{solve differential equation} &\cr
+
+\sect{Linear Algebra}
+\settabs 3 \columns
+\+\fct{with(linalg);}{load package} &
+\fct{matrix(2,2,[a,b,c,d])}{2$\times$2 m} &
+\fct{multiply(A,B)}{matrix multiply} & \cr
+\+\fct{inverse($m$)}{inverse of matrix} &
+\fct{transpose($m$)}{transpose} &
+\fct{det($m$)}{determinant} &\cr
+\+\fct{eigenvals($m$)}{eigenvalues} & 
+\fct{eigenvects($m$)}{eigenvectors} &
+\fct{exponential($m$)}{$e^m$} & \cr
+
+\sect{Calculus}
+\settabs 3 \columns
+\+\fc{diff($f$,$\,x$)}{{\partial f/ \partial x}} &
+\fc{int($f$,$\,x$)}{ \int f\, dx} &
+\fct{series($f$,$x=a$)}{expand at $a$} &\cr
+\+\fc{D($f$)}{df} &
+\fc{sum($f$,$\,$i=1..n)}{\sum_{i=1}^{n} f} &
+\fc{product($f$,$\,$i=1..n)}{\prod_{i=1}^{n} f} &\cr
+\settabs 1 \columns
+
+\sect{Graphics}
+\+\fct{plot(sin(x), x=-Pi..Pi);}{plot $\sin(x)$ 
+from $-\pi$ to $\pi$}&\cr
+\+\fct{plot3d(g(x,y), 0..1, 0..1);}
+	{three-dimensional plot of $g$ as a function of $x$ and $y$}&\cr
+
+\sect{Programming}
+\settabs 1 \columns
+\+\fct{F := proc(n); ... end;}{define a procedure}&\cr
+\+\fct{for $i$ from 0 to $n$ do \expr\ od;}{for loop}&\cr
+\+\fct{if $\mit test$ then \expr\ fi;}{conditional evaluation}&\cr
+\+\fct{map(x->x\pw 2, [a,b,c]);}{ produce $[a^2,b^2,c^2]$}&\cr
+\smallskip
+
+\sect{Logical Operators}
+\settabs 4 \columns
+\+\fct{=}{equal} &
+\fct{<>}{unequal} &
+\fct{<}{less than} &
+\fct{<=}{less or equal} & \cr
+\+\fct{or}{or} & 
+\fct{and}{and} & 
+\fct{>}{greater than} &
+\fct{>=}{greater or equal} & \cr
+
+\sect{Input/Output}
+\settabs 2 \columns
+\+\fct{read `file`}{read and execute the file} & 
+\fct{save $x$, `file`}{save $x$ to file}&\cr
+\+\fct{!$\mit command$}{issue a {\cmcsc UNIX} command} &
+\fct{print($x$)}{print the value}&\cr
+
+\sect{Input Editing and Help}
+\settabs 3 \columns
+\+\fct{"}{last result} &
+\fct{\hbox{\tt \char`\\}}{line continuation} &
+\fct{?$\mit name$}{help on $\mit name$} & &\cr
+
+\vfill
+\line{\fiverm January 1997 \hfill  Prepared by Dr. Jian-Sheng Wang}
+\eject
+\end

@@ -1,0 +1,104 @@
+<html>
+<head>
+<title>CZ3102, Scientific Modeling and Visualization, Lab 2</title>
+</head>
+<body>
+
+<H1>Lab 2, due Monday, 9 Feb 04</H1>
+
+<p><strong>General Considerations</strong>: Your program code
+should be placed at $HOME/CZ3102/lab2/ (and set the permission to 
+world readable).  Programming can be done in C, MATLAB, 
+Mathematica, or Java.
+
+<p><strong>Q1</strong>: 
+In class we have discussed the modeling of planetary motion.
+In this lab, we like to follow the foot-steps of ancient astronomers
+and try our best to model the motions of the Sun, Moon, 
+and Mars, based only on observations. 
+
+<p>(1) First, we need a  good coordinate system of the sky.  
+In astronomy, people use the Right Ascension (RA) and 
+Declination to specify the position of the stars and planets. 
+Search the web to understand how they are defined.
+We have used 'Ephemeris Generator'
+of Jet Propulsion Lab to give you the positions of planets.  
+You don't need to hand-in anything for this part.
+
+<p>(2) In the second part of this lab, you are asked to model the 
+motions of the three celestial objects: the Sun, the Moon, and
+Mars.  You can choose from the following four possible models (with
+increased level of difficulties)
+
+<p> I. Ancient geocentric perfect circular motion
+<p> II. Ptolemy's geocentric circular motion with one epicenter
+<P> III. Copernicus helicentric model (still perfect circular motion)
+<P> IV. Helicentric model with Kepler's elliptic orbitals
+
+<P>You can make a choice from I to IV, and do only one of them.
+However, only the last choice IV will have the potential to get
+full marks.
+
+<P>We assume that we are in the Middle Age (with the exception that 
+we have computer at our disposal) and we don't know the theory of
+Newton and we don't know a lot about astronomy except the 
+empirical facts of the locations the planets.  They are the
+ephemeris of the 
+<a href="sun.html">Sun</a>, 
+<a href="moon.html">Moon</a>, and 
+<a href="mars.html">Mars</a> of the past,
+which is given here by the links. 
+You should NOT use any other astronomical facts such as 
+the masses of the planets, the periods, and semi-axes etc. 
+Discuss in detail how you derived your model and how you
+determine the constants or parameters in your model.
+Your model should fit the observation reasonably well.  
+Discuss discrepancies and accuracies of your model.  Justify the 
+method that you use to measure accuracy. 
+Submit your code and make it available on softcopy in your
+lab directory. Draw a figure to show your model results and
+the actual observations (i.e. compare your model prediction with
+the ephemerides).
+
+<P>(3) A good model must predict well.  Predict the locations 
+(in apparent Right Ascension and Declination) of the
+Sun, Moon, and Mars on Monday, 9 Feb 2004, at 21:00 SST
+(Singapore local time), from the model you have constructed in
+part 2.  Check your prediction with reality (e.g. go out and look
+at the sky).
+
+<P>I hope this lab is fun.
+
+<P><strong>Hint:</strong>  The circular or elliptical orbit in a     
+two-dimensional plane is easy to write down.  To get the same
+orbit that is tilted with respect to x-y plane, you need to 
+apply a three-dimensional coordinate system rotation of the form  
+<p> (x,y,z)^T = R (x',y',0)^T
+<P>where ^T is transpose.  R is a 3x3 orthogonal matrix, R*R^T = 1.
+The matrix R can be parametrized by two Euler angles (a rotation
+about x and rotation about z axis).  
+
+<P>Without actually carrying out the transformation, for the case of circle 
+(a great circle of the sphere), the equations x' = R cos(t), y' = R sin(t), 
+z' = 0,  imply x, y, or z is a linear combination of sin and cos.  
+So we can write,
+<P> x = x0 * cos(t+d1), y = y0 * cos(t+d2), z = z0 * cos(t+d3)
+<P>where x0, y0, z0, and d1, d2, d3 are constants.  However, these
+constants are not independent.  
+
+<P>On the other hand, a great circle must satisfy simultaneously
+<P> x^2+y^2+z^2 = R^2, and a*x + b*y + c*z = 0. 
+<P>Since three functions of the form A * cos(t + d) are not linearly
+independent, the linear equation is satisfied automatically. A
+great circle in parametric form is obtained if we take x = x0 * cos(t+d1), 
+y = y0 * cos(t+d2), with x0, y0, d1, and d2 as fitting parameters,
+and compute z from z = + or - sqrt(R^2-x^2-y^2).  
+We don't fit for z = z0 cos(t+d3), because z0 and d3 are not
+independent from the parameters for x and y.  [If you do the fit for
+z, then the orbit will be elliptical, I think].  Of course, you
+need the relation between Cartesian coordinates (x,y,z) and
+spherical polar coordinates (r, theta, phi).  
+
+<P>Unless you are very brave, you should try model I, at least first.
+</body>
+</html>

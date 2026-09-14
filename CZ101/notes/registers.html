@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>MIPS Register Software Convention</title>
+</head>
+<body>
+<h1>MIPS Register Usage Convention</h1>
+<pre>
+   Register           Usage
+
+   $0                 Constant 0
+
+   $1                 Reserved for assembler
+
+   $2, $3             Expression evaluation and results of a function
+ 
+   $4, $5, $6, $7     First 4 arguments, arg 1 to 4
+
+   $8, $9, ..., $15   Temporary registers (contents destroyed by 
+   $24, $25           procedure calls), caller saved registers
+
+   $16, $17,...,$23   Saved temporary (contents must be preserved across
+                      call), callee saved registers
+  
+   $26, $27           Reserved for operation system kernel
+ 
+   $28                Pointer to global area, alwo known as $gp
+   
+   $29                Stack pointer, also known as $sp
+  
+   $30                Frame pointer, $fp
+
+   $31                Return address set by jal
+<pre>
+</body>
+</html>
+
+ 

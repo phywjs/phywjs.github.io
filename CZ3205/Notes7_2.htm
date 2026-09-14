@@ -1,0 +1,133 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Chapter 2</title>
+<meta name="Microsoft Theme" content="loosegst 011, default">
+</head>
+
+<body background="lootextb.jpg" bgcolor="#FFFFCC" text="#000000" link="#CC6633" vlink="#663399" alink="#999900"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><!--mstheme--></font>
+
+<h1><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#666633">Memory
+Capacity<!--mstheme--></font></h1>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica">
+
+<p>&nbsp;</p>
+<!--mstheme--></font>
+
+<h2><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#330099">Introduction<!--mstheme--></font></h2>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><p><font size="4">In
+a conventional memory system, such as the RAM or a harddisk of a computer, we
+measure the capacity of memory in units of bytes.&nbsp; The information stored
+is precise and also physically localized to a definite location in memory.&nbsp;
+Any errors that may occur destroy the integrity of the system.</font></p>
+<p><font size="4">In a neural network the information is stored in the synaptic
+strength matrix W.&nbsp;&nbsp; We could also ask the question of how much
+information can be stored in the network.&nbsp; By the conventional standards,
+since W is an N x N matrix, it needs order of N<sup>2</sup> bytes to store
+W.&nbsp; Can we expect that we can roughly store this &quot;bytes&quot; of
+information in a neural network.&nbsp; The answer is roughly yes.&nbsp; We shall
+show that we can store about 0.1*N pictures (each picture containing order N
+bytes of information) in a Hopfield network.&nbsp;</font></p>
+<!--mstheme--></font>
+
+<h2><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica" color="#330099">Memory
+Capacity of Hopfield's
+Model<!--mstheme--></font></h2>
+<!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><p><font size="4">First
+of all, the information stored in the Hopfield's model can be retrieved with
+some error.&nbsp; So the memory is error tolerant.&nbsp; Thus we need to say
+how much error is allowed when considering the memory capacity.&nbsp; In other
+words, given a certain level of error tolerance, how many pictures (patterns)
+can we store in a network.&nbsp; Detailed analysis of the problem is rather
+involved.&nbsp;&nbsp; Here we give a simple argument.</font></p>
+
+<p><font size="4">A pattern is determined by</font></p>
+
+<p>&nbsp;&nbsp;&nbsp;<font size="4">&nbsp;&nbsp;&nbsp;&nbsp; sgn(<font face="Symbol">S</font><sub>j</sub>
+w<sub>ij</sub> <font face="Symbol">x</font><sub>j</sub>) = <font face="Symbol">x</font><sub>i</sub>&nbsp;&nbsp;&nbsp;
+(for all i)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(1)</font></p>
+<p><font size="4">where&nbsp;</font></p>
+<p>&nbsp;&nbsp;&nbsp;<font size="4">&nbsp;&nbsp;&nbsp;&nbsp; w<sub>ij</sub> =
+(1/N) <font face="Symbol">S</font><sup>p</sup><sub>u=1</sub> <font face="Symbol">x</font><sup>u</sup><sub>i</sub>
+<font face="Symbol">x</font><sup>u</sup><sub>j&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</sub>
+(2)</font></p>
+<p><font size="4">Let <font face="Symbol">x</font><sub>i</sub> be the pattern
+solution associated with the exact stored input <font face="Symbol">x</font><sup>1</sup><sub>i</sub>.&nbsp;
+We can rewrite the equation as</font></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="4">sgn(h<sub>i</sub>)
+= <font face="Symbol">x</font><sub>i</sub>
+</font></p>
+<p><font size="4">where&nbsp;</font></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="4"> h<sub>i</sub> </font>=
+<font size="4"><font face="Symbol">S</font><sub>j</sub>
+w<sub>ij</sub> <font face="Symbol">x</font><sub>j</sub> =
+(1/N) <font face="Symbol">S</font><sub>j</sub><font face="Symbol">S</font><sup>p</sup><sub>u=1</sub> <font face="Symbol">x</font><sup>u</sup><sub>i</sub>
+<font face="Symbol">x</font><sup>u</sup><sub>j</sub><font face="Symbol">x</font><sub>j</sub></font></p>
+<p><font size="4">We split the summation over u to a term for u = 1, and the
+rest.&nbsp; Then</font></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="4">h<sub>i</sub> </font>=&nbsp;<font size="4">
+<font face="Symbol">x</font><sub>i</sub>&nbsp; + (1/N) <font face="Symbol">S</font><sub>j</sub><font face="Symbol">S</font><sup>p</sup><sub>u
+=/= 1</sub> <font face="Symbol">x</font><sup>u</sup><sub>i</sub>
+<font face="Symbol">x</font><sup>u</sup><sub>j</sub><font face="Symbol">x</font><sub>j</sub></font></p>
+<p><font size="4">As long as the second term is smaller than the first term in
+magnitude, the equation sgn(h<sub>i</sub>) = <font face="Symbol">x</font><sub>i</sub>
+is satisfied.&nbsp; We define</font></p>
+<p>&nbsp;&nbsp;&nbsp;<font size="4">&nbsp;&nbsp;&nbsp;&nbsp; C<sub>i</sub> = - (1/N)
+<font face="Symbol">S</font><sub>j</sub><font face="Symbol">S</font><sup>p</sup><sub>u
+=/= 1</sub> <font face="Symbol">x</font><sub>i</sub> <font face="Symbol">x</font><sup>u</sup><sub>i</sub>
+<font face="Symbol">x</font><sup>u</sup><sub>j</sub><font face="Symbol">x</font><sub>j&nbsp;&nbsp;&nbsp;</sub>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(3)</font></p>
+<p><font size="4">so that h<sub>i</sub> = <font face="Symbol">x</font><sub>i</sub>(
+1 - C<sub>i</sub>).&nbsp;&nbsp; The requirement that we recover the pattern is C<sub>i</sub>
+&lt; 1 for all i. We see that they depend on the set of patterns we wish to
+store.&nbsp; In order to have a quantitative result, we make some assumption
+about the patterns.&nbsp; We consider purely random pattern, with equal
+probability for <font face="Symbol">x</font><sup>u</sup><sub>i</sub>= +1 and -1
+independent of j and u.&nbsp; Thus the probability of a particular site i is in
+error is given by</font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; P<sub>error </sub>=
+Prob(C<sub>i</sub> &gt; 1).</font></p>
+<p><font size="4">We need to make an estimate of this probability.&nbsp; We
+view Eq.(3) as sum of random numbers of +1 or -1.&nbsp; There are N(p-1) terms
+of summation of +1 and -1.&nbsp;&nbsp; Clearly, the mean value of C is
+zero.&nbsp; The variance of C is variance of +1 and -1 (which is 1), times
+N*(p-1)/N<sup>2 </sup> and is approximately p/N.&nbsp; Here we have used a
+theorem in probability about variance</font></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="4">var( a<sub>1</sub>
+x<sub>1</sub> + a<sub>2</sub> x<sub>2</sub> + ...)&nbsp; = a<sup>2</sup><sub>1</sub>
+var(x<sub>1</sub>) + a<sup>2</sup><sub>2</sub> var(x<sub>2</sub>) + ...</font></p>
+<p><font size="4">Next, we evoke the law of large numbers in probability and
+approximate the distribution of C<sub>i</sub> with a Gaussian distribution with mean zero
+and variance p/N.&nbsp; </font></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="4">P(C<sub>i</sub>)
+approximately equals to 1/ </font><font size="5"> (</font> <font size="4"> sqrt(2 p) <font face="Symbol">s</font></font><font size="5">)</font> <font size="4">
+exp</font><font size="5">(</font> <font size="4"> - x<sup>2</sup>/(2<font face="Symbol">s</font><sup>2</sup>)</font><font size="5">)</font><font size="4">.</font></p>
+<p><font size="4">Thus the probability that C<sub>i</sub> is greater than 1 is
+given by</font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp; Perror = integral(from 1
+to infinity) 1/ </font><font size="5"> (</font> <font size="4"> sqrt(2 p) <font face="Symbol">s</font></font><font size="5">)</font> <font size="4">
+exp</font><font size="5">(</font> <font size="4"> - x<sup>2</sup>/(2<font face="Symbol">s</font><sup>2</sup>)</font><font size="5">)</font> <font size="4">
+dx&nbsp;&nbsp;&nbsp; </font></p>
+<p>&nbsp;&nbsp; <font size="4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+=[ 1- erf</font><font size="5">(</font><font size="4">sqrt(N/(2p)) </font><font size="5">)</font><font size="4">]/2</font></p>
+<p><font size="4">Here erf( ) is the error function.&nbsp; </font></p>
+<p><font size="4">Some of the values </font></p>
+<p><font size="4">Perror&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Pmax/N</font></p>
+<p><font size="4">0.001&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0.105</font></p>
+<p><font size="4">0.0036&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0.138</font></p>
+<p><font size="4">0.01&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0.185</font></p>
+<p><font size="4">0.05&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0.37</font></p>
+<p><font size="4">0.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0.61</font></p>
+<!--mstheme--></font></body>
+
+</html>

@@ -1,0 +1,482 @@
+(************** Content-type: application/mathematica **************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     15595,        417]*)
+(*NotebookOutlinePosition[     16294,        441]*)
+(*  CellTagsIndexPosition[     16250,        437]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  StyleBox["Symbolic Computing\n\n",
+    FontWeight->"Bold"],
+  StyleBox["LT20, 4:00-6:00pm\nWed, 12 March 2003",
+    FontSize->24,
+    FontWeight->"Bold"]
+}], "Title"],
+
+Cell["", "Subtitle"],
+
+Cell["Some more examples", "Subtitle"],
+
+Cell[TextData[{
+  "Here is an example of a group.   Consider permutation of three objects.  \
+Let call it 1, 2, 3.    A permutation is one-to-one and onto mapping of the \
+set 1, 2, 3.    We'll use the notation P = (1,2,3 -> i,j,k) for a general \
+permutation.   There are altogether 3! = 6 possible permutations for three \
+objects.  There are\n\np1 = (1,2,3 ->1,2,3)   (no permutation)\np2 = (1,2,3 \
+-> 2,3,1)  (cyclic)\np3 = (1,2,3 -> 3,1,2)\np4 = (1,2,3 -> 3,2,1)\np5 = \
+(1,2,3 -> 2,1,3)\np6 = (1,2,3 -> 1,3,2)\n\nWe define \[SmallCircle] to be a \
+map that is the composite of the two.\nThus  p2 \[SmallCircle] p3  is to \
+apply map p3 first, then p2.   \np3 = (1,2,3 -> 3,1,2),  p2 = (1,2,3 -> \
+2,3,1)\nthus p2 \[SmallCircle] p3 = (1,2,3 -> 1,2,3) = p1\nThis is because 1 \
+is mapped to 3 by p3, and then 3 is mapped to 1 by p2.  So p2 \[SmallCircle] \
+p3 map 1 to 1.  \n   by p3                     by p2              by p3 \
+\[SmallCircle] p2 = p1\n1   ->   3                  1  -> 2             1 -> \
+3  -> 1\n2   ->   1                  2  -> 3             2 -> 1  -> 2\n3   -> \
+  2                  3  -> 1             3 -> 2  -> 3\n\nThe set {p1, p2, p3, \
+p4, p5, p6} with the multiplication defined above form a group.   This group \
+is known as ",
+  Cell[BoxData[
+      \(TraditionalForm\`S\_3\)]],
+  ", the permutation group of 3 objects.  The concept can be generalized to \
+permutation of n objects, ",
+  Cell[BoxData[
+      \(TraditionalForm\`S\_n\)]],
+  ".   In ",
+  Cell[BoxData[
+      \(TraditionalForm\`S\_3\)]],
+  ", p1 is the identity, the inverse of p2 is p3.    Permutation is one of \
+the fundamental concepts in group theory.   Each row or column of a group \
+multiplication table is a permutation of the elements."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Work out the multiplication table of ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(S\_3\)\(.\)\)\)]]
+}], "Exercise"],
+
+Cell["An example of a ring", "Subtitle"],
+
+Cell[TextData[{
+  "(",
+  Cell[BoxData[
+      \(TraditionalForm\`Z\_4; \ +, *\)]],
+  "), the set of integers modulo 4, i.e., the numbers 0, 1, 2, 3.   With \
+modulo 4, 4 is considered equivalent to 0, 5 is considered equivalent to 1.   \
+Any integer n is considered equivalent to  n mod 4.     There are two \
+operations defined, addition +, and multiplication, all modulo 4.   The + and \
+* tables are shown below:\n\n+  |  0    1    2    3                           \
+   *  |   0    1     2     3\n_____________                            \
+________________\n0  |  0    1    2    3                             0   |   \
+0    0     0     0\n1  |  1    2    3    0                             1   |  \
+ 0    1     2     3\n2  |  2    3    0    1                             2   | \
+  0    2     0     2\n3  |  3    0    1    2                             3   \
+|   0    3     2     1\n\nAddition form a group, 0 is the additive identity.  \
+ The additive inverse (-a)  of a for  0, 1, 2, 3, respectively, is  0, 3, 2, \
+1.   For multiplication, it is obvious 1 is the multiplicative identity.  The \
+set ",
+  Cell[BoxData[
+      \(TraditionalForm\`Z\_4\  - \ {0}\  = \ {1, 2, 3}\)]],
+  "  is not a group with respect to multiplication.  So it cannot be a field. \
+ We find 2 * 2 = 0 which is outside the set {1,2,3}.   It is not an integral \
+domain because  2*2 = 2*0 = 0.  But we don't have the cancellation law.  2 \
+\[NotEqual] 0, if cancellation law were true, we get 2*2 = 2*0  => 2 = 0 \
+which is nonsense.  \n\nIt satisfies all the conditions for a ring.  In fact, \
+it is a commutative ring."
+}], "Text"],
+
+Cell["An example of a field", "Subtitle"],
+
+Cell[TextData[{
+  "Roughly speaking, field is something you can do +, -, *, and /.   For \
+example, the set of all rational numbers are closed under addition, \
+subtraction, multiplication, and division.  The set of all real numbers can \
+do the same.  So is the set of all complex numbers.   Division is allowed for \
+all elements except when the devisor is 0 (the additive identity).   To \
+verify that a set with two operations is a field, you need to check the \
+axioms for field.\n\nThe examples above (rational number, real, and complex) \
+are sets of infinite cardinality.  A finite field has a finite number of \
+elements.   (",
+  Cell[BoxData[
+      \(TraditionalForm\`Z\_5\)]],
+  "; +, *) is a finite field, but (",
+  Cell[BoxData[
+      \(TraditionalForm\`\(Z\_4;\)\)]],
+  "+,*) is not.   It turns out that (",
+  Cell[BoxData[
+      \(TraditionalForm\`Z\_p\)]],
+  "; +, *) for any prime number ",
+  Cell[BoxData[
+      \(TraditionalForm\`p\)]],
+  " is a field.   Here is the multiplication table for ",
+  Cell[BoxData[
+      \(TraditionalForm\`Z\_5\)]],
+  ". \n\n+  |   0   1   2   3   4                            *  |   0   1   2 \
+  3   4\n_____________________________________________\n0  |   0   1   2   3  \
+ 4                             0  |   0   0   0   0   0\n1  |   1   2   3   4 \
+  0                             1  |   0   1   2   3   4\n2  |   2   3   1   \
+0   1                             2  |   0   2   4   1   3\n3  |   3   4   0  \
+ 1   2                             3  |   0   3   1   4   2\n4  |   4   0   1 \
+  2   3                             4  |   0   4   3   2   1\n\nTo verify (",
+  Cell[BoxData[
+      \(TraditionalForm\`Z\_5\)]],
+  "; +) the addition table forms a group, we note that each row and each \
+column is a permutation of the elements 0 to 4.   To verify ",
+  Cell[BoxData[
+      \(TraditionalForm\`\((Z\_5 - \ {0})\)\)]],
+  " with multiplication form a group, we note that the subtable without the \
+column and row with 0's is a permutation of {1,2,3,4}.  We note that the \
+multiplicative inverse of 2 is 3, we can write ",
+  Cell[BoxData[
+      \(TraditionalForm\`2\^\(\(-1\)\(\ \)\) = 3. \)]],
+  "  \n\nYou will see later on that modulo arithmetic ",
+  Cell[BoxData[
+      \(TraditionalForm\`Z\_p\)]],
+  " with prime ",
+  Cell[BoxData[
+      \(TraditionalForm\`p\)]],
+  " is very useful for polynomial symbolic computation."
+}], "Text"],
+
+Cell[TextData[StyleBox["",
+  FontColor->RGBColor[1, 0, 0]]], "Subtitle"],
+
+Cell["Euclidean Domains", "Subtitle"],
+
+Cell[TextData[{
+  "Division can be performed in a field for any nonzero divisors.  Note that \
+",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          FormBox["a",
+            "TraditionalForm"], "/", "b"}], TraditionalForm]]],
+  " = ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\[SmallCircle]b\^\(-1\)\)]],
+  ".  Since every nonzero elements in a field has a multiplicative inverse, \
+the division is defined through inverse and multiplication.\n\nIn a ring or \
+an integral domain, division can not be done in general, since the concept of \
+inverse is not present.    However, if we can somehow do division with \
+remainder (like integer division with remainder  a=q*b+r, |r|<|b|), we can \
+still talk about divisibility and greatest common divisors.   This is \
+axiomized in the following definition of Euclidean domain:"
+}], "Text"],
+
+Cell["\<\
+A Euclidean Domain is an integral domain D with a valuation v: D-{0} to N, \
+which is a mapping from any nonzero element to a nonnegative integer, having \
+the following properties:
+P1:   For all a, b \[Element] D-{0}, v(ab) \[GreaterEqual] v(a);
+P2:   For all a, b \[Element] D with b \[NotEqual] 0, there exist elements q, \
+r \[Element] D such that 
+\ta = b q + r
+where r = 0, or v(r) < v(b).\
+\>", "Theorem"],
+
+Cell["\<\
+If r = 0, we say b divides a. q is the quotient. r is the remainder. \
+\>", "Text"],
+
+Cell["", "Text"],
+
+Cell["Examples of Euclidean domains", "Subtitle"],
+
+Cell["\<\
+The integers Z with usual addition and multiplication form a Euclidean domain \
+with the valuation v(a) = |a|, since it is true that
+\ta = q*b + r,   |r| < |b|.
+E.g.,  if a = 8, b = 3, we have 8 = 3*2 + 2,   or  8 = 3*3 - 1.
+Note also |a*b| >= |b| for a \[NotEqual] 0, and b \[NotEqual] 0.
+\
+\>", "Text"],
+
+Cell["Polynomials over Fields", "Subtitle"],
+
+Cell[TextData[{
+  "One of the important algebraic structure we shall use is polynomials with \
+coefficients from a field F:\n\n",
+  Cell[BoxData[
+      \(TraditionalForm\`\(P\_n\)(
+          x)\  = \ \(a\_0\  + \ \(a\_1\) x\  + \ \(a\_2\) 
+                x\^2\  + \  ... \)\ \  + \ a\_n\ x\^n\)]],
+  ".\n\nThe set of all such polynomial is denoted  by F[x].   It is a \
+Euclidean domain with valuation ",
+  Cell[BoxData[
+      \(TraditionalForm\`v(\(P\_n\)(x))\  = \ \(\(n\)\(.\)\)\)]],
+  " (why?)\n\nFor polynomials, we also have the division property  \n  a(x) = \
+b(x)*q(x) + r(x),  for a(x), b(x), q(x), r(x) \[Element] F[x].\n  \nExample:\n\
+  Consider Q[x] (the set of all polynomial over rational numbers).  Let ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\)]],
+  " = ",
+  Cell[BoxData[
+      \(TraditionalForm\`3  x\^3 + x\^2 + x + 5, \ 
+      and\ \(b(x)\)\  = \ 5  x\^2 - 3  x + 1\)]],
+  ".  To obtain the quotient and remainder, we use the long division method:\n\
+                               ",
+  Cell[BoxData[
+      \(TraditionalForm\`3\/5\)]],
+  " ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(x\)\(\ \ \ \ \ \ \ \ \)\(+\)\(\ \ \)\)\)]],
+  " ",
+  Cell[BoxData[
+      \(TraditionalForm\`14\/25\)]],
+  "\n  ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(5  x\^2\)\(-\)\(3  
+          x\)\(+\)\(1\)\(\ \ \ \)\)\)]],
+  " ",
+  Cell[BoxData[
+      \(TraditionalForm\`\@\(3  x\^\(\(3\)\(\ \ \ \ \)\) + \ \ \ \ \ \ \ \ \ \
+\ \ \ \ \ x\^\(\(2\)\(\ \ \ \)\)\ \ \ \  + \ \ \ \ \ \ x\ \ \ \ \  + \ \ \ \ \
+\ \ \ 5\)\)]],
+  "\n                              ",
+  Cell[BoxData[
+      \(TraditionalForm\`3 
+           x\^3\ \ \  - \ \ \ \ \ \ \ 9\/5\ \ x\^2\ \ \ \ \ \  + \ 
+        3\/5\ \ x\)]],
+  "\n                              _____________________________\n            \
+                                 ",
+  Cell[BoxData[
+      \(TraditionalForm\`14\/5\)]],
+  " ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\^2\ \ \ \ \ \ \ \  + \ \ 2\/5\ x\ \ \ \ \ \  + \ \ \
+\ \ \ \ 5\)]],
+  "\n                                             ",
+  Cell[BoxData[
+      \(TraditionalForm\`14\/5\)]],
+  " ",
+  Cell[BoxData[
+      \(TraditionalForm\`x\^2\ \ \ \ \ \ \ \  - \(42\/25\) 
+          x\ \ \ \ \ \  + \ \ \ 14\/25\)]],
+  "\n                                           ________________________\n    \
+                                                            ",
+  Cell[BoxData[
+      \(TraditionalForm\`52\/25\)]],
+  " ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(\(x\)\(\ \ \ \ \ \ \ \ \)\(+\)\)\)]],
+  " ",
+  Cell[BoxData[
+      \(TraditionalForm\`111\/25\)]],
+  "\n\nWhat we did is to cancel the leading term.  Thus ",
+  Cell[BoxData[
+      \(TraditionalForm\`a(x)\  = \ \(b(x)\)\ \(q(x)\)\  + \ r(x)\)]],
+  " with\n ",
+  Cell[BoxData[
+      \(TraditionalForm\`q(x)\  = \ \((3/5)\)\ x\ \  + \ 14/15, \ \ r(
+          x)\  = \ \((52/25)\)\ x\  + \ 111/25\)]],
+  "                            "
+}], "Text"],
+
+Cell["Greatest Common Divisors", "Subtitle"],
+
+Cell[TextData[{
+  "Definition:  For ",
+  Cell[BoxData[
+      \(TraditionalForm\`a, \ b, \ x\  \[Element] \ integral\ domain\ D\)]],
+  ", if\n\t",
+  Cell[BoxData[
+      \(TraditionalForm\`b\  = \ a\ \[SmallCircle]\ x\)]],
+  "\n",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " is called a divisor of ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  ", and ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " divides b (denoted a | b).  ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  " is called a multiple of ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  ".\n\nGreatest common divisor (GCD) of ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " and ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  " \nis ",
+  Cell[BoxData[
+      \(TraditionalForm\`c\)]],
+  " such that if ",
+  Cell[BoxData[
+      \(TraditionalForm\`c\)]],
+  " | ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " and ",
+  Cell[BoxData[
+      \(TraditionalForm\`c\)]],
+  " | ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`c\)]],
+  " is a multiple of every other element which divides both ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " and ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  "."
+}], "Theorem"],
+
+Cell["Euclidean Algorithm", "Subtitle"],
+
+Cell["\<\
+The Euclidean algorithm for GCD is based on the following theorem valid for \
+any Euclidean domains.  \
+\>", "Text"],
+
+Cell[TextData[{
+  "Given ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(a\_, \) b, q, r\)]],
+  " \[Element] D,  satisfying\n\n",
+  Cell[BoxData[
+      \(TraditionalForm\`a\  = \ b\ q\  + \ r, \ \ \ \ \ \ v(r)\  < \ 
+        v(b), \[IndentingNewLine]GCD(a, b)\  = \ GCD(b, r)\)]]
+}], "Theorem"],
+
+Cell["\<\
+We have seen a version of GCD computation with a recursive definition in \
+Mathematica.  A procedural based algorithm should be something like this:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Euclidean[a_, b_]\  := \ 
+      Module[{r, c, d}, \[IndentingNewLine]c\  = \ 
+          a; \[IndentingNewLine]d\  = \ b; \[IndentingNewLine]While[
+          d\  \[NotEqual] \ 0, \[IndentingNewLine]r\  = \ 
+            remainder[c, d]; \[IndentingNewLine]c\  = \ 
+            d; \[IndentingNewLine]d\  = \ 
+            r\[IndentingNewLine]]; \[IndentingNewLine]c]\)], "Input"],
+
+Cell["\<\
+The point we want to make is not give you yet another Mathematica \
+implementation of GCD, but to emphasize that this algorithm works for all \
+Euclidean domains.  For integer Z, remainder is given by the usual Mod[c, d] \
+function.  For polynomial over Q, we carry out the computation for the \
+remainder similar to the long division.  Thus we can find GCD of two \
+polynomials.\
+\>", "Text"]
+}, Open  ]]
+},
+FrontEndVersion->"4.1 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 695}},
+WindowSize->{1016, 668},
+WindowMargins->{{7, Automatic}, {Automatic, -5}},
+Magnification->3,
+StyleDefinitions -> "Classroom.nb"
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1705, 50, 184, 6, 576, "Title"],
+Cell[1892, 58, 20, 0, 119, "Subtitle"],
+Cell[1915, 60, 38, 0, 119, "Subtitle"],
+Cell[1956, 62, 1762, 30, 1839, "Text"],
+
+Cell[CellGroupData[{
+Cell[3743, 96, 137, 4, 132, "Exercise"],
+Cell[3883, 102, 40, 0, 119, "Subtitle"],
+Cell[3926, 104, 1612, 26, 1488, "Text"],
+Cell[5541, 132, 41, 0, 119, "Subtitle"],
+Cell[5585, 134, 2393, 49, 1779, "Text"],
+Cell[7981, 185, 72, 1, 119, "Subtitle"],
+Cell[8056, 188, 37, 0, 119, "Subtitle"],
+Cell[8096, 190, 842, 18, 615, "Text"],
+Cell[8941, 210, 422, 9, 566, "Theorem"],
+Cell[9366, 221, 93, 2, 81, "Text"],
+Cell[9462, 225, 16, 0, 81, "Text"],
+Cell[9481, 227, 49, 0, 119, "Subtitle"],
+Cell[9533, 229, 314, 7, 435, "Text"],
+Cell[9850, 238, 43, 0, 119, "Subtitle"],
+Cell[9896, 240, 2913, 77, 1786, "Text"],
+Cell[12812, 319, 44, 0, 119, "Subtitle"],
+Cell[12859, 321, 1275, 53, 566, "Theorem"],
+Cell[14137, 376, 39, 0, 119, "Subtitle"],
+Cell[14179, 378, 126, 3, 132, "Text"],
+Cell[14308, 383, 292, 8, 335, "Theorem"],
+Cell[14603, 393, 172, 3, 183, "Text"],
+Cell[14778, 398, 395, 7, 602, "Input"],
+Cell[15176, 407, 403, 7, 336, "Text"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

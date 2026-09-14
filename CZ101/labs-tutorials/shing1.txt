@@ -1,0 +1,157 @@
+Date: Mon, 11 Aug 1997 14:09:14 +0800 (SGT)
+From: Yung Shing Gene <shing@cz3.nus.sg>
+To: 1101@cz.nus.sg
+
+Dear all,
+
+Here are some further notes for this assignment.
+
+Question #1
+===========
+Hand in the program listing. At each line (after the '#') put the contents
+of the registers and/or memory locations which have been changed. For
+example:
+
+   li $2, 10       # $2=0x0000000a (10)
+   sw $2, 4($4)    # [0x10000014] = 0x0000000a (10)
+
+(usually the [] brackets are used to denote "contents of...")
+
+Use the hexadecimal format to write addresses and contents of 
+registers/memory. Get used to writing in hexadecimal! Note that I'm NOT
+going to accept just decimal.
+
+Using SPIM
+----------
+
+SPIM might actually be a little easier and less confusing to use than
+xspim for this simple program. To run SPIM, just type "spim" at your
+command prompt. It will print some messages and give a prompt "(spim)"
+where you can enter SPIM commands.
+
+Here are some useful SPIM commands:
+
+(1) load - load your assembly program into spim. e.g. load "follow2.s"
+           (note that the double quotes around the filename are necessary)
+
+           Your program will be loaded into memory locations starting from
+           0x00400020. That address is the location of the first
+           instruction of your program i.e. where 'main' points to. 
+
+           Note that SPIM starts its execution from 0x00400000. This means
+           that when you run your program, SPIM will execute some of its
+           own instructions first to set things up and then it will jump
+           to your program at 0x00400020. (Same for xspim)
+
+(2) run - run your program.
+
+          This command will tell spim to run your program from beginning
+          to end without pause. To tell SPIM to stop at a particular
+          instruction and examine register contents, you must use the
+          'breakpoint' command (see below).
+
+          Alternatively, you can use the 'step' command to run your
+          program one instruction at a time (see below).
+
+(3) breakpoint - set a breakpoint at an address e.g. breakpoint 0x00400020
+
+          When using the 'run' command, setting a breakpoint at a
+          particular address will cause SPIM to stop at that address and
+          wait for your further instructions. This is useful for looking
+          at the contents of a register or memory location at specific
+          points in the program (see below for how to examine registers).
+
+          To continue 'run'ning the program, use the 'continue' command.
+          Or to proceed one instruction at a time, use 'step' (see below).
+
+(4) step - execute one instruction at a time (equivalent to having a
+           breakpoint at every instruction) or, step <n> executes n
+           instructions at a time.
+
+(5) print - display the contents of a register or memory location.
+            e.g. 'print $2' displays the contents of register $2 (both hex
+                 and decimal)
+                 'print 0x10000000' displays the contents of memory
+                 location 0x10000000
+
+(6) ? - display a help page
+
+
+Remember that your program only starts at 0x00400020, while SPIM starts
+at 0x00400000. So to get to the start of your program, you can do a couple
+of things:
+
+1. Set a breakpoint at 0x00400020 and use 'run'.
+2. Use 'step' several times, until you reach your first instruction.
+
+Then after that you can use a combination of 'step' and 'print' to see
+what happens in your program.
+
+
+Question #2 
+===========
+
+You will need to write a program in assembly language to do 2 things:
+
+1. Compute the sum 1^4 + 2^4 + ... + n^4  for n=3; and
+2. Compute the Right-hand expression.
+
+(note that this is ONE program only)
+
+For the 1st part, you can just do straight multiplication and addition.
+You may also implement a loop to compute the sum which, of course, will
+earn you more credit, and more marks :) So try to do the loop version. The
+lecture notes has some examples which you can use to help you.
+
+Your program does not have to output to results to the screen or anything
+like that. Just leave the results of the 1st part in one register, and the
+results of the 2nd part in another register. AND make sure you place
+appropriate comments there! Use blank lines to separate logical blocks of
+code... there must be a least one blank line between each part. I don't
+want to see one mass of code without any comments or appropriate blanks!
+(It is in your best interests to keep your Tutor's level of irritation as
+low as possible....). A rule of the thumb is to write your program in such
+a way that another person can read and understand your code as easily as
+possible.
+
+For more credit/marks, hand in output to your results. You can do this in
+a few ways:
+
+a) Use 'script' and SPIM to print out the contents of your results
+registers;
+
+b) Code your program to output the results to the screen, with only your
+assembly program, or together with a C program (i.e. the C program calls
+your assembly program, gets the results from the assembly program, and
+then prints it out). Note that this method is only for those who are
+interested enough to figure it out, so don't waste your time trying this
+unless you have lots of leftover time and energy. Naturally, you'll get
+the most extra credit if you are able to do this.
+
+What to hand in
+---------------
+The assembly program listing (properly commented) and output, if you are
+able to. Report also your findings/results.
+
+Tips on how to approach Assembly programming
+--------------------------------------------
+For those who are new to programming, write out each step that the
+copmuter is supposed to carry out in PLAIN ENGLISH first. This is called
+pseudo-code. Then, translate it into assembly.
+
+For example, here is an excerpt from the lecture notes for this week, for 
+the problem of calculating 1^3 + 2^3 + ... 1000^3:
+
+   1.   Let sum = 0, and n = 0
+   2.   increase n by 1
+   3.   compute y = n*n*n
+   4.   add y to sum
+   5.   if n < 1000 go back to step 2, otherwise the computation is done.
+
+
+Due date is Tues, 19 August.
+
+regards,
+
+--Yung Shing Gene
+  T.A. for CZ1101

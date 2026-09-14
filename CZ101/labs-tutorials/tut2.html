@@ -1,0 +1,109 @@
+<html>
+<head>
+<title>CZ1101, Tutorial 2</title>
+</head>
+<body>
+
+<h1>CZ1101, Basic Computer Architecture and Assembly Programming</h1>
+<h1>Tutorial 2, Week 6, 18-23 August, 1997</h1>
+
+<blockquote>
+<em> You should do the problems if you can before going
+to the tutorial classes.  You must DO* problems 1, 2, 8, and 
+hand in the solutions at the tutorial class.
+Tutorial hours are for asking questions and clarifying points 
+of the tutorial problems.
+The number in parentheses ( ) refers to the question number in the
+textbook, ``Computer Organization & Design'', Patterson and 
+<A HREF="http://www-flash.stanford.edu/~jlh/">Hennessy</A>.
+The number in square brackets [ ] is a measure of the level of
+difficult of the problem.
+This set of problems come from the textbook page 155-157, Exercises
+3.1 to 3.4, 3.8 to 3.10, and 3.12 to 3.17. </em>
+</blockquote>
+
+
+<OL>
+
+<LI> DO* (3.1) [3] In some cases a simple instruction set like MIPS
+can synthesize instructions found in richer instruction sets such as
+the VAX.  The following VAX instruction decrements register $5:
+<pre>
+decl $5  # register $5 = $5 - 1
+</pre>
+The operation is described in the comment of the instruction to 
+help explain the operation.  What is the single MIPS instruction,
+or if it cannot be represented in a single instruction, the shortest
+sequence of MIPS instructions, that performs the same operation?
+
+<LI> DO* (3.2) [3] This is the same as Exercise 3.1, except this
+VAX instruction clears register $5:
+<pre>
+clrl $5  # register $5 = 0
+</pre>
+
+<LI> (3.3) [3] This is the same as Exercise 3.1, except this 
+VAX instruction clears memory location 1000:
+<pre>
+clrl 1000  # memory[1000] = 0
+</pre>
+
+<LI> (3.4) [5] This is the same as Exercise 3.1, except this VAX
+instruction adds 1 to register $5, place the sum back in register $5,
+compares the sum to register $6, and then branches to L1 if $5 < $6:
+<pre>
+aoblss $6, $5, L1  # $5 = $5 + 1; if ($5 < $6) goto L1
+</pre>
+
+<LI> (3.8) [10] The following program tries to copy words from the
+address in register $4 to the address in register $5, counting the
+number of words copied in register $2.  The program stops copying
+when it finds a word equal to 0.  You do not have to preserve the contents
+of register $3, $4, and $5.  This terminating word should be copied
+but not be counted.
+<pre>
+loop: lw   $3, 0($4)    # Read next word from source
+      addi $2, $2, 1    # Increment count words copied
+      sw   $3, 0($5)    # Write to destination
+      addi $4, $4, 1    # Advance pointer to next source
+      addi $5, $5, 1    # Advance pointer to next dest
+      bne  $3, $0, loop # Loop if word copied is not zero
+</pre>
+There are multiple bugs in this MIPS program.  Fix them and turn
+in a bugfree version of this program.  Like many of the exercises in
+this chapter, the easiest way to write MIPS programs is to use the 
+simulator described in Appendix A (The program can be evoked by
+xspim).
+
+<LI> (3.9) [15] Using the MIPS program in Exercise 3.8 (with bugs intact),
+determine the instruction format for each instruction and the decimal
+values of each instruction field (Refer to 
+<A HREF="MIPScode.html">Figure 3.16</A> for the
+MIPS machine language encoding).
+
+<LI> (3.10) [10] Starting with the corrected program in the
+answers to Exercise 3.8, write the C code segment that might have
+produced this code.  Assume variable source corresponds to 
+register $4, the variable destination corresponds to register
+$5, and the variable count corresponds to register $2.
+Show variable declarations, but assume that source and destination
+have been initialized to the proper addresses.
+
+<LI> DO* (3.12-3.17) [18] There are six relative conditions between
+the values of two registers.  Assuming that variable i 
+corresponds to register $19 and variable j to $20,
+show the MIPS code for the condition corresponding to these 
+C codes:
+<pre>
+if (i == j) goto L1;
+if (i != j) goto L1;
+if (i  < j) goto L1;
+if (i <= j) goto L1;
+if (i  > j) goto L1;
+if (i >= j) goto L1;
+</pre>
+Note that you should use only beq, bne and  slt.
+
+</OL>
+
+</body>

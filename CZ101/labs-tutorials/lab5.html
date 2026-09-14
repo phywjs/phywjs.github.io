@@ -1,0 +1,81 @@
+<html>
+<head>
+<title>CZ1101, Laboratory 5</title>
+</head>
+<body>
+
+<h1>CZ1101, Lab 5 (last),  13-18 October.  Due Thursday, 23  October, 1997</h1>
+
+
+<blockquote>
+<em> You are given extra two days to do the problems.
+Submitting assembly programs, and report some of your
+test outputs.  First problem comes from textbook, page 162. 
+</em>
+</blockquote>
+<br>
+<br>
+<OL>
+<LI> (3.33) [30] Write a function string2int in MIPS 
+assembly language to
+convert an ASCII string of digits to an integer. For example,
+if the input to the procedure is the string  "1024", 
+the return value should be the integer 1024.  Your program should
+expect register $4 to hold the address of a null-terminated string
+containing some combination of the digit characters '0' through 
+'9'.  Your
+program should compute the integer value equivalent to this string of
+digits, then place the number in register $2.  Your program need
+not handle negative numbers.  If a non-digit character appears
+anywhere in the string, your program should stop with the value -1
+in register $2.  For example, if register $4 points to a sequence of
+three bytes 50_{ten}, 52_{ten}, 0_{ten} (the null-terminated
+string "24".  Check the <a href="ascii.html">ASCII table</a> for the encoding), 
+then when the program stops, register $2 should
+contain the value 24_{ten}.  Hint: use Horner's method of
+polynomial evaluation.  Note that given the digits, 1, 3, 7, the
+number 137 can be computed as 
+<pre>
+(((0 + 1) x 10 + 3 ) x 10 + 7).
+</pre> 
+Test your procedure by writing a main program  in MIPS 
+assembly language, follow closely the MIPS register/stack usage
+convention.
+
+<br><br>
+
+<LI> [30] Write a procedure, P, in MIPS assembly 
+language to compute the value of Legendre polynomials defined
+recursively as
+<pre>
+   P(x, 0) = 1,
+   P(x, 1) = x,
+   P(x, n) = x (2 - 1/n) P(x, n-1) - (1 - 1/n) P(x, n-2).   n>1.
+</pre>
+The function P(x,n) takes two arguments. The first argument is
+a real number. We use double precision for x.  The second
+argument is an integer.  The return value should be double.
+Use the double precision floating point
+instructions add.d,  sub.d, mul.d,  div.d, 
+li.d (load immediate double), l.d 
+(load double),  s.d (store double), and mov.d (move double).
+To convert an integer value in a CPU register, say, $6, to a floating
+point number of the same value, in FPU register $f8, (e.g., converting
+integer 3 to floating 3.0), you need the following instruction
+sequence
+<pre>
+   mtc1 $6, $f10       # move the bit pattern to FPU reg $f10
+   cvt.d.w $f8, $f10   # convert integer to double, result in $f8
+</pre>
+Follow closely the MIPS argument passing/stack usage 
+convention.  In particular, the argument x should be passed in
+$f12, and the second argument n should be passed in $6,
+and the return value should be in $f0.
+Test your assembly program with an interactive main program.
+Compute and report the following values P(0.0, 2), P(0.5, 3), and 
+P(0.25, 5).  How do you know that your answers are correct?
+
+
+</OL>
+</body>
+</html>

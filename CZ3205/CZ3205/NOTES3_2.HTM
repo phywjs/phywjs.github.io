@@ -1,0 +1,73 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Demonstrating Lateral Inhibition</title>
+<meta name="Microsoft Theme" content="loosegst 011, default">
+</head>
+
+<body background="_themes/loosegst/lootextb.jpg" bgcolor="#FFFFCC" text="#000000" link="#CC6633" vlink="#663399" alink="#999900"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica">
+
+<h2><!--mstheme--><font color="#330099"><span style="text-transform: uppercase">Demonstrating Lateral Inhibition</span><!--mstheme--></font></h2>
+<p>The related Mathematica codes can be found <a href="Program/ch3.nb">here</a>.</p>
+<p><font size="4">The Limulus equation can be modeled by the following linear
+recurrent network (two units are shown)</font></p>
+<p><img border="0" src="IMAGES/NOTES3_4.GIF" width="331" height="282"></p>
+<p><font size="4">If the matrix W has eigenvalues with magnitude smaller
+than 1, then iterating the Limulus equation</font></p>
+<p><font size="4">&nbsp;&nbsp; <b>f = e + W.f</b></font></p>
+<p><font size="4">will lead to a converged solution <b>f=(I-W)<sup>-1</sup>e&nbsp;</b></font></p>
+<p>&nbsp;</p>
+<p><font size="4">Let us consider a one dimensional example, where the input <b>e</b>
+is given by</font></p>
+<p><font SIZE="2"><img SRC="IMAGES/NOTES3_5.GIF" WIDTH="287" HEIGHT="176"></font></p>
+<p><font size="4">and the weights&nbsp; are given by</font></p>
+<p><font size="4">W(i,j)= -w<sub>max</sub>exp(-(i-j)<sup>2</sup>/2<font face="Symbol">s</font><sup>2</sup>)</font></p>
+<p><font SIZE="2"><img SRC="IMAGES/NOTES3_6.GIF" WIDTH="287" HEIGHT="232"></font></p>
+<p><font size="4">After iterating the Limulus equation to convergence, the
+output <b>f</b> (starting from a random vector) looks like</font></p>
+<p><font SIZE="2"><img SRC="IMAGES/NOTES3_7.GIF" WIDTH="287" HEIGHT="176"></font></p>
+<p><font size="4">(With w<sub>max</sub>=0.05 and <font face="Symbol">s</font>=5).
+About ten iterations are enough for convergence.</font></p>
+<p><font size="4">Note the edge-enhancement due to lateral inhibition.</font></p>
+<p><font size="4"><b>Another example</b></font></p>
+<p><font SIZE="2"><img SRC="IMAGES/NOTES3_8.GIF" WIDTH="287" HEIGHT="287"></font></p>
+<p><font size="4">Input&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Output&nbsp;</font></p>
+<p><font SIZE="2"><img SRC="IMAGES/NOTES3_9.GIF" WIDTH="287" HEIGHT="176">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img SRC="IMAGES/NOTES3_10.GIF" WIDTH="287" HEIGHT="176"></font></p>
+<p>&nbsp;</p>
+<p><b><font size="4">Hermann grid</font></b></p>
+<p><font SIZE="2"><img SRC="IMAGES/NOTES3_11.GIF" WIDTH="287" HEIGHT="287"></font></p>
+<p><font size="4">Notice the phantom dark spots where the white lines cross.</font></p>
+<p><font size="4">Can you explain it using lateral inhibition?</font></p>
+<p>&nbsp;</p>
+<p><b><font size="4">Winner-take-all network</font></b></p>
+<p><font size="4">Sometimes one would like to have a network that takes in a
+range of inputs, but output the biggest value. Linear recurrent network with
+lateral inhibition can be set up to approximate the winner-take-all network</font></p>
+<!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/loosegst/loobul1a.gif" width="15" height="15" hspace="13"></td><td valign="top" width="100%"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><font size="4">Inhibition strength needs to be large</font><!--mstheme--></font><!--msthemelist--></td></tr>
+  <!--msthemelist--><tr><td valign="baseline" width="42"><img src="_themes/loosegst/loobul1a.gif" width="15" height="15" hspace="13"></td><td valign="top" width="100%"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica"><font size="4">No self-inhibition</font><!--mstheme--></font><!--msthemelist--></td></tr>
+<!--msthemelist--></table><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica">
+<p><font size="4">Let us consider the following example</font></p>
+<p><font SIZE="2"><img SRC="IMAGES/NOTES3_12.GIF" WIDTH="287" HEIGHT="176"><img SRC="images/notes3_13.gif" WIDTH="287" HEIGHT="176"></font></p>
+<p><font size="4">In this case the weights are given as</font></p>
+<p><font SIZE="2"><img SRC="images/notes3_14.gif" WIDTH="287" HEIGHT="232"></font></p>
+<p><font size="4">For the iteration to converge, we use the following iteration
+scheme</font></p>
+<p>&nbsp;&nbsp; <b><font size="4">f &lt;- f+<font face="Symbol">e</font>(e + W.f-f)</font></b></p>
+<p>&nbsp;</p>
+<p><!--webbot bot="Navigation" S-Type="arrows" S-Orientation="horizontal"
+S-Rendering="graphics" B-Include-Home="TRUE" B-Include-Up="TRUE" U-Page S-Target startspan
+--><!--webbot bot="Navigation" endspan i-checksum="0"
+-->
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<!--mstheme--></font></body>
+
+</html>

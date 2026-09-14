@@ -1,0 +1,172 @@
+<html>
+<head>
+<title>CZ1101, Tutorial 2, Answers</title>
+</head>
+<body>
+
+<h1>CZ1101, Tutorial 2, Answers</h1>
+
+<blockquote>
+<em> It may happen that there are multiple answers to a question.
+Here is just my answers to the questions. </em>
+</blockquote>
+
+
+<OL>
+
+<LI> (3.1) The single instruction to emulate the VAX instruction
+<pre>
+decl $5  # register $5 = $5 - 1
+</pre>
+could be
+<pre>
+addi $5, $5, -1
+</pre>
+Note that there is no such thing as subi in MIPS instruction set.
+
+<p>However, if you have not learnt the immediate form of add, one
+might consider
+<pre>
+lw  $1, AddressofOne($0)
+sub $5, $5, $1
+</pre> 
+assuming that the <code>AddressofOne</code> contains the address at which 1 is
+stored.  Of course, this is not as elegant as using addi.
+
+<LI> (3.2) The VAX instruction that clears register $5:
+<pre>
+clrl $5  # register $5 = 0
+</pre>
+can be implemented in MIPS as
+<pre>
+add $5, $0, $0
+</pre>
+Any other possibilities?
+
+<LI> VAX instruction clears memory location 1000:
+<pre>
+clrl 1000  # memory[1000] = 0
+</pre>
+can be 
+<pre>
+sw $0, 1000($0)
+</pre>
+with MIPS.  You see that $0 = 0 permanently is handy in the above two
+examples.
+
+<LI> (3.4) The VAX
+instruction that adds 1 to register $5, place the sum back in register $5,
+compares the sum to register $6, and then branches to L1 if $5 < $6:
+<pre>
+aoblss $6, $5, L1  # $5 = $5 + 1; if ($5 < $6) goto L1
+</pre>
+can be synthesized in MIPS as
+<pre>
+addi $5, $5, 1    # $5 = $5 + 1
+slt  $1, $5, $6   # $1 = 1 if $5 < $6
+bne  $1, $0, L1   # goto L1 if $1 == 1
+</pre>
+
+
+
+<LI> (3.8) The incorrect program tries to copy words from the
+address in register $4 to the address in register $5, counting the
+number of words copied in register $2.  The program stops copying
+when it finds a word equal to 0.  This terminating word is be copied
+but not be counted.
+<pre>
+loop: lw   $3, 0($4)    # Read next word from source
+      addi $2, $2, 1    # Increment count words copied
+      sw   $3, 0($5)    # Write to destination
+      addi $4, $4, 1    # Advance pointer to next source
+      addi $5, $5, 1    # Advance pointer to next dest
+      bne  $3, $0, loop # Loop if word copied is not zero
+</pre>
+<p>Here is the bugfree version:
+<pre>
+      addi $2, $0, -1   # * THE COUNT IS INITIALIZED TO -1
+loop: lw   $3, 0($4)    # Read next word from source
+      addi $2, $2, 1    # Increment count words copied
+      sw   $3, 0($5)    # Write to destination
+      addi $4, $4, 4    # * ADVANCE 4 BYTES SOURCE
+      addi $5, $5, 4    # * ADVANCE 4 BYTES DESTINATION
+      bne  $3, $0, loop # Loop if word copied is not zero
+</pre>
+<p>Starting from -1 for $2 is a trick to copy but not count
+the last word (of value 0).  One word occupies 4 bytes.
+
+<LI> (3.9) The instruction format and the decimal
+values of each instruction field  of the (wrong) program
+<pre>
+loop: lw   $3, 0($4)    
+      addi $2, $2, 1   
+      sw   $3, 0($5)  
+      addi $4, $4, 1 
+      addi $5, $5, 1
+      bne  $3, $0, loop
+</pre>
+is (after consulting
+<A HREF="MIPScode.html">Figure 3.16</A> of the textbook, page 132, 
+You are not expected to memorized the op code).
+<pre>
+Name Format    op   rs    rt  immediate or address  | symbolic form
+     
+lw     I      35     4     3       0                | lw $3,0($4)
+addi   I       8     2     2       1                | addi $2,$2,1
+sw     I      43     5     3       0                | sw $3,0($5)
+addi   I       8     4     4       1                | addi $4,$4,1
+addi   I       8     5     5       1                | addi $5,$5,1
+bne    I       5     3     0       -20              | bne $3,$0,loop
+</pre>
+<p>Note that they are all immediate format (I-type) instructions. 
+The loop label is translated into -20 (by xspim), meaning, jump back by
+20 bytes, counting from the current instruction bne,
+
+<LI> (3.10) From the corrected program in the
+answers to Exercise 3.8, the C code program that might have
+produced this code may look like this:
+<pre>
+   count = -1;
+   do {
+      ++count;
+      dest[count] = src[count];
+   } while (src[count] != 0);
+</pre>
+assuming $2 coresponds count, $4 to src[], and $5 to dest[].
+Of course, there are other ways of writing the same program.
+
+<LI> (3.12-3.17) There are six relative conditions between
+the values of two registers.  Assuming that variable i 
+corresponds to register $19 and variable j to $20,
+the MIPS code for the condition corresponding to these 
+C codes can be implemented with beq bne, and slt as follows:
+<pre>
+   C Code               MIPS Instruction
+if (i == j) goto L1;
+                        beq $19, $20, L1
+
+if (i != j) goto L1;
+                        bne $19, $20, L1
+
+if (i  < j) goto L1;
+                        slt $1, $19, $20
+                        bne $1, $0, L1
+
+if (i <= j) goto L1;
+                        slt $1, $20, $19
+                        beq $1, $0, L1
+
+if (i  > j) goto L1;
+                        slt $1, $20, $19
+                        bne $1, $0, L1
+
+if (i >= j) goto L1;
+                        slt $1, $19, $20
+                        beq $1, $0, L1
+</pre>
+<p>Note that if it is <strong>not</strong> i&lt;j, then i&gt;=j. 
+This fact is used in the last example.
+
+</OL>
+
+</body>

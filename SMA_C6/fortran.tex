@@ -1,0 +1,2801 @@
+%% This is Fortran lecture notes, for SMA HPCES
+%% complete self-contained (no include, external macros)
+% TeX Macro for lecture notes (modified 24 Sep 1999)
+% dimensions
+\hsize 159.2 mm
+\vsize 242.2 mm
+\parindent 0pt
+\parskip 4pt plus 2pt minus 1pt
+\overfullrule 0pt
+% fonts
+\font\titlefont=cmbx10 scaled 1440
+\font\lecfont=cmbx12
+\font\sc=cmcsc10
+\font\ninerm=cmr9
+\font\ninett=cmtt9
+\def\h{\hskip 1cm}
+\def\t{\hskip 6mm}
+% Define the verbatim program listing macro \listing{filename}
+%
+\def\uncatcodespecials{\def\do##1{\catcode`##1=12 }\dospecials}
+\def\listing#1{\par\begingroup\setupverbatim\input#1 \endgroup}
+\def\setupverbatim{\tt 
+  \def\par{\leavevmode\endgraf} \catcode`\`=\active
+  \obeylines \uncatcodespecials \obeyspaces
+  \everypar={\t}
+  \parskip=-1pt plus 1pt minus 1pt
+}
+{\obeyspaces\global\let =\ } % let active space = \control space
+{\catcode`\`=\active \gdef`{\relax\lq}}
+%
+% verbatim text macro with smallskip before and after
+% \ttbg
+% verbatim text
+% \tted
+\def\ttbg{\par\smallskip\begingroup\setupverbatim\doverbatim}
+{\catcode`\|=0 \catcode`\\=12 % | is temporary escape character
+  |obeylines|gdef|doverbatim^^M#1\tted{#1|endgroup|smallskip}}
+%
+% one line verbatim
+% \v`text`
+\def\v{\begingroup\t\tt\uncatcodespecials
+  \obeyspaces\doverbatt}
+\newcount\balance
+{\catcode`<=1 \catcode`>=2 \catcode`\{=12 \catcode`\}=12
+  \gdef\doverbatt`<\balance=1\verbatimloop>
+  \gdef\verbatimloop#1<\def\next<#1\verbatimloop>%
+    \if#1`\advance\balance by-1
+     \ifnum\balance=0\let\next=\endgroup\fi\fi\next>>
+
+% the one line verbatim with comment in 9pt rm
+%\l{\v`test`\m{comment}}
+\def\m#1{\hfill {\ninerm #1} \t}
+\def\l{\hbox to \hsize}
+% one line of tt font without comment
+\def\ll#1{\leftline{\t\tt #1}}
+\def\ttsp{\hphantom{2}}
+\newskip\hugeskipamount
+\hugeskipamount = 20mm plus3mm minus3mm
+\def\hugeskip{\vskip\hugeskipamount}
+\def\hugebreak{\par \ifdim\lastskip<\hugeskipamount
+  \removelastskip \penalty-500 \hugeskip \fi}
+\def\lecture#1{\hugebreak {\noindent\lecfont Lecture #1} \bigskip\nobreak}
+\def\section#1{\medbreak {\noindent\sc #1} \smallskip\nobreak}
+
+\def\{{\char`\{}
+\def\}{\char`\}}
+\def\sms{\smallskip}
+\def\fninety{$^{\scriptscriptstyle 90}$}
+
+%def \problem and \answer with automatic numbering
+\newcount\probno
+\probno=0
+
+\outer\def\problem{\medbreak\smallskip \global\advance\probno by 1
+\item{{\bf\the\probno}.}}
+
+\chardef\other=12
+\newwrite\ans
+\immediate\openout\ans=answers %file for answers to problems
+\outer\def\answer{\par\medbreak
+  \immediate\write\ans{}
+  \immediate\write\ans{\string\ansno{\the\probno}}
+  \copytoblankline}
+\def\copytoblankline{\begingroup\setupcopy\copyans}
+\def\setupcopy{\def\do##1{\catcode`##1=\other}\dospecials
+    \catcode`\|=\other \obeylines}
+{\obeylines \gdef\copyans#1
+  {\def\next{#1}%
+  \ifx\next\empty\let\next=\endgroup %
+  \else\immediate\write\ans{\next} \let\next=\copyans\fi\next}}
+\def\ansno#1{\medbreak\noindent{\bf #1:\ }}
+
+%end of macro definitions
+
+\def\ttsp{\hphantom{2}}
+\def\]{\leavevmode\hbox{\tt\char`\ }}
+{\nopagenumbers
+\centerline{\titlefont FORTRAN PROGRAMMING}
+\vskip 2cm
+\centerline{Dr.~WANG Jian-Sheng}
+\medskip
+\centerline{Computational Science, Rm
+S17--07--21, tel x6880, wangjs@cz3.nus.edu.sg}
+\bigskip
+\centerline{October 1999}
+\vskip 2cm 
+\leftline{References: {\sl Programmer's Guide to Fortran 90}, 
+W.~S.~Brainerd, C.~H.~Goldberg, \& J.~C.~Adams}
+\smallskip
+\leftline{\hphantom{References:} {\sl Fortran 90 Explained},
+M.~Metcalf \& J. Reid}
+\leftline{\hphantom{References:} {\sl Using MPI}, W. Gropp, E. Lusk, \& 
+A. Skjellum}
+\bigskip
+\vfill
+\centerline{\titlefont Contents}
+\bigskip
+
+\line{Lecture \hfil Topics \hfil Chapter}
+\smallskip
+\l{\t\ttsp 1.\h History, Examples\hfill 1\t}
+\l{\t\ttsp 2.\h Data Types, Expressions, and Assignments \hfill 1\t}
+\l{\t\ttsp 3.\h Control Statements \hfill  2\t}
+\l{\t\ttsp 4.\h Basic Program Units and Procedures \hfill 3\t}
+\l{\t\ttsp 5.\h Input, Output, and Files \hfill 9\t}
+\l{\t\ttsp 6.\h Arrays \hfill 4\t}
+\l{\t\ttsp 7.\h Character Data \hfill 5\t}
+\l{\t\ttsp 8.\h Pointers \hfill 8\t}
+\l{\t\ttsp 9.\h Structures, Derived Types, and Linked Lists \hfill 6\t}
+\l{\t 10.\h Recursion  and Trees\hfill 7\t}
+\l{\t 11.\h Modules \hfill 6\t}
+\l{\t 12.\h Intrinsic Procedures \hfill appendix B\t}
+\l{\t 13.\h Introduction to MPI \hfill \t}
+
+\vfill\eject
+}
+\lecture{1. History, Examples}
+
+\section{History of Fortran}
+
+In the early days of computer programming, the only way to write a program
+is in assembly codes.   Fortran (from FORmula TRANslation) was
+developed around 1955 at IBM to ease the tedious burden of using
+assembly language.  It is the first high-\-level language.
+Since then, Fortran has become the language of
+choice for scientific computation.  Here is a typical reaction of
+using Fortran in the early days:
+\smallskip
+{\parindent 1cm\narrower
+\noindent The programmer attended a one-day course on Fortran and spent 
+some more
+time referring to the manual.  He then programmed the job in four hours,
+using 47 Fortran statements.  These were compiled by the IBM 704 in
+six minutes, producing about 1000 instructions.  He ran the program
+and found the output incorrect.  He studied the output and was able
+to localize his error in a Fortran statement he had written.  He rewrote
+the offending statement, recompiled, and found that the resulting
+program was correct.  He estimated that it might have taken three days
+to code the job by hand, plus unknown time to debug it, and no appreciable
+increase in speed of execution would have been achieved thereby.\par}
+
+\smallskip
+The language itself has evolved
+and changed a lot ---  from Fortran 66 to Fortran 77, and to more recent
+Fortran 90/95.   Recent new standard is a big jump from an old fashioned
+to a new modern-looking language.   Here are few strong points to use
+Fortran: (1) tradition for scientific computation; (2) many library
+routines, e.g. NAG, IMSL for scientific computation; (3) most efficient
+and optimized compilers on supercomputers (e.g., Cray); (4) new, powful
+vector processing features in Fortran 90.   On the other hand, more
+and more people are now using C or C++ for their good integrations with
+UNIX operating system and other advantages.
+
+\section{First example}
+We shall study Fortran~90 most of the time.  Since there are still many
+legacy Fortran 77 code around, and many of the older generations till
+program in Fortran 77, we'll also mention Fortran~77.
+Fortran~90 includes all of the Fortran~77 standard with many
+new features.
+
+Here is a very simple example of Fortran program that will compile and run.
+\sms
+\ll{\]\]\]\]\]\]}
+\l{\v`C     print N Hellos`\m{comment starts with {\ninett C} at column 1}}
+\l{\v`      INTEGER I, N`\m{declarations and statements start from column 7}}
+\sms
+\l{\v`      PRINT *, 'enter an integer'`\m{write out at screen}}
+\l{\v`      READ *, N`\m{read from keyboard}}
+\sms
+\l{\v`      DO 100 I = 1, N`\m{a loop, like {\ninett for} in C}}
+\l{\v`100      PRINT *, I, ' Hello'`\m{{\ninett 100} is 
+				Fortran 77 style loop label}}
+\sms
+\l{\v`      END`\m{end program unit}}
+\sms
+The executable is obtained with
+\sms
+\ll{f90 $file$.f90}
+\sms
+for the Fortran 90 compiler or with
+\sms
+\ll{f77 $file$.f}
+\sms
+for Fortran 77 compiler.  Please note the standard extensions for
+file names.
+
+
+\section{Source form}
+
+(1) Fixed Source Form
+
+
+The above example is in Fortran~77 fixed source form -- 
+The letter {\tt C} at column 1 starts a comment line;
+columns 1 to 5 are for
+labels; columns 7 to 72 are for statements; anything except space or zero
+at column 6 indicates a continuation of the previous line.  Each
+statement occupies one line.
+\sms
+
+(2) Free Source Form
+
+In Fortran the line has significance.  This is also the case for Fortran~90.
+Fortran~90 allows a free source form.  Specifically,
+each line may contain up to 132 characters.
+A statement can start anywhere and continue to the next line with
+ampersand ({\tt\&}).   Semicolons separate multiple statements on a single 
+line.  The exclamation mark ({\tt !}) starts a comment to the end of line.
+E.g.,
+\ttbg
+p = n * R * T / V             !  comment: ideal gas law
+y = a * x**2 +       & 	      !  continued to next line
+    b * x + c
+A = 0; B = 0; C = 0           ! multiple statements on a single line
+LONG_STRING =       
+   'String is quoted in apostrophes &
+   &and continued in several lines like&
+   & this.'
+\tted
+
+\section{Names (or identifiers)}
+Fortran names are not case sensitive.  Uppercase and 
+lowercase are treated as the same.  A name can be up to 31 characters from
+letter {\tt A} to {\tt Z}, underscore {\tt \_}, and digit {\tt 0} to {\tt 9}.
+The first character must be a letter.  Fortran 77 requires the length of the
+names not exceeding six.  Here are some valid Fortran names:
+\ttbg
+MASS
+ACT_1
+REAL
+X3J3
+\tted
+
+\section{Second example}
+The following page contains a program (in Fortran 90 style) 
+that calculate the roots of a 
+quadratic equation with real coefficients.  But the roots can be complex.
+Thus, the use of complex variables are especially convenient.
+\ttbg
+PROGRAM ROOTS
+!  solve the equation   A * x**2 + B * x + C = 0
+   IMPLICIT NONE
+   REAL :: A, B, C
+   COMPLEX :: X1, X2, D
+
+   READ *, A, B, C
+   PRINT *, "Input data A:", A
+   PRINT *, "           B:", B
+   PRINT *, "           C:", C
+
+   D = B**2 - 4 * A * C
+   X1 = ( - B + SQRT(D) )/(2 * A)
+   X2 = ( - B - SQRT(D) )/(2 * A)
+
+   PRINT *, "The roots are:"
+   PRINT *, "x1 = ", X1
+   PRINT *, "x2 = ", X2
+
+END PROGRAM ROOTS
+\tted
+
+\vfill\eject
+\lecture{2. Data Types, Expressions, and Assignments}
+
+\section{Basic data types}
+Variable declarations take the form $type$ [, $attribute$ (optional)] 
+{\tt ::} $variable$, e.g.,
+\sms
+\l{\v`INTEGER  :: I, J, K`\m{the double colon is optional}}
+\l{\v`REAL :: X`\m{floating point number}}
+\l{\v`LOGICAL :: LVALUE = .TRUE.`\m{initialization in declaration}}
+\l{\v`COMPLEX :: C1, C2 = (0.0, 1.0)`\m{complex number is represented by pair of reals}}
+\l{\v`CHARACTER (LEN=20) :: NAME`\m{store 20 characters}}
+\l{\v`INTEGER, DIMENSION(1:10) :: A`\m{declare an array}}
+\l{\v`REAL, POINTER :: P`\m{a pointer to real}}
+\l{\v`TYPE (STRUCT) :: TMP`\m{user-defined type}}
+\sms
+Fortran 77 does not allow initialization during declaration and
+there should be not double colon.   The complex data type is convenient for 
+scientific calculations.  The complex value is represented by a pair
+of real numbers, enclosed in parentheses, like
+\sms
+\ll{(2.0, 5.0)}
+\sms
+which represents the complex number $ 2.0 + 5.0 i$.
+
+Integer and real variables need not declared.  When a variable is not
+declared, its type is implied through its name.  Variable names
+starting with {\tt I}, {\tt J}, {\tt K}, {\tt L}, {\tt M}, or {\tt N}
+are assumed of integer type.  Otherwise, it is assumed real. You can
+change the rule by specifying 
+\sms
+\ll{IMPLICIT INTEGER (I-K, M, N), LOGICAL (L), COMPLEX(C)}
+\sms
+This means that variables with names starting with the letter {\tt I}, 
+{\tt J}, {\tt K}, {\tt M}, {\tt N}, are integers,  variables
+beginning with {\tt L} are logical, and complex if the first letter
+is {\tt C}.  Anything else is real. 
+Implicit type is handy for short programs, but it could be a source
+of programming errors. To prohibit undeclared variables, one can put
+\sms
+\ll{IMPLICIT NONE}
+\sms
+at the beginning of each program unit.
+
+\section{Kind parameter}
+In Fortran~90, each variable or literal constant has a {\sl kind} 
+as well as a type. 
+It is possible to specify different kinds (size or precision) of real
+or integer by a kind parameter, e.g.
+\ttbg
+INTEGER, PARAMETER :: LONG = SELECTED_REAL_KIND(9, 99)
+REAL (KIND = LONG) :: A, B
+\tted
+The first line declares {\tt LONG} as an integer with {\tt PARAMETER}
+attribute.  It means that {\tt LONG} is a constant and its value can
+not be changed. 
+The intrinsic function {\tt SELECTED\_REAL\_KIND} returns an integer (as
+a constant, or parameter) which represents a type of real with
+at least 9 significant decimals and
+with range between $10^{-99}$ to $10^{99}$.  Whether the type of real
+requested exists is another question.  If the required type is not available,
+the function will return a negative number.  The function {\tt
+SELECTED\_INT\_KIND($R$)} returns the kind parameter value for an
+integer data type in the range $-10^R$ to $10^R$.    In the above
+declaration, {\tt A} and {\tt B} are real of the kind with at least 9
+digits precision and with a range at least from $10^{-99}$ to 
+$10^{99}$.  One can specify
+literal constants with a particular {\tt KIND}, e.g.,
+\sms
+\ll{36\_2\h 1.0\_LONG \h  1\_'first kind'}
+\sms
+Note for character string, the kind parameter is prefixed. 
+
+Another intrinsic function associated with the kind parameter of data
+type is {\tt KIND($x$)}.  {\tt KIND(1)} is the default integer kind;
+{\tt KIND(0.0)} is the default real kind; and {\tt KIND('A')} is the
+default character kind.
+
+In Fortran~77, kind parameter is not available.  Instead, one can
+usually specify the size of the data with type name like 
+\sms
+\ll{INTEGER*2 {\rm ,\quad} INTEGER*4 {\rm ,\ \ or \quad} REAL*8}
+\sms
+which represent two-byte, four-byte integers, eight-byte reals,
+respectively. 
+
+\goodbreak
+\section{Arithmetic expressions}
+The notations for arithmetic operations are standard except the 
+exponentiation operator {\tt **}, e.g.
+\sms
+\l{\v`A * X**Y + B/Y - 2`\m{in math notation $a x^y + {b/y} -2$}}
+\l{\v`A ** B ** C`\m{$A^{B^C}$}}
+\l{\v`A / B / C`\m{$(A/B)/C$}}
+\l{\v`8 / 3`\m{2, integer division truncates towards 0}}
+\l{\v`2 ** 3`\m{8}}
+\l{\v`2 ** (-3)`\m{result is 0}}
+\sms
+Assignments between different types are allowed, but cause 
+conversion or promotion.  E.g., if {\tt I} is an integer and {\tt A} is
+a real, then
+\sms
+\l{\v`I = 7.3`\m{{\ninett I} gets value {\ninett 7}}}
+\l{\v`A = (4.019, 2.217)`\m{{\ninett A} gets real part {\ninett 4.019}}}
+\sms
+Conversion can be made explicitly with the functions
+\sms
+\ll{INT($x$)}
+\ll{REAL($x$)\t {\rm or}\t REAL($x$, $kind$)}
+\ll{CMPLX($x$)}
+\sms
+
+\section{Logical expressions}
+Relational operators yield values {\tt .TRUE.} or {\tt .FALSE.}.
+The operator takes two forms, a word with period before and after it
+(Fortran 77), or C-like notation (Fortran 90).
+\sms
+\halign{\t\tt#\hfil\t&\t\tt#\hfil\t&\t#\hfil\cr
+.LT. & < & less than \cr
+.LE. & <= & less or equal \cr
+.EQ. & == & equal to \cr
+.NE. & /= & not equal \cr
+.GT. & > & greater than \cr
+.GE. & >= & greater or equal \cr
+}
+\sms
+The logical operators in order of decreasing precedence are
+\sms
+\vbox{
+\halign{\t\tt#\hfil\t&\t#\hfil\cr
+.NOT. &  negation \cr
+.AND. &  and/intersection \cr
+.OR. &  or/union \cr
+.EQV. {\rm and} .NEQV. &  equivalence or non-equivalence \cr
+}}
+\sms
+Here are some examples
+\ttbg
+I = .FALSE.
+J = .TRUE.
+L = X < 0
+K = I .OR. J .AND. .NOT. L
+K = N > 0 .AND. N < 10
+\tted
+
+\section{Character expressions}
+Character strings are quoted by apostrophes.  Fortran~90 also uses
+double quotes. E.g.,
+\sms
+\ll{'a string'\h 'a single quote '' inside'\h "a single quote ' inside"}
+\sms
+To produce a single quote when the string is quoted with single quotes, 
+one needs two single quotes.  Of course, one can avoid this inconvenience 
+by quoting the string in double quotes.  The only operator for
+character string is the concatenation operator {\tt //}, e.g., 
+{\tt X // '.f90'}, {\tt 'AB' // 'CD'} produces {\tt 'ABCD'}.  Other
+examples involving character expressions:
+\sms
+\l{\v`CHARACTER(LEN=4) CHAR1, CHAR2`\m{declare four letter variables}}
+\l{\v`CHARACTER(LEN=8) RESULT`\m{{\ninett RESULT} can hold up to 8 
+                                  characters}}
+\l{\v`CHAR1 = 'ANY '`\m{{\ninett CHAR1} gets {\ninett 'ANY '}}}
+\l{\v`CHAR2 = 'books'`\m{{\ninett CHAR2} gets {\ninett 'book'}}}
+\l{\v`RESULT = CHAR1 // CHAR2`\m{{\ninett RESULT} has {\ninett 'ANY book'}}}
+\sms
+You can refer to each individual character or substring with the
+$i${\tt :}$j$ notation. Continue the previous examples,
+\sms
+\l{\v`CHAR1(1:2) = 'IV'`\m{{\ninett CHAR1} becomes {\ninett 'IVY '}}}
+\l{\v`RESULT(6:7) = RESULT(1:2)`\m{{\ninett RESULT} now has {\ninett 'ANY bANk'}}}
+\l{\v` `\m{{\ninett RESULT(1:1)} has {\ninett 'A'}}}
+\l{\v` `\m{{\ninett RESULT(5:8)} has {\ninett 'bANk'}}}
+\sms
+
+\section{Operator precedence}
+Here is a complete list of operators and their precedence in 
+decreasing order
+\sms
+\halign{\t\tt\hfil#\hfil\t&\t\hfil#\hfil\t\cr
+{\rm Operator}& Precedence \cr
+{\rm user-defined unary operator}& highest \cr
+**& $\Downarrow$ \cr
+*{\rm,\quad}/& \cr
+{\rm (unary)} +{\rm,\quad}-& \cr
+{\rm (binary)} +{\rm,\quad}-& \cr
+.EQ.{\rm,} .NE.{\rm,} .LT.{\rm,} .LE.{\rm,} .GT.{\rm,} .GE.& \cr
+=={\rm,} /={\rm,} <{\rm,} <={\rm,} >{\rm,} >=& \cr
+.NOT.& \cr
+.AND.& \cr
+.OR.& \cr
+.EQV.{\rm,} .NEQV.& $\Downarrow$ \cr
+{\rm user-defined binary operator}&lowest \cr
+}
+\sms
+Associativity is from left to right, with the exception of exponentiation
+operator {\tt **}, which is from right to left.
+
+\section{structured data types}
+Fortran,  especially Fortran~90, has a rich collections of operations
+and constructors on arrays.  For example, an array can be assigned to
+another array in one statement
+\sms
+\ll{B = A}
+\sms
+We'll discuss them later.  Fortran~77 does not have structures
+and pointers.  They are Fortran~90 features.
+
+Here is another simple program
+\ttbg
+PROGRAM EXAMPLE
+! Calculate the area of a circle
+REAL, PARAMETER :: PI = 3.1415926
+REAL :: RADIUS, AREA
+CHARACTER(LEN=16) :: CHAR
+
+CHAR = 'Area of a circle'
+READ *, RADIUS
+IF (RADIUS < 0) STOP 'Radius < 0'
+AREA = PI * RADIUS ** 2
+PRINT *, CHAR // ' is', AREA
+END PROGRAM EXAMPLE
+\tted
+
+
+\vfill\eject
+\lecture{3. Control Statements}
+
+\section{IF construct}
+A conditional if in Fortran takes the form
+\sms
+\l{\t\tt IF ($logical$-$expr$) THEN\m{if logical expression yields value
+{\ninett .TRUE.},}}
+\l{\t\tt\ \ \ $block$\m{the block (any number of lines) is executed}}
+\l{\t\tt END IF\m{or equivalently {\ninett ENDIF}}}
+\sms
+If the $block$ contains one statement, one can simply write
+\sms
+\l{\t\tt IF ($logical$-$expr$) $statement$\m{single line}}
+\sms
+One can insert any number of {\tt ELSE IF} and one {\tt ELSE} before
+the end as
+\sms
+\ll{IF ($expr_1$) THEN}
+\ll{\ \ \ $block_1$}
+\ll{ELSE IF ($expr_2$) THEN}
+\ll{\ \ \ $block_2$}
+\ll{.....}
+\ll{ELSE}
+\ll{\ \ \ $block_n$}
+\ll{\tt END IF}
+\sms
+The first $block_i$ with $expr_i$ yields {\tt .TRUE.} is executed.  If none
+of the $expr$ is true, {\tt ELSE} block is executed. E.g.,
+\ttbg
+SWAP: IF (X < Y) THEN
+         TEMP = X
+         X = Y
+         Y = TEMP
+      END IF SWAP
+\tted
+Here the word {\tt SWAP} is optional, and is to help the reader to 
+see the if block more clearly.  
+\ttbg
+IF (I < 0) THEN
+   IF (J < 0) THEN
+      X = 0.
+      Y = 0.
+   ELSE
+      Z = 0.
+   END IF
+ELSE IF (K < 0) THEN
+   Z = 1.
+ELSE
+   X = 1.
+   Y = 1.
+END IF
+\tted
+
+\section{CASE construct}
+The {\tt CASE} construct is not available in Fortran 77, it is
+similar to Pascal's:
+\sms
+\l{\v`SELECT CASE (NUMBER)`\m{{\ninett NUMBER} is an integer type}}
+\l{\v`   CASE (:-1)`\m{all values of {\ninett NUMBER <= -1}}}
+\l{\v`      NSIGN = -1`\m{}}
+\l{\v`   CASE (0)`\m{{\ninett NUMBER} exactly zero}}
+\l{\v`      NSIGN = 0`\m{}}
+\l{\v`   CASE (1:4)`\m{values between 1 and 4 inclusive}}
+\l{\v`      NSIGN = 2`\m{}}
+\l{\v`   CASE (5:)`\m{all values 5 or above}}
+\l{\v`      NSIGN = 1`\m{}}
+\l{\v`END SELECT`\m{}}
+\sms
+The general form of case selector can be a list of non-overlapping
+values and range, separated by comma, e.g., 
+\sms
+\ll{CASE (1, 7, 10:13, 23)}
+\sms
+In the above example, 
+the case is selected if the value is 1, 7, 10, 11, 12, 13, and 23. 
+{\tt CASE(:0)} selects all values smaller than or equal to zero.
+The variables can be character and logical values besides
+integers.  E.g.,
+\sms
+\l{\v`SELECT CASE (C)`\m{{\ninett C} is character type}}
+\l{\v`   CASE ('C')`\m{}}
+\l{\v`      CHAR_TYPE = .TRUE.`\m{}}
+\l{\v`   CASE ('I':'N')`\m{}}
+\l{\v`      INT_TYPE = .TRUE.`\m{}}
+\l{\v`   CASE DEFAULT`\m{any other case not listed above}}
+\l{\v`      REAL_TYPE = .TRUE.`\m{}}
+\l{\v`END SELECT`\m{}}
+\sms
+
+\section{DO construct}
+
+DO-loop is probably the most important and most
+frequently used construct.
+\sms
+\ll{DO $variable$ = $start$, $end$, $step$}
+\ll{\ \ \ $block$}
+\ll{END DO}
+\sms
+where $start$ and $end$ are the starting and ending value of the loop
+$variable$.  The $variable$ is incremented in $step$, if omitted,
+default to 1.  The step can be positive or negative.  The loop will 
+iterate exactly 
+$\max\bigl( (end - start + step)/step, 0\bigr)$ times.
+E.g.,
+\sms
+\l{\v`SUM = 0.0`\m{initialize the {\ninett SUM}}}
+\l{\v`DO I = 1, 10`\m{index {\ninett I} varies from 1 to 10 in step 1}}
+\l{\v`   SUM = SUM + A(I)`\m{{\ninett A(I)} is array element}}
+\l{\v`END DO`\m{}}
+\sms
+Fortran 77 style is 
+\sms
+\l{\v`      DO 200 I = 1, 10`\m{200 is a label for the line ending the loop}}
+\l{\v`200   SUM = SUM + A(I)`\m{loop end here, {\ninett END DO} not allowed}}
+\sms
+Fortran 90 has a more general form of {\tt DO} as
+\sms
+\l{\v`DO`\m{infinite loop results if {\ninett EXIT} does not appear in block}}
+\ll{\ \ \ $block$}
+\ll{END DO}
+\sms
+A statement {\tt IF($something$) EXIT} must be in the $block$ in
+order to terminate the loop.   The statement 
+\sms
+\ll{IF ($something$) CYCLE}
+\sms
+transfers the control immediately to the {\tt END DO} statement and 
+continue for the next iteration if needed.
+
+Fortran~90 also has a 
+\sms
+\ll{DO WHILE (...)}
+\ll{\ \ \ ...}
+\ll{END DO}
+\sms
+You can get the same effect with 
+\sms
+\ll{DO}
+\ll{\ \ \ IF (...) EXIT}
+\ll{\ \ \ ...}
+\ll{END DO}
+\sms
+Pascal's repeat-until can be emulated by putting the exit condition 
+at the end.
+
+\section{GO TO statement}
+{\tt GO TO} directs the program to a labelled statement, e.g.,
+\ttbg
+      X = Y + 3
+      IF (X .GT. 1) GO TO 10
+      X = X + 2
+10    Z = X + Y
+\tted
+A label is a number occupying column one to five.   It is illegal
+to jump into a {\tt DO} or other blocks from outside with {\tt GO TO}.
+
+\lecture{4. Basic Program Units and Procedures}
+
+\section{Main program}
+
+A main program in Fortran takes the form
+\sms
+\l{\v`PROGRAM ILLUSTRATE`\m{the {\ninett PROGRAM} statement is optional}}
+\l{\v`   REAL :: X, Y`\m{variable declaration}}
+\l{\v`   PRINT *, 'Enter x and y'`\m{}}
+\l{\v`   READ *, X, Y`\m{read in data}}
+\l{\v`   PRINT *, 'Squares of the numbers are', SQ(X), SQ(Y)`\m{function call}}
+\l{\v`   CALL SWAP(X, Y)`\m{call a subroutine}}
+\l{\v`   PRINT *, 'X = ', X, ' Y =', Y`\m{}}
+\l{\v`END PROGRAM ILLUSTRATE`\m{the words {\ninett PROGRAM ILLUSTRATE} 
+				are optional}}
+\sms
+
+\section{External functions and subroutines}
+
+The above program calls one function {\tt SQ()} and a subroutine 
+{\tt SWAP}.  An external function or subroutine can appear in another
+file,  or in the same file before or after the main program. 
+We'll adopt the convention of putting the subprogram after the main
+one.   The function definition may look like this
+\sms
+\l{\v`REAL FUNCTION SQ(X)`\m{define a function}}
+\l{\v`   REAL :: X`\m{we'll indent three spaces every block structure}}
+\l{\v`   SQ = X * X`\m{{\ninett SQ} must appear on the lefthand side
+at least one}}
+\l{\v`END FUNCTION SQ`\m{the words {\ninett FUNCTION SQ} are optional}}
+\sms
+A subroutine does not return any value, here is the swap function
+\sms
+\l{\v`SUBROUTINE SWAP(A, B)`\m{define a subroutine}}
+\l{\v`   REAL :: A, B, TMP`\m{declaration of arguments and local variable}}
+\l{\v`   TMP = A`\m{}}
+\l{\v`   A = B`\m{}}
+\l{\v`   B = TMP`\m{}}
+\l{\v`END SUBROUTINE SWAP`\m{Fortran 77 does not allow the optional
+words {\ninett SUBROUTINE SWAP}}}
+\sms
+In Fortran arguments are always passed by reference, just the opposite of 
+C, and like Pascal's {\tt var} parameters. 
+
+\section{Internal functions and subroutine}
+This feature is available only in Fortran 90.  A (main) program,
+an external function, an external subroutine, or a module can contain
+inside it internal functions and/or subroutines.   
+Unlike Pascal, this nesting is one-level only.  Internal 
+subprograms cannot contain further subprograms.  Variables declared
+in the  main program (or external function/\-subroutine) are visible
+to the internal subprogram.  Here is an example containing internal
+subprograms.  
+\ttbg
+PROGRAM SORT
+   IMPLICIT NONE
+   REAL :: N1, N2, N3
+\tted
+\ttbg
+   CALL READ
+   CALL SORT
+   CALL PRINT
+\tted
+\sms
+\l{\v`CONTAINS`\m{the internal subroutines follows}}
+\sms
+\ttbg   
+   SUBROUTINE READ
+      READ *, N1, N2, N3
+   END 
+
+   SUBROUTINE SORT
+      IF (N1 > N2) CALL SWAP(N1, N2)
+      IF (N1 > N3) CALL SWAP(N1, N3)
+      IF (N2 > N3) CALL SWAP(N2, N3)
+   END
+
+   SUBROUTINE PRINT
+      PRINT *, N1, N2, N3
+   END 
+
+END PROGRAM SORT
+\tted     
+
+\section{Keyword and optional arguments}
+This function calculates the sum $\sum_{i = n}^m x^i$,
+\ttbg
+FUNCTION SERIES(X, LOWER, UPPER)
+   INTEGER :: I, LOWER, UPPER
+   REAL :: SERIES, X
+   SERIES = 0.0
+   DO I = LOWER, UPPER
+      SERIES = SERIES + X**I
+   END DO
+END FUNCTION SERIES
+\tted
+The usual way of evoking the function is, say, {\tt SERIES(0.5, 1, 10)}, 
+where {\tt X} gets the value 0.5, {\tt LOWER} and {\tt UPPER} have
+1 and 10, respectively.  But it can also be called as
+\sms
+\l{\t\tt SERIES(0.5,LOWER=1,UPPER=10) \hfill {\rm or}
+\hfill SERIES(0.5,1,UPPER=10) \hfill {\rm or}  \hfill
+SERIES(UPPER=10,LOWER=1,X=0.5)\t}
+\sms
+We can even omit some of the arguments if we declare them optional,
+rewriting the  above function as 
+\ttbg
+FUNCTION SERIES(X, LOWER, UPPER)
+   INTEGER :: I, ISTART, UPPER
+   REAL :: SERIES, X
+   INTEGER, OPTIONAL :: LOWER
+   
+   IF ( PRESENT(LOWER) ) THEN
+      ISTART = LOWER
+   ELSE
+      ISTART = 1
+   END IF
+
+   SERIES = 0.0
+   DO I = ISTART, UPPER
+      SERIES = SERIES + X**I
+   END DO
+END FUNCTION SERIES
+\tted
+then we can call the function as
+\sms
+\ll{SERIES(0.5, LOWER = 1, UPPER = 10) \h {\rm or} \h
+SERIES(0.5, UPPER = 10)}
+\sms
+The intrinsic function {\tt PRESENT()} detects the presence of the 
+optional argument.  If it is absent from the argument list, 1 is
+used as default. 
+
+\section{Interface}
+Interface is somewhat like function prototypes in C.  It  aids compiler
+to generate correct codes, as well as does some other things.  
+In the above optional argument example, if the 
+function is used as an external function, then an interface block (in the
+declaration part) is required in the calling program:
+\ttbg
+INTERFACE
+   FUNCTION SERIES(X, LOWER, UPPER)
+      INTEGER :: UPPER
+      INTEGER, OPTIONAL :: LOWER
+      REAL :: SERIES, X
+   END FUNCTION SERIES
+END INTERFACE
+\tted
+In an interface block, the name of dummy arguments can be renamed.  Those
+renamed argument then can be used as keywords.
+
+Interface block can also be used to define a generic procedure 
+(function or subroutine).  A generic function can 
+accept several different data types as its arguments.  For example, 
+{\tt SIN(X)} works for both {\tt X} being a real number as well as
+complex number. {\tt SIN} is a generic name for the sine function.
+This is achieved by written several functions for each type, and let the
+compiler choose the appropriate  one.  Here is an example for a generic
+{\tt SWAP} function.  First we define two specific functions, one for
+integer swap, and the other for real number.
+\sms
+\l{\v`SUBROUTINE SWAP_INTEGER(A, B)`\m{integer version}}
+\l{\v`   INTEGER :: A, B, TMP`\m{}}
+\l{\v`   TMP = A`\m{}}
+\l{\v`   A = B`\m{}}
+\l{\v`   B = TMP`\m{}}
+\l{\v`END SUBROUTINE SWAP_INTEGER`\m{}}
+\sms
+\sms
+\l{\v`SUBROUTINE SWAP_REAL(A, B)`\m{real value version}}
+\l{\v`   REAL :: A, B, TMP`\m{}}
+\l{\v`   TMP = A`\m{}}
+\l{\v`   A = B`\m{}}
+\l{\v`   B = TMP`\m{}}
+\l{\v`END SUBROUTINE SWAP_REAL`\m{}}
+\sms
+An interface block specifies a generic name {\tt SWAP}
+\ttbg
+INTERFACE SWAP
+   SUBROUTINE SWAP_INTEGER(A, B)
+      INTEGER :: A, B
+   END SUBROUTINE SWAP_INTEGER
+
+   SUBROUTINE SWAP_REAL(A, B)
+      REAL :: A, B
+   END SUBROUTINE SWAP_REAL
+END INTERFACE
+\tted
+After this, one can use {\tt SWAP(A, B)} for the arguments both integers
+or reals.
+
+\section{Procedures as arguments}
+In Fortran, we can also pass function or subroutine name as an argument,
+as illustrated in the following example:
+\ttbg
+PROGRAM MAIN
+   REAL A, B, F
+   INTERFACE
+      REAL FUNCTION FUN(X)
+         REAL :: X
+      END FUNCTION
+   END INTERFACE
+   F = MINIMUM(1.0, 2.0, FUN)
+   ...
+END PROGRAM
+
+REAL FUNCTION MINIMUM(A, B, FUNC)
+   REAL :: A, B, F, X
+   INTERFACE
+      REAL FUNCTION FUNC(X)
+         REAL :: X
+      END FUNCTION FUNC
+   END INTERFACE
+   ...
+   F = FUNC(X)
+   ...
+END FUNCTION MINIMUM
+
+REAL FUNCTION FUN(X)
+   ...
+\tted
+
+\lecture{5. Input, Output, and Files}
+
+\section{Formatted input and output}
+
+The input/output format specification is rather sophisticated in Fortran. 
+We will just introduce the most common ones.   Here is some examples of
+formatted outputs (assuming that {\tt I} is an integer, {\tt A} is an
+array of size 10, and {\tt WORD} is a string of character of length 20):
+\sms
+\l{\v`PRINT *, I, A(1)`\m{use the default format}}
+\l{\v`PRINT '(I10)', I`\m{integer in a field width of 10}}
+\l{\v`PRINT '("I =", I10)', I`\m{character string can be in the 
+format specification}}
+\l{\v`PRINT "(10F10.3)", A`\m{10 reals of width 10, precision 3, 
+{\ninett "} and {\ninett '} are equivalent}}
+\l{\v`PRINT '(5F10.3, E10.2)', (A(I), I = 1, 9, 2), A(2)`\m{implicit loop}}
+\l{\v`PRINT '(A10)', WORD(5:14)`\m{five characters from fifth to fourteenth}}
+\l{\v`PRINT 100, A(1), A(2)`\m{use {\ninett FORMAT} statement}}
+\l{\v`100 FORMAT(1X, 2F10.4)`\m{format for the above output}}
+\sms
+Input with {\tt READ} is similar.  In general the basic I/O takes the form:
+\sms
+\ll{PRINT $fmt$, $variable$ $list$}
+\ll{READ $fmt$, $variable$ $list$}
+\sms
+The format $fmt$ is {\tt *} (default format), or a number
+(the format is specified by a corresponding {\tt FORMAT} statement), or
+a string $fmt$ of the form
+\sms
+\ll{'($r$D$w$,...)'}
+\sms
+where $r$ is repeat factor which indicates that edit descriptor that
+follows will be repeated $r$ times.  {\tt D} specifies the type of
+format, which can be, among many others, one of the following
+\sms
+\halign{\t\tt#\hfil\h\h&#\hfil\cr
+I$w$ & integer with field width $w$\cr
+F$w$.$d$ & real number of width $w$, $d$ digits after decimal point\cr
+A {\rm\quad or\quad} A$w$ & character string (width $w$)\cr
+L$w$ & logical data, printed as {\tt T} or {\tt F}\cr
+X & space\cr
+T$n$ & tab to position $n$\cr
+/ & new line\cr
+B$w$\ \ O$w$\ \ Z$w$ & integer in binary, octal, hexadecimal notation\cr
+E$w$.$d$ & exponential notation for real number\cr
+G$w$.$d$ & use {\tt F} or {\tt E} format, whichever is shorter\cr
+}
+\sms
+Here is an example that uses last three format descriptors:
+\ttbg
+I = 10; J = 12; K = 5; R = 3.1415; W = 'word'
+PRINT '(T3, I2, 2X, I2, /, I3)', I, J, K
+PRINT '(F5.2, E9.2)', R, R
+PRINT '(B5)', K
+PRINT '(A)', W
+PRINT '(I1, F3.1)', J, 1001.12
+\tted
+will print out
+\sms
+\ll{\char`\ \char`\ \char`\ 10\char`\ \char`\  12}
+\ll{\char`\ \char`\ 5}
+\ll{\char`\ 3.14\char`\ 0.31E+01}
+\ll{\char`\ \char`\ 101}
+\ll{word}
+\ll{****}
+\sms
+Format statement can be shared by different I/O statements, e.g.,
+\ttbg
+PRINT 100, I, J
+PRINT 100, J, K, R
+100 FORMAT(1X, I10, 2X, I10, 2X, F15.5)
+\tted
+
+\section{Operation on files}
+To access file, we must open the file with, e.g.,
+\ttbg
+OPEN(2, FILE = 'F.DAT', STATUS='NEW')
+\tted 
+The first number is called {\tt UNIT} number (between 1 to 99) 
+assigned to the file.   Then the file name to be opened.  {\tt STATUS} 
+should be {\tt 'NEW'} (new file), {\tt 'OLD'} (existing file), or 
+{\tt 'UNKNOWN'} and some other options.   
+
+File should be closed, e.g., 
+\sms
+\l{\v`CLOSE(2)`\m{equivalent to {\ninett CLOSE(UNIT = 2)}}}
+\sms
+Read/write operations to/from the file are with the statements
+\sms
+\ll{READ(UNIT = $u$, FMT = $fmt$) $list$}
+\ll{WRITE(UNIT = $u$, FMT = $fmt$) $list$}
+\sms
+where $u$ is the unit number.  The keyword {\tt UNIT} is optional if
+the unit number is the first argument.  And  $fmt$ is the format
+specification.   Also, the keyword {\tt FMT} is optional if 
+$fmt$ takes the second argument. 
+
+There are quite a number of other optional keyword specifications
+for {\tt OPEN}, {\tt WRITE}, and {\tt READ}.   The most
+useful one probably is {\tt ERR = $label$}.  If an error occurs
+during operation, control transfers to the statement with the integer
+$label$.  The other keyword is  {\tt IOSTAT = $integer$-$variable$}.  
+The variable gets, (1) a positive value if an input error occurs, (2)
+a negative value if end-of-file is encountered, (3) and zero
+otherwise. 
+
+The {\tt PRINT} statement is equivalent to {\tt WRITE(*,...)},
+namely, write to the standard output.  When a unit number is an
+asterisk {\tt *}, the standard I/O is used.   On most systems, the
+unit number 5 is reserved for standard input (keyboard), and 
+unit number 6 is for standard output (screen).  These numbers should
+be avoided when open a file.  Here are some more examples:
+\ttbg
+    READ(5,*) A, B, C
+    WRITE(*, "(E20.5)") X
+    WRITE(2, 102) X, Y
+    ...
+102 FORMAT('X=', F10.4, ' Y=', F10.4)
+\tted
+
+\section{Internal files}
+The external files are associated with the external disc storage. 
+Internal files are just text in main CPU memory.  For internal file
+I/O, the unit number is replaced by the name of character string --- the
+string is the file.  E.g.
+\sms
+\ll{CHARACTER (LEN = 120) :: BUFFER}
+\l{\v`WRITE (BUFFER, 'I10') 101`\m{write number to the string}}
+\l{\v`READ (BUFFER, *) I`\m{read from the string}}
+\sms
+Using internal file is an effect way of converting numbers to 
+character strings.
+
+\section{Unformatted I/O}
+Formatted I/O converts numbers into strings of ASCII characters.  Unformatted
+I/O is a direct representation without conversion.  If a large amount of
+data needs to be written, this unformatted I/O is much more efficient.
+however, since the data are in binary, they can not be read directly
+by human.  Here is an example of using unformatted output.
+\ttbg
+OPEN(9, FILE ='TMP', FORM='UNFORMATTED')
+WRITE(9) X, Y, Z
+WRITE(9, ERR=199) A, B, C
+CLOSE(9)
+\tted
+Since the output is unformatted, you need not supply a format 
+specification.
+
+\section{Sequential vs. direct access}
+Fortran considers each line as a record.  Sequential access read/write
+records in sequence.  Direct access read/write records in arbitrary order.
+E.g.,
+\sms
+\l{\v`OPEN(7, FILE='RECORD', ACCESS='DIRECT')`\m{open for direct access}}
+\l{\v`READ(7,*,REC=10) A`\m{read line 10}}
+\l{\v`READ(7,*,REC=3) B`\m{read line 3}}
+\l{\v`READ(7,*,REC=17) C`\m{read line 17}}
+\l{\v`CLOSE(7)`\m{close the file}}
+\sms
+
+\lecture{6. Arrays}
+
+\section{Array declarations}
+There are a number of ways to declare arrays 
+\sms
+\l{\v`INTEGER A(10)`\m{with elements {\ninett A(1)} to {\ninett A(10)}, 
+					      Fortran 77 style}}
+\l{\v`CHARACTER CH(0:3)`\m{declare {\ninett CH(0)}, {\ninett CH(1)}, 
+				{\ninett CH(2)}, {\ninett CH(3)}}}
+\l{\v`INTEGER, DIMENSION(-9:9) :: B`\m{with elements {\ninett B(-9)} to 
+			          {\ninett B(9)}}}
+\l{\v`REAL, DIMENSION(10, 10) :: C`\m{a 10 by 10 matrix}}
+\l{\v`INTEGER, DIMENSION(:), ALLOCATABLE ::D`\m{memory allocated dynamically}}
+\sms
+
+\section{Allocatable arrays} 
+
+Note that in the last declaration, {\tt D} is specified as
+one-\-dimensional, but the exact array bounds are not given, and it has
+the attribute {\tt ALLOCATABLE}.   The actual bounds and memory for it can
+be specified at run time.
+The dynamic storage allocation  is not possible in Fortran 77.
+With
+\sms
+\ll{ALLOCATE(D(1:10))}
+\sms
+memory is allocated when running the program.
+Now {\tt D} is an array of size 10.  After use, the memory can be freed with
+\sms
+\ll{DEALLOCATE(D)}
+\sms
+
+\section{Array constructors}
+The features discussed in the rest of this lecture are available only in 
+Fortran 90. If {\tt X}, {\tt B}, {\tt C}, and {\tt D} are one-dimensional 
+arrays of real, size 4, then we can assign value to each of the elements 
+in a single statement.
+\sms
+\l{\v`X = (/ 1.2, 2.0, 0.0, -3.5 /)`\m{four individual values}}
+\l{\v`X = (/ A(I, 1:2), A(I+1, 2:3) /)`\m{array section is used}}
+\l{\v`X = (/ ( SQRT(REAL(I)), I = 1, 4 ) /)`\m{implied do loop is used}}
+\l{\v`X = 1.0`\m{every element gets 1.0}}
+\l{\v`X = SQRT(D)`\m{applies intrinsic function to array}}
+\l{\v`X = A(I, 1:4) * D + B/C`\m{corresponding element is computed}}
+\sms
+
+The last three examples are not array constructors, but array
+expressions and assignment. Operators and functions may be applied to
+arrays having the same number of elements (same shape).  The operation is 
+carried out elementwise.  The last example above is equivalent to
+\ttbg
+DO J = 1, 4
+   X(J) = A(I,J) * D(J) + B(J)/C(J)
+END DO
+\tted
+\sms
+\section{Array sections}
+Array names like {\tt X}, {\tt A}, {\tt B}, $\ldots$, refer to the
+whole arrays.  In C they refer only to the starting addresses of the
+arrays. In the second example of array constructor we use expressions like
+{\tt A(I, 2:3)},  This is a one-dimensional array with elements
+{\tt A(I, 2)} and {\tt A(I, 3)}.  It is called an array section. 
+In general if {\tt X} is an array of certain size, then 
+\sms
+\ll{X(n:m)}
+\sms
+is the array with elements 
+\sms
+\ll{X(n), X(n+1), ... X(m)}
+\sms
+Beside the lower and upper bounds, one can also specify a {\sl
+stride} as, e.g.,  
+\sms
+\ll{X(3:7:2)}
+\sms
+It represents an array with three elements
+\sms
+\ll{X(3), X(5), X(7)}
+and 
+\ll{X(7:1:-1)}
+\sms
+is an array with elements
+\sms
+\ll{X(7), X(6), X(5), ..., X(1)}
+\sms
+
+
+The indices of an array can be another integer array (vector), for
+example,  if {\tt INDEX = (/ 1, 4, 2, 2 /)}, then {\tt X(INDEX)} 
+represents an array section with elements
+\sms
+\ll{X(1), X(4), X(2), X(2)}
+\sms
+Other examples of array section are 
+\sms
+\l{\v`A(I, :)`\m{the whole row {\ninett I} of array {\ninett A}}}
+\l{\v`A(:, J)`\m{the whole column {\ninett J} of array {\ninett A}}}
+\l{\v`A(I, 10:1:-1)`\m{the row {\ninett I} in reverse order}}
+\l{\v`A(I, :5)`\m{the row {\ninett I} from lower bound to 5}}
+\l{\v`A(2:, J)`\m{the column {\ninett J} from 2 to upper bound}}
+\sms
+Array sections can be used just like whole arrays in expressions or 
+assignments as long as they have the same size and shape, e.g.,
+\sms
+\ll{A(2:4, 5:8) = A(3:5, 1:4)}
+\ll{X(1:4) = A(1, 2:5)}
+\sms
+
+\section{Where construct}
+{\tt WHERE} construct is the array equivalent of the {\tt IF}
+construct for scalar quantities.  Here is an example
+\ttbg
+WHERE (C /= 0)
+   A = B / C
+ELSEWHERE
+   A = 0
+   C = 1
+END WHERE
+\tted
+All of the array {\tt A}, {\tt B}, and {\tt C} must have the same
+size and shape.  If not, array sections must be used.
+The operation is on an element-\-by-\-element basis.
+If the arrays have shape or dimension (10, 10), 
+the above statement is equivalent to 
+\ttbg
+DO I = 1, 10
+   DO J = 1, 10
+      IF (C(I,J) /= 0) THEN
+         A(I,J) = B(I,J)/C(I,J)
+      ELSE
+         A(I,J) = 0
+         C(I,J) = 1
+      END IF
+   END DO
+END DO
+\tted
+Of course, the {\tt WHERE} construct is much shorter and elegant.
+
+\section{Array intrinsic functions}
+Many intrinsic functions can be applied to array.  The result is an
+array applying the function elementwise. E.g.,
+\ttbg
+PI = 3.14159265358979
+A = (/0, PI/2, PI, 2*PI /)
+\tted
+then {\tt COS(A)} is an array with elements $\cos 0$, $\cos \pi/2$,
+$\cos\pi$, and $\cos 2\pi$, or {\tt (/ 1, 0, -1, 1 /)}.
+
+There is a large collection of intrinsic functions for arrays, 
+here are most of them:
+\sms
+\ll{SUM(A)\hfill $\sum_i A(i)$\t}
+\ll{PRODUCT(A)\hfill $\prod_i A(i)$\t}
+\ll{MAXVAL(A)\hfill $\max_i A(i)$\t}
+\ll{MINVAL(A)\hfill $\min_i A(i)$\t}
+\ll{DOT\_PRODUCT(A, B)\hfill $\sum_i A(i) B(i)$\t}
+\ll{MATMUL(A, B)\hfill $\sum_k A(i,k) B(k,j)$\t}
+\ll{TRANSPOSE(A)\hfill\rm matrix transpose\t}
+\ll{SHAPE(A)\hfill\rm A 1-dimensional array, (2,5,5) means a 
+$2 \times 5 \times 5$ array\t}
+\ll{SIZE(A)\hfill\rm total number of array elements\t}
+\ll{MAXLOC(A)\hfill\rm location of maximum\t}
+\ll{MINLOC(A)\hfill\rm location of minimum\t}
+\ll{ALL(M)\hfill\rm {\tt M} is logical variable, return {\tt .TRUE.}
+if all elements is {\tt .TRUE.}\t}
+\ll{ANY(M)\hfill\rm return {\tt .TRUE.} if any element is {\tt .TRUE.}\t}
+\sms
+There are a number of other array manipulation functions
+{\tt RESHAPE} changes the shape of an array, e.g.,
+\sms
+\ll{RESHAPE(SOURCE = (/1, 2, 3, 4, 5, 6/), SHAPE = (/2, 3/))}
+\sms
+has the value (a $2\times 3$ array)
+\ttbg
+1  3  5
+2  4  6
+\tted
+{\tt SPREAD} enlarges and duplicates array,
+\ttbg
+SPREAD(SOURCE = (/1, 2, 3/), DIM = 1, NCOPIES=3)
+\tted
+has the value (a $3\times 3$ matrix)
+\ttbg
+1  2  3
+1  2  3
+1  2  3
+\tted
+{\tt CSHIFT} circularly shifts the array, 
+\ttbg
+CSHIFT(ARRAY = (/1, 2, 3/), SHIFT = 1)
+\tted
+has the value (a one dimensional array)
+\ttbg
+2  3  1
+\tted
+{\tt PACK} picks out elements and put them in one dimension. E.g., if
+{\tt A} is left integer array and {\tt M} is the right logical array,
+\ttbg
+1  2  3              T  F  T
+4  5  6              T  T  F
+7  8  9              F  F  T
+\tted
+then 
+\sms
+\ll{PACK(A, M)}
+\sms
+has the value (a one dimensional array)
+\sms
+\ll{(/1, 4, 5, 3, 9/)}
+\sms
+
+\section{Zero-sized arrays}
+{\tt A(3:2)} is a zero-sized array which contains no elements.  Zero-size
+array causes program ``do nothing.''  E.g.,
+\ttbg
+DO I = 1, N
+   X(I) = B(I)/A(I,I)
+   B(I+1:N) = B(I+1:N) - A(I+1:N,I) * X(I)
+END DO
+\tted
+The above code solves the lower-triangular set of linear equations.
+$$\eqalign{
+a_{11} x_1 &= b_1,\cr
+a_{21} x_1 + a_{22} x_2 & = b_2,\cr
+\cdots  & \cr
+a_{n1} x_1 + a_{n2} x_2  + \cdots a_{nn} x_n & = b_n.\cr
+}$$
+We encounter a zero-sized array when the index {\tt I} takes its final
+value {\tt N}.
+
+\section{Arrays of assumed shape}
+In a subroutine or function where array is passed as an argument, 
+the actual bounds need not declared.  It is assumed from the calling
+program.  When this feature is used, an explicit interface is
+required.  E.g.
+\ttbg
+SUBROUTINE SUB(A)
+   INTEGER, DIMENSION(:,:,:) :: A
+   ...
+\tted
+
+\section{Automatic arrays}
+In the following example, the array {\tt TMP} is called automatic array.
+Automatic array must be a local variable, and can not be a dummy
+argument.
+\ttbg
+SUBROUTINE SWAP(A,B)
+   REAL, DIMENSION(:) :: A, B
+   REAL, DIMENSION(SIZE(A)) :: TMP
+   TMP = A
+   A = B
+   B = TMP
+END SUBROUTINE
+\tted
+
+\section{Array-valued functions}
+Fortran 90 allows a function to return an array.   The following function
+multiplies a vector {\tt B} by a matrix {\tt A}, and returns the resulting
+vector.
+\ttbg
+FUNCTION MULT(A, B)
+   REAL, DIMENSION(:,:) :: A
+   REAL, DIMENSION(SIZE(A,2)) :: B
+   REAL, DIMENSION(SIZE(A,1)) :: MULT
+   INTEGER :: J, N
+   N = SIZE(A,1)
+   MULT = 0.
+   DO J = 1, SIZE(A,2)
+      MULT = MULT + A(1:N, J) * B(J)
+   END DO
+END FUNCTION
+\tted
+The function can be used as, e.g.,
+\ttbg
+C(1:10) = MULT(A(1:10, 1:5), B(1:5))
+\tted
+Interface for such function must be explicit, i.e., if the function is
+an external function, an interface specification is required.  Interface
+is not needed for internal functions (functions defined after the
+keyword {\tt CONTAINS}).
+
+
+\lecture{7. Character Data}
+
+\section{Declarations}
+There is no distinction between string and character, a single character
+is a string of length one.  The character variable declaration takes the
+form
+\sms
+\l{\v`CHARACTER (LEN = 8) :: STRING_8`\m{defined a string of length 8}}
+\l{\v`CHARACTER*5 NAME`\m{character string of length 5, Fortran 77 style}}
+\l{\v`CHARACTER :: LETTER`\m{a single character}}
+\l{\v`CHARACTER (LEN = 80), DIMENSION(60) :: PAGE`\m{array of `strings'}}
+\l{\v`CHARACTER*15 ACH(100)`\m{Fortran 77 style}}
+\sms
+In a subroutine or function, the length of the character string can be
+declared as {\tt LEN = *}.  The actual length is assumed from the calling
+program. 
+
+\section{Assignment, operations, and substrings}
+The character string values are quoted in apostrophes or double quotes,
+e.g.,
+\sms
+\l{\v`STRING_8 = 'a string'`\m{Fortran 90 also accepts double quotes}}
+\l{\v`NAME = 'It''s '`\m{two apostrophes produce one, one can say 
+{\ninett "It's\char`\ "}}}
+\l{\v`LETTER = 'letter'`\m{{\ninett 'l'} is actually assigned}}
+\l{\v`ACH(2) = "array"`\m{{\ninett "array\char`\ \char`\ \char`\ \char`\ \char`\ \char`\ \char`\ \char`\ \char`\ \char`\ "} is assigned}}
+\l{\v`PAGE(1) = "a long line&`\m{continuation of a string}}
+\l{\v`          & continued&`\m{}}
+\l{\v`          & with ampersand & is okay."`\m{}}
+\sms
+If the string on the righthand side is shorter than the declared variable
+length, it is appended with blanks.  If it is longer, the tail part is
+truncated.  Two character strings can be concatenated 
+\sms
+\l{\v`NAME//STRING_8`\m{is a string of length 13, having value 
+{\ninett It's a string}}}
+\sms
+Beside the concatenation operator {\tt //}, 
+the comparison operators like {\tt ==} or {\tt <} can be applied to strings.
+E.g.,
+\sms
+\l{\v`NAME == "It's "`\m{has value {\ninett .TRUE.}}}
+\l{\v`NAME /= "This"`\m{has value {\ninett .TRUE.}}}
+\l{\v`NAME > STRING_8`\m{has value {\ninett .FALSE.}}}
+\l{\v`"12" > "2"`\m{is {\ninett .FALSE.}}}
+\l{\v`"apple" < "pear"`\m{is {\ninett .TRUE.}}}
+\sms
+A substring can be referred with range indices, similar to array section.
+For example,
+\sms
+\l{\v`STRING_8(3:8)`\m{has value {\ninett string}}}
+\l{\v`NAME(4:4)`\m{has value {\ninett s}}}
+\l{\v`NAME(3:3) = 'o'`\m{changes {\ninett "It's\char`\ "} to {\ninett "Itos\char`\ "}}}
+\l{\v`PAGE(1)(3:6)`\m{has value {\ninett "long"}}}
+\sms
+Substring can be used just like string, they can appear on the right or
+left side of an assignment. 
+
+
+\section{Character intrinsic functions}
+There are a number of intrinsic functions on character strings.
+\sms
+\halign{\t\tt#\hfil\h&#\hfil\cr
+LEN($string$) & length of the $string$, including trailing blanks\cr
+LEN\_TRIM($string$) & length of the $string$, ignoring trailing blanks\cr
+TRIM($string$) & string with trailing blanks removed\cr
+INDEX($string$, $sub$) & the position of $sub$ string in $string$\cr
+CHAR($code$) & the character with integer $code$\cr
+ICHAR($c$) & the code of the character $c$\cr
+ADJUSTL($string$) & adjust left of the string\cr
+ADJUSTR($string$) & adjust right of the string\cr
+}
+\sms
+Here is a program to find out whether a sentence is a palindrome.
+\ttbg
+PROGRAM PALINDROME
+   CHARACTER(LEN = 200) :: TEXT
+   INTEGER :: I, J
+   LOGICAL :: MATCH
+
+   READ "(A)", TEXT
+   J = LEN_TRIM(TEXT)
+   MATCH = .TRUE.
+   DO I = 1, J/2
+      IF(TEXT(I:I) /= TEXT(J:J)) THEN
+         MATCH = .FALSE.
+         EXIT
+      ELSE
+         J = J - 1
+      END IF
+   END DO
+   IF (MATCH) THEN
+      PRINT *, "Palindrome"
+   ELSE
+      PRINT *, "Not a palindrome"
+   END IF
+
+END PROGRAM
+\tted
+If {\tt NAT SAW I WAS TAN} is entered, the computer responses with
+{\tt Palindrome}.  It says that {\tt MADAM I'M ADAM} is
+not a palindrome.
+
+\lecture{8. Pointers}
+
+\section{Pointer declarations, assignments}
+Fortran pointers are somewhat different from pointers in other languages
+like C or Pascal.  Pointers in Fortran 90 is more conveniently thought
+as aliases for other variables.  It is better not to consider pointers
+as addresses. To declare pointer variables, we use
+\sms
+\ll{REAL, POINTER :: P}
+\ll{REAL, DIMENSION(:), POINTER :: V}
+\ll{INTEGER, POINTER :: IP}
+\ll{INTEGER, DIMENSION(:,:), POINTER :: M}
+\sms
+Then the pointer assignment statements
+\sms
+\ll{P => R}
+\ll{V => A(4, :)}
+\ll{IP => IA(1,2)}
+\ll{M => IA(1:4, 2:5)}
+\sms
+associates the pointer {\tt P} with the real variable {\tt R}, or
+makes the pointer pointing to the real variable, or maybe more
+appropriately stated, {\tt P} is an alias for {\tt R}.  
+Here {\tt V} is a pointer of a one-dimensional array and 
+is associated with the fourth row of the array {\tt A}.  
+Now {\tt M} is an array of $4\times 4$, associated with the array
+section {\tt A(1:4, 2:5)}.  {\tt IP} is a single integer variable.
+A pointer
+of real can not point to any real variables.  In order to make the
+above statements legal, we must also declare {\tt R}, {\tt A}, 
+and {\tt IA} with attribute {\tt TARGET}:
+\sms
+\ll{REAL, TARGET :: R}
+\ll{REAL, DIMENSION(4, 4), TARGET :: A}
+\ll{INTEGER, DIMENSION(10, 5), TARGET :: IA}
+\sms
+After the pointer assignment, we can use {\tt P} as a real variable and
+{\tt V} as a one-dimensional array of four elements.  E.g.,
+\sms
+\ll{P = 1.0}
+\l{\v`PRINT *, V`\m{four numbers will be printed}}
+\sms
+which is equivalent to 
+\sms
+\ll{R = 1.0}
+\ll{PRINT *, A(4,:)}
+\sms
+Other examples
+\sms
+\l{\v`V => A(1:3,2)`\m{{\ninett V} refers to 
+{\ninett A(1,2), A(2,2), A(3,2)}}}
+\l{\v`M => IA(2:, 3:4)`\m{{\ninett M} refers to the array section}}
+Note that in the last example, {\tt M(1,1)} refers to {\tt IA(2,3)},
+{\tt M(2,1)} is {\tt IA(3,3)}, and {\tt M(2,2)} for {\tt IA(3,4)}, etc.
+An array section or array expression is taken to have lower bounds 1
+and upper bounds equal to the extents (dimensions).
+
+\section{Pointer assignment {\tt =>} vs. usual assignment {\tt =}}
+
+The ordinary assignment operator {\tt =} means to copy the value of righthand 
+side to the variable on the lefthand side.  The pointer assignment
+{\tt =>} means to make the pointer on the lefthand side an alias for
+the variable on the righthand side.  E.g.,
+\ttbg
+REAL, POINTER :: P1, P2
+REAL, TARGET :: R1, R2
+R1 = 1.1; R2 = 2.2
+P1 => R1; P2 => R2
+\tted
+Then {\tt P1} and {\tt P2} are used as {\tt R1} and {\tt R2},
+respectively.  The assignment 
+\sms
+\ll{P2 = P1}
+\sms
+copies the value at {\tt R1} to {\tt R2}.  On the other hand, the statement
+\sms
+\ll{P2 => P1}
+\sms
+makes {\tt P2} an alias for {\tt P1}, since {\tt P1} is an alias for
+{\tt R1}, the above pointer assignment makes both {\tt P1} and {\tt
+P2} aliases for {\tt R1}, or pointing to {\tt R1}.  
+
+\section{Allocate and deallocate}
+Both scalar variable and array can be dynamically allocated. E.g.,
+\ttbg
+INTEGER, POINTER :: IP
+REAL, DIMENSION(:), POINTER :: V
+\tted
+\ll{ALLOCATE(IP)}
+\ll{ALLOCATE(V(100))}
+\sms
+or equivalently
+\sms
+\ll{ALLOCATE(IP, V(100), STAT = $var$)}
+\sms
+create space for data object that {\tt IP} is pointing to.  And {\tt
+IP} is an alias for that space.  And {\tt V} is an array with
+100 elements.  {\tt STAT} is an optional keyword argument.
+$var$ is zero for successful allocation and positive $var$ indicates
+error. It is an error to refer a pointer
+without associating the pointer with memory space.   After use
+\sms
+\ll{DEALLOCATE(IP, V)}
+\sms
+return the memory space to the system.
+
+\section{Nullify and associated}
+In the beginning of the program execution, pointers are undefined.  
+To make the pointer a null pointer (pointing nowhere), use the
+statement 
+\sms
+\ll{NULLIFY(P)}
+\sms
+Later on, the pointer can be tested with the intrinsic function
+\sms
+\ll{ASSOCIATED(P)}
+\sms
+which return {\tt .TRUE.} if the pointer is associated with some
+object, or {\tt .FALSE.} if it is a null pointer.   The function can
+also takes two arguments
+\sms
+\ll{ASSOCIATED(P, $target$)}
+\sms
+It returns {\tt .TRUE.} If {\tt P} is associated with the $target$, and
+{\tt .FALSE.} otherwise. 
+
+
+
+\lecture{9. Structures, Derived Types, and Linked Lists}
+
+Structures and derived types are not available in Fortran 77.
+Here is an example of structure definition
+\sms
+\vbox{\l{\v`TYPE PERSON`\m{the word {\ninett TYPE} plays the r\^ole {\ninett
+		   struct} in C}}
+\l{\v`   CHARACTER(LEN=40) :: NAME`\m{first field is called {\ninett
+			            NAME}, a 40 character string}}
+\l{\v`   INTEGER ::ID_NO`\m{second field is {\ninett ID\_NO}, an integer}}
+\l{\v`   INTEGER :: AGE`\m{last field is the age}}
+\l{\v`END TYPE PERSON`\m{this end the definition}}}
+\sms
+each of the field can also be an array, or structure, or pointer.  
+A field is also called a component in Fortran.
+Declarations of the structure type variables are by a statement:
+\sms
+\ll{TYPE (PERSON) :: STUDENT, TMP}
+\sms
+which declares that the variables {\tt STUDENT} and {\tt TMP} are of
+the type {\tt PERSON}.  We can assign values to the variables with
+\sms
+\l{\v`STUDENT%NAME = 'Joe Fung'`\m{{\ninett \%} is the structure
+				   member operator}}
+\l{\v`STUDENT%ID_NO = 7726880`\m{}}
+\l{\v`STUDENT%AGE = 19`\m{}}
+\sms
+The above statements can be replaced by a single statement
+\sms
+\ll{STUDENT = PERSON('joe Fung', 7726880, 19)}
+\sms
+Note that the structure name {\tt PERSON} is used as a function that
+returns a value of the corresponding type. 
+Structure assignment like {\tt TMP = STUDENT} is allowed. It can be
+passed to a function as argument and returned as value.  It is possible
+to define other operations by operator overloading, such that
+{\tt TMP - STUDENT} or {\tt TMP * STUDENT} makes sense.
+Here are examples which define point and triangle data types.
+\sms
+\l{\v`TYPE POINT`\m{define a point as two real numbers}}
+\l{\v`   REAL X, Y`\m{}}
+\l{\v`END TYPE POINT`\m{}}
+\sms
+\l{\v`TYPE TRIANLE`\m{a triangle consists of three points}}
+\l{\v`   TYPE(POINT) A, B, C`\m{}}
+\l{\v`END TYPE TRIANGLE`\m{}}
+\sms
+We can declare a triangle like this:
+\sms
+\ll{TYPE(TRIANGLE) :: T}
+\sms
+{\tt T} has components {\tt T\%A}, {\tt T\%B}, and {\tt T\%C}. All
+of type {\tt POINT}, and {\tt T\%A} has components {\tt T\%A\%X},
+and {\tt T\%A\%Y} of type {\tt REAL}. Here is some expressions involving
+derived types.
+\ttbg
+T%A = POINT(0.0, 1.0)
+T%B%X = 5.0
+T%B%Y = T%B%X
+\tted
+
+\section{Array of pointers}
+In Fortran 90, one can not have array of pointers as such, the following
+declaration does not work:
+\ttbg
+REAL, DIMENSION(10), POINTER :: P
+REAL, POINTER :: P(10)
+\tted
+We can get around using a user-defined type
+\ttbg
+TYPE ROW
+   REAL, POINTER :: R
+END TYPE ROW
+\tted
+\ll{TYPE(ROW), DIMENSION(10) :: P}
+\sms
+then {\tt P(1)\%R} refers to the first pointer, and 
+{\tt P(2)\%R} refers to the second pointer, and so on.
+
+\section{Array as component of derived type}
+Look at this definition
+\ttbg
+TYPE TRIPLET
+   REAL :: U
+   REAL, DIMENSION(3) :: DU
+   REAL, DIMENSION(3,3) :: D2U
+END TYPE TRIPLET
+\tted
+where we can think of {\tt U} as a value of a scalar field, {\tt DU}
+is its partial derivative, and {\tt D2U} is the second partial
+derivative. With the declaration
+\ttbg
+TYPE(TRIPLET) :: T
+TYPE(TRIPLET), DIMENSION(10,10,10) :: A
+\tted
+{\tt T\%U} is a real number, {\tt T\%DU} is an array with elements
+{\tt T\%DU(1)},  {\tt T\%DU(2)},  and {\tt T\%DU(3)}. {\tt T\%D2U}
+is a two-dimensional array with elements {\tt T\%D2U(I,J)}. 
+{\tt A(1,2,5)} is of type {\tt TRIPLET}.  {\tt A(1,2,5)\%D2U(1,2)}
+refers to element (1,2) of the array {\tt D2U} field in {\tt TRIPLET}
+(1,2,5) element of array {\tt A}. 
+
+\section{Linked lists}
+A linked list is useful when we don't know the number of elements
+ahead, and members of the list may be inserted and removed. 
+Each element or node is a structure
+\sms
+\l{\v`TYPE NODE`\m{}}
+\l{\v`   INTEGER :: VALUE`\m{here stores information at each node}}
+\l{\v`   TYPE (NODE), POINTER :: NEXT`\m{last item is a pointer to
+					 next node}}
+\l{\v`END TYPE NODE`\m{}}
+\sms
+Let's write a subroutine that inserts a node to a list according to 
+increasing order of the integer value at the nodes. 
+\ttbg
+PROGRAM LIST
+   IMPLICIT NONE
+
+   TYPE NODE
+      INTEGER :: VALUE
+      TYPE (NODE), POINTER :: NEXT 
+   END TYPE NODE
+   TYPE (NODE), POINTER :: L
+   INTEGER :: NUMBER, IOS 
+ 
+   ALLOCATE(L)
+   NULLIFY(L%NEXT)
+   DO
+      READ(*, *, IOSTAT = IOS) NUMBER
+      IF (IOS < 0) EXIT
+      CALL INSERT(L, NUMBER)
+   END DO
+   CALL PRINT_LIST(L)
+
+CONTAINS
+
+SUBROUTINE INSERT(L, N)
+   IMPLICIT NONE
+   TYPE (NODE), POINTER :: L, TRAIL, TMP
+   INTEGER :: N
+   TRAIL => L
+   TMP => L%NEXT
+   DO
+      IF (.NOT. ASSOCIATED(TMP) ) EXIT
+      IF (N < TMP%VALUE ) EXIT
+      TRAIL => TMP
+      TMP => TMP%NEXT
+   END DO
+   ALLOCATE(TRAIL%NEXT)
+   TRAIL%NEXT%VALUE = N
+   TRAIL%NEXT%NEXT => TMP
+END SUBROUTINE INSERT
+
+SUBROUTINE PRINT_LIST(L)
+   IMPLICIT NONE
+   TYPE (NODE), POINTER :: L, TMP
+   TMP => L%NEXT
+   DO
+      IF (.NOT. ASSOCIATED(TMP) ) EXIT
+      PRINT *, TMP%VALUE
+      TMP => TMP%NEXT
+   END DO
+END SUBROUTINE PRINT_LIST
+
+END PROGRAM LIST
+\tted
+
+
+\lecture{10. Recursion and Trees}
+
+\section{Recursive functions and subroutines}
+Normally, a function or subroutine can not call itself recursively.  
+This is the case in Fortran~77. The new Fortran~90 allows recursive
+calls, but the function or subroutine must be prefixed with the keyword
+{\tt RECURSIVE}.  In addition, the recursive function definition must
+specify a different name for the result, e.g.,
+\ttbg
+RECURSIVE FUNCTION FACTORIAL(N) RESULT (FAC)
+   INTEGER, INTENT(IN) :: N
+   INTEGER :: FAC
+   IF (N <= 0) THEN
+      FAC = 1
+   ELSE
+      FAC = N * FACTORIAL(N - 1)
+   END IF
+END FUNCTION FACTORIAL
+\tted
+Note that the return value of the function is assigned to the result
+{\tt FAC}, and {\tt FACTORIAL} should not be used for this purpose.
+The attribute {\tt INTENT(IN)} indicates that {\tt N} should not be
+modified in the function.  
+
+The structure of a recursive subroutine is like this
+\ttbg
+RECURSIVE SUBROUTINE SUB( ... )
+   ...
+   CALL SUB( ... )
+   ...
+END SUBROUTINE SUB
+\tted
+
+\section{Tree}
+A basic node of a binary tree can be declared as
+\sms
+\l{\v`TYPE NODE`\m{name of the structure}}
+\l{\v`   INTEGER :: VALUE`\m{value stored at each node}}
+\l{\v`   TYPE (NODE), POINTER :: LEFT, RIGHT`\m{pointers to children}}
+\l{\v`END TYPE NODE`\m{}}
+\sms
+
+The following program involves two recursive subroutines, {\tt INSERT} 
+subroutine inserts a number such that at each node the number
+at left child is less than that of the node, and the number at right
+child is equal to or greater than the number at the node. The {\tt
+PRINT\_TREE} function prints out the number {\sl inorder} -- that is, go to
+left, print the current node, go to right.
+\ttbg
+PROGRAM TREE
+   IMPLICIT NONE
+
+   TYPE NODE
+      INTEGER :: VALUE
+      TYPE (NODE), POINTER :: LEFT, RIGHT
+   END TYPE NODE
+
+   TYPE (NODE), POINTER :: T
+   INTEGER :: NUMBER, IOS
+   
+   NULLIFY(T)
+   DO 
+      READ(*, *, IOSTAT = IOS) NUMBER
+      IF ( IOS < 0 ) EXIT
+      CALL INSERT(T, NUMBER)
+   END DO
+
+   CALL PRINT_TREE(T)
+
+CONTAINS
+
+RECURSIVE SUBROUTINE INSERT(T, N)
+   IMPLICIT NONE
+   TYPE (NODE), POINTER :: T
+   INTEGER :: N
+   IF (.NOT. ASSOCIATED(T)) THEN
+      ALLOCATE(T)
+      T%VALUE = N
+      NULLIFY(T%LEFT)
+      NULLIFY(T%RIGHT)
+   ELSE IF (N < T%VALUE) THEN
+      CALL INSERT(T%LEFT, N)
+   ELSE
+      CALL INSERT(T%RIGHT, N)
+   END IF
+END SUBROUTINE INSERT
+
+RECURSIVE SUBROUTINE PRINT_TREE(T)
+   IMPLICIT NONE
+   TYPE (NODE), POINTER :: T
+   IF (ASSOCIATED(T)) THEN 
+      CALL PRINT_TREE(T%LEFT)
+      PRINT *, T%VALUE
+      CALL PRINT_TREE(T%RIGHT)
+   END IF
+END SUBROUTINE PRINT_TREE
+
+END PROGRAM TREE
+\tted
+
+\lecture{11. Modules}
+
+\section{data sharing}
+
+The concept of module is new.  Fortran~77 does not support modules.
+It has a number of uses, one of them is to share variables between
+different subprograms.  There are four ways of passing data between
+subprogram units.  
+
+(1) Through arguments of function and subroutine, both for passing in and out.
+
+(2) Use the data in host program directly by internal subprograms.
+This is not possible in Fortran~77.
+
+(3) Use common blocks between subprograms.  Beside using arguments, this 
+is the only option available in Fortran~77.  And it is considered obsolete in
+Fortran~90. 
+
+(4) Use module provided by Fortran~90.
+
+Let's look at each case in detail.  When using arguments,
+we must remember that all arguments are passed ``call-by-reference''.
+The effect is that variables modified by the subprogram are
+passed back to the calling program.  
+
+Here is an example that uses global variables.
+\sms
+\l{\v`PROGRAM`\m{}}
+\l{\v`   INTEGER :: I, J, K`\m{declare global variables}}
+\l{\v`   I = 1; J = 10; K = 3`\m{}}
+\l{\v`   ...`\m{}}
+\l{\v`   CALL SUB(Y)`\m{}}
+\l{\v`   ...`\m{}}
+\l{\v`CONTAINS`\m{internal subprograms start here}}
+\l{\v`   SUBROUTINE SUB(X)`\m{}}
+\l{\v`      X = I + J`\m{global variables are used here}}
+\l{\v`      K = K + 1`\m{}}
+\l{\v`      ...`\m{}}
+\l{\v`   END SUBROUTINE SUB`\m{}}
+\l{\v`   ...`\m{}}
+\l{\v`END PROGRAM`\m{}}
+\sms
+
+We now explain the common blocks. Suppose one of the
+subroutine wants to have some variables shared by other subroutines
+or functions, after the declaration, one can put
+\sms
+\ll{COMMON/$cmname$/ SIZE, L, A(10)}
+\sms
+where $cmname$ delimited by slashes is a unique global identifier to 
+specify the common block, following it are the names of variables.
+In other subroutines, one can put the same line of common block
+specification, then the variables {\tt SIZE}, {\tt L}, and {\tt A} 
+in different subprograms refer to the same memory locations.  They
+share the {\sl common} data.  The order of the variables 
+in common block is important,
+but you can have different names in different subprograms for the
+variables. 
+
+A better method is provided in Fortran 90 with the modules.  E.g.,
+\ttbg
+MODULE COMMON_DATA
+   INTEGER :: SIZE, L
+   REAL, DIMENSION (10) :: A
+END MODULE COMMON_DATA
+\tted
+A {\tt USE} statement will make those data available in a subprogram
+without declaration, e.g.,
+\ttbg
+SUBROUTINE TEST_USE
+   USE COMMON_DATA
+   A(1) = 1.0
+   ...
+\tted
+\sms
+
+\section{Procedures contained in module}
+A module can contain function and subroutine definitions as well as
+data type definitions, declarations, and interface specifications.
+These definitions then can be used by other program units.  The
+general form of a module is 
+\sms
+\ll{MODULE $module$\_$name$}
+\ll{\ \ \ $type$ $declarations,$ $etc.$}
+\ll{\ \ \ CONTAINS}
+\ll{\ \ \ $function$ $and$ $subroutine$ $definitions$}
+\ll{END MODULE $module$\_$name$}
+\sms
+
+\section{Public and private attributes}
+By default, the variables declared in a module are public, so that
+the program units  using the module can also use these variables.
+Private variables are local to the module.  The module functions
+contained in the module
+can use these variables, but they are invisible to program units
+which use the module.  Here are three different ways of declaring
+the public and private attributes.
+\ttbg
+REAL, PUBLIC :: X, Y, Z
+INTEGER, PRIVATE :: U, V, W
+\tted
+or
+\ttbg
+REAL :: X, Y, Z
+INTEGER :: U, V, W
+PUBLIC :: X, Y, Z
+PRIVATE :: U, V, W
+\tted
+or
+\ttbg
+PUBLIC
+   REAL :: X, Y, Z
+PRIVATE
+   INTEGER :: U, V, W
+\tted
+Besides the public and private module variables, the module
+functions and subroutines can also be declared as public or private.
+
+\section{The use statement}
+The statement
+\sms
+\ll{USE $module$\_$name$}
+\sms
+provide access to all the data objects, derived types, interface
+blocks, procedures, etc.  {\tt USE} statement must be the first
+statement in a program unit.  E.g.,
+\ttbg
+USE COMMON_DATA
+\tted
+The names in module may be renamed
+\sms
+\l{\v`USE COMMON_DATA, B => A`\m{variable {\ninett A} is renamed as {\ninett B}}}
+\sms
+Or only a selected names are accessed
+\sms
+\l{\v`USE COMMON_DATA, ONLY: L, A`\m{other data items can not be accessed}}
+\sms
+
+\section{Operator overloading and user-defined operators}
+In Fortran 90, it is possible to extend the meaning of the 
+intrinsic operators (such as {\tt +}, {\tt -}, {\tt *}, {\tt /}, {\tt **}, 
+{\tt //}, {\tt .EQ.}) by defining an interface block together with a 
+function which defines the operation inside a module.  For example, 
+we like to use asterisk for  matrix multiplication, we first specify an 
+interface
+\ttbg
+INTERFACE OPERATOR (*)
+   MODULE PROCEDURE PROD
+END INTERFACE
+\tted
+where {\tt PROD} is a function which has two arguments, we'll define
+this function later.  Once our module is ready, we can use it.
+For example, we could specify a matrix multiplication as
+\sms
+\ll{C = A * B}
+\sms
+where {\tt C} is a matrix of dimension $m \times n$, {\tt A} and {\tt
+B} are $m\times k$ and $k \times n$, respectively. 
+
+It is also possible to define an operator of your own, e.g., an
+inverse operator for matrix.  Use-defined operator is  a
+name delimited by periods, like {\tt .INVERSE.}, and is specified with 
+\ttbg
+INTERFACE OPERATOR (.INVERSE.)
+   MODULE PROCEDURE MINVERSE
+END INTERFACE
+\tted
+The function {\tt MINVERSE} which takes only one argument could be very long. 
+To invert a matrix {\tt A} and assign it to {\tt C} we simply write
+\sms
+\ll{C = .INVERSE. A}
+\sms
+
+\section{Generic assignment}
+One can also extend the meaning of an assignment with an interface block
+\sms
+\ll{INTERFACE ASSIGNMENT (=)}
+\ll{\ \ \ MODULE PROCEDURE $subroutine$\_$name$}
+\ll{END INTERFACE}
+\sms
+where the subroutine defined in the same module takes two arguments,
+the first is the left-hand side of the equal sign, and the second is
+the right-hand side of the equal sign. 
+
+In the operator overloading and assignment specification, the {\tt 
+MODULE PROCEDURE} keywords should be replaced by function or
+subroutine specification like the usual interface specification if
+the function or subroutine are external.  For example, if the {\tt PROD}
+function is written as an external function, then we need the following
+interface specification to overload the multiplication operator {\tt *},
+\ttbg
+INTERFACE OPERATOR (*)
+   FUNCTION PROD(A, B)
+      TYPE(MATRIX) :: A, B, PROD
+   END FUNCTION PROD
+END INTERFACE
+\tted
+
+\section{Summary of interface specifications}
+(1) Interface declares the arguments and function return value types, like
+the C prototype declarations. E.g.,
+\ttbg
+INTERFACE
+   FUNCTION MINCON(N, X, UPPER, LOWER)
+      INTEGER :: N, UPPER
+      REAL :: MINCON, X
+      REAL, OPTIONAL :: LOWER
+   END FUNCTION MINCON
+END INTERFACE
+\tted
+
+(2) Specify generic names
+\ttbg
+INTERFACE GAMMA
+   FUNCTION SGAMMA(X)
+      REAL(SELECTED_REAL_KIND(6)) :: SGAMMA, X
+   END
+   FUNCTION DGAMMA(X)
+      REAL (SELECTED_REAL_KIND(12)) :: DGAMMA, X
+   END
+END INTERFACE
+\tted
+With this interface specification, when {\tt GAMMA} is used in the 
+program, either {\tt SGAMMA} (a single precision version) or
+{\tt DGAMMA} (a double precision version) will be used depending on 
+the data type of the argument {\tt X} given.
+
+(3) Operator overloading
+\sms
+\l{\v`INTERFACE OPERATOR (+)`\m{require a two-argument function}}
+\ll{INTERFACE OPERATOR (.$op$.)\m{one or two arguments function}}
+\l{\v`INTERFACE ASSIGNMENT (=)`\m{two arguments subroutine}}
+
+\section{An example of a module}
+
+Below is a complete example which shows various aspects of a module:
+data type definitions, interfaces, module procedures.  The module
+{\tt MATRICES} defines several important operations on matrices.
+\sms
+\l{\v`MODULE MATRICES`\m{module program unit start}}
+\l{\v` `\m{}}
+\l{\v`   TYPE MATRIX`\m{matrix data type is defined as}}
+\l{\v`      INTEGER :: ROW`\m{a structure containing the number of rows}}
+\l{\v`      INTEGER :: COL`\m{and columns, as integer variables,}}
+\l{\v`      REAL, DIMENSION(:, :), POINTER :: ARRAY`\m{and a pointer to a
+						two-dimensional array}}
+\l{\v`   END TYPE MATRIX`\m{}}
+\l{\v``\m{}}
+\l{\v`   INTERFACE OPERATOR (+)`\m{the function {\ninett SUM} can be used}}
+\l{\v`      MODULE PROCEDURE SUM`\m{through the addition operator {\ninett +}}}
+\l{\v`   END INTERFACE`\m{by an interface specification}}
+\l{\v``\m{}}
+\l{\v`   INTERFACE OPERATOR (*)`\m{asterisk means both matrix multiplication}}
+\l{\v`      MODULE PROCEDURE PROD, SCALE`\m{and multiplying matrix with
+					    a number}}
+\l{\v`   END INTERFACE`\m{}}
+\l{\v``\m{}}
+\l{\v`   PRIVATE SUM, PROD, SCALE`\m{make {\ninett SUM}, 
+{\ninett PROD}, and {\ninett SCALE} local to this module}}
+\l{\v` `\m{}}
+\l{\v`CONTAINS`\m{the module procedures follow}}
+\l{\v` `\m{}}
+\l{\v`   FUNCTION SUM(A, B) `\m{}}
+\l{\v`      TYPE(MATRIX) :: A, B, SUM`\m{}}
+\l{\v`      IF (A%ROW /= B%ROW .OR. A%COL /= B%COL ) &`\m{}}
+\l{\v`         STOP 'Can not add'`\m{abort when error occurs}}
+\l{\v`      SUM%ROW = A%ROW`\m{}}
+\l{\v`      SUM%COL = A%COl`\m{}}
+\l{\v`      ALLOCATE( SUM%ARRAY(A%ROW, A%COL) )`\m{}}
+\l{\v`      SUM%ARRAY = A%ARRAY + B%ARRAY`\m{}}
+\l{\v`   END FUNCTION SUM`\m{}}
+\l{\v` `\m{}}
+\l{\v`   FUNCTION PROD(A, B)`\m{}}
+\l{\v`      TYPE(MATRIX) :: A, B, PROD`\m{}}
+\l{\v`      IF (A%COL /= B%ROW ) STOP 'Can not multiply'`\m{}}
+\l{\v`      PROD%ROW = A%ROW`\m{}}
+\l{\v`      PROD%COL = B%COL`\m{}}
+\l{\v`      ALLOCATE( PROD%ARRAY(A%ROW, B%COL) )`\m{}}
+\l{\v`      PROD%ARRAY = MATMUL(A%ARRAY, B%ARRAY)`\m{{\ninett MATMUL} is 
+					an intrinsic function}}
+\l{\v`   END FUNCTION PROD`\m{}}
+\l{\v`   `\m{}}
+\l{\v`   FUNCTION SCALE(C, A)`\m{multiply a number to a matrix}}
+\l{\v`      TYPE(MATRIX) :: A, SCALE`\m{}}
+\l{\v`      REAL :: C`\m{}}
+\l{\v`      SCALE%ROW = A%ROW`\m{}}
+\l{\v`      SCALE%COL = A%COL`\m{}}
+\l{\v`      ALLOCATE( SCALE%ARRAY(A%ROW, A%COL) )`\m{}}
+\l{\v`      SCALE%ARRAY = C * A%ARRAY`\m{}}
+\l{\v`   END FUNCTION SCALE`\m{}}
+\l{\v` `\m{}}
+\l{\v`   SUBROUTINE SETM(ROW, COLUMN, ARRAY, A)`\m{initialize a matrix}}
+\l{\v`      TYPE(MATRIX) :: A`\m{}}
+\l{\v`      INTEGER :: ROW, COLUMN`\m{}}
+\l{\v`      REAL, DIMENSION(:,:) :: ARRAY`\m{}}
+\l{\v`      A%ROW = ROW`\m{}}
+\l{\v`      A%COL = COLUMN`\m{}}
+\l{\v`      ALLOCATE( A%ARRAY(A%ROW, A%COL) )`\m{}}
+\l{\v`      A%ARRAY = ARRAY`\m{}}
+\l{\v`   END SUBROUTINE SETM`\m{}}
+\l{\v` `\m{}}
+\l{\v`   SUBROUTINE PRINTM(A)`\m{print a matrix}}
+\l{\v`      TYPE (MATRIX) :: A`\m{}}
+\l{\v`      INTEGER :: I, J`\m{}}
+\l{\v`      DO I = 1, A%ROW`\m{}}
+\l{\v`         PRINT *, ( A%ARRAY(I,J), J = 1, A%COL )`\m{}}
+\l{\v`      END DO`\m{}}
+\l{\v`   END SUBROUTINE PRINTM`\m{}}
+\l{\v` `\m{}}
+\l{\v`END MODULE MATRICES`\m{}}
+\sms 
+You might want to add other operations like transpose, matrix
+inverse, or determinant to  the module.   The use of memory is not efficient
+in these functions.  We asked for memory to hold every immediate result,
+but we couldn't return the memory to the system. Here is a test program that
+uses the module. 
+\sms
+\l{\v`PROGRAM TEST`\m{}}
+\sms
+\l{\v`USE MATRICES`\m{}}
+\sms
+\l{\v`  TYPE(MATRIX) :: A, B, C`\m{}}
+\l{\v`  REAL, DIMENSION(2,4) :: TMP`\m{}}
+\l{\v`  TMP(1,:) = (/1.0, 2.0, 3.0, 4.0 /)  `\m{}}
+\l{\v`  TMP(2,:) = (/5.0, 6.0, 7.0, 8.0 /)`\m{}}
+\l{\v`  CALL SETM(2, 2, TMP(1:2,1:2), A)`\m{}}
+\l{\v`  CALL SETM(2, 4, TMP, B)`\m{}}
+\l{\v`  PRINT *, 'matrix A'`\m{}}
+\l{\v`  CALL PRINTM(A)`\m{}}
+\l{\v`  PRINT *, 'matrix B'`\m{}}
+\l{\v`  CALL PRINTM(B)`\m{}}
+\l{\v`  C = A*B + 2.0 * B`\m{}}
+\l{\v`  PRINT *, 'matrix AB + 2B'`\m{}}
+\l{\v`  CALL PRINTM(C)`\m{}}
+\sms
+\l{\v`END PROGRAM TEST`\m{}}
+\sms
+
+\section{Attributes vs. statements}
+In general, variable declaration takes the form
+\sms
+\ll{$type$, $attribute$ :: $variable$}
+\sms
+For example
+\sms
+\l{\v`REAL, PARAMETER :: PI = 3.141592653`\m{{\ninett PARAMETER} attribute}}
+or equivalently\par
+\ll{REAL :: PI}
+\l{\v`PARAMETER (PI = 3.141592653)`\m{{\ninett PARAMETER} statement}}
+You may specify with attributes
+\ttbg
+REAL, ALLOCATABLE :: A(:,:)
+REAL, POINTER :: SON
+REAL, TARGET :: Y(10)
+REAL, SAVE :: S
+\tted
+or equivalently, use corresponding statements
+\ttbg
+REAL :: A, SON, Y, S
+ALLOCATABLE :: A(:,:)
+POINTER :: SON
+TARGET :: Y(10)
+SAVE :: S
+\tted
+{\tt SAVE} attribute is like static variable in C function.  The content
+will be preserved between function calls.
+
+\section{DATA statement}
+{\tt DATA} statement is considered obsolete in Fortran 90.  It is used
+in Fortran 77 to initialize data.  E.g.,
+\ttbg
+REAL :: A = 1.0, B = 2.0, C = 3.0
+INTEGER :: I = 1, J = 2, K = 3
+\tted
+or equivalently
+\ttbg
+REAL :: A, B, C
+INTEGER :: I, J, K
+DATA A, B, C /1.0, 2.0, 3.0/, I, J, K /1, 2, 3/
+\tted
+other {\tt DATA} statements
+\sms
+\l{\v`DATA I/0/`\m{}}
+\l{\v`DATA I, J, K /3*0/`\m{all three variables initialize to 0}}
+\l{\v`DATA R(1:LENGTH) /LENGTH*0./`\m{all elements gets 0.0}}
+\sms
+Array elements or array sections may initialized this way, eg.,
+\sms
+\l{\v`REAL A(5,5)`\m{a 5 by 5 matrix}}
+\l{\v`DATA A(1,1) /1.0/`\m{a single element}}
+\l{\v`DATA A(2:5, 4) /4*1.0/`\m{array section with 4 elements}}
+\l{\v`DATA A /25*1.0/`\m{all array elements are set to 1.0}}
+\sms
+Implicit loops may be used
+\sms
+\ll{DATA (( A(I,J), I = 1, 5, 2), J = 1, 5) /15*0./}
+\sms
+
+
+\lecture{12. Intrinsic Procedures}
+Fortran has a large collections of so-called intrinsic functions and
+subroutines for scientific computation.  This is one of the advantage of
+using Fortran for scientific and engineering calculations. 
+
+The function names are generic names.  This means that the function works
+for integer, real, double, or complex argument.
+Most of the functions also work on arrays.  E.g.,
+\ttbg
+X = (/ 1.0, 4.0, 9.0, 16.0 /)
+Y = SQRT(X)
+\tted
+then {\tt Y} has value {\tt (/1.0, 2.0, 3.0, 4.0/)}. 
+There are two more statements to do with intrinsic functions.
+\sms
+\ll{INTRINSIC $intrinsic$\_$procedure$\_$name$}
+\sms
+inform the compiler (as well as the programmer) the name refers to
+intrinsic function or subroutine.
+\sms
+\ll{EXTERNAL $name$}
+\sms
+Specify the name is an external function or subroutine.
+
+\section{Mathematical and numerical functions}
+\sms
+\halign{&\t\tt#\hfil&\ $#$\hfil&\ #\hfil\cr
+ACOS(X) & \cos^{-1} x & arccosine & ASIN(X) & \sin^{-1} x & arcsine \cr
+COS(X) & \cos x & cosine & SIN(X) & \sin x & sine \cr
+ATAN(X) & \tan^{-1} x & arctangent & TAN(X) & \tan x & tangent \cr
+TANH(X) & \tanh x & hyperbolic tangent & LOG10(X) & \log_{10} x & common logarithm \cr
+EXP(X) & e^{x} & exponential & LOG(X) & \ln x & natural logarithm \cr
+COSH(X) & \cosh x & hyperbolic cosine & SINH(X) & \sinh x & hyperbolic sine \cr
+SQRT(X) & \sqrt{x} & square root & ABS(X) & |x| & absolute value \cr
+CEILING(X) & \lceil x \rceil & ceiling & FLOOR(X) & \lfloor x \rfloor & floor \cr
+MAX(A1,A2,...) & & maximum & MIN(A1,A2,...) & & minimum \cr
+INT(X) & & convert to integer & NINT(X) & & nearest integer \cr
+MOD(A,P) & a {\rm\ mod\ } p & remainder & SIGN(A,B) & & transfer of sign \cr
+}
+\sms
+
+\section{Bit manipulation functions}
+\sms
+\halign{&\t\tt#\hfil&\qquad #\hfil\cr
+BTEST(I, POS) & bit testing & IBCLR(I, POS) & clear bit \cr
+IBSET(I, POS) & set bit & IBITS(I, POS, LEN) & bit extract \cr
+IAND(I, J) & bitwise logical and & IOR(I, J) & bitwise or \cr
+IEOR(I, J) & bitwise exclusive or & NOT(I) & complement \cr
+ISHFT(I, SHIFT) & bit shift & ISHFTC(I, SHIFT) & circular shift \cr
+}
+\sms
+
+\section{Array functions}
+
+Fortran 90 has a large number of intrinsic functions on array.
+\sms
+\halign{&\t\tt#\hfil&\  #\hfil\cr
+DOT\_PRODUCT(A, B) & dot product of vectors & MATMUL(A, B) & matrix multiplication \cr
+MAXVAL(A) & maximum value in array & MINVAL(A) & minimum value in array \cr
+MAXLOC(A) & location of maximum & MINLOC(A) & location of minimum \cr
+PRODUCT(A) & product of array elements & SUM(A) & sum of array elements \cr
+TRANSPOSE(A) & transpose of matrix &  CSHIFT(A,SHIFT,DIM) & circular shift \cr
+SIZE(A) & total number of elements & SHAPE(A) & shape of array \cr
+LBOUND(A) & lower dimension bounds & UBOUND(A) & upper dimension bounds \cr
+RESHAPE(SOURCE,SHAPE) & reshape array & COUNT(MASK) & number of true elements \cr 
+}
+\sms
+Example:
+\ttbg
+REAL, DIMENSION(-10:5, 2) :: A
+REAL R
+\tted
+\l{\v`SIZE(A)`\m{has value 32}}
+\l{\v`SIZE(A, 1)`\m{has value 16}}
+\l{\v`SIZE(A, 2)`\m{has value 2}}
+\l{\v`LBOUND(A)`\m{has value {\ninett (/-10, 1/)}}}
+\l{\v`UBOUND(A)`\m{has value {\ninett (/5, 2/)}}}
+\l{\v`SHAPE(A)`\m{has value {\ninett (/16, 2/)}}}
+\l{\v`SHAPE(R)`\m{has value 0}}
+\sms
+
+\section{Numeric inquiry functions}
+\halign{\t\tt#\hfil&\qquad \tt# \hfil&\qquad #\hfil\cr
+$function(arg)$ & $typical$\ $value$ & $explanation$ \cr
+\noalign{\sms}
+DIGITS(1) & 31 & binary digits for an integer\cr
+DIGITS(1.0) & 24 & or real representation \cr
+EPSILON(1.0) & 1.2E-7 & number negligible compares to 1.0\cr
+HUGE(1) & 2147483647 & largest number of given type \cr
+HUGE(0.0) & 3.4E38 & \cr
+MAXEXPONENT(1.0) & 127 & maximum and minimum \cr
+MINEXPOMENT(1.0) & -126 & exponent value (base 2) \cr
+PRECISION(1.0) & 6 & precision of real \cr
+RADIX(1.0) & 2 & base of number \cr
+RADIX(1) & 2 & representation \cr
+RANGE(1) & 9 & range of number $-10^9$ to $10^9$ \cr
+RANGE(1.0) & 37 & for real $10^{-37}$ to $10^{37}$ \cr
+TINY(1.0) & 1.1E-38 & smallest positive number \cr
+}
+
+\section{Other intrinsic subroutines}
+\sms
+\halign{\t\tt#\hfil&\qquad #\hfil\cr
+DATE\_AND\_TIME(ALL, COUNT, MSECOND, SECOND, & date and time \cr
+\ \ \ \ MINUTE, HOUR, DAY, MONTH, YEAR, ZONE)  & all arguments are optional \cr
+RANDOM(R) & return random number $0 < \hbox{\tt R} <1$ \cr
+RANDOM\_SEED() & initialize or restart random number generator \cr
+SYSTEM\_CLOCK(COUNT,COUNT\_RATE,COUNT\_MAX) & data from system clock \cr
+}
+
+
+\vfill\eject
+\lecture{13. Introduction to MPI}
+
+\section{Parallel Computation}
+
+Parallel computation is playing more and more important rule in
+large-scale scientific and engineering computing.   The speed of
+a single processor is fundamentally limited.  Using many processors,
+say from few upto a thousand, to solve a single problem is possible 
+now a days. 
+
+Two distinct computer architectures exit: distributed memory and
+shared memory.  The acronym  MPI is from ``Massage-Passing Interface''. 
+MPI is a software standard and a library to facilitate
+parallel computing in distributed memory environment.   With MPI
+or other software (e.g., PVM), we can use a workstation cluster
+to do parallel computation. 
+
+
+\section{Computing Pi}
+
+Consider the numerical integration of   
+$$ 4 \int_0^1 { 1 \over 1 + x^2 } dx. $$  
+The result is $\pi \approx 3.14159$.  The integral is approximated
+by simple discrete sum  $  \sum 4/(1+x^2) \Delta x$.   The job of
+computing the sum is divided among processors.  Here is the code.
+We'll explain them line by line.
+
+\ttbg
+c**********************************************************************
+c   pi.f - compute pi by integrating f(x) = 4/(1 + x**2)     
+c     
+c   Each node: 
+c    1) receives the number of rectangles used in the approximation.
+c    2) calculates the areas of it's rectangles.
+c    3) Synchronizes for a global summation.
+c   Node 0 prints the result.
+c
+c  Variables:
+c
+c    pi  the calculated result
+c    n   number of points of integration.  
+c    x           midpoint of each rectangle's interval
+c    f           function to integrate
+c    sum,pi      area of rectangles
+c    tmp         temporary scratch space for global summation
+c    i           do loop index
+c***********************************************************************
+      program main
+
+      include 'mpif.h'
+
+      double precision  PI25DT
+      parameter        (PI25DT = 3.141592653589793238462643d0)
+
+      double precision  mypi, pi, h, sum, x, f, a
+      integer n, myid, numprocs, i, rc
+c                                 function to integrate
+      f(a) = 4.d0 / (1.d0 + a*a)
+
+      call MPI_INIT( ierr )
+      call MPI_COMM_RANK( MPI_COMM_WORLD, myid, ierr )
+      call MPI_COMM_SIZE( MPI_COMM_WORLD, numprocs, ierr )
+      print *, "Process ", myid, " of ", numprocs, " is alive"
+
+      sizetype   = 1
+      sumtype    = 2
+      
+ 10   if ( myid .eq. 0 ) then
+         write(6,98)
+ 98      format('Enter the number of intervals: (0 quits)')
+         read(5,99) n
+ 99      format(i10)
+      endif
+      
+      call MPI_BCAST(n,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
+
+c                                 check for quit signal
+      if ( n .le. 0 ) goto 30
+
+c                                 calculate the interval size
+      h = 1.0d0/n
+
+      sum  = 0.0d0
+      do 20 i = myid+1, n, numprocs
+         x = h * (dble(i) - 0.5d0)
+         sum = sum + f(x)
+ 20   continue
+      mypi = h * sum
+
+c                                 collect all the partial sums
+      call MPI_REDUCE(mypi,pi,1,MPI_DOUBLE_PRECISION,MPI_SUM,0,
+     $     MPI_COMM_WORLD,ierr)
+
+c                                 node 0 prints the answer.
+      if (myid .eq. 0) then
+         write(6, 97) pi, abs(pi - PI25DT)
+ 97      format('  pi is approximately: ', F18.16,
+     +          '  Error is: ', F18.16)
+      endif
+
+      goto 10
+
+ 30   call MPI_FINALIZE(rc)
+      stop
+      end
+\tted
+
+The statement
+\sms
+\ll{include 'mpif.h'}
+\sms
+is necessary in every MPI Fortran program and subprogram to define
+various constants and variables.   After the variable definitions,
+the three lines appears in every MPI program:
+\ttbg
+      call MPI_INIT( ierr )
+      call MPI_COMM_RANK( MPI_COMM_WORLD, myid, ierr )
+      call MPI_COMM_SIZE( MPI_COMM_WORLD, numprocs, ierr )
+\tted
+The call to {\tt MPI\_INIT} is required and must be the first MPI
+call. It establishes the MPI ``environment.''   The last argument
+of every MPI subroutine is the returned error code.  The value will
+be {\tt MPI\_SUCCESS} if execution is successful.  
+
+All MPI communication is associated with a {\sl communicator} which
+defines a group of processes.  {\tt MPI\_COMM\_WORLD} defines the 
+set of all processes available.  The return value {\tt myid} from
+calling {\tt MPI\_COMM\_RANK} identify the process; {\tt myid} is 
+a number from 0 to $1 - {\tt numprocs}$, where {\tt numprocs}
+is the total number of processors.  
+
+The processor 0 is normally directly connected with user, and is called
+the master process.  The master process gets a value for $n$, the
+number of integration points from the user.  The line
+\ttbg
+      call MPI_BCAST(n,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
+\tted
+sends the value $n$ to all other processes.   The {\tt MPI\_BCAST} results
+in every process ending up with a copy of $n$.    The data to be
+communicated is described by the address ({\tt n}), the number of items 
+(1), and the datatype ({\tt MPI\_INTEGER}).  The process with the original
+copy is specified by the fourth argument (0 in this case, the
+master process, which just reads it from the user).   The master 
+process 0 sends the data to all other processes.  All other processes
+receive the data.  
+
+After the call to {\tt MPI\_BCAST}, all processes have $n$ and their
+own identifiers, which is enough information for each one to compute
+its contribution, {\tt mypi}.   Each process computes the area of
+every {\tt numprocs}s'th rectangle, starting with ${\tt myid} + 1$. 
+Next, all of the values of {\tt mypi} held by the individual processes
+need to be added up.  MPI provides a rich set of such operations, using
+the {\tt MPI\_REDUCE} routine, with an argument specifying which arithmetic
+or logical operation is being requested.  In our case the call is
+\ttbg
+      call MPI_REDUCE(mypi,pi,1,MPI_DOUBLE_PRECISION,MPI_SUM,0,
+     $     MPI_COMM_WORLD,ierr)
+\tted
+The first two arguments identify the source and result addresses,
+respectively.  The data being collected consists of 1 item of type
+{\tt MPI\_DOUBLE\_PRECISION}.   The operation is addition ({\tt MPI\_SUM}),
+and the result of the operation is to be placed in {\tt pi} in the 
+process with rank 0 (fifth argument).  The last two arguments  are
+the communicator and error code, as usual. 
+
+All processes then return to the top of the loop (the master prints
+the answer first).   The {\tt MPI\_BCAST} causes all the processes
+except the master to wait for the next value of $n$.   When the user
+types a zero in response to the request for a number of rectangles,
+the loop terminates and all processes execute
+\ttbg
+      call MPI_FINALIZE(rc)
+\tted
+This call must be made by every process in an MPI computation.  It 
+terminates the MPI ``environment''; no MPI calls may be made by a 
+process after its call to {\tt MPI\_FINALIZE}.  
+
+\section{Running MPI programs}
+
+To run the multi-processor program, we must need to compile the
+program with 
+\sms
+\ll{mpif77 $file$.f}
+\sms
+\noindent and make sure you have a {\tt .rhosts} file with these machines
+as trusted hosts (see manpage on rhosts for more information).   This file
+allow you to rsh or rlogin without a password.  Then one could run the
+program as
+\sms
+\ll{mpirun -np 4 $file$}
+\sms
+where {\tt -np 4} specifies that you use 4 processors,
+$file$ is the name of executable.  If the PVM's bin directory 
+is not on your search path, you may either add the directory on your
+search path or using the full path names in the above examples.
+
+\section{A `Hello World' program in MPI}
+The program below shows the fundamentals of a message-passing
+parallel program, sending and receiving information. 
+
+\ttbg
+C     Each process sends a message back to the master process 0
+C     the master prints out the message
+
+      program main
+
+      include 'mpif.h'
+
+      integer revid, myid, numprocs, i
+      integer rc, tag, src, ierr
+      integer status(MPI_STATUS_SIZE)
+
+      call MPI_INIT( ierr )
+      call MPI_COMM_RANK( MPI_COMM_WORLD, myid, ierr )
+      call MPI_COMM_SIZE( MPI_COMM_WORLD, numprocs, ierr )
+
+      if (myid .GT. 0) then
+         tag = myid 
+         call MPI_SEND( myid, 1, MPI_INTEGER, 0, tag, 
+     &                 MPI_COMM_WORLD, ierr )
+      else
+         do 10 i = 1, numprocs - 1
+            src = MPI_ANY_SOURCE
+            tag = MPI_ANY_TAG
+            call MPI_RECV( revid, 1, MPI_INTEGER, src, tag, 
+     &                    MPI_COMM_WORLD, status, ierr )
+            print *, "Received from process ", revid
+10       continue
+      endif
+
+      call MPI_FINALIZE(rc)
+      stop
+      end
+\tted
+The {\tt MPI\_SEND} and {\tt MPI\_RECV} are the most basic message 
+passing functions.   The three arguments of send and receive describe
+the message by address, count, and datatype.  The fourth argument 0 in 
+{\tt MPI\_SEND} is the destination.  The next argument is an integer
+message type, or tag.  We use the tag to indicate extra information
+about the message, it is otherwise arbitrary.  {\tt MPI\_COMM\_WORLD} 
+is the default communicator. The last one is error return code. 
+
+The receiving function {\tt MPI\_RECV} has a source (fourth) and
+tag (fifth argument).  The source indicates from which process
+one wants to receive, and the tag indicates from which tag to receive. 
+The receiving function will wait until the expected data is 
+received.  In the above example, we are not selective, and accept
+message from any source or tag.
+
+For complete information on MPI, the reader is recommended to read
+the text book by Gropp et al, and the user manual of MPI.
+
+\vfill\eject
+
+\font\bigsc=cmcsc10 scaled\magstep1
+\baselineskip = 11pt
+\def\]{\leavevmode\hbox{\tt\char`\ }}
+\def\fc#1#2{\hskip 3 mm {\tt #1} \hfill $#2$\hskip 3 mm}
+\def\fct#1#2{\hskip 3 mm {\tt #1} \hfill #2\hskip 3 mm}
+\def\fcc#1#2{\line{\hskip 3 mm {\tt #1} \hfill #2\hskip 3 mm }}
+\def\sect#1{\smallskip{\bf #1}\par\nobreak}
+\def\tab{\phantom{\]\]\]\]\]\]}}
+\def\logo{$^{\scriptscriptstyle 90}$}
+\def\shrink{\vskip -2pt}
+\parindent=0pt
+
+\centerline{\bigsc Fortran Language Brief Summary}
+\medskip
+\sect{Compile and Run Fortran Programs}
+\fcc{f77 $filename$.f\ \ \ {\rm or} \ \ \ f90 $file$.f90}{compile and link, produce {\tt a.out}}
+\fcc{a.out}{execute the program}
+
+\sect{Program Structure}
+
+\fcc{\]\]\]\]\]\]PROGRAM {\it Name}}{specify the main program name (optional)}
+\fcc{C\ \ \ \ \ This is a comment}{a line starting with {\tt C} in column 1
+is a comment line}
+\fcc{\tab {\it variable declarations}}{declare variable types and array types}
+\fcc{\tab {\it statements}}{statements are in column 7 to 72}
+\fcc{12345 }{columns 1 to 5 are for statement label}
+\fcc{\ \ \ \ \ +}{character in column 6 indicates line continuation}
+\fcc{\tab READ *, Y}{read input from terminal}
+\fcc{\tab CALL SUB(A,B)}{subroutine call}
+\fcc{\tab X = FUNC(Y)}{function call}
+\fcc{\tab ...}{and so on}
+\fcc{\tab PRINT *, ' X = ', X}{print out value, characters are quoted
+				with {\tt '...'}}
+\fcc{\tab END}{terminate main program}
+\fcc{\tab}{}
+
+\fcc{\tab FUNCTION FUNC(X)}{define a function}
+\fcc{\tab ... }{ }
+\fcc{\tab FUNC = A * X**2 + B/X - C}{
+assign value of $A X^2 + B/X - C $ to $FUNC$}
+\fcc{\tab END}{end of the function definition}
+\fcc{\tab}{}
+
+\fcc{\tab SUBROUTINE SUB(A,B)}{define a subroutine}
+\fcc{\tab ... }{variables in subroutine are local}
+\fcc{\tab END}{end of the definition}
+\fcc{\tab }{ }
+
+\sect{Variable Declarations}
+\fcc{\tab INTEGER I,J,..,IAR(10)}{Variable {\it I, J} are integers,
+				   {\it IAR(10)} is array with 10 elements}
+\fcc{\tab REAL A,X, ARRAY(-10:10)}{real numbers, array indices take values
+$-10$, $-9$, $\ldots$, 9, 10}
+\fcc{\tab DOUBLE PRECISION D,R(4,8)}{double precision,  
+			{\tt R(4,8)} declares two dimensional
+				array of 4 by 8}
+\fcc{\tab COMPLEX  COMP}{complex number, the value is, e.g., (12.0, 0.7)}
+\fcc{\tab LOGICAL LG}{logical variables take value {\tt .TRUE.} and
+                                        {\tt .FALSE.}}
+\fcc{\tab CHARACTER*5 CHAR}{character string of length 5}
+\fcc{\tab PARAMETER ( PI = 3.14159 )}{declare constant}
+\fcc{\tab DATA I/1/, A/1.2/, D/1.0D0/, CHAR/'WORDS'/, LG/.TRUE./}
+			{set initial values}
+\fcc{\tab COMMON/CNAME/X,R,...}{common blocks share variables between 
+				subroutines}
+
+\sect{Comparison}
+\settabs 5 \columns
+\+\fc{.EQ. (==)}{=} &
+\fc{.LT. (<)}{<} &
+\fc{.GT. (>)}{>} &
+\fct{.AND.}{and} &
+\fct{.OR.}{or} & \cr
+\+\fc{.NE. (/=)}{\neq} &
+\fc{.LE. (<=)}{\leq} &
+\fc{.GE. (>=)}{\geq} &
+\fct{.NOT.}{not} &
+\fct{.XOR.}{exclusive or} & \cr
+\+ & & & 
+\fct{.EQV.}{equivalent} &
+\fct{.NEQV.}{nonequivalent} & \cr
+
+\sect{Flow Control}
+\fcc{\tab DO 10 I = 1, 5}{do-loop with {\tt I} varies from 1 to 5 in step 1}
+\fcc{10\ \ \ \ IAR(I) = I**2}{ }
+\medskip
+\fcc{\tab DO J = 0, 10, 2}{\logo do-loop with {\tt J} varies from 0 to 10 in step 2}
+\fcc{\tab ...}{ }
+\fcc{\tab END DO}{ }
+\medskip
+\medskip
+%\vfill\break
+\fcc{\tab DO}{\logo loop with exit condition specified anywhere in the block}
+\shrink
+\fcc{\tab \ \ ...}{ }
+\fcc{\tab \ \ IF (...) EXIT}{loop terminate if condition is {\tt .TRUE.}}
+\shrink
+\fcc{\tab \ \ ...}{ }
+\fcc{\tab END DO}{ }
+\medskip
+\medskip
+\fcc{\tab DO WHILE ($expr$)}{\logo execute the body if $expr$ is {\tt .TRUE.}}
+\fcc{\tab \ \ ...}{ }
+\fcc{\tab END DO}{ }
+\medskip
+\fcc{\tab IF (J.GT.0) X = - 5}{conditional, assign {\tt X} to 5 if {\tt J > 0}}
+\medskip
+%%%%%%%%%%%%%%%%% FORCED PAGE BREAK %%%%%%%%%%%
+\vfill\eject
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\fcc{\tab IF ( ... ) THEN}{block if}
+\shrink
+\fcc{\tab \ \ ...}{ }
+\fcc{\tab ELSE IF (...) THEN}{optional, several {\tt ELSE IF}s are allowed}
+\shrink
+\fcc{\tab \ \ ...}{ }
+\fcc{\tab ELSE}{optional}
+\shrink
+\fcc{\tab \ \ ...}{ }
+\fcc{\tab END IF}{ }
+\medskip
+\medskip
+\fcc{\tab SELECT CASE ($expr$)}{\logo $expr$ may be integer, logical or
+				character variable}
+\fcc{\tab \ \ CASE ($value$)}{$value$ is constant expression}
+\fcc{\tab \ \ \ \ $statement$}{}
+\fcc{\tab \ \ CASE ($value_1$, $value_2$)}{}
+\shrink
+\fcc{\tab \ \ \ \ ...}{}
+\fcc{\tab \ \ CASE DEFAULT}{}
+\shrink
+\fcc{\tab \ \ \ \ ...}{}
+\fcc{\tab END SELECT}{}
+\medskip
+\fcc{\tab GOTO 15}{jump to line labelled as 15}
+
+\sect{Input/Output}
+\fcc{\tab OPEN(8,FILE='FILENAME',STATUS='UNKNOWN')}{associate unit
+			number 8 with a file}
+\fcc{\tab ...}{unit 5 is standard input (keyboard), 
+				6 standard output (screen)}
+\fcc{\tab READ(8,*) I, R, A}{ read from file, {\tt *} for free format}
+\fcc{\tab WRITE(8,100) I, R, A}{ write to file}
+\fcc{100\ \ \ FORMAT(1X,I5,F7.3,A1)}{write in the form of \]\]\]\]\],
+			\]\]\]{\tt .}\]\]\], and \], respectively}
+\fcc{\tab ...}{{\tt X} for space, {\tt I} for integer, {\tt F} for real,
+		and {\tt A} for character}
+\fcc{\tab CLOSE(8)}{close the opening file}
+
+\sect{Character Strings}
+\fcc{\tab 'a'//'bc'}{concatenate two strings, producing {\tt 'abc'}}
+\fcc{\tab CS(2:5)}{extract substring in position 2 to 5}
+\fcc{\tab LEN(CS)}{a function return the length of the string {\tt CS}}
+\fcc{\tab ICHAR($char$), CHAR($integer$)}{convert character to integer,
+			integer to character, respectively}
+
+\sect{Intrinsic Functions}
+\+\fcc{SIN(X)}{} &
+\fcc{SINH(X)}{} &
+\fcc{LOG(X)}{} &
+\fcc{EXP(X)}{} &
+\fcc{REAL(I)}{} & \cr
+\+\fcc{COS(X)}{} &
+\fcc{COSH(X)}{} &
+\fcc{LOG10(X)}{} &
+\fcc{INT(X)}{} &
+\fcc{DFLOAT(I)}{} & \cr
+\+\fcc{ABS(X)}{} &
+\fcc{SQRT(X)}{} &
+\fcc{MOD(I,J)}{} &
+\fcc{TAN(X)}{}& 
+\fcc{TANH(X)}{}& \cr
+\+\fcc{NOT(I)}{} &
+\fcc{IAND(I,J)}{} &
+\fcc{IOR(I,J)}{} &
+\fcc{IEOR(I,J)}{} &
+\fcc{ISHFT(I,SHFT)}{} & \cr
+
+
+\sect{Miscellaneous}
+\fcc{\tab STOP 'Message'}{terminate execution with optional message}
+\fcc{\tab RETURN}{return to calling program}
+\fcc{\tab PAUSE}{pause}
+
+\sect{New Fortran 90 features}
+\medskip
+\fcc{\tab TYPE INFO}{user defined type (structure) called {\tt INFO}}
+\fcc{\tab \ \ CHARACTER*10 NAME}{ }
+\fcc{\tab \ \ INTEGER AGE}{ }
+\fcc{\tab END TYPE}{}
+\medskip
+\fcc{\tab TYPE (INFO) :: A, B, C}{define {\tt A,B,C} as type {\tt INFO}}
+\fcc{\tab A\%NAME = 'js' }{refer the component by percent sign}
+\medskip
+\fcc{\tab REAL, TARGET :: D}{define {\tt D} so that address can be accessed by a pointer}
+\fcc{\tab REAL, POINTER :: P}{pointer to a real number}
+\fcc{\tab P => D}{pointer {\tt P} pointing to variable {\tt D}}
+\fcc{\tab ALLOCATE(P); DEALLOCATE(P)}{dynamically allocate/free memory}
+\medskip
+\fcc{\tab MODULE $name$}{module is a piece of variable declarations and codes}
+\fcc{\tab \ \ USE Others}{which can be used by other module or subprograms}
+\fcc{\tab \ \ {\it variable declarations}}{global variables inside module}
+\fcc{\tab \ \ CONTAINS}{subroutine or function definition follows}
+\fcc{\tab \ \ {\it subprograms} }{}
+\fcc{\tab END MODULE}{}
+\medskip
+
+\vfill
+\eject
+\end

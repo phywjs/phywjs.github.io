@@ -1,0 +1,75 @@
+
+Question #1
+===========
+1) Make the string that you want to convert to be 9 digits maximum. This
+   is so that you won't have to deal with overflow problems. So, make
+   sure you allocate a total of 10 bytes--9 for the digits and 1 for
+   the null.
+
+2) Test your program with 3 test cases. It is up to you what you want
+   to test with, but there must be at least 1 test case on invalid
+   digits e.g. a123, etc. Submit your output together with your program.
+
+3) You have a choice of whether to write a program that compiles with
+   "cc" or a program that runs with SPIM/XSPIM. If you want to compile
+   with cc, then you will need to call the printf function to print out
+   things to the screen. If you want to use SPIM, then use the syscall
+   feature in SPIM. You may refer to the answers for previous lab
+   assignments for examples. Here also, is an example:
+
+   To call printf from assembly programs:
+
+      e.g.
+            printf("The value is %d", 123);
+
+            is translated to:
+
+                 .data                    # This lives in the "data" section
+            str:                          # Put it away from the .text section
+                 .asciiz "The value is "  # like at the beginning, b4 .text
+
+                 .text
+                 <.... your program is here...>
+                 
+                 la $4, str   # load the address of "The value is " into $4
+                 li $5, 123   # load the number 123 into $5
+                              # note: the above 2 instr sets up the 
+                              #       arguments to printf
+                 jal printf
+
+   To print out the above with syscall:
+
+                 la $4, str   # load the addr of str into $4
+                 li $2, 4     # select print_string function for syscall
+                 syscall
+
+                 li $4, 123   # load the number into $4
+                 li $2, 1     # select print_int function for syscall
+                              # (note: refer to the documentation for
+                              # spim for the various syscall functions
+                              # This is in Appendix A pg A-46 of the
+                              # text book)
+                 syscall
+
+
+Question #2
+===========
+
+1) Submit it your test results (as specified in the lab handout)
+   and comments, together with your program.
+
+2) Make sure you compile and run your program. If you are unable to get
+   it to work, put a note there to say that. I have noticed that a number
+   of people have submitted programs which had syntax errors, and also 
+   people who just copy wholesale from somebody else. By all means get
+   together and discuss and work together, but at least try to understand
+   what's going on and try to get your program working. Otherwise you
+   will end up not learning anything at all.
+
+3) You may refer to the example given in the lecture notes about the
+   factorial program, which demonstrates a procedure that does  
+   recursive calls.
+
+
+rgds,
+--shing

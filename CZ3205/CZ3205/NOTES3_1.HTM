@@ -1,0 +1,58 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Chapter 3</title>
+<meta name="Microsoft Theme" content="loosegst 011, default">
+</head>
+
+<body background="_themes/loosegst/lootextb.jpg" bgcolor="#FFFFCC" text="#000000" link="#CC6633" vlink="#663399" alink="#999900"><!--mstheme--><font face="Comic Sans MS, Arial, Helvetica">
+
+<h1><!--mstheme--><font color="#666633">Chapter 3&nbsp;&nbsp;&nbsp;&nbsp; Linear Neural Network<!--mstheme--></font></h1>
+<h2><!--mstheme--><font color="#330099">&nbsp;<!--mstheme--></font></h2>
+<h2><!--mstheme--><font color="#330099"><span style="text-transform: uppercase">Mach Bands and Lateral inhibition&nbsp;</span><!--mstheme--></font></h2>
+<p>&nbsp;</p>
+<h3><!--mstheme--><font color="#666633"><font size="4">Mach Band and Perception</font><!--mstheme--></font></h3>
+<p><font size="4">Ernst Mach was an Austrian physicist and philosopher. He is
+also known for several visual illusions. One of the illusion is called
+&quot;Mach bands&quot;</font></p>
+<p><font size="4">Let us look up gray-scale picture of the <a href="Program/ch3.nb"> density plot</a> based on
+the intensity given by </font></p>
+<p><font SIZE="2"><img SRC="IMAGES/NOTES3_1.GIF" width="287" height="176"><img SRC="IMAGES/NOTES3_2.GIF" width="287" height="287"></font></p>
+<p>&nbsp;</p>
+<p><font size="4">What Mach noticed was that the left knee of the ramp looked
+too dark, and the right knee looked too bright. The apparent brightness does not
+correspond to objective light intensity.</font></p>
+<p><font size="4">What is neural basis for this?&nbsp; (Lateral Inhibition)</font></p>
+<p><font size="4">Eye of Limulus Polyphemus (Horseshoe crab): A example of
+simple distributed neural computation (Hartline won the 1967 Nobel prize for
+this work that began in the 30's).</font></p>
+<p><img border="0" src="IMAGES/NOTES3_3.JPG" width="500" height="315"></p>
+<p>&nbsp;from <a href="http://www.aqua.org/animals/species/prhcrab.html">http://www.aqua.org/animals/species/prhcrab.html</a></p>
+<p><font size="4">The compound Limulus eye is composed of many small independent
+eyes called ommatidia. When active, the ommatidia mutually inhibit each other by
+lateral inhibition. There are many well-documented experiments.&nbsp; </font></p>
+<p><font size="4">Given the experimental data and their interpretation, it is
+possible to write a simple approximate equation for the behavior of ommatidia.
+Suppose that we have a group of ommatidia, each with activity f[i]. Suppose, if
+there was no inhibition, the actitivity will be e[i] spikes per second. Now
+assume that the cells are interconnected by synaptic weights W[i, j].&nbsp; Then</font></p>
+<p><font size="4">f[i] = e[i]+<font face="Symbol">S</font><sub>j</sub> W[i,
+j]f[j]&nbsp; --- the Limulus equation</font></p>
+<p><font size="4">In vector form</font></p>
+<p><b>f = e + W.f</b></p>
+<p><!--webbot bot="Navigation" S-Type="arrows" S-Orientation="horizontal"
+S-Rendering="graphics" B-Include-Home="TRUE" B-Include-Up="TRUE" U-Page S-Target startspan
+--><!--webbot bot="Navigation" endspan i-checksum="0"
+-->
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<!--mstheme--></font></body>
+
+</html>

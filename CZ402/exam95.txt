@@ -1,0 +1,138 @@
+\magnification=\magstep1
+\input notesmac
+\baselineskip=13pt
+\probno=0
+\topglue 15pt
+\centerline{NATIONAL UNIVERSITY OF SINGAPORE}
+\bigskip
+\centerline{SEMESTER EXAMINATION FOR THE DEGREE OF B.~SC.} 
+\bigskip
+\centerline{SEMESTER 1}
+\bigskip
+\medskip
+\centerline{\bf CZ402 SYMBOLIC COMPUTING}
+\smallskip
+\bigskip
+\centerline{October/November 1995 --- Time allowed: 2 hours}
+\hugeskip
+\hrule
+\hugeskip
+\hugeskip
+{\parindent=2pc
+$\underline{\hbox{INSTRUCTIONS TO CANDIDATES}}$
+\bigskip
+\narrower
+\item{1.} This examination paper contains {\bf FOUR (4)} questions and
+comprises {\bf THREE (3)} printed pages.
+\medskip
+\item{2.} Answer all questions.  Each question carries 25 marks.
+
+}
+
+\vfill\break
+
+\advance\hoffset by -2mm
+%=====================================================================
+\problem Indicate the responses of Mathematica when the following
+expressions are entered, assuming that each expression is given
+to a fresh Mathematica session so that each subquestion is independent of
+the other subquestions.
+\smallskip
+\halign{\t \hfil (#) &\quad \tt # \hfil & \hfil (#) &\quad \tt # \hfil \t\cr
+1& (a+b*c)[[2,2]] &7& \char`\{1,2,3\char`\}\char`\^2 \cr
+2& x=1; y=2+x; x=2; y &8&f[x]:=x\char`\^2; f[y\char`\_]:=y\char`\^3; f[x]+f[y] \cr
+3& f @@ \char`\{a,$\;$b\char`\} &9& Sqrt[\#]\& [4] \cr
+4& Map[f, g[a,b]] &10& 2 // f \cr
+5& f[f[f[x]]] //.$\;$f[x] -> x &11& MatchQ[f[a\char`\^x], f[x\char`\^x\char`\_]]\cr
+6& Fold[f, x, \char`\{a,b,c\char`\}] &12& Head[I] \cr
+}
+\smallskip
+
+\problem What are the values of the following Lisp forms.  To avoid
+side effect, each subquestion is entered into a fresh Lisp session.
+\smallskip
+\halign{\t \hfil (#) &\quad \tt # \hfil\t\cr
+1& (+ 1 (* 2 3)) \cr
+2& (cons 'a 'b) \cr
+3& (null 'x) \cr 
+4& (append '(a) '()) \cr
+5& (eq 4 4.0) \cr
+6& (cond (t 'true)) \cr
+7& (car (cdr (car (last '((d) (c (a b))))))) \cr
+8& (atom (list)) \cr
+9& (eval (cons 'car '((quote (a b))))) \cr
+10& (let ((x 'e)) `(macro ,x end)) \cr
+11& (mapcar \#'expt '(1 2 3) '(0 1 2)) \cr
+12& ( (lambda (x) (* x x)) 2 ) \cr
+}
+\smallskip
+
+%=====================================================================
+\problem In certain quantum mechanical calculation involving fermions,
+we need to evaluate the value of fermion operator product of the form
+$a b^\dagger c \cdots d a^\dagger c$.  The result of this product is
+either $-1$, or 0, or 1.  The operators follow the rules:
+$$\eqalign{ 0\, a & = a\, 0 = 0, \quad 1\, a = a\, 1 = a, \quad
+           a\, a = 0, \quad a^\dagger a^\dagger =  0, \cr
+           b\, a & = - a\, b, \quad 
+           b^\dagger a^\dagger = - a^\dagger b^\dagger, \quad
+           b\, a^\dagger = - a^\dagger b, \quad a \neq b, \cr
+           a\, a^\dagger & = - a^\dagger a + 1, \cr
+}$$
+where $a$ or $b$ is an arbitrary fermion operator.
+For each operator $a$, there is a corresponding conjugate operator 
+$a^\dagger$.  Their relation is defined by the last equation above.
+In addition, any product sequence starting with a conjugate operator 
+(with $\dagger$) or end with an operator without $\dagger$ is defined
+to be 0.  Here are some examples, $a a^\dagger = - a^\dagger a + 
+1 \rightarrow 1$;  $a b b a^\dagger = a\,0\,a^\dagger = 0$;
+$a b b^\dagger a^\dagger = - a b a^\dagger b^\dagger = 
+a a^\dagger b b^\dagger = (- a^\dagger a + 1 ) b b^\dagger = 
+b b^\dagger = - b^\dagger b + 1 \rightarrow 1$.  
+
+\item{} (a)  Propose a method to represent the conjugate of an operator 
+in Mathematica.
+\item{} (b) How would you implement the noncommutative operator 
+multiplications in Mathematica?
+\item{} (c)  Define the operator multiplication rules in Mathematica
+so that the calculation of the product can be made automatic.
+
+\goodbreak
+%=====================================================================
+\problem Consider Lisp expressions of the forms restricted to the lists
+with only two or three elements, {\tt ($opr$ $x$)}, or {\tt ($opr$ $a$ $b$)},
+where the first element is always an atom (which is interpreted as a
+binary operator or function name), while the second or third
+element can be an atom or the restricted list.  
+
+\item{} (a) Write a Lisp function which returns the total number of operators
+($opr$) [including the operators nested inside ($\cdots$)] of the given 
+expression.
+
+\item{} (b) Define a Lisp function which translates from the restricted 
+Lisp expression (prefix notation) to postfix notation similar to the
+PostScript language.  The translated expression is a flat list where
+$opr$ is after the operands.  One also translates the four special
+operators {\tt +}, {\tt -}, {\tt *}, {\tt /} to {\tt ADD}, {\tt SUB}, 
+{\tt MUL}, {\tt DIV}, respectively.
+Note that in PostScript, when the code is read from left to
+right, data are pushed on a stack; command ($opr$)
+consumes the values on the stack, and result is pushed back on the stack.
+Here are some examples of valid inputs and outputs produced by your 
+function.  Watch out for the cases when the operands are again list 
+expressions.
+\smallskip
+\def\tb{\qquad$\Rightarrow$\qquad}
+\ll{(sin x) \tb  (X SIN)}
+\ll{(+ 1 2) \tb (1 2 ADD)}
+\ll{(- 5 2) \tb (5 2 SUB)}
+\ll{(* a b) \tb (A B MUL)}
+\ll{(/ 10 2) \tb (10 2 DIV)}
+\ll{(op x y) \tb (X Y OP)}
+\ll{(f (+ c d)) \tb (C D ADD F)}
+\ll{(+ a (/ b c)) \tb (A B C DIV ADD)}
+\ll{(* (+ a b) (- (f x) (/ c d))) \tb (A B ADD X F C D DIV SUB MUL)}
+\smallskip
+\vskip 2cm
+\centerline{--- End of the Paper ---}
+\bye

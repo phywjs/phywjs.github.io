@@ -1,0 +1,163 @@
+<html>
+<head>
+<title>CZ1101, Tutorial 4, Answers</title>
+</head>
+<body>
+
+<h1>CZ1101, Tutorial 4, Answers</h1>
+
+<OL>
+
+<LI> The binary/hexadecimal conversion is 
+<pre>
+1100 1010 1111 1110 1111 1010 1100 1110
+ C    A    F    E    F    A    C    E
+</pre>
+
+<LI> (4.1) The bit pattern
+<pre>
+1000 1111 1110 1111 1100 0000 0000 0000
+</pre>
+represents
+<UL>
+<LI>(a) the number -1880113152 if it is a two's complement integer.
+<LI>(b) the number 2414854144 if it is an unsigned integer.
+<LI>(c) the real number -2.36411752533422 x 10^{-29}, if it is  a single 
+        precision floating-point number.  The pattern is better understood
+as 
+<pre>
+1 00011111 11011111100000000000000
+s exponent      significand
+</pre>
+<LI>(d) the instruction <code>lw $15, -16384($31)</code>, if it is 
+a MIPS instruction.  The pattern is better understood as
+<pre>
+   100011 11111 01111 1100000000000000
+     35    31    15     -2^15 + 2^14
+</pre>
+Consulating one of the many tables in the textbook gives us the
+above interpretation.
+</UL>
+
+<LI> (4.21) Shortest sequence of MIPS instructions
+to determine the absolute value of a two's complement integer.
+<pre>
+abs  $10, $11   # $10 = |$11|
+</pre>
+can be
+<pre>
+   add $10, $0, $11    # $10 = $11
+   slt $1, $11, $0     # ($11<0)?
+   beq $0, $1, L       # skip if ($11>=0)  
+   sub $10, $0, $11
+L:
+</pre>
+
+<LI> (4.28) [5] The full MIPS instruction set has two more
+logical operations not mentioned thus far: xor and nor.
+The operation xor stands for exclusive OR, and nor
+stands for not OR.  The table that follows defines these 
+operations on a bit-by-bit basis. 
+<pre>
+     a     b      a xor b      a nor b
+     0     0         0            1
+     0     1         1            0
+     1     0         1            0
+     1     1         0            0
+</pre>
+Minimal MIPS instruction sequence for a 
+new instruction called not that takes the one's
+complement (invert 0 and 1) of a source register and
+places it in a destination register
+<pre>
+not  $10, $20
+</pre>
+can be implemented as an MIPS instruction by
+<pre>
+   nor $10, $0, $20
+</pre>
+We can also say
+<pre>
+  nor $10, $20, $20
+</pre>
+or
+<pre>
+  addi $1, $0, -1     # $1 = 0xFFFFFFFF
+  xor  $10, $20, $1
+</pre>
+
+<LI> [15] 6-bit two's complement representations of the
+integers a=29, b=31, c=-31, are 
+<pre>
+   a = 011101,  b = 011111, c = 100001
+</pre> 
+Let's compute
+<pre>
+   a + b               a - b              b - a
+   011101 -> 29        011101             011111
+ + 011111 -> 31      - 011111           - 011101
+ --------           ---------          ---------
+   111100 -> -4        111110 -> -2       000010 -> +2
+   Overflowed
+
+   a + c               a - c              c - a
+   011101 -> 29        011101             100001
+ + 100001 ->-31      - 100001           - 011101
+ --------           ---------          ---------
+   111110 -> -2        111100 -> -4       000100 -> +4
+                       Overflowed         Overflowed
+</pre>
+Multiplication should be done with Booth's algorithm if there are 
+negative values involved.
+
+<LI> [10] Compute the product of two 5-bit unsigned binary numbers,
+10101 x 11010: (a) the paper-pencil (longhand) way:
+<pre>
+            10101  -> 21
+          x 11010  -> 26
+      -----------
+           10101
+       + 10101
+      -----------
+         11010010
+      + 10101
+    -------------
+       1000100010  -> 546
+</pre>
+<p>(b) follow the steps of third multiplication algorithm.
+This third algorithm is:
+<p>Initially 5-bit M contains the multiplicand 10101. 10-bit P contains
+multiplier 11010.  
+<p>Repeat the steps 5 times. 
+<OL>
+<LI>If P0 = 1, Ph = Ph + M (add M to the upper half of P,
+if the 0-th bit of P is 1).
+<LI>P = P >> 1 (shift P right 1 bit).
+</OL>
+</OL>
+<p>Here are what happened in register P, (M contains 5-bit 10101
+all the time).
+<pre>
+   Iteration      steps               P
+
+       0         initial         00000 11010
+
+       1         1. do nothing   00000 11010
+                 2. P=P>>1       00000 01101
+       2         1. Ph+M         10101 01101
+                 2. P=P>>1       01010 10110
+       3         1. do nothing   01010 10110
+                 2. P=P>>1       00101 01011
+       4         1. Ph+M         11010 01011
+                 2. P=P>>1       01101 00101
+       5         1. Ph+M        100010 00101  <- Overflowed here
+                 2. P=P>>1       10001 00010
+
+</pre>
+Note that at the last step of addition, overflow occurred, our
+algorithm is not totally correct due to this.
+
+<p>Booth algorithm version can be performed similarly. 
+</OL>
+</body>
+</html>

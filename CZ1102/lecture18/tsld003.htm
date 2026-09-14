@@ -1,0 +1,46 @@
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Context-Type" CONTEXT="text/html;charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft Internet Assistant for PowerPoint 97">
+ <TITLE>Character Input/Output</TITLE> 
+</HEAD>
+
+<BODY     >
+
+ <H1>Character Input/Output</H1> 
+ <P><UL>
+<LI><H2>Read a character
+</H2>
+<UL>
+File *fp;
+<BR><BR>char c;
+<BR>fp = fopen(. . .);
+<BR>c = fgetc(fp);  from file
+<BR>c = getc(fp);       same as above
+<BR>c = getchar();  from standard input
+<BR>c = fgetc(stdin); same as above
+</UL></UL><UL>
+<LI><H2>Write a character
+</H2>
+<UL>
+fputc(c, fp);   write to file
+<BR><BR>putc(c, fp);           same as above
+<BR>putchar(c);     to standard output
+<BR>putchar(c,stdout); the same</UL></UL></P>
+<P></P> 
+<P>
+<TABLE>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld002.htm">Previous slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld004.htm">Next slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="tsld001.htm">Back to first slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="sld003.htm">View graphic version</A> </TD>
+</TABLE>
+<BR>
+</P>
+
+
+
+</Body>
+</HTML>

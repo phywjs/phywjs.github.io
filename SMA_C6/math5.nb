@@ -1,0 +1,348 @@
+(************** Content-type: application/mathematica **************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      6055,        245]*)
+(*NotebookOutlinePosition[      6753,        269]*)
+(*  CellTagsIndexPosition[      6709,        265]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell["MATHEMATICA ROGRAMMING", "Title"],
+
+Cell["Rule Based Programming", "Subtitle"],
+
+Cell["Another definition for the factorial function:", "Text"],
+
+Cell[BoxData[
+    \(fac[n_Integer]\  := \ Infinity\  /; \ n\  < \ 0\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(fac[\(-1\)]\)], "Input"],
+
+Cell[BoxData[
+    InterpretationBox["\[Infinity]",
+      DirectedInfinity[ 1]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(fac[0]\  = \ 1\)], "Input"],
+
+Cell[BoxData[
+    \(1\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(fac[n_Integer]\  := \ n\ *\ fac[n - 1]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(fac[6]\)], "Input"],
+
+Cell[BoxData[
+    \(720\)], "Output"]
+}, Open  ]],
+
+Cell[TextData[{
+  "Definition for the greatest common divisor:  the greatest common divisor \
+",
+  StyleBox["d ",
+    FontSlant->"Italic"],
+  "is the largest number that divides both ",
+  StyleBox["a",
+    FontSlant->"Italic"],
+  " and ",
+  StyleBox["b",
+    FontSlant->"Italic"],
+  ".   The definition below is based on a theorem in number theory which \
+says, if for integer ",
+  StyleBox["a,b,c",
+    FontSlant->"Italic"],
+  " such that |",
+  StyleBox["c",
+    FontSlant->"Italic"],
+  "| < ",
+  StyleBox["b",
+    FontSlant->"Italic"],
+  ", and \n                      ",
+  StyleBox["a = k b + c",
+    FontSlant->"Italic"],
+  ",\nthen gcd[",
+  StyleBox["a,b",
+    FontSlant->"Italic"],
+  "] = gcd[",
+  StyleBox["b,c",
+    FontSlant->"Italic"],
+  "].  Doing this (division) until remainder ",
+  StyleBox["c",
+    FontSlant->"Italic"],
+  " becomes zero. This is called Euclidean algorithm.                      "
+}], "Text"],
+
+Cell[BoxData[{
+    \(gcd[a_, \ 0]\  := \ a\), "\n", 
+    \(gcd[a_, \ b_] := \ gcd[b, \ Mod[a, b]]\ \)}], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(gcd[3, 6]\)], "Input"],
+
+Cell[BoxData[
+    \(3\)], "Output"]
+}, Open  ]],
+
+Cell["What about gcd[...] with one, three or more arguments?", "Text"],
+
+Cell["\<\
+
+Define our own differentiation algorithm
+\
+\>", "Subtitle"],
+
+Cell["\<\
+Let's agree that we do only partial differentiation, so that dif[expr, x] \
+will be zero unless expr contains x explicitly.  To expression this fact, we \
+can say:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(dif[f_, \ x_]\  := \ 0\  /; \ FreeQ[f, x]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(dif[a, x]\)], "Input"],
+
+Cell[BoxData[
+    \(0\)], "Output"]
+}, Open  ]],
+
+Cell["We program in the linearity of differentiation:", "Text"],
+
+Cell[BoxData[
+    \(dif[\ f_\  + \ g_, \ x_]\  := \ dif[f, x]\  + \ dif[g, x]\)], "Input"],
+
+Cell[BoxData[
+    \(dif[\ a_\ *\ g_, \ x_]\  := \ 
+      a\ *\ dif[g, x]\  /; \ FreeQ[a, x]\)], "Input"],
+
+Cell["We know differential of polynomials (actually x^n).", "Text"],
+
+Cell[BoxData[
+    \(dif[x, x]\  := \ 1\)], "Input"],
+
+Cell[BoxData[
+    \(dif[x_^n_, \ x_]\  := \ 
+      n*x^\((n - 1)\)\  /; \ \((FreeQ[n, x])\)\)], "Input"],
+
+Cell["Rule-Based Programming: operator overloading", "Subtitle"],
+
+Cell["\<\
+Suppose we like to use the notation  S \[Or] T to denote union of two sets S \
+and T, and S \[And] T to mean the intersection of the two sets.  Since the \
+two special symbol \[And] and \[Or] is used for logical operations on the \
+truth values True and False, can we use them for set operation?   We'll use a \
+list to represent a set.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \({a}\  \[And] \ {a, b, c}\)], "Input"],
+
+Cell[BoxData[
+    \({a} && {a, b, c}\)], "Output"]
+}, Open  ]],
+
+Cell["\<\
+Since the operation is not defined, we get back the input.  Here is a \
+definition that \"overload\" the operator \[And] and \[Or].\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Unprotect[And, \ Or]\)], "Input"],
+
+Cell[BoxData[
+    \(List[x___]\  \[And] \ List[y___]\  := \ 
+      Intersection[List[x], List[y]]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \({a, b, c}\  \[And] \ {a, e}\)], "Input"],
+
+Cell[BoxData[
+    \({a}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(List[x___]\  \[Or] \ List[y___]\  := \ 
+      Union[List[x], \ List[y]]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \({a, b, c}\  || \ {a, e, r}\)], "Input"],
+
+Cell[BoxData[
+    \({a, b, c, e, r}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \({a, \ b}\  && \ {}\  || \ {c, d}\)], "Input"],
+
+Cell[BoxData[
+    \({c, d}\)], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"4.1 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 695}},
+WindowSize->{1016, 668},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+Magnification->3,
+StyleDefinitions -> "Classroom.nb"
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1705, 50, 39, 0, 348, "Title"],
+Cell[1747, 52, 42, 0, 119, "Subtitle"],
+Cell[1792, 54, 62, 0, 81, "Text"],
+Cell[1857, 56, 80, 1, 143, "Input"],
+
+Cell[CellGroupData[{
+Cell[1962, 61, 44, 1, 143, "Input"],
+Cell[2009, 64, 90, 2, 141, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2136, 71, 47, 1, 143, "Input"],
+Cell[2186, 74, 35, 1, 141, "Output"]
+}, Open  ]],
+Cell[2236, 78, 71, 1, 143, "Input"],
+
+Cell[CellGroupData[{
+Cell[2332, 83, 39, 1, 143, "Input"],
+Cell[2374, 86, 37, 1, 141, "Output"]
+}, Open  ]],
+Cell[2426, 90, 924, 34, 413, "Text"],
+Cell[3353, 126, 113, 2, 194, "Input"],
+
+Cell[CellGroupData[{
+Cell[3491, 132, 42, 1, 143, "Input"],
+Cell[3536, 135, 35, 1, 141, "Output"]
+}, Open  ]],
+Cell[3586, 139, 70, 0, 81, "Text"],
+Cell[3659, 141, 70, 4, 261, "Subtitle"],
+Cell[3732, 147, 187, 4, 183, "Text"],
+Cell[3922, 153, 74, 1, 143, "Input"],
+
+Cell[CellGroupData[{
+Cell[4021, 158, 42, 1, 143, "Input"],
+Cell[4066, 161, 35, 1, 141, "Output"]
+}, Open  ]],
+Cell[4116, 165, 63, 0, 81, "Text"],
+Cell[4182, 167, 90, 1, 194, "Input"],
+Cell[4275, 170, 104, 2, 194, "Input"],
+Cell[4382, 174, 67, 0, 81, "Text"],
+Cell[4452, 176, 51, 1, 143, "Input"],
+Cell[4506, 179, 104, 2, 194, "Input"],
+Cell[4613, 183, 64, 0, 190, "Subtitle"],
+Cell[4680, 185, 360, 6, 285, "Text"],
+
+Cell[CellGroupData[{
+Cell[5065, 195, 57, 1, 143, "Input"],
+Cell[5125, 198, 50, 1, 141, "Output"]
+}, Open  ]],
+Cell[5190, 202, 155, 3, 132, "Text"],
+Cell[5348, 207, 53, 1, 143, "Input"],
+Cell[5404, 210, 110, 2, 194, "Input"],
+
+Cell[CellGroupData[{
+Cell[5539, 216, 60, 1, 143, "Input"],
+Cell[5602, 219, 37, 1, 141, "Output"]
+}, Open  ]],
+Cell[5654, 223, 104, 2, 194, "Input"],
+
+Cell[CellGroupData[{
+Cell[5783, 229, 59, 1, 143, "Input"],
+Cell[5845, 232, 49, 1, 141, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5931, 238, 65, 1, 143, "Input"],
+Cell[5999, 241, 40, 1, 141, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

@@ -1,0 +1,58 @@
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Context-Type" CONTEXT="text/html;charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft Internet Assistant for PowerPoint 97">
+ <TITLE>Accessing Run-Time Storage</TITLE> 
+</HEAD>
+
+<BODY     >
+
+ <H1>Accessing Run-Time Storage</H1> 
+ <P><UL>
+<LI><H2>If we allocate a cell by defining a variable, we can access it by using the variable's name or by dereferencing a pointer to the cell.
+</H2>
+</UL><UL>
+<LI><H2>
+</H2>
+</UL><UL>
+<LI><H2>If we allocate cells at run time, we can access it only through a pointer.
+</H2>
+</UL><UL>
+<LI><H2>
+</H2>
+</UL><UL>
+<H2>int num, *p1, *p2;
+</H2>
+</UL><UL>
+<H2>num = 10;   /* access by naming */
+</H2>
+</UL><UL>
+<H2>p1 = &num;
+</H2>
+</UL><UL>
+<H2>*p1 = 1000;      /* dereferencing */
+</H2>
+</UL><UL>
+<H2>p2 = malloc(sizeof(int));
+</H2>
+</UL><UL>
+<H2>*p2 = 99999; /* only way is dereferencing */
+</H2>
+</UL></P>
+<P></P> 
+<P>
+<TABLE>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld009.htm">Previous slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld011.htm">Next slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="tsld001.htm">Back to first slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="sld010.htm">View graphic version</A> </TD>
+</TABLE>
+<BR>
+</P>
+
+
+
+</Body>
+</HTML>

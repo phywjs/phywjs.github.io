@@ -1,0 +1,72 @@
+\input notesmac.tex
+\nopagenumbers
+
+\centerline{\titlefont Symbolic Computing, Tutorial 1}
+\bigskip
+\line{Dr.~WANG Jian-Sheng \hfill Week 4, Thursday, 23 January 1997}
+\bigskip
+%----------------------------------------------------------------------- 
+
+\problem [2-4] Write sequences of {\tt first}s and {\tt rest}s
+that will pick the symbol {\tt pear} out of the following expressions:
+\smallskip
+\ll{(apple orange pear grapefruit)}
+\ll{((apple orange) (pear grapefruit))}
+\ll{(((apple) (orange) (pear) (grapefruit)))}
+\ll{(apple (orange) ((pear)) (((grapefruit))))}
+\ll{((((apple))) ((orange)) (pear) grapefruit)}
+\ll{((((apple) orange) pear) grapefruit)}
+\smallskip
+
+\problem [4-2] Define {\tt palindromep}, a predicate that tests its
+argument to see if it is a list that has the same sequence of symbols
+when read from right to left as when it is read from left to right:
+\smallskip
+\ll{(palindromep '(a b c b a)) $\quad\rightarrow\quad$ T}
+\ll{(palindromep '(a b c c b a)) $\quad\rightarrow\quad$ T}
+\ll{(palindromep '(a b c c c a)) $\quad\rightarrow\quad$ NIL}
+
+\problem  What do you expect Mathematica to give you when you enter the
+following expressions?
+\smallskip
+\ll{x \hfill \rm enter {\tt x} and return, not value is assigned to it\t}
+\ll{f[x] \hfill \rm assuming that no definition is given to {\tt f}\t}
+\ll{x // f}
+\ll{f @ x}
+\ll{x // f[\#]\&}
+\ll{x /. x -> y \hfill \rm assuming that no value are assigned to {\tt x} and 
+{\tt y}\t}
+\ll{x //. x -> y}
+\ll{x = a; x}
+\ll{?x \hfill \rm after the previous line\t}
+\ll{x\char`\^2\char`\^3}
+\ll{z /. \char`\{z->1, z->2\char`\}}
+\ll{z /. \char`\{\char`\{z->1\char`\}, \char`\{z->2\char`\}\char`\}}
+\ll{\char`\{1, 2, 3\char`\}\char`\^2}
+\ll{\char`\{1, 1, -1\char`\}.\char`\{1, -2, -1\char`\}}
+\medskip
+
+\problem What are Mathematica equivalent of the LISP functions 
+{\tt cons}, {\tt car}, {\tt cdr}, {\tt list}, and {\tt append}? 
+
+
+\vfill
+
+\font\ninerm = cmr9
+\font\ninesl = cmsl9
+
+{\ninerm 
+
+\hangindent=\parindent\hangafter=1\noindent {\bf Stephen Wolfram} (1959--\ ) 
+Born in London, he was educated at Eton, Oxford and Caltech. He received
+a Ph.D.~in theoretical physics from Caltech at an early age of 20.
+After two years on the faculty at Caltech and four years at the
+Intitute for Advanced Study in Princeton, Wolfram moved to the
+University of Illinois, to become Director of the Center for
+Complex Systems Research, and Professor of Physics, Mathematics,
+and Computer Science.  In 1980 he led the development of the SMP 
+computer algebra system, a forerunner of Mathematica.  He founded 
+Wolfram Research in 1987.
+}
+\eject
+\end

@@ -1,0 +1,70 @@
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Context-Type" CONTEXT="text/html;charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft Internet Assistant for PowerPoint 97">
+ <TITLE>Hanoi function</TITLE> 
+</HEAD>
+
+<BODY     >
+
+ <H1>Hanoi function</H1> 
+ <P><UL>
+<H2>#define MOVE(x,y) \
+</H2>
+<BR></UL><UL>
+<H2> printf("Move disk from "\
+</H2>
+</UL><UL>
+<H2>   %c to %c.\n", (x), (y))
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>void hanoi(char A, char B, char C, int n)
+</H2>
+</UL><UL>
+<H2>{
+</H2>
+</UL><UL>
+<H2>   if (n == 1) {
+</H2>
+</UL><UL>
+<H2>      MOVE(A, B);
+</H2>
+</UL><UL>
+<H2>      return;
+</H2>
+</UL><UL>
+<H2>   }
+</H2>
+</UL><UL>
+<H2>   hanoi(A, C, B, n-1);
+</H2>
+</UL><UL>
+<H2>   MOVE(A, B);
+</H2>
+</UL><UL>
+<H2>   hanoi(C, B, A, n-1);
+</H2>
+</UL><UL>
+<H2>}
+</H2>
+</UL></P>
+<P>This is the program <a href="pg200.c">pg200.c</a></P> 
+<P>
+<TABLE>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld018.htm">Previous slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld020.htm">Next slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="tsld001.htm">Back to first slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="sld019.htm">View graphic version</A> </TD>
+</TABLE>
+<BR>
+</P>
+
+
+
+</Body>
+</HTML>

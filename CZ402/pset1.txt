@@ -1,0 +1,90 @@
+\input notesmac.tex
+\nopagenumbers
+
+\centerline{\titlefont Symbolic Computing, Exercise 1}
+\bigskip
+\line{Dr.~WANG Jian-Sheng \hfill Week 1 \& 2, due 11 January 1997}
+\bigskip
+%----------------------------------------------------------------------- 
+\problem We want to be familiar ourselves to arithmetics for the three
+symbolic systems (Maple, Mathematica, and Lisp).  We can use them as
+pocket calculators.  Which of the systems do you think is most 
+user-friendly?  Consider entering the following mathematical expressions
+to each of the system and watch the reaction of the systems:
+$$\halign{\h$#$\hfil&\h$#$\hfil&\h$#$\hfil\cr
+1 + 2, &  2-3\times5 -1/2, & 2/3 - 0.5, \cr
+\sqrt{4}, & i^2, &  2^{10}.\cr}$$
+
+\problem All the three symbolic systems (Maple, Mathematica, and Lisp)
+can handle arbitrarily large integers without overflow. Try the
+following:
+$$\halign{\h$#$\hfil&\h$#$\hfil&\h$#$\hfil\cr
+2^{100}, & 30!, & 123456789*987654321. \cr}$$
+Note that the factorial operator in {\tt clisp} is {\tt !}.
+
+\problem Maple and Mathematica can do arbitrarily precise floating-point
+computation. In Maple we use {\tt evalf( )}, and in Mathematica it is 
+{\tt N[ ]}.  Find the numerical values of the following numbers accurate
+to 30 decimal places (quad precision):
+$$\halign{\h$#$\hfil&\h$#$\hfil&\h$#$\hfil\cr
+\pi, &  e, & \sqrt{2}, \cr
+355/113, & \sin {\pi\over7}, & e^{\pi \sqrt{163}}.  \cr}$$
+In Mathematica, make the assignment {\tt pi = N[Pi,30]}.  What is the
+digits of precision of {\tt 2*pi}, and what is {\tt 2.0*pi}?  Why the
+second expression gives you only six digits?  How to remove the symbol
+{\tt pi} from the system when you have finished using it?
+
+\problem In this exercise we like to see how Maple and Mathematica deal with
+symbols.  What happens when the following mathematical expressions are
+typed in into symbolic systems:
+$$\halign{\h$#$\hfil&\h$#$\hfil&\h$#$\hfil\cr
+\pi, &  x+y, & x-x, \cr
+2x\times x+1 & (1+x)^2 & \sin {\pi\over 2}.  \cr}$$
+Note that $\pi$ should be typed in as the constant {\tt Pi}, not a numerical
+approximation.          
+
+\problem Use Maple or Mathematica and consider the cubic equation
+$$ f(x) = x^3 + 6 x^2 + 9 x + 1 = 0. $$
+\itemitem{(a)}  Make a plot to see how many real roots this equation
+has.  Read from the plot the rough values of the solutions.
+\itemitem{(b)} Solve the equation numerically.
+\itemitem{(c)} Solve the equation symbolically.  The resulting expressions
+are complicated with imaginary number $i$.   But we know the solution 
+has to be real (from the plot).  Simplify the expressions by hand. 
+\itemitem{(d)} Solve the equation by hand if you could.  You need to
+use the method of Tartaglia or Cardano.
+
+%% 
+%% Net result is obtained with Maple by 
+%% map(evalc, {solve(x^3+6*x^2+9*x+1=0,x)});
+%% Map[ComplexExpand, Solve[x^3+6x^2+9x+1==0, x], {3}]
+%% 
+%%
+
+\vfill
+
+\font\ninerm = cmr9
+\font\ninesl = cmsl9
+
+{\ninerm 
+
+\hangindent=\parindent\hangafter=1\noindent {\bf Niccol\`o Tartaglia} (c. 1500-1557) Italian mathematician noted
+for his discovery in 1535 of the long-sought solution to the general
+cubic equation.  He also wrote the influential three-volume
+{\ninesl General trattato di numeri et misure} (Treatise on 
+Numbers and Measures) as well as being the first, in 1543, to translate
+Euclid into a modern Western language, namely his native Italian.
+
+\medskip
+
+\hangindent=\parindent\hangafter=1\noindent {\bf Girolamo Cardano} (1501-1576) Italian mathematician, physician,
+and astrologer noted for the first publication of the solution to the 
+general cubic equation in his book on algebra {\ninesl Ars magna} 
+(Great Art).
+The solution was in fact found by Tartaglia and had been revealed in
+confidence.  Although Cardano credited Tartaglia with the discovery,
+the revelation led to a bitter dispute between the two.  
+
+}
+\eject
+\end

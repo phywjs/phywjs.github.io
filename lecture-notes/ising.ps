@@ -1,0 +1,74 @@
+%!PS-Adobe-2.0
+%%
+%% PostScript for Displaying Two-Dimensional Ising Model Configuration
+%% Display it with gs, or ghostview, or xpsview, don't send it to printer.
+%% by Wang Jian-Sheng,  modified 8 Feburary 1995. 
+%%
+%% Parameters that may be changed:
+/L 32 def         %% system linear size
+/T 2.5 def        %% temperature in unit of J/k (that is, J=1, k=1)
+%%
+%% Other useful parameters
+usertime srand      % starting random number seed
+/L2 L dup mul def   % number of sites of the system
+/S L2 array def     % define array of Ising spins 
+/Prob               % flip probability array Prob[0], Prob[1], ..., Prob[4] 
+[ 0 -1 -4 { 2 mul T div 2.71828 exch exp 2147483500 mul cvi } for ] def
+%%
+%% Procedure definitions
+/neighbors  %% take center i, return 4 neighbors: jp,jm,ip,im
+{ dup L add L2 mod                               % jp = (i + L) mod L2
+  exch dup L sub L2 add L2 mod                   % jm = (i-L+L2) mod L2
+  exch dup 1 add dup L mod 0 eq { L sub } if     % ip = (i+1) if ...
+  exch dup 1 sub exch L mod 0 eq { L add } if    % im = (i-1) if ...
+} bind def
+%%
+/xycoordinates  %% translate single number i into (x, y) 2D coordinates
+{ dup
+  L mod exch          % x = i mod L
+  L idiv              % y = i / L
+} def
+%%
+/update          %% take a site i, draw  the spin in black or yellow
+{  dup newpath
+   xycoordinates 0.4 0 360 arc
+   S exch get 1 eq {
+     0 0 0 setrgbcolor fill}{          % back if spin is +1
+     1 1 0 setrgbcolor fill} ifelse    % yellow if spin is -1
+} bind def
+%%
+%%Page: 1 1
+%% Caption
+/Times-Roman findfont 18 scalefont setfont
+250 72 moveto
+(Ising Model T = ) show
+T 5 string cvs show
+%% Set up screen scale
+50 144 translate
+512 L idiv dup scale
+%%
+%% Initialize the state with an all-spin-up configuration
+0 1 L2 1 sub {
+  S exch 1 put      
+} for
+%%
+%% Draw the initial spin configuration
+0 1 L2 1 sub { update } for
+%% Start Monte Carlo loop
+{                              % loop forever (infinite loop) 
+  0 1 L2 1 sub {               % do one Monte Carlo step
+  /i exch def                  % pick a site sequentially 
+  /s0 S i get def              % get the value of center spin s0=S[i]
+  0 [ i neighbors ] {          % find the neighbors
+    S exch get add } forall    % sum up the values of neighbor spins
+    s0 mul dup                 % multiple the sum by the center spin 
+    0 le {                     % Delta E/2 is on the stack, if it is 
+      S i s0 neg put pop       % less than or equal to 0, flip the spin
+      i update }{              % update the display of configuration
+      Prob exch get rand gt {  % otherwise, flip with a small probability 
+      S i s0 neg put           % Prob = exp(-Delta E/T), J=1, k=1. 
+      i update } if            % update the display 
+    } ifelse                   % end if-then-else construct
+  } for                        % end one Monte Carlo step
+} loop                         % end the loop (but cannot really end)
+%%End                          % end of the program

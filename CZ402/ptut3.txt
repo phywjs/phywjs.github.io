@@ -1,0 +1,61 @@
+\input notesmac.tex
+\nopagenumbers
+
+\centerline{\titlefont Symbolic Computing, Tutorial 3}
+\bigskip
+\line{Dr.~WANG Jian-Sheng \hfill Week 10, 3:00pm Thu, 27 February 1997}
+\bigskip
+\bigskip
+%----------------------------------------------------------------------- 
+
+\problem  Quaternions are the elements of an associative algebra of rank
+4 with the basis elements
+$$\bf 1,\ i,\ j,\ k$$
+where ${\bf 1}$ is the identity elements, i.e., 
+$\bf 1 i = i$, $\bf 1 j = j$, $\bf 1 k = k$.
+The compositions (multiplications) of two basis elements are
+$$ {\bf i}^2 = {\bf j}^2 = {\bf k}^2 = - {\bf 1}$$ 
+and 
+$$\bf i j = k,\ jk = i,\ ki = j,\ ji = -k,\ kj = -i,\ ik = - j.$$
+A quaternion is represented as (where $a$, $b$, $c$, and $d$ are real numbers)
+$$ a {\bf 1} + b\,{\bf i} + c\,{\bf j} + d\,{\bf k}.$$
+Two quaternions can be added, where the corresponding coefficients are 
+simply added.  Two quaternions can be multiplied, with the usual distribution
+law of multiplication over addition and the rules for the multiplications
+of the basis above.  Define Mathematica rules (or functions) so that quaternion
+addition and multiplication can be performed.
+
+\problem Define LISP functions {\tt (polynomial-add $a(x)$ $b(x)$)} 
+and {\tt (polynomial-mul $a(x)$ $b(x)$)} for polynomial addition and
+multiplication.  It's up to you to devise ways of representing 
+polynomials (with number as coefficients) of one variable.
+
+\problem Any questions arise from Lab exercise 4?
+
+\vfill
+
+\font\ninerm = cmr9
+\font\ninesl = cmsl9
+
+{\ninerm 
+
+\hangindent=\parindent\hangafter=1\noindent {\bf William R Hamilton} 
+(1805-1865) Born in Dublin, Ireland. Hamilton's name is attached to 
+a number of concepts, such as the Hamiltonian function, which 
+represents the total energy in a physical system; the Hamilton-Jacobi
+differential equations, and the Cayley-Hamilton Theorem from linear
+algebra.  He also coined the terms {\sl vector}, {\sl scalar},
+{\sl tensor}.  In 1833 Hamilton provided the first modern treatment
+of complex numbers.  In 1843, he made what he considered his
+greatest discovery--the algebra of quaternions.  The quaternions
+represent a natural generalization of the complex numbers with
+three numbers $i$, $j$,  and $k$ whose squares are $-1$, and $ijk=-1$.
+With these, rotations in three and four dimensions can be algebraically
+treated.  Of greater significance, however, is the fact that the 
+quaternions are noncommutative under multiplication.  This was first
+ring to be discovered in which the commutative property does not
+hold.  After ten years of fruitless thought, the essential idea
+for the quaternions suddenly came to him.       
+}
+\eject
+\end

@@ -1,0 +1,86 @@
+<html>
+<head>
+<title>CZ1101, Tutorial 3</title>
+</head>
+
+<h1>CZ1101, Tutorial 3, Week 8, 1-6 September, 1997</h1>
+
+<blockquote>
+<em> You should try the problems before going
+to the tutorial classes.  You need not hand in the solutions.
+We'll discuss only some of the problems in the class.
+This set of problems (1-7) come from the textbook page 156-158, Exercises
+3.5 to 3.7, 3.18, 3.19, and from page 258, Exercises 4.3 to 4.8.
+</em>
+</blockquote>
+
+<OL>
+<LI> (3.5) [5] In some cases a simple instruction set like MIPS
+can synthesize instructions found in richer instruction sets such as
+the VAX.  The following VAX instruction subtract 1 from register $5,
+placing the difference back in register $5, and then branches to
+L1 if $5 > 0:
+<pre>
+sobgtr $5, L1    # $5 = $5 - 1; if ($5 > 0) goto L1
+</pre>
+The operation is described in the comment of the instruction to 
+help explain the operation.  What is the shortest
+sequence of MIPS (machine) instructions, that performs the same operation?
+
+<LI> (3.6) [5] Show the single MIPS instruction or minimal sequence
+of instructions for this C statement:
+<pre>
+a = b + 100;
+</pre>
+Assume  a corresponds to register $11 and b corresponds to
+register $12.
+
+<LI> (3.7) [10] Show the single MIPS instruction or minimal sequence
+of instructions for this C statement:
+<pre>
+x[10] = x[11] + c;
+</pre>
+Assume c corresponds to register $13 and the array x
+begins at memory location 4,000,000. 
+
+<LI> (3.18) [5] The instruction
+<pre>
+beq $2, $3, L1
+</pre>
+will compare the contents of $2 and $3 and 
+branch to L1 if they are equal.
+Unfortunately, there is no single instruction that can be used to
+compare $2 with an immediate value, such as 14 or -200.  Look at the format
+for branch instructions and explain why.  Write a sequence of MIPS
+instructions that will branch to L1 if $2 is equal to 14.  Hint:
+It only takes two instructions.
+
+<LI> (3.19) [30] Consider the following fragment of C code:
+<pre>
+for(i = 0; i <= 100; ++i) {
+   a[i] = b[i] + c;
+}
+</pre>
+Assume that  a and b are arrays of words at addresses
+1500 and 2000, respectively.  Register $15 is associated with 
+variable i and $16 with c.  Write the
+code for MIPS.  How many instructions are executed during the
+running of this code?  How many memory data references will be
+made during execution?
+
+<LI> (4.3-4.5) [11] Convert decimal number 512, -1,023,  and
+-4,000,000, into 32-bit two's complement binary numbers, 
+respectively.
+
+<LI> (4.6-4.8) [15] What decimal number does each of the following
+two's complement binary number represent?
+<pre>
+1111 1111 1111 1111 1111 1110 0000 1100
+1111 1111 1111 1111 1111 1111 1111 1111
+0111 1111 1111 1111 1111 1111 1111 1111
+</pre>
+
+</OL>
+
+</body>
+</html>

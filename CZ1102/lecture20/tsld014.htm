@@ -1,0 +1,51 @@
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Context-Type" CONTEXT="text/html;charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft Internet Assistant for PowerPoint 97">
+ <TITLE>Two-dimensional array with calloc</TITLE> 
+</HEAD>
+
+<BODY     >
+
+ <H1>Two-dimensional array with calloc</H1> 
+ <P><UL>
+<LI><H2>Define a pointer to pointer to double:
+</H2>
+<UL>
+double **b;
+<BR></UL></UL><UL>
+<LI><H2>Allocate a one-dimensional array of pointers to double
+</H2>
+<UL>
+b = (double **) calloc(100, sizeof(double*));
+<BR></UL></UL><UL>
+<LI><H2>For each of the pointer to double, allocate an array of double, let the pointer pointing to it.
+</H2>
+<UL>
+for(i = 0; i &#060 100; ++i) {
+<BR><BR>b[i] = (double *) calloc(30, sizeof(double));
+<BR>}
+</UL></UL><UL>
+<LI><H2>After this, you can use b as if it was declared as
+</H2>
+<UL>
+double b[100][30];
+<BR><BR>b[79][21] = 2.1;
+</UL></UL></P>
+<P></P> 
+<P>
+<TABLE>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld013.htm">Previous slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld015.htm">Next slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="tsld001.htm">Back to first slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="sld014.htm">View graphic version</A> </TD>
+</TABLE>
+<BR>
+</P>
+
+
+
+</Body>
+</HTML>

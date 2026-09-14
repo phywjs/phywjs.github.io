@@ -1,0 +1,68 @@
+\magnification=\magstep1
+\input notesmac.tex
+\advance\vsize by 1cm
+\nopagenumbers
+
+\centerline{\titlefont CZ3106 Symbolic Computing, Lab 5}
+\bigskip
+\line{Dr.~Wang Jian-Sheng \hfill For the week 17-22 March 03, due 5 Apr 03}
+\medskip
+\line{This is the last set of lab problems worth 15 marks\hfill}
+\bigskip
+
+\problem Based on your program for testing group, write a program for
+testing a finite field.  The field testing program will accept two
+tables, one for $+$ and one for $*$, and testing that addition is 
+an Abelian group and $F-\{0\}$ is an Abelian group with respect to
+multiplication.  Additionally, testing that multiplication is 
+distributive over addition.   Use $(Z_4; +, *)$ and 
+$(Z_5; +, *)$ as input examples.
+
+\bigskip
+\problem Consider the set of all polynomials with coefficients in $Z_3$ 
+modulo $1+x^2$.   Addition and multiplication are defined
+in the usual way but modulo $1+x^2$.  The arithmetic of the 
+coefficients are in $Z_3$.  Work out the rules for addition and
+multiplications.
+\item{} (a) Generate the addition and multiplication tables, and verify
+by your above program that it is a field.  This is an example
+of a Galois field GF(3,2) with 9 elements. 
+\item{} (b) Compute the multiplicative inverse by extended Euclidean algorithm 
+for all the
+nonzero elements, and show that it is the same as given in (read from) the
+table.  Use built-in function {\tt PolynomialExtendedGCD[]}, or other
+built-ins for your computation.
+
+\bigskip
+\problem Implement the Gardner's algorithm for the Chinese remainder 
+problem.  See page 174 to 180 of ``Algorithm for Computer
+Algebra,'' Geddes et al, for more details.  Please do read these 
+pages before attempting the lab.
+\item{} The Chinese remainder problem is the following: given a set of 
+pairwise relative primes, $m_i \in {\rm Z}$, with  GCD$(m_i, m_j) = 1$ for
+$i \neq j$,  find $u$ such that $u_i = u \bmod m_i$, for $i=0$ to $n$,
+for a given set of $u_i$.   The Garner's algorithm relies on  
+the representation
+$$ u = \nu_0 + \nu_1(m_0)+\nu_2(m_0 m_1)+\cdots+\nu_n (\prod_{i=0}^{n-1} m_i).$$
+\item{} We determine $\nu_0$ first, then $\nu_1$, and so on. 
+$u$ is unique modulo $\prod_{i=0}^n m_i$. 
+Program in Mathematica.  Here is an example,  $u \bmod 7 = 2$,
+$u \bmod 11 = -5$, $u \bmod 13 = -2$, $u \bmod 17 = 5$, $u \bmod 19 = 9$, 
+then it is found by the Gardner algorithm $u=-44280$.
+
+
+
+%\problem Implement a version of extended Euclidean algorithm that
+%works in $Z_p$ for prime number $p$.  What is needed is a function
+%that computes quotient of two polynomials modulo $p$.  There does not
+%appear to have a building function that can do this. So we can program
+%a method of long division. 
+%As a check of your program, show that your results satisfy
+%$$ {\rm GCD}(a(x), b(x)) = a(x)*s(x) + b(x)*t(x)  \bmod p$$
+%For $a(x) = 3  x^3 + x^2 + 2  x + 4$,
+%and $b(x) = x^3 + 4x$
+%${\rm GCD}(a(x),b(x)) = x^2+2$.
+
+\bye
+
+

@@ -1,0 +1,40 @@
+\input notesmac.tex
+\nopagenumbers
+
+\centerline{\titlefont Symbolic Computing, Tutorial 2}
+\bigskip
+\line{Dr.~WANG Jian-Sheng \hfill Week 6, 3:00pm Thu, 6 February 1997}
+\bigskip
+\bigskip
+%----------------------------------------------------------------------- 
+
+\problem Elaborate on Exercise 3, Question 1.
+Work out the steps leading to the result for least-square fit 
+$$ A^T A c = A^T y.$$
+
+\problem  After specifying the following assignments and rules,
+\ttbg
+f[2] = 3
+f[u] := 2u^2
+f[v_] := 1/v
+u = 2
+\tted
+what is {\tt f[u]}.
+
+\problem Write a LISP function called {\tt flatten} that, when passed
+a list of nested lists, will return a flat list. For example:
+\smallskip
+\ll{(flatten '((a) b ((c) d))$\qquad\rightarrow\qquad$ (A B C D)}
+\smallskip
+
+\problem [5-6] Describe the evident purpose of the following procedure:
+\ttbg
+(defun mystery (s)
+   (cond ((null s) 1)
+         ((atom s) 0)
+         (t (max (+ (mystery (first s)) 1)
+                    (mystery (rest s))))))
+\tted
+
+\bye
+

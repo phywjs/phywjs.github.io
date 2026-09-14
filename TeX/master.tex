@@ -1,0 +1,46 @@
+% Define the verbatim program listing macro \listing{filename}
+%
+\font\eighttt=cmtt8
+\def\uncatcodespecials{\def\do##1{\catcode`##1=12 }\dospecials}
+\def\listing#1{\par\begingroup\setupverbatim\input#1 \endgroup}
+\def\setupverbatim{\eighttt 
+  \def\par{\leavevmode\endgraf} \catcode`\`=\active
+  \obeylines \uncatcodespecials \obeyspaces
+  \everypar{}
+}
+{\obeyspaces\global\let =\ } % let active space = \control space
+{\catcode`\`=\active \gdef`{\relax\lq}}
+%
+\def\setexample#1{%
+\leftline{\it Input:}
+{\baselineskip 10pt
+\listing{#1}
+\listing{bye.tex}
+}
+\bigskip
+\leftline{\it Output:}
+\medskip
+\input #1
+\vfill\eject
+}
+\hsize = 159.2 mm
+\vsize 246.2 mm
+\baselineskip = 12pt
+\headline={\hfil (\folio) \hfil}
+\footline={}
+
+\setexample{example1.tex}
+\baselineskip=10pt
+\setexample{example2.tex}
+\baselineskip=12pt
+\setexample{example3.tex}
+\setexample{example4.tex}
+\setexample{example5.tex}
+\footline={}
+\setexample{example6.tex}
+\setexample{example7.tex}
+\setexample{example8.tex}
+\setexample{example9.tex}
+\bye
+
+

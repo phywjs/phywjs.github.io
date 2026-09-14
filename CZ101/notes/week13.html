@@ -1,0 +1,257 @@
+<html>
+<head>
+<title>CZ1101, Lecture Notes, Week 13</title>
+</head>
+<body>
+
+<HR>
+<p>Links to other weeks notes
+[ <A HREF="cz101notes.html">2</A> ][ <A HREF="week3.html">3</A> ][
+ <A HREF="week4.html">4</A> ][ <A HREF="week5.html">5</A> ][ <A 
+HREF="week6.html">6</A> ][ <A HREF="week7.html">7</A> ]
+[ <A HREF="week8.html">8</A> ][ <A HREF="week10.html">10</A> ][
+ <A HREF="week11.html">11</A> ][ <A HREF="week12.html">12</A> ](
+ <A HREF="week13.html">13</A> )[ <A HREF="week14.html">14</A> ]
+<HR>
+
+<h2>Week 13,  6/9 October, 1997</h2>
+
+<P><a href="quiz2.html">Quiz 2 and answers</a>
+
+<h1>Chapter 5, The Processor: Datapath and Control</h1>
+
+<h3>The five classic components of a computer</h3>
+The major components of a computer consist of control, datapath, 
+memory, input, and output.  The control and datapath are collectively
+referred as central processing unit (CPU), or simply processor. 
+The processor is built on a piece of silicon chip with the
+integrated circuit technology. Typically, the size of the
+chip is only 1 cm^2 containing millions of transistors. 
+
+<h3>A simple implementation scheme</h3>
+We'll see the necessary components to built a processor: how
+data moves (datapath) and how the operation of the processor is
+controlled (control logic).  From this, we want to have an 
+rough understanding on how the instructions are executed by the
+processor.  We consider an extremely simple computer that
+can perform a subset of the MIPS instructions: 
+<UL>
+  <LI>Memory references: lw and sw.
+  <LI>Arithmetic/logical computations: add, sub, and, or, slt.
+  <LI>Branch and jump: beq, j.
+</UL>
+The diagram (Figure 5.1, page 272) is an overview of the major
+functional units and the major connections between them.  The
+functional units are program counter register (PC), register 
+file, arithmetic/logic unit (ALU), instruction and data
+memories.  Note that memory is outside the CPU chip. PC, ALU, and register
+file are on the chip.
+
+<p>Executing one of the nine instructions requires the following
+steps.
+<OL>
+  <LI> Fetch an instruction: The value of PC (address of an
+instruction) is sent to instruction memory, memory responds with the requested
+instruction sending to CPU.
+  <LI> Read registers: The contents of two registers (or one in case of lw)
+are read.  Which registers to read is encoded in the instruction by
+the rs and rt fields.   This information is passed to register file.
+The register file sends out the contents of the read registers. 
+  <LI> ALU operation: ALU uses the data from register file or immediate  
+value field of the instruction to compute a result.  For arithmetic/logic
+instructions (add, sub, and, or, slt), it simply uses the values of
+two registers and performs the corresponding operations.  For beq, it
+uses ALU for comparison. For lw, and sw, it uses ALU to compute the
+address [register value + immediate value (offset)]. 
+  <LI> Depending on the instruction type: For lw, access the memory, then
+write the new value to a register. For sw, store value to data memory.
+for arithmetic/logic type, write the new value to a register. For beq,
+and j, compute and update the value of PC.
+</OL>
+
+ 
+<h4>Clock Cycle</h4>
+The computer operates in discrete steps.  The timing is controlled by
+an interval clock run typically at 100 MHz, or equivalently 10 nanosecond
+(ns).   In the following discussion, we assume that one instruction takes
+one period or one cycle in time.  So that all instructions take the
+same time.
+
+<h3>Building a Datapath</h3>
+
+We'll look at the steps of the instruction execution in some detail. 
+<h4>(1) Instruction fetch</h4>
+Instruction fetch involves the memory containing instructions, program
+counter register (PC), and a special adder to increment PC by 4
+for the next address.  See Figures 5.5 and 5.6 (page 277).  All instruction
+execution  begins with an instruction fetch with the following steps:
+PC sends address to memory and adder; memory reads the address content
+and sends out the instruction at the corresponding address; at the same
+time, adder computes PC+4; the result is written back to PC. 
+
+<h4>(2) R-format instructions (add, sub, and, or, slt) </h4>
+The functional units consist of one register file and one ALU.  
+See Figures 5.7 and 5.8 (page 278, 279).
+A register file is a collection of 32 registers. Register file
+contains two output data ports and one input data port.  Three additional
+5 bit control lines specify which two registers to read and which
+register to write.  An arithmetic/logic operation always involves
+reading two registers and writing the result back to a register. 
+ALU operation control line controls the type of operation.
+
+<h4>(3) Load/Store datapath</h4>
+Load or store needs two additional units, data memory and a device for
+sign extension.  See Figure 5.9 and 5.10 (page 280).  For a load
+operation, e.g., lw $1, 100($2), the content of the base address
+register ($2) is read from register file.  Which register to read
+is specified in the instruction. The offset 100 in the immediate
+value field of the instruction is sign extended from 16 bits to
+32 bits and is fed into ALU to compute the address (100+$2).   This
+address is sent to data memory.  The memory sends the content
+back to register file.  The register ($1) is written with the new
+value.  
+
+<p>For sw $1, 100($2), the contents in both register $1 and $2 are
+read.  The address 100+$2 is computed by ALU.  The resulting address
+and the content of $1 are sent to data memory to be written.
+
+<h4>(4) Branch on equal datapath</h4>
+The datapath is shown in Figure 5.11 (page 282).  To execute the
+conditional branch, beq $1, $2, offset, two registers are read.
+The outputs are sent to ALU. The result (true or false) is
+sent to branch control logic. At the same time, the new branch
+target address is computed by first sign extending
+the offset and an adder is used to compute the new instruction 
+address.  PC is updated with the branch control logic if branch
+condition is true. 
+
+<p>Final combined datapath is shown in Figure 5.14 (page 286). 
+To reduce the cost of the datapath, common units are combined
+with the help of multiplexor. 
+
+<h4>Control</h4>
+<p>The multiplexors and other parts of the units need to be controlled
+by the main control logic.  Which pass way to take in the datapath
+depends on the instruction.  The control of ALU is relatively simple.
+The ALU control logic takes bit 0 to 5 from instruction and 
+a 2-bit signal from main control and generates  one of the five
+possible operations (and, or, add, sub, slt).   Note that ALU
+is also used for lw and sw and beq.  The 2-bit ALUop signal is
+used to decide which class of instructions the current computation is
+for.  The main control is the master of the CPU.  It takes the bit
+31 to 26 from the instruction, based on this value, generates 
+appropriate signals to another parts of the units (multiplexor,
+ALU control, memory, etc).  The 6 bits (bit 32 to 26) encodes the
+type of operation specified by the instruction.  The main control
+is also referred as instruction decoder.
+
+
+<h1><A NAME="chapter6">Chapter 6, Enhancing Performance with Pipelining</A></H1>
+We'll mention here only very briefly the concept of pipelining and
+superscalar designs of CPU. You'll learn more about them in an advanced
+course. 
+
+<h3>pipelining</h3>
+A car manufacture assembly line is a good example of pipelining.   Assemble
+a car takes some steps: prepare chassis, add engine, install seat, 
+add wheels, final touch, each of which takes one hour, say.  So the
+whole process takes 6 hours.  If one car is assemble at a time, we can
+only have one car every 6 hours.  However, if six groups of people
+work on six different cars in the different stage of the assembly,
+one car is then produced in one hour.  This improves the productivity
+by a factor of 6.  
+
+<P>Similarly, the execution of instructions can be divided naturally
+into steps.  Look at the table
+<pre>
+                  Time needed for each steps in nanosecond 
+                                                1 ns = 10^{-9} second
+
+Instruction type  instruction   register  ALU     Data      Register    Total
+                     fetch        read operation store/load  write    
+
+load word (lw)        10           5      10       10         5          40
+store word (sw)       10           5      10       10                    35
+R-format (add, sub,..)10           5      10                  5          30 
+Branch (beq)          10           5      10                             25
+</pre>
+For pipelined architecture to work, we need each step to take
+the same time.  Since the longest is 10 ns, we can arrange for
+all instructions to take five steps (fetch, reg read, ALU, data fetch,
+reg write), each of 10 ns.   Not all instructions need five steps,
+for example, R-format instruction need not store/load data.  But pipeline
+requires the task to be uniform, which means for R-format instruction,
+during data fetch, nothing is being done.  
+
+<p>For instructions execution one at a time, the sequence of instructions
+<pre>
+  lw $1, 100($0)
+  lw $2, 200($0)
+  lw $3, 300($0)
+  lw $4, 400($0)
+</pre>
+takes 40*4 = 160 ns. For a pipelined execution, we can issue one fetch
+every 10 ns.  As a result, the same sequence takes only 80 ns.
+
+<h3>Pipelining Hazards</h3>        
+Pipelining may cause problem when data are dependent or when branch   
+instruction is executed. For example,
+<pre>
+   lw $1, 100($2)
+   add $3, $1, $5
+</pre>
+The second instruction needs the value $1. However, the the new value
+of $1 is not available yet, since the lw instruction has not finished
+yet and the register has not written.  One solution is to add a nop
+instruction (no operation). 
+<pre>
+   lw $1, 100($2)
+   nop
+   add $3, $1, $5
+</pre>
+The effect of lw instruction is seen only after two cycles.  
+Similarly, the branch can not decide until sometime later.  
+On MIPS R2000, or R3000, for reason of efficiency, the instruction
+after the branch is always executed. The effect of branch takes
+place only after two cycles.   However, this complexity and
+the problem in lw is taking care of by the assembler.  So when we
+write
+<pre>
+   add $4, $7, $9
+   beq $1, $3, 28
+   and $12, $2, $5 
+</pre>
+The assembler insert nop,
+<pre>
+   add $4, $7, $9
+   beq $1, $3, 28
+   nop
+   and $12, $2, $5 
+</pre>
+The instruction after beq is called a delayed slot.  The branch is
+called delayed branch.
+Actually, the assembler tries to insert useful instruction  in the delayed
+slot.  More likely the assembler will re-arrange the code as
+<pre>
+   beq $1, $3, 28
+   add $4, $7, $9
+   and $12, $2, $5 
+</pre>
+ 
+<h3>Superscalar architecture</h3>
+In pipelined architecture, CPU issues one instruction every cycle.  In
+superscalar architecture, two or more instructions are issued per cycle.  
+Multiple
+ALU and FPU units are built so that computation can be performed in
+parallel.  Again data dependency may slow down the operation.  
+
+<h3>Suggested Reading</h3>
+The Textbook, "Computer Organization & Design", Chapter 5 and 6.
+
+<HR>
+[ <A HREF="week12.html">previous week</A> ][ 
+<A HREF="week14.html">next week</A> ]
+<HR>
+</body>
+</html>
+ 

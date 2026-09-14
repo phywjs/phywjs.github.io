@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>CZ3102, Scientific Modeling and Visualization, Lab 1</title>
+</head>
+<body>
+
+<H1>Lab 1, due Monday, 26 Jan 04</H1>
+
+<p><strong>General Considerations</strong>: The numerical computations
+can be done in C, MATLAB, or Mathematica.  The choice is yours. 
+For graphic plotting, you can use MATLAB/Mathematica, or xmgr.  
+Normally, the current week's lab is required to be submitted by the
+next lab in two weeks time.  The labs problem set may not specify
+precisely and exactly what is expected.  This is deliberately so, to
+have open-ended questions.  In this sense, you can treat the lab problems
+as a small scale project.  Marks will be gauged according to 
+your efforts and ingenuity.  Most of the problems will be based on
+(but not necessarily follow exactly) the textbook problems.
+You must discuss/interpret/explain your method/motivation/results in your
+report.  Feel free to ask the lecturer/TA questions, and discuss among
+students.  But computational work and report must be done
+independently.
+
+<p><strong>Q1</strong>: (question 7. on page 29). 
+Table 1.1 below gives orbital data for six planets.  Fit this data
+to a power law of the form y = C x<SUP>p</SUP> (x to the power p).  
+Plot the data points as well as the fitted curve.  The largest
+asteroid, Ceres, has a period of about 4.5 earth years; about
+how far from the sun would you place it?  (Hint: Kepler used data similar
+to this to formulate his third law.  What was his basic model
+of planetary motion?  Was it pictorial, analogical, or mathematical?)
+
+<pre>
+                     Table 1.1
+-----------------------------------------------------
+Planet         Semimajor              Sidereal period
+               axis (10<SUP>6</SUP> km)          (days)
+-----------------------------------------------------
+Mercury        57.9                   87.97
+Venus         108.2                  224.7
+Earth         149.6                  365.26
+Mars          227.9                  686.98
+Jupiter       778                   4332.4
+Saturn       1427                  10759
+------------------------------------------------------
+
+</pre>
+
+
+<p><strong>Q2</strong>: (pictures on page 27). 
+On page 27 of Figure 1.12 in the textbook, the author drew (apparently by hand)
+some pictures of a function f(t) and its fourier (integral) transform.  
+In this lab, we want to make a set of pictures (preferably in one page)
+that resemble the figure 1.12, but more quantitatively.  For each
+picture on the left, give a mathematical expression for it,
+make a plot of it, and find its numerical fourier transform of it,
+and plot on the right. [There is the issue of using sine, or cosine, or
+exponential for the transform, your choice should be such (if you can)
+so that the fourier transform is real and easily plotted].   It's totally
+upto you to give f(t) that resemble the plots on the left.  However, in your
+report, your f(t) should be precisely specified and your plots should
+be carefully labelled.
+
+[If you need help on the concept of Fourier transform, and particularly
+discretized numerical implementation, read 
+<a href="http://www.nr.com/">"Numerical Recipes"</a>, chap.12,
+by Press et al, available in CZ3 lab].  To get a quick introduction on 
+Fourier transform, look at the webpage <a href="http://aurora.phys.utk.edu/~forrest/papers/fourier/">http://aurora.phys.utk.edu/~forrest/papers/fourier/</a>.  
+Be careful about the slightly different definition of Fourier integrals.
+</body>
+</html>

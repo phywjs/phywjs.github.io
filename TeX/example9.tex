@@ -1,0 +1,22 @@
+\xmpheader 9/{Miscellany}
+\TeX\ understand the following units for measuring distances:
+\halign{\hskip 2\parindent \tt#\quad\hfil&#\hfil\cr
+pt & point (72.27 points $=$ 1 inch)\cr
+pc & pica (1 pica $=$ 12 points)\cr
+in & inch (1 inch $=$ 2.54 centimeters)\cr
+cm & centimeter (1 centimeter = 10 millimeters)\cr
+mm & millimeter\cr
+}
+\medskip
+By default, the left and top margins will be 1 inch, but this can be changed (see the source above).
+\hoffset -5mm \voffset 2mm % move to the left by 5 mm and move down 2mm.
+The ink goes in the rectangle $hsize \times vsize$.  The default value is $6 \times 8.9$ in inches.
+\hsize = 6in \vsize=8.9in
+\medskip
+You can include figure in connection with the {\tt dvips}.  For that you need to include the 
+macro package {\tt epsf.tex}.
+\input epsf.tex
+Now you can say
+\vskip 12 pt plus 4 pt minus 4 pt % equivalent to \bigskip
+\leftline{\hskip\parindent\epsfysize=2in\epsffile{picture.ps}}\bigskip
+\noindent Picture is in the form of encapsulated PostScript.

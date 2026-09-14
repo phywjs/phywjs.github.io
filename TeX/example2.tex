@@ -1,0 +1,39 @@
+% define a macro so that one does not need to type the long command.
+\def\xmpheader #1/#2{\leftline{\xmplbx Example #1:\quad\xmplbxti #2}\vglue 0.5\baselineskip}
+\xmpheader 2/{Indentation}
+\noindent Now let's see how to control indentation.  If an ordinary word processor can do it, so
+surely can \TeX.  Note that this paragraph isn't indented.
+
+Usually you'll either want to indent paragraphs or to leave extra space between them.  Since we
+haven't changed anything yet, this paragraph is indented.
+
+{\parindent = 0pt \parskip 6 pt % The left brace starts a group containing the unindented text.
+Let's do these two paragraphs a different way, with no indentation and six printer's points of
+extra space between paragraphs.
+
+So here's another paragraph that we're typesetting without indentation.  If we didn't put space
+between these paragraphs, you would have a hard time knowing where one ends 
+and the next begins.\par % The paragraph *must* be ended within the group.  
+}% The right brace ends the group containing unindented paragraphs.
+
+It's also possible to indent both sides of entire paragraphs.  The
+next three paragraphs illustrate this:
+\smallskip % Provide a little extra space here.
+% Skips like this and \vskip below end a paragraph.
+{\narrower
+``We've indented this parapgrah on both sides by the paragraph indentation.
+This is often a good way to set long quotations.
+
+``You can do multiple paragraphs this way if you choose.  This is the second
+paragraph that's singly indented.''\par}
+
+{\narrower \narrower You even make paragraphs doubly narrow if that's
+what you need.  This is an example of a doubly narrowed paragraph.\par}
+\vskip 1pc % Skip down one pica for visual separation.
+In this paragraph we're back to the normal margins, as you can see for yourself.  We'll let it run
+on a little longer so that the margins are clearly visible. 
+
+{\leftskip .5in Now we'll indent the left margin by half an inch and leave
+the right margin at its usual position.\par}
+{\rightskip 0.5in Finally, we'll indent the right margin by half an inch
+and leave the left margin at its usual position.\par}

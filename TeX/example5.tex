@@ -1,0 +1,33 @@
+\xmpheader 5/{Odds and ends}
+\chardef \\ = `\\ % let \\ denote a backslash
+\footline{\hfil{\tenit -- \folio\ --}\hfil} %\footline provives a footer line.
+% Here it's a centered, italicized page number.
+\TeX\ knows how to hypernate words, but it isn't infallible.  If you are discussing the chemical
+${\it 5}$-[p-(Flouro\-sul\-fonyl)ben\-zoyl]-l,%
+$N^6$-ethe\-no\-adeno\-sine and \TeX\ complains to you about an ``overfull hbox'', try inserting some 
+``discretionary hyphens''.  The notation `{\tt \\-}' tells \TeX\ about a dis\-cre\-tion\-ary hypen, 
+that is, one that it might not have inserted otherwise.
+\medskip
+{\raggedright You can typeset text unjustified, i.e., with an uneven right margin.  In the old days,
+before word processors were common, typewritten documents were unjustified beause there was no
+convenient alternative.  Some people prefer text to be unjustified so that the spacing between words 
+can be uniform.  Most books are set with justified margin, but not all.\par}
+
+\proclaim Assertion 27.  There is an easy way to typeset the headings of assertions, theorems, etc.
+
+Here's an example of how to typeset an itemized list two levels deep.  If you need more levels,
+you'll have to program it yourself, alas.
+\smallskip
+\item {1.} The is the first item.
+\item {2.} This is the second item.  It consists of two paragraphs.  We've
+indented the second paragraph so that you can easily see where it starts.
+\item {} \indent The second paragraph has three subitems underneath it.
+\itemitem {(a)} This is the first subitem.
+\itemitem {(b)} This is the second subitem.
+\itemitem {(c)} This is the third subitem.
+\item{$\bullet$} This is a strange-looking item because it's completely different from the others.
+\smallskip
+\leftline{Here's a left-justified line.$\Leftarrow$}
+\rightline{$\Rightarrow$Here's a right-justified line.}
+\centerline{$\Rightarrow$Here's a centered line.$\Leftarrow$}
+% Don't try to use these commands within a paragraph.

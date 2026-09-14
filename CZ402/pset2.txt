@@ -1,0 +1,75 @@
+\input notesmac.tex
+\nopagenumbers
+
+\centerline{\titlefont Symbolic Computing, Exercise 2}
+\bigskip
+\line{Dr.~WANG Jian-Sheng \hfill Week 3 \& 4, due 25 January 1997}
+\bigskip
+%----------------------------------------------------------------------- 
+\problem Mathematica is good at calculus. Compute the following 
+(partial) derivatives with Mathematica.
+$$\halign{\h$#$\hfil&\h$#$\hfil&\h$#$\hfil\cr
+{d\; \over dx} \sin x, &  {d\;\over dx} x^x & {\partial\; \over \partial y} \left(x^3-3xy^2\right), \cr
+{d^2\; \over dx^2} \cos^{-1} x, & \left({\partial^2\; \over \partial x^2} + 
+{\partial^2 \;\over \partial y^2}\right) \left(x+ i y\right)^3,\;\; i^2 = -1,& {d\; \over dx} f(x^2) .\cr}$$
+
+\problem Differentiation can be done for any combination of algebraic
+expressions.  But indefinite integration is much harder.  Not every
+expression can be integrated.
+\item{} (a) Try the following
+integration by Mathematica or Maple. 
+$$\halign{\h$#$\hfil&\h$#$\hfil&\h$#$\hfil\cr
+\int x\; dx, & \int \sin x \;dx, & \int (1 + e^x)^{-1} \; dx. \cr}$$
+(b) And some more complex (type in very very carefully):
+$$\int 
+{{x\,\bigl\{ 2\,x\,e^{3\,{x^2}}
+        \bigl[ x - \left( 1 + x + 2\,{x^2} + 2\,{x^3} \right) \,
+           \log (1 + x) \bigr]  + 
+       {\bigl[ x^2 e^{2\,{x^2}} - {\log^2 (1 + x)} \bigr]^2}
+        \bigr\} }\over 
+   {\left( 1 + x \right) \,{{\left\{ -x^2 {e^{2\,{x^2}}} + 
+          {\log^2 (1 + x)} \right\} }^2}}}
+\;dx.$$
+(c) Try the ratio of polynomial function by Maple (Mathematica seems 
+not able to integrate it):
+$$\int { 6x^5 + 6x^4-8x^3-18x^2+8x+8 \over
+         x^6 - 5x^4 - 8x^3 - 2x^2 + 2x + 1 }\; dx.$$
+(d) This seemingly simple integral 
+$$\int { x \over 1 + e^x}\; dx$$
+can not be integrated on Maple, but try Mathematica! 
+
+\problem Find the five (numerical) roots of the equation
+$$ x^5 + 5 x^4 + 4 x^3 + 3 x^2 + 2 x + 1 = 0.$$
+Solve the equation again with a higher precision, for
+example, 30 digits of accuracy.
+
+\problem Solve the set of second order equations
+$$\eqalign{  y^2 + x^2 - y - 3x &= 0,\cr
+             y^2 - 6xy - x^2 + 11y + 7x - 12 &= 0.\cr}$$
+Verify that the solutions are correct by substituting the solution back.
+
+\problem  Define a Mathematica function $f(x) = 1/(x^2+1)$, and
+make a plot of it.   Define the integer factorial function $n!$
+in Mathematica.  Define the greatest common divisor function
+$\gcd(a,b)$ of two integers.
+
+\problem Evaluate the following LISP forms on computer.  Try to figure out
+what should be the value before giving the expressions to lisp. Is
+you expectation the same as lisp gives?  If not, try to understand why.
+\smallskip
+\ll{(first '( p h w))}
+\ll{(rest '(b k p h))}
+\ll{(first '((a b) (c d)))}
+\ll{(rest '((a b) (c d)))}
+\ll{(first (rest '((a b) (c d))))}
+\ll{(rest (first '((a b) (c d))))}
+\ll{(rest (first (rest '((a b) (c d)))))}
+\ll{(first (rest (first '((a b) (c d)))))}
+\ll{(append '(a b c) '())}
+\ll{(list '(a b c) '())}
+\ll{(cons '(a b c) '())}
+\ll{(cons (first nil) (rest nil))}
+\smallskip
+
+\bye
+

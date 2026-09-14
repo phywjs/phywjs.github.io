@@ -1,0 +1,92 @@
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Context-Type" CONTEXT="text/html;charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft Internet Assistant for PowerPoint 97">
+ <TITLE>Passing an Array v.s. Passing a Single Variable</TITLE> 
+</HEAD>
+
+<BODY     >
+
+ <H1>Passing an Array v.s. Passing a Single Variable</H1> 
+ <P><UL>
+<H2>void func(int a[], int n)
+</H2>
+<BR></UL><UL>
+<H2>{
+</H2>
+</UL><UL>
+<H2>   a[0] += 1;
+</H2>
+</UL><UL>
+<H2>   ++n;
+</H2>
+</UL><UL>
+<H2>}
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>main()
+</H2>
+</UL><UL>
+<H2>{
+</H2>
+</UL><UL>
+<H2>   int b[2] = {0, 0};
+</H2>
+</UL><UL>
+<H2>   int n = 0;
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>   printf("%d %d %d\n",
+</H2>
+</UL><UL>
+<H2>           b[0], b[1], n);
+</H2>
+</UL><UL>
+<H2>   func(b, n);
+</H2>
+</UL><UL>
+<H2>   printf("%d %d %d\n",
+</H2>
+</UL><UL>
+<H2>           b[0], b[1], n);
+</H2>
+</UL><UL>
+<H2>}
+</H2>
+</UL><UL>
+<H2>
+</H2>
+</UL><UL>
+<H2>0 0 0
+</H2>
+</UL><UL>
+<H2>1 0 0
+</H2>
+</UL></P>
+<P><UL>
+Passing an array is to pass an address. 
+<BR></UL><UL>
+Passing a single variable is to pass a copy of the value.</UL></P>
+<P>This is program <a href="ex6.c">ex6.c</a></P> 
+<P>
+<TABLE>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld001.htm">Previous slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld003.htm">Next slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="tsld001.htm">Back to first slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="sld002.htm">View graphic version</A> </TD>
+</TABLE>
+<BR>
+</P>
+
+
+
+</Body>
+</HTML>

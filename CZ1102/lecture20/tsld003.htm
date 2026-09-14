@@ -1,0 +1,47 @@
+
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Context-Type" CONTEXT="text/html;charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft Internet Assistant for PowerPoint 97">
+ <TITLE>Bit Fields</TITLE> 
+</HEAD>
+
+<BODY     >
+
+ <H1>Bit Fields</H1> 
+ <P><UL>
+<LI><H2>Bit field is a way of saving storage space, such that each field occupies a given number of bits. Example:
+</H2>
+<UL>
+struct example1 {
+<BR><BR>  unsigned int f1 :3;
+<BR>  unsigned int f2 :8;
+<BR>  unsigned int f3 :4;
+<BR>};
+<BR>
+<BR>struct example1 a,b c;
+<BR>
+<BR>a.f1 = 2;
+<BR>a.f2 = 100;
+<BR>a.f3 = 3;
+</UL></UL></P>
+<P><UL>
+f1 takes 3 bits, f2 takes 8 bits, f3 takes 4 bits.
+<BR></UL><UL>
+a as a whole takes 16 or 32 bits depending on computer.</UL></P>
+<P></P> 
+<P>
+<TABLE>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld002.htm">Previous slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=100> <A HREF="tsld004.htm">Next slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="tsld001.htm">Back to first slide</A> </TD>
+  <TD HEIGHT=100 WIDTH=150> <A HREF="sld003.htm">View graphic version</A> </TD>
+</TABLE>
+<BR>
+</P>
+
+
+
+</Body>
+</HTML>

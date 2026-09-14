@@ -1,0 +1,310 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      9277,        251]*)
+(*NotebookOutlinePosition[      9915,        274]*)
+(*  CellTagsIndexPosition[      9871,        270]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[
+    \(Symbolic\ Computing, \ Lab\ 1\)], "Input",
+  FontFamily->"Times New Roman",
+  FontSize->16],
+
+Cell[BoxData[
+    \(\(\(Name : \)\ \ \n\)\)], "Input"],
+
+Cell[BoxData[
+    StyleBox[\(\(For\ week\ 1\ &\)\ 2, \ due\ Saturday, \ 
+      17\ January\ 1998\),
+      FontWeight->"Plain",
+      FontSlant->"Plain",
+      FontTracking->"Plain",
+      FontVariations->{"Underline"->False,
+      "Outline"->False,
+      "Shadow"->False}]], "Input"],
+
+Cell[BoxData[
+    StyleBox[
+      \(Work\ directly\ on\ this\ file . \ \ \ Submit\ this\ file\ as\ \ 
+        lab1 . nb\ in\ a\ floppy\ \(disk . \)\),
+      FontSize->12]], "Input",
+  FontFamily->"Times New Roman",
+  FontSize->10,
+  FontSlant->"Italic"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{
+        RowBox[{
+          StyleBox[
+            RowBox[{
+              StyleBox["1",
+                FontWeight->"Bold"], "."}]], " ", "We", " ", "want", " ", 
+          "to", " ", "be", " ", "familiar", " ", "ourselves", " ", "to", " ", 
+          "arithmetics", " ", "for", " ", "the", " ", "Mathematica", " ", 
+          "symbolic", " ", \(system . \ \ We\), " ", "can", " ", "use", " ", 
+          "it", " ", "as", " ", "a", " ", "pocket", " ", 
+          \(calculator . \ \ Consider\), " ", "entering", " ", "the", " ", 
+          "following", " ", "mathematical", " ", "expressions", " ", "to", 
+          " ", "the", " ", "system", " ", "and", " ", "watch", " ", "the", 
+          " ", "reaction", " ", "of", " ", "the", " ", 
+          \(system . \n\t\t\ \ 1\)}], "+", "2"}], ",", "    ", 
+      \(2 - 3\[Times]5 - 1/2\), ",", "  ", \(2/3 - 0.5\)}], 
+    RowBox[{"      ", \(\@4, \ \ \ \ \ \ i\^2, \ \ \ 
+      2\^10 . \n\t\ where\ i\ is\ the\ imaginary\ unit\ 
+        \(\@\(-1\) . \)\)}]}], "Input",
+  CellFrame->True,
+  FontWeight->"Plain",
+  Background->GrayLevel[0.849989]],
+
+Cell[BoxData[
+    \(You\ do\ you\ work\ here . \ For\ example\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(1 + 2\)], "Input"],
+
+Cell[BoxData[
+    \(3\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{
+        StyleBox[
+          RowBox[{
+            StyleBox["2",
+              FontWeight->"Bold"], "."}]], " ", "All", " ", "the", " ", 
+        "symbolic", " ", "systems", " ", "can", " ", "handle", " ", 
+        "arbitrarily", "  ", "large", " ", "integers", " ", "without", " ", 
+        \(overflow . \ \ Try\), " ", "the", " ", 
+        \(following : \n\t\t\ \ \ \ 2\^100\)}], ",", "   ", \(30!\), ",", 
+      "     ", \(123456789\ \[Times]\ 987654321. \)}]], "Input",
+  CellFrame->True,
+  FontWeight->"Plain",
+  Background->GrayLevel[0.849989]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{
+        StyleBox[
+          RowBox[{
+            StyleBox["3",
+              FontWeight->"Bold"], "."}]], " ", "Maple", " ", "and", " ", 
+        "Mathematica", " ", "can", " ", "do", " ", "arbitrary", " ", 
+        "precise", " ", "floating", " ", "point", " ", 
+        \(computation . \ \ In\), " ", "Mathematica", " ", "it", " ", "is", 
+        " ", \(N[\ ] . \ \ Find\), " ", "the", " ", "numerical", " ", 
+        "values", " ", "of", " ", "the", " ", "following", " ", "numbers", 
+        " ", "accurate", " ", "to", " ", "30", " ", "decimla", " ", "places", 
+        " ", \(\((often\ called\ quad\ precision)\) . \n\t\ \ \t\t\[Pi]\)}], 
+      ",", "     ", "\[ExponentialE]", ",", "     ", \(\@2\), ",", "\n", 
+      "     ", \(335\/113\), ",", "  ", \(sin\ \[Pi]\/7\), ",", "   ", 
+      \(\[ExponentialE]\^\(\[Pi]\ \@163\) . \n\twhere\ \[ExponentialE]\ is\ 
+        the\ number\ 2.71828 . \n\t\tIn\ Mathematica\), ",", " ", 
+      \(make\ the\ assignment\ pi = 
+        N[\[Pi], 30] . \ \ What\ is\ the\ digits\ of\ precision\ of\ 2*pi\ and
+          \ what\ is\ 2.0*pi?\ \ Why\ the\ second\ expression\ gives\ you\ 
+          only\ six\ digits?\ \ How\ to\ remove\ the\ symbol\ pi\ from\ the\ 
+          system\ when\ you\ have\ finished\ using\ \(it?\)\)}]], "Input",
+  CellFrame->True,
+  FontWeight->"Plain",
+  Background->GrayLevel[0.849989]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{
+        StyleBox[
+          RowBox[{
+            StyleBox["5",
+              FontWeight->"Bold"], "."}]], " ", "In", " ", "this", " ", 
+        "exercise", " ", "we", " ", "like", " ", "to", " ", "see", " ", 
+        "how", " ", "Mathematica", " ", "deal", " ", "with", " ", 
+        \(symbols . \ \ What\), " ", "happens", " ", "when", " ", "the", " ", 
+        "following", " ", "mathematical", " ", "expressions", " ", "are", 
+        " ", "typed", " ", "into", " ", "the", " ", "symbolic", " ", 
+        \(system : \n\t\t\ \ \ \ \[Pi]\)}], ",", "      ", \(x + y\), ",", 
+      "      ", \(x\  - \ x\), ",", "\n", "      ", 
+      \(2  x\ \[Times]\ x\  + \ 1\), ",", "  ", \(\((1 + x)\)\^2\), ",", 
+      "     ", \(sin\ \(\[Pi]\/2\) . \nNote\ that\ \[Pi]\ should\ be\ typed\ 
+        in\ as\ the\ symbol\ \[Pi]\ or\ Pi\), ",", " ", 
+      \(not\ a\ numerical\ \(approximation . \)\)}]], "Input",
+  CellFrame->True,
+  FontWeight->"Plain",
+  Background->GrayLevel[0.849989]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[{
+    RowBox[{
+      StyleBox[
+        RowBox[{
+          StyleBox["6",
+            FontWeight->"Bold"], "."}]], " ", "Consider", " ", "the", " ", 
+      "cubic", " ", "equaiton"}], 
+    RowBox[{"      ", 
+      \(f \((x)\)\  = \ \(x\^3 + 6  x\^2 + 9  x + 1\  = \ 0. \)\)}], 
+  \(\((a)\)\ Make\ a\ plot\ to\ see\ how\ many\ real\ roots\ this\ equation\ 
+      has . \ \ Read\ from\ the\ plot\ the\ rough\ values\ of\ the\ 
+      solutions . \n\((b)\)\ Solve\ the\ equation\ numerically . \n\((c)\)\ 
+      Solve\ the\ equation\ symbolically . \ \ Simplify\ the\ result\ if\ you
+      \ \(can . \)\)}], "Input",
+  CellFrame->True,
+  FontWeight->"Plain",
+  Background->GrayLevel[0.849989]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{
+        StyleBox[
+          RowBox[{
+            StyleBox["7",
+              FontWeight->"Bold"], "."}]], " ", "Mathematica", " ", "is", 
+        " ", "good", " ", "at", " ", \(calculus . \ \ Compute\), " ", "the", 
+        " ", "following", " ", \((partial)\), " ", 
+        \(derivatives . \n\t\t\ \ \ \(\(d\ sin\ x\)\/dx\)\)}], ",", "      ", 
+      \(dx\^x\/dx\), ",", "     ", 
+      \(\[PartialD]\ \((x\^3 - 3  xy\^2)\)\/\[PartialD]\ y . \)}]], "Input",
+  CellFrame->True,
+  FontWeight->"Plain",
+  Background->GrayLevel[0.849989]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{
+        StyleBox[
+          RowBox[{
+            StyleBox["8",
+              FontWeight->"Bold"], "."}]], " ", "Differentiation", " ", 
+        "can", " ", "be", " ", "done", " ", "for", " ", "any", " ", 
+        "combination", " ", "of", " ", "algebraic", " ", 
+        \(expresions . \ \ But\), " ", "indefinite", " ", "integration", " ", 
+        "is", " ", "much", " ", \(harder . \ \ Note\), " ", "every", " ", 
+        "experesion", " ", "can", " ", "be", " ", \(integrated . \ \ Try\), 
+        " ", \(this : \n\t\t\[Integral]x \[DifferentialD]x\)}], ",", "    ", 
+      \(\[Integral]sin\ x\ \ \[DifferentialD]x\), ",", "  ", 
+      \(\[Integral]\(1\/\(1 + e\^x\)\) \[DifferentialD]x\), " ", ",", "    ", 
+      \(\[Integral]\(x\/\(1 + \[ExponentialE]\^x\)\) 
+          \(\[DifferentialD]x . \)\)}]], "Input",
+  CellFrame->True,
+  FontWeight->"Plain",
+  Background->GrayLevel[0.849989]],
+
+Cell[BoxData[
+    \(12\)], "Input"],
+
+Cell[BoxData[
+    \(The\ end\ of\ \(Lab1 . \)\)], "Input",
+  FontFamily->"Times New Roman",
+  FontSize->16]
+},
+FrontEndVersion->"X 3.0",
+ScreenRectangle->{{0, 1280}, {0, 1024}},
+WindowSize->{532, 485},
+WindowMargins->{{178, Automatic}, {Automatic, 104}}
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 111, 3, 32, "Input"],
+Cell[1823, 54, 54, 1, 43, "Input"],
+Cell[1880, 57, 283, 8, 27, "Input"],
+Cell[2166, 67, 253, 7, 26, "Input"],
+Cell[2422, 76, 1130, 23, 148, "Input"],
+Cell[3555, 101, 74, 1, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[3654, 106, 38, 1, 27, "Input"],
+Cell[3695, 109, 35, 1, 27, "Output"]
+}, Open  ]],
+Cell[3745, 113, 590, 14, 78, "Input"],
+Cell[4338, 129, 26, 0, 27, "Input"],
+Cell[4367, 131, 1398, 25, 229, "Input"],
+Cell[5768, 158, 26, 0, 27, "Input"],
+Cell[5797, 160, 1019, 20, 158, "Input"],
+Cell[6819, 182, 26, 0, 27, "Input"],
+Cell[6848, 184, 700, 16, 127, "Input"],
+Cell[7551, 202, 26, 0, 27, "Input"],
+Cell[7580, 204, 578, 14, 103, "Input"],
+Cell[8161, 220, 26, 0, 27, "Input"],
+Cell[8190, 222, 935, 19, 111, "Input"],
+Cell[9128, 243, 35, 1, 27, "Input"],
+Cell[9166, 246, 107, 3, 32, "Input"]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

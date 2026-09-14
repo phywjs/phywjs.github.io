@@ -1,0 +1,154 @@
+(************** Content-type: application/mathematica **************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      3239,        109]*)
+(*NotebookOutlinePosition[      3937,        133]*)
+(*  CellTagsIndexPosition[      3893,        129]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  StyleBox["CZ3106\nSymbolic Computing",
+    FontSize->36,
+    FontWeight->"Bold"],
+  StyleBox["\n",
+    FontWeight->"Bold"],
+  StyleBox["A/P Wang Jian-Sheng\nhttp://www.cz3.nus.edu.sg/~wangjs",
+    FontSize->18,
+    FontWeight->"Bold",
+    FontColor->GrayLevel[0.666667]],
+  StyleBox["\n",
+    FontSize->24,
+    FontWeight->"Bold",
+    FontColor->GrayLevel[0.666667]]
+}], "Title"],
+
+Cell["", "Subtitle"],
+
+Cell["A. Objective", "Subtitle"],
+
+Cell[TextData[{
+  "To understand basic features of symbolic computing, and how it is \
+different from numerical computations.  \nTo master one symbolic computing \
+language: ",
+  StyleBox["Mathematica.",
+    FontSlant->"Italic"],
+  "\nTo know a little bit theory behind symbolic computing.\n"
+}], "Text"],
+
+Cell["B. contents", "Subtitle"],
+
+Cell["\<\
+1. Cover part I and II of  \"the Mathematica book\" (S. Wolfram).
+2. Cover chapters 1, 2, (may be 3) and 5 of  \"Algorithms for Computer \
+Algebra\" (K. O. Geddes, etc).
+\
+\>", "Text"],
+
+Cell["C. Formats", "Subtitle"],
+
+Cell["\<\
+As usual, one lecture (1.5 hours) per week.
+Tutorial/lab on alternating weeks.  Nothing on week 1, lab starts on week 2.  \
+Register your lab sessions.\
+\>", "Text"],
+
+Cell["D. Assessments", "Subtitle"],
+
+Cell[TextData[{
+  "(1)  50% final (covering ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " and computer algebra theory).\n(2)  35% lab work + home work.\n(3)  15% \
+midterm test after term break (on ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  ").\n"
+}], "Text"]
+},
+FrontEndVersion->"4.1 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 695}},
+WindowSize->{1016, 668},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+Magnification->3,
+StyleDefinitions -> "Classroom.nb"
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1705, 50, 397, 14, 667, "Title"],
+Cell[2105, 66, 20, 0, 119, "Subtitle"],
+Cell[2128, 68, 32, 0, 119, "Subtitle"],
+Cell[2163, 70, 304, 7, 321, "Text"],
+Cell[2470, 79, 31, 0, 119, "Subtitle"],
+Cell[2504, 81, 194, 5, 309, "Text"],
+Cell[2701, 88, 30, 0, 119, "Subtitle"],
+Cell[2734, 90, 175, 4, 195, "Text"],
+Cell[2912, 96, 34, 0, 119, "Subtitle"],
+Cell[2949, 98, 286, 9, 322, "Text"]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

@@ -1,0 +1,358 @@
+(************** Content-type: application/mathematica **************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     13421,        293]*)
+(*NotebookOutlinePosition[     14121,        317]*)
+(*  CellTagsIndexPosition[     14077,        313]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[
+    StyleBox[\(Hopfield\ Neural\ Network\ model\),
+      FontSize->18]], "Input"],
+
+Cell[BoxData[
+    \(First\ we\ define\ patterns\ 0\ to\ 9\ as\ 10  x\ 10\ grids\)], "Input"],
+
+Cell[BoxData[
+    \(zero\  = \ {{0, 0, 0, 0, 0, 0, 0, 0, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 1, 1, 1, 1, 
+          0, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 1, 1, 1, 
+          1, 1, 1, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, \ 
+          1, 1, 0, 0, 1, 1, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 1, 1, 0, 0, 0, 0, 
+          1, 1, 0}, \[IndentingNewLine]\t\ \ {0, 1, 1, 0, 0, 0, 0, 1, 1, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 1, 1, 1, 0, 0, 1, 
+          1, 1, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 1, 1, 1, 
+          1, 1, 1, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, \ 
+          0, 1, 1, 1, 1, 0, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 0, 0, 0, 0, 
+          0, 0, 0}\ }\)], "Input"],
+
+Cell[BoxData[
+    \(one\  = \ {{0, 0, 0, 0, 0, 0, 0, 0, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 0, \ 0, 1, 
+          1, 0, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 0, 
+          1, 1, 1, 0, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 
+          0, \ 0, 1, 1, 1, 1, 0, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, \ 0, 1, 1, 
+          1, 0, 0, 0}, \[IndentingNewLine]\t\ \ {0, 0, 0, 0, 1, 1, 1, 0, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 0, 1, 1, 1, 
+          0, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 0, 1, 
+          1, 1, 0, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, \ 
+          0, 0, 1, 1, 1, 0, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 0, 1, 1, 1, 
+          0, 0, 0}\ }\)], "Input"],
+
+Cell[BoxData[
+    \(two\  = \ {{0, 0, 0, 0, 0, 0, 0, 0, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 1, 1, 1, 1, 
+          0, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 1, 1, 1, 
+          1, 1, 1, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 1, \ 
+          1, 0, 0, 0, 1, 1, 1, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 1, 1, 0, 0, 0, 0, 
+          1, 1, 0}, \[IndentingNewLine]\t\ \ {0, 0, 0, 0, 0, 0, 0, 1, 1, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 0, 0, 0, 1, 
+          1, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 0, 1, 
+          1, 1, 0, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 1, \ 
+          1, 1, 1, 1, 1, 1, 1, 
+          1}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 1, 1, 1, 1, 1, 1, 
+          1, 1, 1}\ }\)], "Input"],
+
+Cell[BoxData[
+    \(three\  = \ {{0, 1, 1, 1, 1, 1, 1, 1, 1, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 1, 1, 1, 1, 1, 1, 
+          1, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 0, 1, 
+          1, 1, 0, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, \ 
+          0, 0, 1, 1, 0, 0, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 1, 1, 1, 0, 
+          0, 0, 0}, \[IndentingNewLine]\t\ \ {0, 0, 0, 0, 1, 1, 1, 1, 1, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 0, 0, 0, 0, 
+          1, 1, 1}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 1, 0, 0, 
+          0, 1, 1, 1, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 1, \ 
+          1, 1, 1, 1, 1, 1, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 1, 1, 1, 1, 1, 
+          0, 0, 0}\ }\)], "Input"],
+
+Cell[BoxData[
+    \(four\  = \ {{0, 0, 0, 0, 0, 1, 1, 0, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 0, 1, 1, 1, 
+          0, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 1, 1, 
+          1, 1, 0, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, \ 
+          1, 1, 0, 1, 1, 0, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 1, 1, 0, 0, 1, 1, 
+          0, 0, 0}, \[IndentingNewLine]\t\ \ {1, 1, 0, 0, 0, 1, 1, 0, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {1, 1, 1, 1, 1, 1, 1, 
+          1, 1, 1}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {1, 1, 1, 1, 1, 
+          1, 1, 1, 1, 1}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, \ 
+          0, 0, 0, 1, 1, 0, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 0, 0, 1, 1, 
+          0, 0, 0}\ }\)], "Input"],
+
+Cell[BoxData[
+    \(five\  = \ {{1, 1, 1, 1, 1, 1, 1, 1, 1, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {1, 1, 1, 1, 1, 1, 1, 
+          1, 1, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {1, 1, 0, 0, 0, 
+          0, 0, 0, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {1, 1, \ 
+          0, 0, 0, 0, 0, 0, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {1, 1, 1, 1, 1, 1, 1, 
+          1, 0, 0}, \[IndentingNewLine]\t\ \ {0, 1, 1, 1, 1, 1, 1, 1, 1, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 0, 0, 0, 0, 
+          1, 1, 1}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 1, 1, 0, 0, 
+          0, 0, 1, 1, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 1, \ 
+          1, 1, 1, 1, 1, 1, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 1, 1, 1, 1, 1, 
+          0, 0, 0}\ }\)], "Input"],
+
+Cell[BoxData[
+    \(six\  = \ {{0, 0, 0, 1, 1, 1, 1, 0, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 1, 1, 1, 1, 1, 
+          1, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 1, 1, 0, 0, 
+          0, 1, 1, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 1, \ 
+          1, 0, 0, 0, 1, 1, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {1, 1, 0, 0, 0, 0, 0, 
+          0, 0, 0}, \[IndentingNewLine]\t\ \ {1, 1, 1, 1, 1, 1, 1, 1, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 1, 1, 1, 1, 1, 1, 
+          1, 1, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 1, 1, 0, 0, 
+          0, 1, 1, 1, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 1, 
+          1, 1, 1, 1, 1, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 
+          0, 0, 1, 1, 1, 1, 0, 0, 0}\ }\)], "Input"],
+
+Cell[BoxData[
+    \(seven\  = \ {{0, 0, 0, 0, 0, 0, 0, 0, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 1, 1, 1, 1, 1, 1, 
+          1, 1, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 1, 1, 1, 1, 
+          1, 1, 1, 1, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, \ 
+          0, 0, 0, 0, 1, 1, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 0, 0, 0, 1, 
+          1, 0, 0}, \[IndentingNewLine]\t\ \ {0, 0, 0, 0, 0, 0, 1, 1, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 0, 0, 0, 1, 
+          1, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 0, 0, 
+          0, 1, 1, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, \ 
+          0, 0, 0, 0, 1, 1, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 0, 0, 0, 1, 
+          1, 0, 0}\ }\)], "Input"],
+
+Cell[BoxData[
+    \(eight = {{0, 0, 0, 0, 1, 1, 0, 0, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 1, 1, 1, 1, 
+          0, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 1, 1, 1, 
+          1, 1, 1, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 1, \ 
+          1, 0, 0, 0, 1, 1, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 1, 1, 0, 0, 0, 0, 
+          1, 1, 0}, \[IndentingNewLine]\t\ \ {0, 0, 1, 1, 1, 1, 1, 1, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 1, 1, 0, 0, 0, 0, 
+          1, 1, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 1, 1, 1, 0, 
+          0, 1, 1, 1, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, \ 
+          1, 1, 1, 1, 1, 1, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 0, 1, 1, 0, 
+          0, 0, 0}\ }\)], "Input"],
+
+Cell[BoxData[
+    \(nine\  = \ {{0, 0, 0, 1, 1, 1, 0, 0, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 1, 1, 1, 1, 
+          0, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 1, 1, 0, 
+          0, 1, 1, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, \ 
+          1, 1, 0, 0, 1, 1, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 1, 1, 0, 0, 0, 0, 
+          1, 1, 0}, \[IndentingNewLine]\t\ \ {0, 1, 1, 1, 0, 0, 0, 1, 1, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 1, 1, 1, 1, 1, 1, 
+          1, 1, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 1, 1, 1, 
+          1, 1, 1, 0, 0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, \ 
+          0, 0, 0, 0, 1, 1, 0, 
+          0}, \[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ {0, 0, 0, 0, 0, 0, 1, 
+          1, 0, 0}\ }\)], "Input"],
+
+Cell[BoxData[
+    \(Define\ a\ ploting\ function\)], "Input"],
+
+Cell[BoxData[
+    \(plot[s_]\  := \ 
+      Module[{sflp\  = \ 
+            s}, \[IndentingNewLine]\(\(L\  = \ 
+              Length[s];\)\[IndentingNewLine]
+          \(For[i\  = \ 1, \ 
+              i\  \[LessEqual] \ 
+                L, \ \(++i\), \[IndentingNewLine]sflp[\([i]\)]\  = \ 
+                1 - \ s[\([L - i\  + \ 
+                        1]\)]\[IndentingNewLine]];\)\)\[IndentingNewLine]\
+ListDensityPlot[sflp]\[IndentingNewLine]]\)], "Input"],
+
+Cell[BoxData[
+    \(plot[two]\)], "Input"],
+
+Cell[BoxData[
+    \(We\ now\ construct\ the\ W\ matrix . \ \ W\_ij\  < \(-\ 
+          W\_ij\)\  + \ \((1/N)\)\ x\_i\ x\_j\)], "Input"],
+
+Cell[BoxData[
+    \(tosign[0]\  := \ \(-1\); \ tosign[x_]\  := \ 1\  /; \ x > 0;\)], "Input"],
+
+Cell[BoxData[
+    \(topattern[s_]\  := \ 
+      Module[{}, \[IndentingNewLine]Table[
+          s[\([i + 10*\((j - 1)\)]\)], \ {j, 10}, {i, 
+            10}]\[IndentingNewLine]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(\(wmatrix[
+        lett_]\)\(\ \)\(:=\)\(\ \)\(Module[{a}, \[IndentingNewLine]a\  = \ 
+          Flatten[lett]; \[IndentingNewLine]a\  = \ 
+          Map[tosign, \ a]; \[IndentingNewLine]Outer[Times, a, 
+          a]\[IndentingNewLine]]\)\(\ \)\)\)], "Input"],
+
+Cell[BoxData[
+    \(\(W\  = \ \((wmatrix[zero]\  + \ wmatrix[one]\  + \ wmatrix[two]\  + \ 
+              wmatrix[three]\  + \ wmatrix[four]\  + \ wmatrix[five]\  + \ 
+              wmatrix[six]\  + \ wmatrix[seven]\  + \ wmatrix[eight]\  + \ 
+              wmatrix[nine])\)/10.0;\)\)], "Input"],
+
+Cell[BoxData[
+    \(Let\ first\ check\ if\ the\ equation\ \ sgn[\ W\ x\ ]\  = \ 
+      x\ can\ be\ \(\(satisfied\)\(.\)\)\)], "Input"],
+
+Cell[BoxData[
+    \(toarray[s_]\  := \ Map[tosign, \ Flatten[s]]\)], "Input"],
+
+Cell[BoxData[
+    \(Sign[\ W . \ toarray[zero]]\  - \ toarray[zero]\)], "Input"],
+
+Cell[BoxData[
+    \(Wee\ see\ for\ letter\ three\ there\ is\ a\ single\ place\ which\ is\ \
+wrong . \ \ Similarly, \ 
+    there\ will\ be\ few\ places\ that\ is\ \(\(wrong\)\(.\)\)\)], "Input"],
+
+Cell[BoxData[
+    \(Now\ we\ implement\ Hopfield\ dynamics\)], "Input"],
+
+Cell[BoxData[
+    \(hopfield[n_, \ W_, \ sin_]\  := \ 
+      Module[{s\  = \ sin}, \[IndentingNewLine]L\  = \ 
+          Length[W]; \[IndentingNewLine]Do[\[IndentingNewLine]\ \ i\  = \ 
+            Ceiling[L\ *\ 
+                Random[]]; \[IndentingNewLine]\ \ \ s[\([i]\)]\  = \ 
+            Sign[\ W[\([i]\)] . 
+                s], \[IndentingNewLine]{n}]; \[IndentingNewLine]s\
+\[IndentingNewLine]]\)], "Input"],
+
+Cell[BoxData[
+    \(We\ start\ with\ input\ addition\ some\ percentage\ of\ \
+\(\(noise\)\(.\)\)\)], "Input"],
+
+Cell[BoxData[
+    \(sinput\  = \ 
+      two\  + \ Table[\ 
+          If[Random[]\  < \ 0.1, \ 1, \ 0], \ {10}, \ {10}]\)], "Input"],
+
+Cell[BoxData[
+    \(sout\  = \ hopfield[1000, \ W, toarray[sinput]]\)], "Input"],
+
+Cell[BoxData[
+    \(plot[topattern[sout]]\)], "Input"]
+},
+FrontEndVersion->"4.1 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 695}},
+WindowSize->{1015, 668},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+Magnification->1.5,
+StyleDefinitions -> "Classroom.nb"
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1705, 50, 95, 2, 82, "Input"],
+Cell[1803, 54, 92, 1, 72, "Input"],
+Cell[1898, 57, 855, 13, 306, "Input"],
+Cell[2756, 72, 858, 13, 306, "Input"],
+Cell[3617, 87, 854, 13, 306, "Input"],
+Cell[4474, 102, 856, 13, 306, "Input"],
+Cell[5333, 117, 855, 13, 306, "Input"],
+Cell[6191, 132, 855, 13, 306, "Input"],
+Cell[7049, 147, 841, 12, 306, "Input"],
+Cell[7893, 161, 856, 13, 306, "Input"],
+Cell[8752, 176, 852, 13, 306, "Input"],
+Cell[9607, 191, 855, 13, 306, "Input"],
+Cell[10465, 206, 61, 1, 72, "Input"],
+Cell[10529, 209, 460, 10, 253, "Input"],
+Cell[10992, 221, 42, 1, 72, "Input"],
+Cell[11037, 224, 135, 2, 73, "Input"],
+Cell[11175, 228, 93, 1, 72, "Input"],
+Cell[11271, 231, 189, 4, 124, "Input"],
+Cell[11463, 237, 281, 5, 176, "Input"],
+Cell[11747, 244, 295, 4, 150, "Input"],
+Cell[12045, 250, 134, 2, 72, "Input"],
+Cell[12182, 254, 77, 1, 72, "Input"],
+Cell[12262, 257, 80, 1, 72, "Input"],
+Cell[12345, 260, 193, 3, 98, "Input"],
+Cell[12541, 265, 71, 1, 72, "Input"],
+Cell[12615, 268, 416, 8, 254, "Input"],
+Cell[13034, 278, 109, 2, 72, "Input"],
+Cell[13146, 282, 131, 3, 72, "Input"],
+Cell[13280, 287, 80, 1, 72, "Input"],
+Cell[13363, 290, 54, 1, 72, "Input"]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

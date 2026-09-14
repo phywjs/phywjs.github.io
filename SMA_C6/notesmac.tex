@@ -1,0 +1,113 @@
+% TeX Macro for lecture notes
+% dimensions
+\abovedisplayskip=6pt plus 3pt minus 1pt
+\belowdisplayskip=6pt plus 3pt minus 1pt
+\abovedisplayshortskip=0pt plus 3pt
+\belowdisplayshortskip=4pt plus 3pt
+% A4 size paper
+\hsize 159.2 true mm
+\vsize 244 true mm
+% \parindent 0pt
+% \parskip is used only for cpnotes: 
+\parskip 4pt plus 1pt minus 0.5pt
+\overfullrule 0pt
+% fonts
+\font\titlefont=cmbx10 scaled 1440
+\font\lecfont=cmbx12
+\font\sc=cmcsc10
+\font\ninerm=cmr9
+\font\ninett=cmtt9
+\def\h{\hskip 1cm}
+\def\t{\hskip 6mm}
+% Define the verbatim program listing macro \listing{filename}
+%
+\def\uncatcodespecials{\def\do##1{\catcode`##1=12 }\dospecials}
+\def\listing#1{\par\begingroup\setupverbatim\input#1 \endgroup}
+\def\setupverbatim{\tt 
+  \def\par{\leavevmode\endgraf} \catcode`\`=\active
+  \obeylines \uncatcodespecials \obeyspaces
+  \everypar{\t}
+}
+{\obeyspaces\global\let =\ } % let active space = \control space
+{\catcode`\`=\active \gdef`{\relax\lq}}
+%
+% verbatim text macro with smallskip before and after
+% \ttbg
+% verbatim text
+% \tted
+\def\ttbg{\par\smallskip\begingroup\parskip=0pt\setupverbatim\doverbatim}
+{\catcode`\|=0 \catcode`\\=12 % | is temporary escape character
+  |obeylines|gdef|doverbatim^^M#1\tted{#1|endgroup|smallskip}}
+%
+% one line verbatim
+% \v`text`
+\def\v{\begingroup\t\tt\uncatcodespecials
+  \obeyspaces\doverbatt}
+\newcount\balance
+{\catcode`<=1 \catcode`>=2 \catcode`\{=12 \catcode`\}=12
+  \gdef\doverbatt`<\balance=1\verbatimloop>
+  \gdef\verbatimloop#1<\def\next<#1\verbatimloop>%
+    \if#1`\advance\balance by-1
+     \ifnum\balance=0\let\next=\endgroup\fi\fi\next>>
+
+% the one line verbatim with comment in 9pt rm
+%\l{\v`test`\m{comment}}
+\def\m#1{\hfill {\ninerm #1} \t}
+\def\l{\hbox to \hsize}
+% one line of tt font without comment
+\def\ll#1{\leftline{\t\tt #1}}
+\def\ttsp{\hphantom{2}}
+\newskip\hugeskipamount
+\hugeskipamount = 20mm plus3mm minus3mm
+\def\hugeskip{\vskip\hugeskipamount}
+\def\hugebreak{\par \ifdim\lastskip<\hugeskipamount
+  \removelastskip \penalty-500 \hugeskip \fi}
+\def\lecture#1{\hugebreak {\noindent\lecfont Lecture #1} \bigskip\nobreak}
+\def\section#1{\medbreak {\noindent\sc #1} \smallskip\nobreak}
+% macro for a book-like lecture notes
+\newcount\chapno
+\newcount\secno
+\newcount\subsecno
+\newcount\equationno
+\global\chapno=0
+\global\equationno=0
+\outer\def\chap#1{\global\advance\chapno by 1 \global\secno=0
+  \centerline{\lecfont Chapter \the\chapno\ \ #1}
+  \par\bigskip\nobreak}
+\outer\def\sec#1{\medbreak \global\advance\secno by 1 \global\subsecno=0
+  \medskip\vbox{\noindent{\sc \the\secno.\ #1}\medskip}
+  \nobreak}
+\outer\def\subsec#1{\smallbreak \global\advance\subsecno by 1
+  \medskip\vbox{\noindent{\sc \the\secno--\the\subsecno.\ #1}
+  \smallskip}\nobreak}
+\def\EQNO{\global\advance\equationno by 1 \eqno(\the\equationno) }
+
+\def\sms{\smallskip}
+\def\fninety{$^{\scriptscriptstyle 90}$}
+
+%def \problem and \answer with automatic numbering
+\newcount\probno
+\probno=0
+
+\outer\def\problem{\medbreak\smallskip \global\advance\probno by 1
+\item{{\bf\the\probno}.}}
+
+\chardef\other=12
+\newwrite\ans
+\immediate\openout\ans=answers %file for answers to problems
+\outer\def\answer{\par\medbreak
+  \immediate\write\ans{}
+  \immediate\write\ans{\string\ansno{\the\probno}}
+  \copytoblankline}
+\def\copytoblankline{\begingroup\setupcopy\copyans}
+\def\setupcopy{\def\do##1{\catcode`##1=\other}\dospecials
+    \catcode`\|=\other \obeylines}
+{\obeylines \gdef\copyans#1
+  {\def\next{#1}%
+  \ifx\next\empty\let\next=\endgroup %
+  \else\immediate\write\ans{\next} \let\next=\copyans\fi\next}}
+\def\ansno#1{\medbreak\noindent{\bf #1:\ }}
+
+\input epsf.tex
+%end of macro definitions
+

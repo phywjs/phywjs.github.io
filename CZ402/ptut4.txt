@@ -1,0 +1,42 @@
+\input notesmac.tex
+\nopagenumbers
+
+\centerline{\titlefont Symbolic Computing, Tutorial 4}
+\bigskip
+\line{Dr.~WANG Jian-Sheng \hfill Week 12, 3:00pm Thu, 20 March 1997}
+\bigskip
+\bigskip
+%----------------------------------------------------------------------- 
+
+\problem The set G of {\sl Gaussian integers} is the subset of
+the complex number C defined by
+$$ {\rm G} = \{ a + b \sqrt{-1}: a, b \in {\rm Z}\}$$
+\item{} (where we usually use the notation $\sqrt{-1} = i$).  
+\itemitem{(a)} Verify that G,
+with the standard operations of addition and multiplication of complex
+numbers, is an integral domain.  Further, verify that G is a Euclidean
+domain with the valuation
+$$ v(a+b\sqrt{-1}) = a^2 + b^2.$$
+\itemitem{(b)} What are the units in G?  
+Give some examples of primes in G. Given some examples of associates.
+Define a unit normal ${\rm n}(a)$.  Can every element in G be factored
+uniquely as product of primes? 
+
+\problem 
+\itemitem{(a)} Apply Algorithm 2.1 (Euclidean algorithm) 
+by hand to compute, in the Euclidean domain Q[$x$] (i.e., polynomial
+with rational numbers as coefficients),
+$$ {\rm GCD}(4x^4+13x^3+15x^2+7x+1,\; 2x^3+x^2-4x-3).$$
+\itemitem{(b)} Same as (a) but in UFD Z[$x$] (i.e., polynomial 
+with integer coefficients), with (i) pseudo-division
+without content removal (world's worst GCD), (ii) Primitive Euclidean,
+(iii) Subresultant polynomial remainder sequence of Collins and Brown.
+Compare the efficiency/difficulty of four different methods.
+
+\problem Do the same, if you have time, (four different methods) for GCD of
+$$\eqalign{ a(x)& =  2x^6 + 5 x^5 + 7x^4 + 3x^3 + 6x^2 - 2x + 1, \cr
+b(x)& =  3x^5 + 3x^4 + 6x^3 - x^2 + 3x - 4. \cr
+}$$
+
+\bye
+

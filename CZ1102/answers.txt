@@ -1,0 +1,73 @@
+          ANSWERS TO THE FINAL EXAMINATION NOV 1998
+
+1. (a) true
+   (b) false
+   (c) true
+   (d) true
+
+2. int .., k,         ->  int ..  k;
+   do {  }            ->  do { .. } while (...);
+   if(0=i) then ..    ->  if(0==i) j = 2;
+   case(k) { ...      ->  switch(K) {  case 1: i = 1;
+                                       case 2: i = 5; 
+     dedault          ->              default: ...
+                                    }
+
+3.
+1: 1, 0
+2: 0.000000, 0.000000, 4.000000
+3: 0
+3: -1
+4: -1
+5: 1 2 1
+6: 2 2 1
+7: 2 2 -3
+8: 1.000000 1.000000
+
+4.
+   y = ((5+1)*(5+1)*(5+1));
+
+5.
+I
+the
+T
+e
+
+6.
+double fabs(double x)
+{
+   return (x>=0) ? x : -x;
+}
+
+#include <float.h>
+double square_root(double x)
+{
+   double g = 1.0;
+   while( fabs((g*g-x)/x) > DBL_EPSILON) {
+     g = 0.5*(x/g + g);
+   }
+   return g;
+}
+
+#include <stdio.h>
+main()
+{
+   double a, b, c, d, x1, x2, r, y;
+
+   printf("enter coefficients a, b, c for quadratic equation:\n");
+   scanf("%lf%lf%lf", &a, &b, &c);
+
+   d = b*b - 4*a*c;
+   if (d>=0) {
+      x1 = (-b + square_root(d))/(2*a);
+      x2 = (-b - square_root(d))/(2*a);
+      printf("two real roots are %f and %f.\n", x1, x2);
+   } else {
+      r = -b/(2*a);
+      y = square_root(-d)/(2*a);
+      printf("two complex roots are %f + %fi and %f - %fi.\n", 
+        r, y, r, y);
+  }
+}
+
+                 - The End - 

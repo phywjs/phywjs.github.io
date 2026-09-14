@@ -1,0 +1,26 @@
+/*  This program repeatedly reads a time in hours, computes the distance
+    traveled in that time assuming a rate of 14 kilometers per hour, and
+    writes the distance to the video display.  It is assumed that the 
+    time is a positive integer.  The program is terminated by entering 
+    zero.  The distance is computed using the formula
+                      d = r * t
+    where d is the distance, r is the rate, and t is the time.
+*/
+#include <stdio.h>
+main()
+{
+   int distance, rate, time;
+
+   rate = 14;
+   printf("Enter next time: ");
+   scanf("%d", &time);
+
+   while(time > 0) {
+      distance = rate * time;
+      printf("Time = %d hours\n", time);
+      printf("Distance = %d kilometers\n\n", distance);
+      printf("Enter next time: ");
+      scanf("%d", &time);
+   }
+   printf("*** END OF PROGRAM ***\n");
+} 

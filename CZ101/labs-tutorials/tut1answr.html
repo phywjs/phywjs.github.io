@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>CZ1101, Tutorial 1, Answers</title>
+</head>
+<body>
+
+<h1>Tutorial 1, Answers</h1>
+
+
+<OL>
+
+<LI>       
+<pre>
+  (.1) q           (.6) d            (.10) o
+  (.2) u           (.7) i            (.11) w
+  (.3) f           (.8) k            (.12) p
+  (.4) a           (.9) j            (.13) n
+  (.5) c
+</pre>
+
+<LI> A compiler might translate f = -p*r + (a/b)*a*a - b into
+<pre>
+   mul $10, $3, $4    # $10 = p*r
+   sub $2, $0, $10    # $2 = -p*r
+   div $10, $5, $6    # $10 = (a/b)
+   mul $10, $10, $5   # $10 = (a/b)*a
+   mul $10, $10, $5   # $10 = (a/b)*a*a
+   add $2, $2, $10    # $2 = -p*r + (a/b)*a*a
+   sub $2, $2, $6     # $2 = f = -p*r + (a/b)*a*a - b
+</pre>
+
+<LI> To save the trouble of commenting each instruction, 
+I just say that the program stores the value 1,2,3 into memory
+locations starting from 0x10000000. Then it loads the same set of
+values and add 1 to each, and saves them (2,3,4, respectively) in 
+the next three locations in memory.  
+
+
+
+<LI> The binary encoding is
+<pre>
+     Decimal     Hexadecimal       Symbolic
+  35 2 5   0      0x8c450000     lw $5, 0($2) 
+   0 5 3 5 0 32   0x00a32820     add $5, $5, $3
+  43 2 5  12      0xac45000c     sw $5, 12($2)
+</pre>
+
+
+</OL>
+
+</body>

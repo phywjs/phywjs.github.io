@@ -1,0 +1,503 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 4.2'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     12930,        378]*)
+(*NotebookOutlinePosition[     13615,        402]*)
+(*  CellTagsIndexPosition[     13571,        398]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell["Lab 4 Answers", "Title"],
+
+Cell["\<\
+Total marks are 10.   Question1, 3 marks; Question 2, 7 marks.
+
+[correctness will be mostly counted.  It is OK to have very different \
+programing styles.]\
+\>", "Subsubtitle"],
+
+Cell["1.", "Subtitle"],
+
+Cell["\<\
+The rules (a) to (f) (with the order of (e) and (f) swapped):\
+\>", \
+"Text"],
+
+Cell[BoxData[{
+    \(\(laplace[f_\  + \ g_, t_, s_]\  := \ 
+        laplace[f, t, s]\  + \ laplace[g, t, s];\)\), "\[IndentingNewLine]", 
+    \(\(laplace[c_*f_, t_, \ s_]\  := 
+        c*laplace[f, t, s]\  /; \ FreeQ[c, t];\)\), "\[IndentingNewLine]", 
+    \(\(laplace[c_, \ t_, \ s_] := \ 
+        c/s\  /; \ FreeQ[c, t];\)\), "\[IndentingNewLine]", 
+    \(\(laplace[t_^n_. , t_, s_]\  := \ \(n!\)/s^\((n + 1)\)\  /; \ 
+          IntegerQ[n]\  && \ n\  > \ 0;\)\), "\[IndentingNewLine]", 
+    \(\(laplace[g_*E^\((b_.  + c_. *t_)\), t_, s_] := \ 
+        E^b\ *\ laplace[g, t, s - c]\  /; \ 
+          FreeQ[b, t]\  && \ FreeQ[c, t];\)\), "\[IndentingNewLine]", 
+    \(\(laplace[g_*t^n_. , t_, 
+          s_]\  := \ \((\(-1\))\)^n\ *D[laplace[g, t, s], {s, n}]\  /; \ 
+          IntegerQ[n]\  && \ n > 0;\)\)}], "Input"],
+
+Cell["Some input examples:", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(laplace[t^2 + f[t], t, s]\)], "Input"],
+
+Cell[BoxData[
+    \(2\/s\^3 + laplace[f[t], t, s]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(laplace[t^3*Exp[t + 3], t, s]\)], "Input"],
+
+Cell[BoxData[
+    \(\(6\ \[ExponentialE]\^3\)\/\((\(-1\) + s)\)\^4\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(laplace[t^2*Exp[c*t + b], t, s]\)], "Input"],
+
+Cell[BoxData[
+    \(\(2\ \[ExponentialE]\^b\)\/\((\(-c\) + s)\)\^3\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(laplace[t^2*Sin[t], t, s]\)], "Input"],
+
+Cell[BoxData[
+    \(\(2\ Sin[t]\)\/s\^3\)], "Output"]
+}, Open  ]],
+
+Cell["\<\
+The program give wrong results if the function G[t] do not have an \
+explicit laplace transform.  This is due to the D[ ..., {s,n}] part.  I don't \
+know how to fix it.\
+\>", "Text"],
+
+Cell["2.", "Subtitle"],
+
+Cell[BoxData[
+    \(closedQ[set_List, \ table_List]\  := \ 
+      Module[{f}, \[IndentingNewLine] (*\ A0, \ 
+          test\ that\ operation\ is\ \(\(closed\)\(.\)\)\ \
+*) \[IndentingNewLine]If[
+          Length[Union[set]]\  \[NotEqual] \ 
+            Length[set], \[IndentingNewLine]Print["\<elements not \
+unique!\>"]; \[IndentingNewLine]Return[
+            False]\[IndentingNewLine]]; \
+\[IndentingNewLine]\[IndentingNewLine] (*\ 
+          check\ that\ the\ table\ contains\ only\ elements\ in\ the\ set\ \
+*) \[IndentingNewLine]f\  = \ Flatten[table, 1]; \[IndentingNewLine]If[
+          Union[f]\  =!= \ 
+            Union[set], \[IndentingNewLine]Print["\<operation is not \
+closed!\>"]; \[IndentingNewLine]Return[
+            False]]; \[IndentingNewLine]True\[IndentingNewLine]]\)], "Input"],
+
+Cell[BoxData[
+    \(associativeQ[set_List, \ table_List]\  := \ 
+      Module[{n, f, i, j, k}, \[IndentingNewLine] (*\ A1, \ 
+          check\ a*\((b*c)\)\  = \ \((a*
+                  b)\)*\(\(c\)\(.\)\)\ \ *) \[IndentingNewLine] (*\ 
+          Replace\ table\ by\ number\ from\ 1\ to\ n\ so\ that\ it\ is\ easy\ \
+to\ locate\ entries\ in\ the\ table . \ \ Thus\ the\ elements\ are\ \
+canonically\ renamed\ as\ 1\ to\ \(\(n\)\(.\)\)\ *) \[IndentingNewLine]n\  = \
+\ Length[set]; \[IndentingNewLine]f\  = \ 
+          table\  /. \ 
+            Thread[set\  \[Rule] \ 
+                Range[n]]; \[IndentingNewLine]\[IndentingNewLine]For[i = 1, \ 
+          i \[LessEqual] n, \ \(++i\), \[IndentingNewLine]For[j = 1, 
+            j \[LessEqual] n, \ \(++j\), \[IndentingNewLine]For[k = 1, \ 
+              k \[LessEqual] n, \ \(++k\), \[IndentingNewLine]If[
+                f[\([i, f[\([j, k]\)]]\)]\  \[NotEqual] \ 
+                  f[\([f[\([i, j]\)], 
+                      k]\)], \[IndentingNewLine]Print["\<associativity \
+failed!\>"]; \[IndentingNewLine]Return[
+                  False]]\[IndentingNewLine]]\[IndentingNewLine]]\
+\[IndentingNewLine]]; \[IndentingNewLine]True\[IndentingNewLine]]\)], "Input"],
+
+Cell[BoxData[
+    \(identityQ[set_List, \ table_List]\  := \ 
+      Module[{n, i, f, righte, lefte}, \[IndentingNewLine] (*\ 
+          Check\ \(A2 : \ 
+              identity\ e . \ \ Return\ either\ False\ or\ \(\({True, \ 
+                    identity}\)\(.\)\)\)\ *) \[IndentingNewLine]n = \ 
+          Length[set]; \[IndentingNewLine]{lefte, \ 
+            righte}\  = \ {{}, \ {}}; \[IndentingNewLine]For[i\  = \ 1, \ 
+          i\  \[LessEqual] n, \ \(++i\), \[IndentingNewLine]If[
+            set\  === \ table[\([i]\)], \[IndentingNewLine]lefte\  = \ 
+              set[\([i]\)]; \[IndentingNewLine]Break[]\[IndentingNewLine]]\
+\[IndentingNewLine]]; \[IndentingNewLine]If[lefte\  \[Equal] \ {}, \ 
+          Print["\<identity not find!\>"]; 
+          Return[False]]; \[IndentingNewLine]f\  = \ 
+          Transpose[table]; \[IndentingNewLine]For[i\  = \ 1, \ 
+          i\  \[LessEqual] n, \ \(++i\), \[IndentingNewLine]If[
+            set\  === \ f[\([i]\)], \[IndentingNewLine]righte\  = \ 
+              set[\([i]\)]; \[IndentingNewLine]Break[]\[IndentingNewLine]]\
+\[IndentingNewLine]]; \[IndentingNewLine]If[righte\  \[Equal] \ {}, \ 
+          Print["\<identity not find!\>"]; 
+          Return[False]]; \[IndentingNewLine]If[
+          lefte\  \[Equal] \ 
+            righte, \[IndentingNewLine]Print["\<identity is \>", \ 
+            lefte], \ \[IndentingNewLine]Return[
+            False]\[IndentingNewLine]]; \[IndentingNewLine]{True, \ 
+          lefte}\[IndentingNewLine]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(\(inverseQ[set_List, \ table_List, \ e_]\  := \ 
+      Module[{i, n, \ f}, \[IndentingNewLine] (*\ 
+          A3 . \ check\ that\ every\ one\ has\ inverse . \ \ We\ jsut\ make\ \
+sure\ that\ each\ row\ and\ each\ column\ has\ a\ \(\(e\)\(.\)\)\ \
+*) \[IndentingNewLine]n\  = \ Length[set]; \[IndentingNewLine]For[
+          i\  = \ 1, \ 
+          i\  \[LessEqual] \ 
+            n, \ \(++i\), \[IndentingNewLine]If[\(! MemberQ[table[\([i]\)], \ 
+                e]\), \[IndentingNewLine]Print["\<right inverse for \>", \ 
+              set[\([i]\)], \ "\< not find!\>"]; \[IndentingNewLine]Return[
+              False]]\[IndentingNewLine]]; \[IndentingNewLine]f\  = \ 
+          Transpose[table]; \[IndentingNewLine]For[i\  = \ 1, \ 
+          i\  \[LessEqual] \ 
+            n, \ \(++i\), \[IndentingNewLine]If[\(! MemberQ[f[\([i]\)], \ 
+                e]\), \[IndentingNewLine]Print["\<left inverse for \>", \ 
+              set[\([i]\)], \ "\< not find!\>"]; \[IndentingNewLine]Return[
+              False]]\[IndentingNewLine]]; \[IndentingNewLine]True\
+\[IndentingNewLine]]\)\(\[IndentingNewLine]\)
+    \)\)], "Input"],
+
+Cell[BoxData[
+    \(groupQ[set_List, \ table_List]\  := \ 
+      Module[{}, \[IndentingNewLine]If[\(! closedQ[set, table]\), \ 
+          Return[False]]; \[IndentingNewLine]If[\(! associativeQ[set, 
+              table]\), \ Return[False]]; \[IndentingNewLine]res = \ 
+          identityQ[set, table]; \[IndentingNewLine]If[res\  === \ False, 
+          Return[False]]; \[IndentingNewLine]e\  = \ 
+          res[\([2]\)]; \[IndentingNewLine]If[\(! inverseQ[set, table, 
+              e]\), \ Return[
+            False]]; \[IndentingNewLine]True\[IndentingNewLine]]\)], "Input"],
+
+Cell["\<\
+The following two modules are required for lab 5. (not part of \
+requirement for lab 4).\
+\>", "Text"],
+
+Cell[BoxData[
+    \(commuteQ[set_List, table_List] := \ 
+      Module[{i, j, n}, \[IndentingNewLine] (*\ A4, \ 
+          check\ a*b\  = \ b*a\ *) \[IndentingNewLine]n\  = \ 
+          Length[set]; \[IndentingNewLine]For[i\  = \ 1, \ 
+          i\  \[LessEqual] \ n, \ \(++i\), \[IndentingNewLine]For[
+            j\  = \ 1, \ 
+            j\  \[LessEqual] \ n, \ \(++j\), \[IndentingNewLine]If[
+              table[\([i, j]\)]\  =!= \ table[\([j, i]\)], \ 
+              Print["\<non-commuting!\>"]; \[IndentingNewLine]Return[
+                False]]\[IndentingNewLine]]\[IndentingNewLine]]; \
+\[IndentingNewLine]True\[IndentingNewLine]]\)], "Input"],
+
+Cell[BoxData[
+    \(abeliangroupQ[set_List, \ table_List] := 
+      groupQ[set, table]\  && \ commuteQ[set, \ table]\)], "Input"],
+
+Cell["Some tests.", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(z4a\  = \ Table[Mod[i + j, 4], {i, 0, 3}, {j, 0, 3}]\)], "Input"],
+
+Cell[BoxData[
+    \({{0, 1, 2, 3}, {1, 2, 3, 0}, {2, 3, 0, 1}, {3, 0, 1, 2}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(groupQ[{0, 1, 2, 3}, z4a]\)], "Input"],
+
+Cell[BoxData[
+    InterpretationBox[\("identity is "\[InvisibleSpace]0\),
+      SequenceForm[ "identity is ", 0],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    \(True\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(groupQ[{a, b, c}, {{b, c, a}, {c, b, a}, {b, a, c}}]\)], "Input"],
+
+Cell[BoxData[
+    \("associativity failed!"\)], "Print"],
+
+Cell[BoxData[
+    \(False\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(z5m\  = \ Table[Mod[i*j, 5], {i, 1, 4}, {j, 1, 4}]\)], "Input"],
+
+Cell[BoxData[
+    \({{1, 2, 3, 4}, {2, 4, 1, 3}, {3, 1, 4, 2}, {4, 3, 2, 1}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(groupQ[{1, 2, 3, 4}, z5m]\)], "Input"],
+
+Cell[BoxData[
+    InterpretationBox[\("identity is "\[InvisibleSpace]1\),
+      SequenceForm[ "identity is ", 1],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    \(True\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(abeliangroupQ[{1, 2, 3, 4}, z5m]\)], "Input"],
+
+Cell[BoxData[
+    InterpretationBox[\("identity is "\[InvisibleSpace]1\),
+      SequenceForm[ "identity is ", 1],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    \(True\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(mat\  = \ {{i, a, b, c, d, k}, {a, i, c, b, k, d}, {b, k, d, a, i, 
+            c}, {c, d, k, i, a, b}, {d, c, i, k, b, a}, {k, b, a, d, c, 
+            i}};\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(MatrixForm[mat]\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"i", "a", "b", "c", "d", "k"},
+            {"a", "i", "c", "b", "k", "d"},
+            {"b", "k", "d", "a", "i", "c"},
+            {"c", "d", "k", "i", "a", "b"},
+            {"d", "c", "i", "k", "b", "a"},
+            {"k", "b", "a", "d", "c", "i"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(groupQ[{i, a, b, c, d, k}, mat]\)], "Input"],
+
+Cell[BoxData[
+    InterpretationBox[\("identity is "\[InvisibleSpace]i\),
+      SequenceForm[ "identity is ", i],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    \(True\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(abeliangroupQ[{i, a, b, c, d, k}, mat]\)], "Input"],
+
+Cell[BoxData[
+    InterpretationBox[\("identity is "\[InvisibleSpace]i\),
+      SequenceForm[ "identity is ", i],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    \("non-commuting!"\)], "Print"],
+
+Cell[BoxData[
+    \(False\)], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"4.2 for X",
+ScreenRectangle->{{0, 1280}, {0, 1024}},
+WindowSize->{713, 921},
+WindowMargins->{{52, Automatic}, {0, Automatic}},
+Magnification->1.5,
+StyleDefinitions -> "Classroom.nb"
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1754, 51, 30, 0, 96, "Title"],
+Cell[1787, 53, 186, 5, 156, "Subsubtitle"],
+Cell[1976, 60, 22, 0, 59, "Subtitle"],
+Cell[2001, 62, 87, 3, 40, "Text"],
+Cell[2091, 67, 820, 14, 345, "Input"],
+Cell[2914, 83, 36, 0, 40, "Text"],
+
+Cell[CellGroupData[{
+Cell[2975, 87, 58, 1, 69, "Input"],
+Cell[3036, 90, 63, 1, 91, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3136, 96, 62, 1, 69, "Input"],
+Cell[3201, 99, 80, 1, 98, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3318, 105, 64, 1, 69, "Input"],
+Cell[3385, 108, 80, 1, 98, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3502, 114, 58, 1, 69, "Input"],
+Cell[3563, 117, 53, 1, 91, "Output"]
+}, Open  ]],
+Cell[3631, 121, 192, 4, 65, "Text"],
+Cell[3826, 127, 22, 0, 59, "Subtitle"],
+Cell[3851, 129, 800, 15, 414, "Input"],
+Cell[4654, 146, 1213, 20, 529, "Input"],
+Cell[5870, 168, 1508, 25, 736, "Input"],
+Cell[7381, 195, 1146, 19, 552, "Input"],
+Cell[8530, 216, 577, 9, 276, "Input"],
+Cell[9110, 227, 112, 3, 40, "Text"],
+Cell[9225, 232, 651, 11, 345, "Input"],
+Cell[9879, 245, 129, 2, 92, "Input"],
+Cell[10011, 249, 27, 0, 40, "Text"],
+
+Cell[CellGroupData[{
+Cell[10063, 253, 85, 1, 69, "Input"],
+Cell[10151, 256, 90, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10278, 262, 58, 1, 69, "Input"],
+Cell[10339, 265, 147, 3, 33, "Print"],
+Cell[10489, 270, 38, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10564, 276, 85, 1, 69, "Input"],
+Cell[10652, 279, 56, 1, 33, "Print"],
+Cell[10711, 282, 39, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10787, 288, 83, 1, 69, "Input"],
+Cell[10873, 291, 90, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[11000, 297, 58, 1, 69, "Input"],
+Cell[11061, 300, 147, 3, 33, "Print"],
+Cell[11211, 305, 38, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[11286, 311, 65, 1, 69, "Input"],
+Cell[11354, 314, 147, 3, 33, "Print"],
+Cell[11504, 319, 38, 1, 69, "Output"]
+}, Open  ]],
+Cell[11557, 323, 194, 3, 115, "Input"],
+
+Cell[CellGroupData[{
+Cell[11776, 330, 48, 1, 69, "Input"],
+Cell[11827, 333, 443, 11, 209, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[12307, 349, 64, 1, 69, "Input"],
+Cell[12374, 352, 147, 3, 33, "Print"],
+Cell[12524, 357, 38, 1, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[12599, 363, 71, 1, 69, "Input"],
+Cell[12673, 366, 147, 3, 33, "Print"],
+Cell[12823, 371, 49, 1, 33, "Print"],
+Cell[12875, 374, 39, 1, 69, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

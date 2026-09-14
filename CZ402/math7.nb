@@ -1,0 +1,525 @@
+(************** Content-type: application/mathematica **************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     15483,        457]*)
+(*NotebookOutlinePosition[     16183,        481]*)
+(*  CellTagsIndexPosition[     16139,        477]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  StyleBox["Symbolic Computing\nTheory\n",
+    FontWeight->"Bold"],
+  StyleBox["LT20, 4:00-5:00pm\nWed, 5 March 2003",
+    FontSize->24,
+    FontWeight->"Bold"]
+}], "Title"],
+
+Cell["", "Subtitle"],
+
+Cell["Scope", "Subtitle"],
+
+Cell["\<\
+In this second part of symbolic computing course, we shall highlight some of \
+the problems and algorithms fundamental to symbolic computing.  We shall \
+concentrate on few well-known algorithms, rather than covering systematically \
+the so-called \"theory\".   Some of them includes:
+
+1.  Concepts from abstract algebra, such as group, ring, and field.
+2.  Euclid algorithm and extended Euclid algorithm of polynomials over a \
+field (or integral domain?)
+3. Chinese remainder theorem and application in symbolic computing.
+4. Algorithms for factor a polynomial (over a field).
+
+Perhaps the most exciting algorithms in symbolic computing are those of \
+symbolic integration.  The Risch integration algorithm can tell you, under \
+certain restriction (elementary functions, e.g, rational functions, \
+exponential and logarithms), if an integrand can be explicitly integrated.  \
+However, the theory requires rather deep abstract algebra, so we'll not cover \
+in this course.
+Interested students can read Chap 11 and 12 of  \"Algorithms for Computer \
+Algebra\" by K. O. Geddes et al.\
+\>", "Text"],
+
+Cell["Group", "Subtitle"],
+
+Cell["\<\
+The concept of group is used in many places, such as in physics and chemistry \
+about symmetry, topological invariant in mathematics.   It is one of the \
+basic concept in abstract algebra.  Here is the definition:\
+\>", "Text"],
+
+Cell[TextData[{
+  "A Group (G;\[SmallCircle]) is a nonempty set G, closed under a binary \
+operation \[SmallCircle] satisfying the axioms:\n\nA1:   ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " \[SmallCircle] (",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  " \[SmallCircle] ",
+  Cell[BoxData[
+      \(TraditionalForm\`c\)]],
+  ") = (",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " \[SmallCircle] ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  ") \[SmallCircle] ",
+  Cell[BoxData[
+      \(TraditionalForm\`c\)]],
+  "   for all ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`c\)]],
+  " \[Element] G\n\nA2:  There is an element ",
+  Cell[BoxData[
+      \(TraditionalForm\`e\)]],
+  " \[Element] G such that \n\t",
+  Cell[BoxData[
+      \(TraditionalForm\`e\)]],
+  " \[SmallCircle] ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\  = \ \(a\ \[SmallCircle]\ e = a\)\)]],
+  "    for all ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " \[Element] G\n\t\nA3:  For all ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " \[Element] G, there is an elements ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\^\(-1\)\)]],
+  " \[Element] G such that \n\ta \[SmallCircle] ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\^\(-1\)\  = \ \(a\^\(-1\)\[SmallCircle]\ a\  = \ 
+          e\)\)]],
+  "\n    "
+}], "Theorem"],
+
+Cell[TextData[{
+  "The axiom A1 is known as associativity, A2 defines the identity element ",
+  Cell[BoxData[
+      \(TraditionalForm\`e\)]],
+  ".  A3 asserts the existence of an inverse for each element.\n\nIf you have \
+not touch upon abstract algebra, the concept is a bit strange and difficult \
+to grasp.  A few examples will help.  "
+}], "Text"],
+
+Cell[TextData[{
+  "1.  Consider the set  G = (0, 1) with two elements and the operation plus \
++ mod 2 as the operation \[SmallCircle].    We define a mod b as positive \
+remainder of a when divided by b,  i.e. for integers r, a, b, q, \n\tr = a \
+mod b,  then  a = q*b + r,     0 \[LessEqual] r < b.\nThen  (0 + 0)  mod 2 = \
+0, (1 + 0) mod 2 = 1, (0  + 1) mod 2 = 1, (1 + 1) mod 2 = 0, thus, the \
+operation is CLOSED under \[SmallCircle], i.e., + mod 2.  We denote this set \
+and the operation with the notation (",
+  Cell[BoxData[
+      \(TraditionalForm\`Z\_2; \ +\)]],
+  ")  (integer addition modulo 2).  We can display the operation (group \
+multiplication) in a table as follows: "
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(\(\[SmallCircle]\)\(\ \ \ \)\(\(|\)\(\ \)\(0\ \ \ \ \ \ \ 1\)\)\)\), \
+"\[IndentingNewLine]", 
+    \(___  ___  ___\), "\[IndentingNewLine]", 
+    \(0\ \ \  | \ \ 0\ \ \ \ \ \ \ 1\), "\[IndentingNewLine]", 
+    \(1\ \ \  | \ \ 1\ \ \ \ \ \ \ 0\)}], "Input"],
+
+Cell["\<\
+Does the set G=(0,1) with the operation + mod 2 satisfy the definition of a \
+group A1, A2, A3?  If the answer is yes, then it is a group.\
+\>", "Text"],
+
+Cell[TextData[{
+  "A0:  the operation is closed.  For every a, b \[Element] G (that is a and \
+b is 0 or 1),  a + b mod 2 = 0 or 1 is also in G.\nA1: associativity,  For \
+every a,b,c \[Element] G, we have\n\t(a \[SmallCircle] b) \[SmallCircle] c = \
+(((a+b) mod 2) + c ) mod 2 = \n\t(a+b+c) mod 2 = ( a + ((b+c) mod 2)) mod 2 \n\
+\t= a \[SmallCircle] (b \[SmallCircle] c) = a \[SmallCircle] b \[SmallCircle] \
+c,\nso associativity is true.  This means that the order of evaluation is not \
+important.  We can remove the grouping parenthesis without ambiguity. \nA2:  \
+We have 0 \[SmallCircle] 1 = 1 \[SmallCircle] 0  = 1,\n               and  0 \
+\[SmallCircle] 0 = 0\nso 0 is the identity element e. \nA3:  For 0,  0 \
+\[SmallCircle] 0 = e = 0, so the inverse of 0 is 0. (why?)\n        And  1 \
+\[SmallCircle] 1 = 0, so the inverse of 1 is 1.  Axiom A3 is also satisfied.\n\
+\nThus we conclude that ",
+  Cell[BoxData[
+      \(TraditionalForm\`\((Z\_2; \ +)\)\)]],
+  " is a group.            \t"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Is the set G  = (a,b,c) with the following operation a group?  If so, find \
+identity element e and inverse of each elements:
+
+\[SmallCircle]     |    a     b      c
+-----------------------
+a    |    a      b      c
+b    |    b      c      a
+c    |     c      a      b
+            \
+\>", "Exercise"],
+
+Cell["Abelian Group", "Subtitle"],
+
+Cell["\<\
+Although in ordinary multiplication a*b or addition a+b, we have a*b=b*a, or \
+a+b=b+a.  However, if a and b are matrices, then in general a b \[NotEqual] b \
+a.  The definition of group says nothing about this.  \
+\>", "Text"],
+
+Cell[TextData[{
+  "An Abelian Group (or commutative group) is a group in which the binary \
+operation \[SmallCircle] satisfies the additional axiom:\n\nA4:   ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\ \[SmallCircle]\ b\  = \ b\ \[SmallCircle]\ a\)]],
+  "   for all ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  " \[Element] G."
+}], "Theorem"],
+
+Cell[TextData[{
+  "The two examples given above are Abelian groups.  Here is an example of \
+nonabelian group:\nThe set G consists of elements \nI = ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{"(", GridBox[{
+              {"1", "0"},
+              {"0", "1"}
+              }], ")"}], TraditionalForm]]],
+  ",\t    A = ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{"(", GridBox[{
+              {"0", "1"},
+              {"1", "0"}
+              }], ")"}], TraditionalForm]]],
+  ",         B = ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{"(", GridBox[{
+              {"0", "1"},
+              {\(-1\), \(-1\)}
+              }], ")"}], TraditionalForm]]],
+  "\nC = ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{"(", GridBox[{
+              {\(-1\), \(-1\)},
+              {"0", "1"}
+              }], ")"}], TraditionalForm]]],
+  ",  D = ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{"(", GridBox[{
+              {\(-1\), \(-1\)},
+              {"1", "0"}
+              }], ")"}], TraditionalForm]]],
+  ",    K = ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{"(", GridBox[{
+              {"1", "0"},
+              {\(-1\), \(-1\)}
+              }], ")"}], TraditionalForm]]],
+  "\nwith group multiplication \[SmallCircle] defined as ordinary matrix \
+multiplication.   The multiplication table works out to be:\n\[SmallCircle]   \
+|    I    A   B   C   D   K\n______________________\nI   |    I    A     B    \
+C   D   K\nA  |   A    I     C    B   K    D\nB  |   B   K     D   A    I    \
+C\nC  |   C   D    K    I     A   B\nD  |   D   C     I    K    B   A\nK  |   \
+K   B    A    D    C    I\nIt is obvious that I is identity element e.  \
+Matrix multiplication is associative.  Each element has an inverse (e.g., ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          RowBox[{
+            SuperscriptBox[
+              StyleBox["A",
+                FontWeight->"Plain",
+                FontSlant->"Plain",
+                FontTracking->"Plain",
+                FontVariations->{"Underline"->False,
+                "Outline"->False,
+                "Shadow"->False,
+                "StrikeThrough"->False,
+                "Masked"->False,
+                "CompatibilityType"->0,
+                "RotationAngle"->0}], \(-1\)], "=", 
+            StyleBox["A",
+              FontWeight->"Plain",
+              FontSlant->"Plain",
+              FontTracking->"Plain",
+              FontVariations->{"Underline"->False,
+              "Outline"->False,
+              "Shadow"->False,
+              "StrikeThrough"->False,
+              "Masked"->False,
+              "CompatibilityType"->0,
+              "RotationAngle"->0}]}], ","}], TraditionalForm]]],
+  " ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          SuperscriptBox[
+            StyleBox["B",
+              FontWeight->"Plain",
+              FontSlant->"Plain",
+              FontTracking->"Plain",
+              FontVariations->{"Underline"->False,
+              "Outline"->False,
+              "Shadow"->False,
+              "StrikeThrough"->False,
+              "Masked"->False,
+              "CompatibilityType"->0,
+              "RotationAngle"->0}], \(-1\)], "=", 
+          StyleBox["D",
+            FontWeight->"Plain",
+            FontSlant->"Plain",
+            FontTracking->"Plain",
+            FontVariations->{"Underline"->False,
+            "Outline"->False,
+            "Shadow"->False,
+            "StrikeThrough"->False,
+            "Masked"->False,
+            "CompatibilityType"->0,
+            "RotationAngle"->0}]}], TraditionalForm]]],
+  ").  But AB=C and BA = K, so G is not commutative."
+}], "Text"],
+
+Cell[TextData[StyleBox["",
+  FontColor->RGBColor[1, 0, 0]]], "Subtitle"],
+
+Cell["Ring", "Subtitle"],
+
+Cell["\<\
+A group have only one operation, a ring has two operations, we shall call it \
++ and \[SmallCircle].   A ring is closed under both operations, i.e., if a, b \
+\[Element] R, then  a+b and a\[SmallCircle]b is also in R.  A ring satisfies \
+the following axioms.\
+\>", "Text"],
+
+Cell[TextData[{
+  "A ring (R; +, \[SmallCircle]) is a set R closed under two binary \
+operations + and \[SmallCircle].  \n\nThe elements under the operation +, \
+denoted by (R; +), is an abelian group (satisfies A1 to A4 with respect to \
++).\n\n\[SmallCircle] is associative and has an identity  (A1 and A2 with \
+respective to \[SmallCircle])  and\n\nA5:   ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\ \[SmallCircle]\ \((b\  + \ 
+              c)\)\  = \ \((a\[SmallCircle]b)\)\  + \ \((a\[SmallCircle]
+              c)\)\)]],
+  "\n         ",
+  Cell[BoxData[
+      \(TraditionalForm\`\((b\  + \ c)\)\ \[SmallCircle]\ 
+          a\  = \ \((b\[SmallCircle]a)\)\  + \ \((c\[SmallCircle]a)\)\)]],
+  "\nfor all ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  ", ",
+  Cell[BoxData[
+      \(TraditionalForm\`c\)]],
+  " \[Element] R.         "
+}], "Theorem"],
+
+Cell["\<\
+Because axiom A3 is not required for \[SmallCircle], so an element of a ring \
+may not have a multiplicative inverse.   If \[SmallCircle] is commutative, it \
+is then called a commutative ring.  A5 is known as distributive law.\
+\>", "Text"],
+
+Cell["Integral Domain", "Subtitle"],
+
+Cell["\<\
+If we have an equation  a*b = a*c, can we say b=c (by cancelling a)?  this \
+depends on what algebraic structure the set have (think of matrices, \
+integral, or real numbers).  The integral domain axiomizes this fact.\
+\>", "Text"],
+
+Cell[TextData[{
+  "An integral domain is a commutative ring which satisfies the additional \
+axiom:\n\nA6:   ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " \[SmallCircle] ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  " = ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " \[SmallCircle] ",
+  Cell[BoxData[
+      \(TraditionalForm\`c\)]],
+  "    and ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  " \[NotEqual] 0  implies \n         ",
+  Cell[BoxData[
+      \(TraditionalForm\`b\)]],
+  " = ",
+  Cell[BoxData[
+      \(TraditionalForm\`c\)]],
+  " for all ",
+  Cell[BoxData[
+      \(TraditionalForm\`a\)]],
+  ", ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{
+          FormBox["b",
+            "TraditionalForm"], ",", "c"}], TraditionalForm]]],
+  " \[Element] R."
+}], "Theorem"],
+
+Cell["Axiom A6 is known as cancellation law.", "Text"],
+
+Cell["Field", "Subtitle"],
+
+Cell["\<\
+A field (F; +, \[SmallCircle]) is a set satisfying:
+(1)  (F; +) is an abelian group with respect to +, we use 0 to denote \
+additive identity element.
+(2)  (F-{0}; \[SmallCircle]) is an abelian group with respect to \
+\[SmallCircle].
+(3)  \[SmallCircle] is distributive over +, (i.e. A5). \
+\>", "Theorem"],
+
+Cell["\<\
+For a field, each nonzero element has a multiplicative (\[SmallCircle]) \
+inverse.  Field is one of most \"useful\" and friendly algebraic structure, \
+because we can do addition, subtract, multiplication and division in it.   \
+Unfortunately, we still need to deal with integral domains many of times, as \
+integers and polynomials belongs to them.\
+\>", "Text"],
+
+Cell["\<\
+More examples on integral domains, and fields will be given in next \
+lecture.\
+\>", "Text"]
+}, Open  ]]
+},
+FrontEndVersion->"4.1 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 695}},
+WindowSize->{1016, 668},
+WindowMargins->{{-3, Automatic}, {Automatic, -5}},
+Magnification->3,
+StyleDefinitions -> "Classroom.nb"
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1705, 50, 189, 6, 576, "Title"],
+Cell[1897, 58, 20, 0, 119, "Subtitle"],
+Cell[1920, 60, 25, 0, 119, "Subtitle"],
+Cell[1948, 62, 1107, 20, 1248, "Text"],
+Cell[3058, 84, 25, 0, 119, "Subtitle"],
+Cell[3086, 86, 238, 4, 234, "Text"],
+Cell[3327, 92, 1438, 52, 707, "Theorem"],
+Cell[4768, 146, 351, 7, 360, "Text"],
+Cell[5122, 155, 701, 12, 564, "Text"],
+Cell[5826, 169, 279, 5, 296, "Input"],
+Cell[6108, 176, 162, 3, 183, "Text"],
+Cell[6273, 181, 1010, 16, 1041, "Text"],
+
+Cell[CellGroupData[{
+Cell[7308, 201, 309, 10, 726, "Exercise"],
+Cell[7620, 213, 33, 0, 119, "Subtitle"],
+Cell[7656, 215, 237, 4, 234, "Text"],
+Cell[7896, 221, 409, 12, 331, "Theorem"],
+Cell[8308, 235, 3624, 106, 1142, "Text"],
+Cell[11935, 343, 72, 1, 119, "Subtitle"],
+Cell[12010, 346, 24, 0, 119, "Subtitle"],
+Cell[12037, 348, 283, 5, 234, "Text"],
+Cell[12323, 355, 916, 24, 707, "Theorem"],
+Cell[13242, 381, 251, 4, 183, "Text"],
+Cell[13496, 387, 35, 0, 119, "Subtitle"],
+Cell[13534, 389, 241, 4, 234, "Text"],
+Cell[13778, 395, 804, 33, 331, "Theorem"],
+Cell[14585, 430, 54, 0, 81, "Text"],
+Cell[14642, 432, 25, 0, 119, "Subtitle"],
+Cell[14670, 434, 316, 7, 425, "Theorem"],
+Cell[14989, 443, 373, 6, 336, "Text"],
+Cell[15365, 451, 102, 3, 132, "Text"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

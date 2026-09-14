@@ -1,0 +1,90 @@
+\input notesmac.tex
+\nopagenumbers
+
+\centerline{\titlefont Symbolic Computing, Exercise 3}
+\bigskip
+\line{Dr.~WANG Jian-Sheng \hfill Week 5 \& 6, Tuesday, due 11 February 1997}
+\bigskip
+%----------------------------------------------------------------------- 
+\problem Define a least-square fit function similar to the built-in
+function {\tt Fit[]}.  Our fitting function takes the form\par
+\ll{\t leastsquarefit[\char`\{\char`\{$x_1$,$y_1$\char`\}, \char`\{$x_2$,$y_2$\char`\}, ...\char`\}, \char`\{$f_1(x)$, 
+$f_2(x)$, ...\char`\}, $x$]}
+\item{} where the first argument contains a list of pair of points,
+the second argument is a list of linearly independent basis 
+functions, and the last argument is the independent variable of the functions. 
+A polynomial fit is obtained if we take $f_i(x) = x^i$, $i = 0, 1, \ldots, n$.
+The function returns the fitted result
+$$F(x) = \sum_i c_i f_i(x)$$
+\item{} such that the square deviation of error is minimized.  For some more
+discussions, see T.~H.~Cormen, C.~E.~Leiserson, R.~L.~Rivest, ``Introduction
+to Algorithms,'' p. 768--771.  But we just use the neat result
+that the fitting coefficient $c_i$ taken as a column vector
+is determined by the equation
+$$ A^{T}A c = A^{T} y, $$
+\item{} where the matrix $A$ is defined by $A_{ij} = f_j(x_i)$, 
+(the dimensions are the number of sample points by the number of 
+fitting functions) and $A^{T}$ is the
+transpose of $A$, and $y$ is the column vector $y_i$.   Use the matrix
+and linear algebra capability of Mathematica in your definition.
+Given some testing sample outputs.
+
+
+\problem (a) Write a function {\tt buildtree[]} that
+takes a list and builds a binary tree with nested lists.  
+Each node is represented as  
+\ttbg
+{ nodeelement, {leftchild}, {rightchild} }
+\tted
+\item{}The children in turn have similar recursive data structure 
+representation.
+The order of the elements in the tree is such that all the nodes of 
+left subtree is not late in the
+Mathematica internal ordering than the parent, as determined 
+by {\tt Sort[ ]}. 
+The elements of the input list are used from the beginning one
+by one, and are added to the tree.  Here some some examples,
+\ttbg
+buildtree[{5,3,2,9}]  => {5, {3, {2, {}, {}}, {}}, {9, {}, {}}}
+buildtree[{5,c,2,a}]  => {5, {2, {}, {}}, {c, {a, {}, {}}, {}}}
+buildtree[{{a,b}, {1,2}, {u,v,w}}] => {{a,b}, {{1,2}, {},{}}, {{u,v,w}, {},{}}}
+\tted
+\item{} Note that the node themselves can be arbitrary expressions. 
+{\sl Hint}: Define a separate function {\tt addelement} for adding
+one element to a tree.
+Think in terms of recursive call, but do not think in
+terms of pointers.  There is no pointer in Mathematica. 
+\item{} (b) Write a function {\tt traverse[]} that takes a tree
+and builds a list in-order; that is, in an order
+that visit the left subtree first, then the node, and then the right
+subtree.  {\tt traverse[buildtree[$e$]]} produces the same
+result as {\tt Sort[$e$]}.  here are three examples:
+\ttbg
+traverse[buildtree[{5,3,2,9}]]  => {2, 3, 5, 9}
+traverse[buildtree[{5,c,2,a}]]  => {2, 5, a, c}
+traverse[buildtree[{{a,b}, {1,2}, {u,v,w}}]] => {{1, 2}, {a, b}, {u, v, w}}
+\tted
+
+
+\vfill
+
+\font\ninerm = cmr9
+\font\ninesl = cmsl9
+
+{\ninerm 
+
+\hangindent=\parindent\hangafter=1\noindent {\bf List} 
+1. A list is 1.1. a set of things which are written down one below the
+other, often in a particular order, for example so that you can
+remember them or check them easily. 1.2 a set of things that you
+think of as being in a particular order or mention in a particular order.
+2. If a person or a piece of writing lists a particular set of things,
+they mention them all one after the other, in writing or speaking. Or
+they include it as an item on a list, and perhaps give some information
+about it too. 3. If something, especially a ship, lists, it leans over
+to one side; a technical term used mainly by sailors.  4. If someone
+enters the lists, they start taking part in a competition or argument;
+a fairly formal expression.
+}
+\eject
+\end
